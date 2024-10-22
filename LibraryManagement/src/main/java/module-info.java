@@ -11,6 +11,9 @@ module uet.oop.librarymanagement {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
 
-//    opens uet.oop.librarymanagement to javafx.fxml;
-//    exports uet.oop.librarymanagement;
+    opens LibSystem.Controller to javafx.fxml;
+    exports LibSystem.Controller;
+    opens LibSystem.Entity to javafx.fxml;
+    exports LibSystem.Entity;
+
 }
