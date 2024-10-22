@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800" minWidth="1100" prefHeight="800.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox fx:id="LEFT_SIDE_BAR" prefHeight="800.0" prefWidth="200.0" style="-fx-background-color: #69d1c3;">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #33f3d8;" text="UET LIB" textAlignment="CENTER" textFill="RED" />
+            <AnchorPane prefHeight="90.0" prefWidth="200.0">
+               <children>
+                  <ImageView fitHeight="90.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/img/user_icon.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="TOP_LEFT_USER_NAME" layoutX="75.0" prefHeight="40.0" prefWidth="125.0" style="-fx-background-color: #d169ab;" />
+                  <Circle fill="DODGERBLUE" layoutX="89.0" layoutY="61.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Label layoutX="100.0" layoutY="53.0" prefHeight="16.0" prefWidth="59.0" style="-fx-background-color: #d169ab;" />
+               </children>
+            </AnchorPane>
+            <Label prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #3c8dbc;" text="MAIN_NAVIGATION">
+               <padding>
+                  <Insets left="15.0" />
+               </padding>
+            </Label>
+            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" text="Home" />
+            <MenuButton mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" text="Books">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Action 1" />
+                  <MenuItem mnemonicParsing="false" text="Action 2" />
+               </items>
+            </MenuButton>
+            <MenuButton mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" text="Admin Panel">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Action 1" />
+                  <MenuItem mnemonicParsing="false" text="Action 2" />
+               </items>
+            </MenuButton>
+            <MenuButton mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" text="Settings">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Action 1" />
+                  <MenuItem mnemonicParsing="false" text="Action 2" />
+               </items>
+            </MenuButton>
+            <MenuButton mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" text="Account">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Action 1" />
+                  <MenuItem mnemonicParsing="false" text="Action 2" />
+               </items>
+            </MenuButton>
+         </children>
+      </VBox>
+      <HBox layoutX="200.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="45.0" prefWidth="900.0">
+         <children>
+            <Label fx:id="TOP_RIGHT_USER_NAME" prefHeight="55.0" prefWidth="160.0" style="-fx-background-color: #33f3d8;" />
+         </children>
+      </HBox>
+      <Pane fx:id="MAIN_AREA" layoutX="200.0" layoutY="45.0" prefHeight="755.0" prefWidth="900.0" style="-fx-background-color: #8f69d1;" />
+   </children>
+</AnchorPane>

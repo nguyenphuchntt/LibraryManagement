@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1100.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LibSystem.Controller.signupController">
+   <children>
+      <ImageView fitHeight="800.0" fitWidth="616.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/img/logoUET.jpg" />
+         </image>
+      </ImageView>
+      <Pane layoutX="615.0" prefHeight="800.0" prefWidth="485.0">
+         <children>
+            <AnchorPane layoutX="117.0" layoutY="380.0" prefHeight="198.0" prefWidth="250.0">
+               <children>
+                  <TextField layoutY="22.0" prefHeight="24.0" prefWidth="250.0" />
+                  <Label layoutX="1.0" layoutY="5.0" text="USERNAME" />
+                  <TextField layoutY="77.0" prefHeight="24.0" prefWidth="250.0" />
+                  <Label layoutY="53.0" prefHeight="29.0" prefWidth="110.0" text="PASSWORD" />
+                  <Button layoutX="97.0" layoutY="184.0" mnemonicParsing="false" text="Create" />
+                  <Label layoutX="1.0" layoutY="106.0" prefHeight="29.0" prefWidth="161.0" text="CONFIRM PASSWORD" />
+                  <TextField layoutY="129.0" prefHeight="24.0" prefWidth="250.0" />
+               </children>
+            </AnchorPane>
+            <Label layoutX="146.0" layoutY="320.0" text="Create Account">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="160.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/img/login_user_icon.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="350.0" layoutY="774.0" mnemonicParsing="false" text="Have an account?" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
