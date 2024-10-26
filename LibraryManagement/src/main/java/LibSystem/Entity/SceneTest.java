@@ -10,7 +10,7 @@ public class SceneTest extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(SceneTest.class.getResource("/fxml/Account.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(SceneTest.class.getResource("/fxml/BookSearch.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("UETLIB");
         stage.setScene(scene);
