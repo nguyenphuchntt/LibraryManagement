@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="LeftSideBar_VBox" prefHeight="755.0" prefWidth="200.0" style="-fx-background-color: #69d1c3;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.Controller">
+</VBox>
