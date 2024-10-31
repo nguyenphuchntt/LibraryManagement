@@ -11,16 +11,17 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Controller {
 
     private static Stage stage;
     private Map<String, Scene> scenes = new HashMap<>();
+    private static String currentScene = "Home.fxml";
 
     private FXMLLoader loadFxml(String fxmlFileName) throws IOException {
         return new FXMLLoader(getClass().getResource("/fxml/" + fxmlFileName));
     }
-
 
     public static void setStage(Stage stage) {
         Controller.stage = stage;
@@ -28,51 +29,78 @@ public class Controller {
 
     @FXML
     private void handleHomeTab_Button() throws Exception {
+        if (Objects.equals(currentScene, "Home.fxml")) {
+            return;
+        }
         switchScene("Home.fxml");
     }
 
     @FXML
     private void handleBookSearch_MenuItem() throws Exception {
+        if (Objects.equals(currentScene, "BookSearch.fxml")) {
+            return;
+        }
         switchScene("Book_Search.fxml");
     }
 
     @FXML
     private void handleBookReturn_MenuItem() throws Exception {
+        if (Objects.equals(currentScene, "BookReturn.fxml")) {
+            return;
+        }
         switchScene("Book_Return.fxml");
     }
 
     @FXML
     private void handleAdminOverview_MenuItem() throws Exception {
+        if (Objects.equals(currentScene, "AdminOverview.fxml")) {
+            return;
+        }
         switchScene("Admin_Overview.fxml");
     }
 
     @FXML
     private void handleAdminAnnouncement_MenuItem() throws Exception {
+        if (Objects.equals(currentScene, "AdminAnnouncement.fxml")) {
+            return;
+        }
         switchScene("Admin_Announcement.fxml");
     }
 
     @FXML
     private void handleAdminAlterBook_MenuItem() throws Exception {
+        if (Objects.equals(currentScene, "AdminAlterBook.fxml")) {
+            return;
+        }
         switchScene("Admin_AlterBook.fxml");
     }
 
     @FXML
     private void handleAdminAddBook_MenuItem() throws Exception {
+        if (Objects.equals(currentScene, "AdminAddBook.fxml")) {
+            return;
+        }
         switchScene("Admin_AddBook.fxml");
     }
 
     @FXML
     private void handleAdminRemoveBook_MenuItem() throws Exception {
+        if (Objects.equals(currentScene, "AdminRemoveBook.fxml")) {
+            return;
+        }
         switchScene("Admin_RemoveBook.fxml");
     }
 
     @FXML
     private void handleAccount_Button() throws Exception {
+        if (Objects.equals(currentScene, "Account.fxml")) {
+            return;
+        }
         switchScene("Account.fxml");
     }
 
     private void switchScene(String fxmlFileName) throws Exception {
-        Scene newScene;
+        Scene newScene = null;
         if (scenes.get(fxmlFileName) != null) {
             AnchorPane root = (AnchorPane) scenes.get(fxmlFileName).getRoot();
             newScene = scenes.get(fxmlFileName);
@@ -92,6 +120,7 @@ public class Controller {
             scenes.put(fxmlFileName, newScene);
         }
 
+        currentScene = fxmlFileName;
         stage.setScene(newScene);
         stage.show();
     }
