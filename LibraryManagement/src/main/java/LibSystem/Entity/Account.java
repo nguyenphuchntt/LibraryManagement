@@ -1,4 +1,4 @@
-package App.Features;
+package LibSystem.Entity;
 
 public class Account {
     protected String username;
