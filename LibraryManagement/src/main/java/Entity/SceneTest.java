@@ -1,5 +1,6 @@
 package Entity;
 
+import Controllers.Controller;
 import Controllers.SideBarLoader;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -25,17 +26,8 @@ public class SceneTest extends Application {
 
         Scene scene = new Scene(root, WIDTH, HEIGHT);
 
-        HBox topSidebar = SideBarLoader.getTopSidebar();
-        VBox leftSidebar = SideBarLoader.getLeftSidebar();
-        SideBarLoader.getController().setStage(stage);
-
-        AnchorPane.setTopAnchor(topSidebar, 0.0);
-        AnchorPane.setLeftAnchor(topSidebar, 0.0);
-        AnchorPane.setTopAnchor(leftSidebar, 45.0);
-        AnchorPane.setLeftAnchor(leftSidebar, 0.0);
-        root.getChildren().add(leftSidebar);
-        root.getChildren().add(topSidebar);
-
+        Controller.setSideBar(root);
+        Controller.setStage(stage);
 
         stage.setTitle("UET Library Management System");
         stage.setScene(scene);
