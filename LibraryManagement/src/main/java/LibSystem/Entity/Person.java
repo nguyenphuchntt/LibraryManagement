@@ -181,36 +181,6 @@ public class Person {
         this.account = account;
     }
 
-    public List<Book> getBorrowedBooks() {
-        return borrowedBooks;
-    }
-
-    public void borrowBook(Library Lib, String bookID) {
-        if (Lib == null || bookID == null) {
-            System.out.println("Function borrowBook: null parameter(s)");
-            return;
-        }
-        Book book = Lib.searchByID(bookID);
-        if (book != null && book.isAvailable()) {
-            borrowedBooks.add(book);
-            book.setAmount(book.getAmount() - 1);
-        } else {
-            System.out.println("Đã hết sách có thể cho mượn");
-        }
-    }
-
-    public void returnBook(Library Lib, String bookID) {
-        if (Lib == null || bookID == null) {
-            System.out.println("Function returnBook: null parameter(s)");
-            return;
-        }
-        Book book = Lib.searchByID(bookID);
-        if (book != null) {
-            borrowedBooks.remove(book);
-            book.setAmount(book.getAmount() + 1);
-        }
-    }
-
     @Override
     public String toString() {
         return "Person [person_ID=" + person_ID + ", name=" + name + ", yearOfBirth=" + yearOfBirth + ", gender=" + gender
@@ -238,16 +208,4 @@ public class Person {
         return true;
     }
 
-    public List<Book> searchBook(Library library, String id, String title, String author) {
-        List<Book> result = new ArrayList<>();
-        for (Map.Entry<String, Book> entry : library.getBooks().entrySet()) {
-            boolean match = true;
-            Book book = entry.getValue();
-            if (id != null && book.getId().equals(id)) { match = false; }
-            if (title != null && !book.getTitle().toLowerCase().contains(title.toLowerCase())) { match = false; }
-            if (author != null && !book.getAuthor().toLowerCase().contains(author.toLowerCase())) { match = false; }
-            if (match) { result.add(book); }
-        }
-        return result;
-    }
 }
