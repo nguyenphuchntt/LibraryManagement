@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800" minWidth="1100" prefHeight="800.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AdminPanelController">
+    <children>
+        <AnchorPane layoutX="200.0" layoutY="45.0" prefHeight="755.0" prefWidth="900.0" style="-fx-background-color: #4287f5;">
+            <children>
+                <AnchorPane layoutX="80.0" layoutY="14.0" prefHeight="125.0" prefWidth="200.0" style="-fx-background-color: #225462;">
+                    <children>
+                        <Label layoutY="90.0" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #dadada;" text="Total Borrowed Books" textFill="RED" />
+                    </children>
+                </AnchorPane>
+                <AnchorPane layoutX="620.0" layoutY="14.0" prefHeight="125.0" prefWidth="200.0" style="-fx-background-color: #225462;">
+                    <children>
+                        <Label layoutY="90.0" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #dadada;" text="Issues" textFill="RED" />
+                    </children>
+                </AnchorPane>
+                <AnchorPane layoutX="350.0" layoutY="14.0" prefHeight="125.0" prefWidth="200.0" style="-fx-background-color: #225462;">
+                    <children>
+                        <Label layoutY="90.0" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #dadada;" text="Total Returned Books" textFill="RED" />
+                    </children>
+                </AnchorPane>
+                <Pagination layoutX="714.0" layoutY="471.0" maxPageIndicatorCount="3" pageCount="100" prefHeight="46.0" prefWidth="137.0" />
+                <LineChart layoutX="80.0" layoutY="508.0" prefHeight="233.0" prefWidth="741.0">
+                    <xAxis>
+                        <CategoryAxis side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis side="LEFT" tickLabelGap="1.0" upperBound="25.0" />
+                    </yAxis>
+                </LineChart>
+                <TableView layoutX="25.0" layoutY="189.0" prefHeight="282.0" prefWidth="850.0">
+                    <columns>
+                        <TableColumn prefWidth="179.0" text="BOOK TITLE" />
+                        <TableColumn prefWidth="149.0" text="BOOK ID" />
+                        <TableColumn prefWidth="143.0" text="USER_ID" />
+                        <TableColumn prefWidth="115.0" text="TIME" />
+                        <TableColumn prefWidth="156.0" text="ACTION" />
+                        <TableColumn prefWidth="107.0" text="NOTE" />
+                    </columns>
+                </TableView>
+                <Label layoutX="25.0" layoutY="153.0" text="HISTORY">
+                    <font>
+                        <Font size="21.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.BooksController">
+    <children>
+        <AnchorPane layoutX="200.0" layoutY="45.0" prefHeight="755.0" prefWidth="900.0" style="-fx-background-color: #44d7ff;">
+            <children>
+                <AnchorPane prefHeight="455.0" prefWidth="900.0" style="-fx-background-color: #dadada;">
+                    <children>
+                        <Label layoutX="30.0" layoutY="10.0" style="-fx-background-color: #8f69d1;" text="SEARCH A BOOK">
+                            <font>
+                                <Font size="20.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="searchBar_TextField" layoutX="20.0" layoutY="61.0" prefHeight="40.0" prefWidth="572.0" promptText="Enter book title or book ID / ISBN" />
+                        <Button fx:id="search_Button" layoutX="529.0" layoutY="128.0" mnemonicParsing="false" text="Search" />
+                        <Label layoutX="309.0" layoutY="203.0" style="-fx-background-color: #c170bf;" text="NO BOOK FOUND YET!">
+                            <font>
+                                <Font size="25.0" />
+                            </font>
+                        </Label>
+                        <TableView fx:id="searchTable_TableView" layoutX="20.0" layoutY="156.0" prefHeight="249.0" prefWidth="860.0">
+                            <columns>
+                                <TableColumn fx:id="amount_Column" prefWidth="31.0" text="X" />
+                                <TableColumn fx:id="bookTitle_Column" editable="false" prefWidth="155.0" text="BOOK TITLE" />
+                                <TableColumn fx:id="bookID_Column" editable="false" prefWidth="86.0" text="BOOK ID" />
+                                <TableColumn fx:id="author_Column" editable="false" prefWidth="104.0" text="AUTHOR" />
+                                <TableColumn fx:id="category_Column" editable="false" prefWidth="87.0" sortable="false" text="CATEGORY" />
+                                <TableColumn fx:id="description_Column" editable="false" prefWidth="266.0" sortable="false" text="DESCRIPTION" />
+                                <TableColumn fx:id="quantity_Column" editable="false" prefWidth="79.0" text="QUANTITY" />
+                                <TableColumn fx:id="rate_Column" editable="false" prefWidth="51.0" text="RATE" />
+                            </columns>
+                        </TableView>
+                        <Pagination fx:id="pageFlow_Pagination" layoutX="755.0" layoutY="408.0" prefHeight="46.0" prefWidth="125.0" />
+                        <HBox layoutX="20.0" layoutY="127.0" prefHeight="25.0" prefWidth="484.0" style="-fx-background-color: #c17270;">
+                            <children>
+                                <Label alignment="CENTER" prefHeight="25.0" prefWidth="56.0" text="FILTER: " textAlignment="CENTER" />
+                                <TextField fx:id="year_TextField" prefHeight="25.0" prefWidth="67.0" promptText="YEAR" />
+                                <TextField fx:id="category_TextField" prefHeight="25.0" prefWidth="166.0" promptText="CATEGORY" />
+                                <TextField fx:id="author_TextField" prefHeight="25.0" prefWidth="136.0" promptText="AUTHOR" />
+                                <Button fx:id="apply_Button" mnemonicParsing="false" prefHeight="25.0" prefWidth="59.0" text="APPLY" />
+                            </children>
+                        </HBox>
+                        <Button fx:id="borrowSearch_Button" layoutX="419.0" layoutY="419.0" mnemonicParsing="false" text="BORROW" />
+                        <ImageView fitHeight="150.0" fitWidth="130.0" layoutX="672.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label layoutX="694.0" layoutY="33.0" prefHeight="56.0" prefWidth="185.0" text="A PICTURE HERE(PRE VIEW)" />
+                        <Label layoutX="377.0" layoutY="15.0" text="NOTE: DESCRIPTION-&gt;QR, BOOK TITLE -&gt; THEME" />
+                        <Label layoutX="12.0" layoutY="411.0" text="Cot X nay la so luong (int), default = 0" />
+                    </children></AnchorPane>
+                <AnchorPane layoutY="455.0" prefHeight="300.0" prefWidth="900.0">
+                    <children>
+                        <Label layoutX="30.0" layoutY="10.0" style="-fx-background-color: #8f69d1;" text="RECOMMEND FOR YOU">
+                            <font>
+                                <Font size="20.0" />
+                            </font>
+                        </Label>
+                        <AnchorPane layoutX="581.0" layoutY="50.0" prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: #c19b70;">
+                            <children>
+                                <ImageView fx:id="recommendBook_ImageView" fitHeight="150.0" fitWidth="130.0" layoutX="73.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
+                                <Label alignment="CENTER" layoutX="62.0" layoutY="72.0" prefHeight="56.0" prefWidth="152.0" text="A PICTURE HERE" />
+                            </children>
+                        </AnchorPane>
+                        <Button fx:id="borrowRecommend_Butoon" layoutX="30.0" layoutY="256.0" mnemonicParsing="false" text="BORROW" />
+                        <Button fx:id="refresh_Button" layoutX="810.0" layoutY="11.0" mnemonicParsing="false" text="REFRESH" />
+                        <Label fx:id="ratingStar_Label" layoutX="30.0" layoutY="232.0" text="RATING STAR: " />
+                        <TextFlow fx:id="recommendBook_TextField" layoutX="27.0" layoutY="50.0" prefHeight="175.0" prefWidth="534.0" style="-fx-background-color: #4287f5;">
+                            <children>
+                                <Text fx:id="name_Text" strokeType="OUTSIDE" strokeWidth="0.0" text="Name: " />
+                                <Text fx:id="author_Text" strokeType="OUTSIDE" strokeWidth="0.0" text="Author: " />
+                                <Text fx:id="category_Text" strokeType="OUTSIDE" strokeWidth="0.0" text="Category: " />
+                                <Text fx:id="publishedYear_Text" strokeType="OUTSIDE" strokeWidth="0.0" text="Published year: " />
+                                <Text fx:id="description_Text" strokeType="OUTSIDE" strokeWidth="0.0" text="Description: " />
+                            </children></TextFlow>
+                    </children></AnchorPane>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

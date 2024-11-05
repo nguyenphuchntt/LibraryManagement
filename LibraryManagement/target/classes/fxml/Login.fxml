@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1100.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.LoginController">
+    <children>
+        <ImageView fitHeight="800.0" fitWidth="616.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../assets/img/logoUET.jpg" />
+            </image>
+        </ImageView>
+        <Pane layoutX="630.0" prefHeight="800.0" prefWidth="470.0">
+            <children>
+                <AnchorPane layoutX="110.0" layoutY="380.0" prefHeight="172.0" prefWidth="251.0">
+                    <children>
+                        <TextField fx:id="username_TextField" layoutX="1.0" layoutY="24.0" prefHeight="24.0" prefWidth="250.0" />
+                        <Label layoutX="1.0" layoutY="5.0" prefHeight="16.0" prefWidth="92.0" text="USERNAME" />
+                        <TextField fx:id="password_TextField" layoutX="1.0" layoutY="77.0" prefHeight="24.0" prefWidth="250.0" />
+                        <Label layoutY="53.0" prefHeight="29.0" prefWidth="99.0" text="PASSWORD" />
+                        <Button layoutX="130.0" layoutY="106.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="121.0" text="Forgot password?">
+                            <font>
+                                <Font size="10.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </AnchorPane>
+                <Label layoutX="113.0" layoutY="320.0" text="Welcome to UETLIB">
+                    <font>
+                        <Font size="25.0" />
+                    </font>
+                </Label>
+                <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="160.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../assets/img/login_user_icon.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="DontHaveAccount_Button" layoutX="318.0" layoutY="774.0" mnemonicParsing="false" text="Don't have account?" />
+                <Button fx:id="Login_Button" layoutX="209.0" layoutY="525.0" mnemonicParsing="false" prefWidth="54.0" text="Login" />
+                <Label fx:id="loginMessage_Label" alignment="CENTER" layoutX="19.0" layoutY="587.0" prefHeight="16.0" prefWidth="434.0" />
+            </children>
+        </Pane>
+    </children>
+</AnchorPane>

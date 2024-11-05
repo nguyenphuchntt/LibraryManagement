@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+
+<VBox fx:id="LeftSideBar_VBox" prefHeight="755.0" prefWidth="200.0" style="-fx-background-color: #69d1c3;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.Controller">
+    <children>
+        <AnchorPane fx:id="AccountInfo_Pane" prefHeight="90.0" prefWidth="200.0">
+            <children>
+                <ImageView fx:id="UserImage_ImageView" fitHeight="90.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../assets/img/user_icon.png" />
+                    </image>
+                </ImageView>
+                <Label fx:id="TopLeftUserName_Label" layoutX="75.0" prefHeight="40.0" prefWidth="125.0" style="-fx-background-color: #d169ab;" />
+                <Circle fx:id="Status_Circle" fill="DODGERBLUE" layoutX="89.0" layoutY="61.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                <Label fx:id="UserCategory_Label" layoutX="100.0" layoutY="53.0" prefHeight="16.0" prefWidth="59.0" style="-fx-background-color: #d169ab;" text="User" />
+            </children>
+        </AnchorPane>
+        <Label fx:id="MainNavigation_Label" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #3c8dbc;" text="MAIN_NAVIGATION">
+            <padding>
+                <Insets left="15.0" />
+            </padding>
+        </Label>
+        <Button fx:id="HomeTab_Button" mnemonicParsing="false" onAction="#handleHomeTab_Button" prefHeight="50.0" prefWidth="200.0" text="Home" />
+        <MenuButton fx:id="BooksTab_Button" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="Books" textAlignment="CENTER">
+            <items>
+                <MenuItem fx:id="Book_Seach_MenuItem" mnemonicParsing="false" onAction="#handleBookSearch_MenuItem" text="Search" />
+                <MenuItem fx:id="Book_Return_MenuItem" mnemonicParsing="false" onAction="#handleBookReturn_MenuItem" text="Return" />
+            </items>
+            <padding>
+                <Insets left="20.0" />
+            </padding>
+        </MenuButton>
+        <MenuButton fx:id="AdminPanelTab_Button" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="Admin Panel" textAlignment="CENTER">
+            <items>
+                <MenuItem fx:id="AdminPanel_Overview_MenuItem" mnemonicParsing="false" onAction="#handleAdminOverview_MenuItem" text="Overview" />
+                <MenuItem fx:id="AdminPanel_AddBook_MenuItem" mnemonicParsing="false" onAction="#handleAdminAddBook_MenuItem" text="Add book" />
+                <MenuItem fx:id="AdminPanel_RemoveBook_MenuItem" mnemonicParsing="false" onAction="#handleAdminRemoveBook_MenuItem" text="Remove book" />
+                <MenuItem fx:id="AdminPanel_AlterBook_MenuItem" mnemonicParsing="false" onAction="#handleAdminAlterBook_MenuItem" text="Alter Book" />
+                <MenuItem fx:id="AdminPanel_SendAnnouncement_MenuItem" mnemonicParsing="false" onAction="#handleAdminAnnouncement_MenuItem" text="Send Announcement" />
+            </items>
+            <padding>
+                <Insets left="20.0" />
+            </padding>
+        </MenuButton>
+        <Button fx:id="AccountTab_Button" mnemonicParsing="false" onAction="#handleAccount_Button" prefHeight="50.0" prefWidth="200.0" text="Account" />
+        <Button fx:id="SettingsTab_Button" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="Settings" />
+    </children>
+</VBox>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox nodeOrientation="RIGHT_TO_LEFT" prefHeight="45.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.Controller">
+    <children>
+        <Label fx:id="TabName_Label" alignment="CENTER" prefHeight="45.0" prefWidth="160.0" style="-fx-background-color: #33f3d8;" text="HOME" />
+        <Label fx:id="Announcement_Label" alignment="CENTER_RIGHT" prefHeight="45.0" prefWidth="740.0" text="Announcement here!" />
+        <Label fx:id="LibraryName_Label" alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #33f3d8;" text="UET LIB" textAlignment="CENTER" textFill="RED" />
+    </children>
+</HBox>
