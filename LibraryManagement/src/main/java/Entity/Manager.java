@@ -43,7 +43,7 @@ public class Manager extends Person {
     }
 
     public void addBook(Library library, Book book) {
-        library.getBooks().put(book.getId(), book);
+        library.getBooks().put(book.getIsbn(), book);
         library.incrementTotalBooks();
         System.out.println("Book added successfully.");
     }

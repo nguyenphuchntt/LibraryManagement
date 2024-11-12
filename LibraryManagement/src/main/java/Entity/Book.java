@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Book {
-    private final String id;
+    private final String isbn;
     private String title;
     private String author;
     private String publisher;
@@ -20,7 +20,7 @@ public class Book {
     private int year;
 
     private Book(Builder builder) {
-        this.id = builder.id;
+        this.isbn = builder.isbn;
         this.title = builder.title;
         this.author = builder.author;
         this.publisher = builder.publisher;
@@ -35,7 +35,7 @@ public class Book {
     }
 
     public static class Builder {
-        private String id;
+        private String isbn;
         private String title;
         private String author;
         private String publisher;
@@ -47,7 +47,7 @@ public class Book {
         private int year;
 
         public Builder(String id) {
-            this.id = id;
+            this.isbn = id;
         }
 
         public Builder title(String title) {
@@ -100,8 +100,8 @@ public class Book {
         }
     }
 
-    public String getId() {
-        return id;
+    public String getIsbn() {
+        return isbn;
     }
 
     public String getTitle() {
@@ -185,7 +185,7 @@ public class Book {
     @Override
     public String toString() {
         String typeAvailable = available ? "Yes" : "No";
-        return "Book [id=" + id + ", title=" + title + ", author=" + author
+        return "Book [id=" + isbn + ", title=" + title + ", author=" + author
                 + ", publisher=" + publisher + ", amount=" + amount
                 + ", category=" + category + ", available=" + typeAvailable + ",rating=" + rating + "]";
     }

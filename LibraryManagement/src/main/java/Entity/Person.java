@@ -136,7 +136,7 @@ public class Person {
         for (Map.Entry<String, Book> entry : library.getBooks().entrySet()) {
             boolean match = true;
             Book book = entry.getValue();
-            if (id != null && book.getId().equals(id)) { match = false; }
+            if (id != null && book.getIsbn().equals(id)) { match = false; }
             if (title != null && !book.getTitle().toLowerCase().contains(title.toLowerCase())) { match = false; }
             if (author != null && !book.getAuthor().toLowerCase().contains(author.toLowerCase())) { match = false; }
             if (match) { result.add(book); }

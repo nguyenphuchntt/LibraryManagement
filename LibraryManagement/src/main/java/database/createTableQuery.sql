@@ -39,19 +39,20 @@ CREATE TABLE IF NOT EXISTS book (
 );
 
 CREATE TABLE IF NOT EXISTS book_comment (
-    comment_id INT NOT NULL PRIMARY KEY,
+    comment_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     book_id VARCHAR(20) NOT NULL,
+    user_id INT NOT NULL,
     book_comment TEXT DEFAULT NULL,
     rate TINYINT NOT NULL,
     CONSTRAINT `book_comment_fk` FOREIGN KEY (book_id) REFERENCES book (book_id) ON UPDATE CASCADE
-);
+    );
 
 CREATE TABLE IF NOT EXISTS transaction (
     transaction_id INT NOT NULL PRIMARY KEY,
     book_id VARCHAR(20) NOT NULL,
     user_id INT NOT NULL,
     type BOOLEAN NOT NULL,
-    time DATETIME NOT NULL,
+    time TIMESTAMP NOT NULL,
     amount INT NOT NULL,
     CONSTRAINT `transaction_book_fk` FOREIGN KEY (book_id) REFERENCES book(book_id) ON UPDATE CASCADE,
     CONSTRAINT `transaction_user_fk` FOREIGN KEY (user_id) REFERENCES `user`(user_id) ON UPDATE CASCADE
