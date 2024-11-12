@@ -43,6 +43,9 @@ public class SignupController {
         accounts.add(newAccount);
 
         switchToLoginScene();
+        username_TextField.clear();
+        password_TextField.clear();
+        confirmPassword_TextField.clear();
     }
 
     @FXML

@@ -4,13 +4,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LibraryManagement {
-    private Account currentAccount;
-    private Map<String, Account> accounts;
-    private Library library;
+    private Account currentAccount = null;
+    private Map<String, Account> accounts = new HashMap<>();
+    private Library library = new Library.Builder().build();
+    private static LibraryManagement libraryManagement;
 
-    public LibraryManagement() {
-        this.accounts = new HashMap<>();
-        this.library = new Library.Builder().build();
+    public static LibraryManagement getInstance() {
+        if (libraryManagement == null) {
+            libraryManagement = new LibraryManagement();
+        }
+        return libraryManagement;
     }
 
     public boolean login(String username, String password) {

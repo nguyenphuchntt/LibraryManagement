@@ -13,22 +13,22 @@
             <children>
                 <ImageView fitHeight="185.0" fitWidth="200.0" layoutX="350.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
                 <Label layoutX="396.0" layoutY="106.0" text="A PICTURE HERE" />
-                <Label layoutX="72.0" layoutY="306.0" text="USERNAME: ">
+                <Label fx:id="username_Label" layoutX="72.0" layoutY="306.0" text="USERNAME: ">
                     <font>
                         <Font size="17.0" />
                     </font>
                 </Label>
-                <Label layoutX="72.0" layoutY="356.0" text="AGE: ">
+                <Label fx:id="age_Label" layoutX="72.0" layoutY="356.0" text="AGE: ">
                     <font>
                         <Font size="17.0" />
                     </font>
                 </Label>
-                <Label layoutX="72.0" layoutY="456.0" text="USED TIME: ">
+                <Label fx:id="usedTime_Label" layoutX="72.0" layoutY="456.0" text="USED TIME: ">
                     <font>
                         <Font size="17.0" />
                     </font>
                 </Label>
-                <Label layoutX="70.0" layoutY="406.0" text="WORK UNIT: ">
+                <Label fx:id="department_Label" layoutX="70.0" layoutY="406.0" text="DEPARTMENT:">
                     <font>
                         <Font size="17.0" />
                     </font>
@@ -53,7 +53,7 @@
                     </font>
                 </Label>
                 <Button disable="true" layoutX="225.0" layoutY="508.0" mnemonicParsing="false" text="CHANGE" />
-                <Button layoutX="801.0" layoutY="706.0" mnemonicParsing="false" text="LOG OUT" />
+                <Button fx:id="logout_Button" layoutX="801.0" layoutY="706.0" mnemonicParsing="false" onAction="#handleLogout" text="LOG OUT" />
                 <Button layoutX="383.0" layoutY="228.0" mnemonicParsing="false" text="CHANGE PICTURE" />
             </children>
         </AnchorPane>

@@ -33,22 +33,23 @@ public class LoginController {
 
     @FXML
     private void loginButtonOnAction(ActionEvent event) {
+        boolean loginSuccessful = false;
         String username = username_TextField.getText();
         String password = password_TextField.getText();
 
-//        if (accounts.login(username, password)) {
-//            loginMessage_Label.setText("Đăng nhập thành công!");
-//            switchToHomeScene();
-//        } else {
-//            loginMessage_Label.setText("Tên đăng nhập hoặc mật khẩu không đúng.");
-//        }
         for (Account account : accounts) {
             if (account.getUsername().equals(username) && account.getPassword().equals(password)) {
                 loginMessage_Label.setText("Welcome " + account.getUsername());
                 switchToHomeScene();
+                username_TextField.clear();
+                password_TextField.clear();
+                loginMessage_Label.setText("");
+                loginSuccessful = true;
             }
         }
-        loginMessage_Label.setText("Invalid username or password");
+        if (!loginSuccessful) {
+            loginMessage_Label.setText("Invalid username or password");
+        }
     }
 
     @FXML
