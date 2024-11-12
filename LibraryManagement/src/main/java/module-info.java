@@ -10,10 +10,14 @@ module uet.oop.librarymanagement {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires java.sql;
 
     opens Controllers to javafx.fxml;
     exports Controllers;
 
     opens Entity to javafx.fxml;
     exports Entity;
+
+    opens database to javafx.fxml;
+    exports database;
 }

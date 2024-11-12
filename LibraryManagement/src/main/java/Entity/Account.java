@@ -1,20 +1,28 @@
 package Entity;
 
 public class Account {
+    protected String account_ID;
     protected String username;
     protected String password;
     protected String typeAccount;
+    protected Person Owner;
 
     private Account(Builder builder) {
+        this.account_ID = builder.account_ID;
         this.username = builder.username;
         this.password = builder.password;
         this.typeAccount = builder.typeAccount;
+        this.Owner = builder.Owner;
+
     }
 
     public static class Builder {
+        private String account_ID;
         private String username;
         private String password;
         private String typeAccount;
+        private Person Owner;
+
 
         public Builder() {
         }
@@ -41,6 +49,16 @@ public class Account {
 
         public Builder typeAccount(String typeAccount) {
             this.typeAccount = typeAccount;
+            return this;
+        }
+
+        public Builder account_ID(String account_ID) {
+            this.account_ID = account_ID;
+            return this;
+        }
+
+        public Builder owner(Person Owner) {
+            this.Owner = Owner;
             return this;
         }
 
@@ -110,6 +128,22 @@ public class Account {
 
     public void setTypeAccount(String typeAccount) {
         this.typeAccount = typeAccount;
+    }
+
+    public void setOwner(Person Owner) {
+        this.Owner = Owner;
+    }
+
+    public Person getOwner() {
+        return Owner;
+    }
+
+    public void setAccount_ID(String account_ID) {
+        this.account_ID = account_ID;
+    }
+
+    public String getAccount_ID() {
+        return account_ID;
     }
 
     @Override

@@ -21,12 +21,12 @@ public class SceneTest extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        FXMLLoader rootLoader = new FXMLLoader(getClass().getResource("/fxml/Home.fxml"));
+        FXMLLoader rootLoader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
         AnchorPane root = rootLoader.load();
 
         Scene scene = new Scene(root, WIDTH, HEIGHT);
 
-        Controller.setSideBar(root);
+//        Controller.setSideBar(root);
         Controller.setStage(stage);
 
         stage.setTitle("UET Library Management System");

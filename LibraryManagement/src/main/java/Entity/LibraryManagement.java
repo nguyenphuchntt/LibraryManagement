@@ -57,7 +57,7 @@ public class LibraryManagement {
 
     public void addBook(Book book) {
         if (currentAccount != null && currentAccount.getTypeAccount().equals("Manager")) {
-            library.getBooks().put(book.getId(), book);
+            library.getBooks().put(book.getIsbn(), book);
             library.incrementTotalBooks();
             System.out.println("Book added successfully.");
         } else {

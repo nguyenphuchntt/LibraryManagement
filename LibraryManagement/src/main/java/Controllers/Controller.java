@@ -15,9 +15,15 @@ import java.util.Objects;
 
 public class Controller {
 
+    private static Controller instance = new Controller();
+
     private static Stage stage;
     private Map<String, Scene> scenes = new HashMap<>();
     private static String currentScene = "Home.fxml";
+
+    public static Controller getInstance() {
+        return instance;
+    }
 
     private FXMLLoader loadFxml(String fxmlFileName) throws IOException {
         return new FXMLLoader(getClass().getResource("/fxml/" + fxmlFileName));
@@ -100,12 +106,15 @@ public class Controller {
     }
 
     private void switchScene(String fxmlFileName) throws Exception {
+        System.out.println("switchScene " + fxmlFileName);
         Scene newScene = null;
         if (scenes.get(fxmlFileName) != null) {
             AnchorPane root = (AnchorPane) scenes.get(fxmlFileName).getRoot();
             newScene = scenes.get(fxmlFileName);
             if (!root.getChildren().contains(SideBarLoader.getLeftSidebar())) {
-                Controller.setSideBar(root);
+                if (!Objects.equals(fxmlFileName, "Login.fxml") && !Objects.equals(fxmlFileName, "Signup.fxml")) {
+                    Controller.setSideBar(root);
+                }
             }
         } else {
             AnchorPane newRoot = null;
@@ -116,13 +125,18 @@ public class Controller {
                 throw e;
             }
             newScene = new Scene(newRoot);
-            Controller.setSideBar(newRoot);
+            if (!Objects.equals(fxmlFileName, "Login.fxml") && !Objects.equals(fxmlFileName, "Signup.fxml")) {
+                Controller.setSideBar(newRoot);
+            }
             scenes.put(fxmlFileName, newScene);
         }
-
-        currentScene = fxmlFileName;
         stage.setScene(newScene);
+        currentScene = fxmlFileName;
         stage.show();
+    }
+
+    public void goToScene(String fxmlFileName) throws Exception {
+        switchScene(fxmlFileName);
     }
 
     public static void setSideBar(AnchorPane root) throws IOException {
