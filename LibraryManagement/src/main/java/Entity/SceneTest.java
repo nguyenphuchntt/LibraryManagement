@@ -2,6 +2,7 @@ package Entity;
 
 import Controllers.Controller;
 import Controllers.SideBarLoader;
+import database.DatabaseController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -37,6 +38,10 @@ public class SceneTest extends Application {
     }
 
     public static void main(String[] args) {
+        DatabaseController.getConnection();
+
         launch();
+
+        DatabaseController.closeConnection();
     }
 }

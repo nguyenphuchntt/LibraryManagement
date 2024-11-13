@@ -151,7 +151,7 @@ public class Account {
         return "Account [username=" + username + ", password=" + password + ", typeAccount=" + typeAccount + "]";
     }
 
-    public boolean login(String username, String password) { // thừa
-        return this.username.equals(username) && this.password.equals(password);
-    }
+//    public boolean login(String username, String password) { // thừa
+//        return this.username.equals(username) && this.password.equals(password);
+//    }
 }

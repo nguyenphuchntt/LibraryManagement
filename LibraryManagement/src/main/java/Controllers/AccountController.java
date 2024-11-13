@@ -1,5 +1,6 @@
 package Controllers;
 
+import Entity.LibraryManagement;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -21,6 +22,7 @@ public class AccountController {
 
     @FXML
     private void handleLogout(ActionEvent event) {
+        LibraryManagement.getInstance().logout();
         switchToLoginScene();
     }
 
