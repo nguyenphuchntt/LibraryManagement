@@ -16,8 +16,6 @@ import java.util.UUID;
 
 public class SignupController {
 
-    private List<Account> accounts;
-
     @FXML
     private TextField username_TextField;
     @FXML
@@ -28,9 +26,7 @@ public class SignupController {
     private Label signupMessage_Label;
 
     @FXML
-    public void initialize() {
-        accounts = Library.getInstance().getManagerAccounts();
-    }
+    public void initialize() {}
 
     @FXML
     private void handleCreateAccount(ActionEvent event) {
@@ -83,7 +79,6 @@ public class SignupController {
         String userID = String.format("%012d%03d", timestamp, randomNum);
 
         Person user = new Person.Builder<>()
-                .name("null")
                 .person_ID(userID)
                 .build();
 

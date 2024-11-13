@@ -13,7 +13,7 @@
             <children>
                 <ImageView fitHeight="185.0" fitWidth="200.0" layoutX="350.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
                 <Label layoutX="396.0" layoutY="106.0" text="A PICTURE HERE" />
-                <Label fx:id="username_Label" layoutX="72.0" layoutY="306.0" text="USERNAME: ">
+                <Label fx:id="name_Label" layoutX="72.0" layoutY="306.0" text="NAME:">
                     <font>
                         <Font size="17.0" />
                     </font>
@@ -23,7 +23,7 @@
                         <Font size="17.0" />
                     </font>
                 </Label>
-                <Label fx:id="usedTime_Label" layoutX="72.0" layoutY="456.0" text="USED TIME: ">
+                <Label fx:id="usedTime_Label" layoutX="72.0" layoutY="456.0" text="JOINED DATE: ">
                     <font>
                         <Font size="17.0" />
                     </font>

@@ -103,6 +103,8 @@ public class Controller {
             return;
         }
         switchScene("Account.fxml");
+        AccountController accountController = (AccountController) scenes.get("Account.fxml").getUserData();
+        accountController.refreshInfo();
     }
 
     private void switchScene(String fxmlFileName) throws Exception {
@@ -118,13 +120,16 @@ public class Controller {
             }
         } else {
             AnchorPane newRoot = null;
+            FXMLLoader loader;
             try {
-                newRoot = (AnchorPane) loadFxml(fxmlFileName).load();
+                loader = loadFxml(fxmlFileName);
+                newRoot = (AnchorPane) loader.load();
             } catch (Exception e) {
                 System.out.println("Error loading fxml: " + fxmlFileName);
                 throw e;
             }
             newScene = new Scene(newRoot);
+            newScene.setUserData(loader.getController());
             if (!Objects.equals(fxmlFileName, "Login.fxml") && !Objects.equals(fxmlFileName, "Signup.fxml")) {
                 Controller.setSideBar(newRoot);
             }

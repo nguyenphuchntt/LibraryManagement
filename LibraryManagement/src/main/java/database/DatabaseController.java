@@ -155,7 +155,12 @@ public class DatabaseController {
                 String[] values = line.split("##@#@");
 
                 statement.setInt(1, Integer.parseInt(values[0]));
-                statement.setString(2, values[1]);
+//                statement.setString(2, !values[1].equalsIgnoreCase("null") ? values[1] : java.sql.Types.VARCHAR);
+                if (!values[1].equalsIgnoreCase("null")) {
+                    statement.setString(2, values[1]);
+                } else {
+                    statement.setNull(2, java.sql.Types.VARCHAR);
+                }
                 statement.setInt(3, values[2].equalsIgnoreCase("0") ? java.sql.Types.INTEGER : Integer.parseInt(values[2])); // yearOfBirth
                 statement.setInt(4, values[3].equalsIgnoreCase("null") ? java.sql.Types.BOOLEAN : Integer.parseInt(values[3])); // gender
                 statement.setInt(5, Integer.parseInt(values[4])); // role
@@ -192,7 +197,12 @@ public class DatabaseController {
             PreparedStatement statement = connection.prepareStatement(sqlQuery);
 
             statement.setInt(1, Integer.parseInt(user.getPerson_ID()));
-            statement.setString(2, user.getName());
+
+            if (user.getName() != null && !user.getName().isEmpty()) {
+                statement.setString(2, user.getName());
+            } else {
+                statement.setNull(2, java.sql.Types.VARCHAR);
+            }
 
             if (user.getYearOfBirth() != 0) {
                 statement.setInt(3, user.getYearOfBirth());
