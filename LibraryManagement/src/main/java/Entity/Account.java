@@ -16,6 +16,29 @@ public class Account {
 
     }
 
+    public static boolean isValidPassword(String password) {
+        // minimum length is 8 characters
+        if (password.length() < 8) {
+            return false;
+        }
+        // check uppercase, lowercase and number.
+        boolean hasUpperCase = false;
+        boolean hasLowerCase = false;
+        boolean hasDigit = false;
+        for (char c : password.toCharArray()) {
+            if (Character.isUpperCase(c)) {
+                hasUpperCase = true;
+            }
+            if (Character.isLowerCase(c)) {
+                hasLowerCase = true;
+            }
+            if (Character.isDigit(c)) {
+                hasDigit = true;
+            }
+        }
+        return hasUpperCase && hasDigit && hasLowerCase;
+    }
+
     public static class Builder {
         private String account_ID;
         private String username;
@@ -82,28 +105,6 @@ public class Account {
             return true;
         }
 
-        private boolean isValidPassword(String password) {
-            // minimum length is 8 characters
-            if (password.length() < 8) {
-                return false;
-            }
-            // check uppercase, lowercase and number.
-            boolean hasUpperCase = false;
-            boolean hasLowerCase = false;
-            boolean hasDigit = false;
-            for (char c : password.toCharArray()) {
-                if (Character.isUpperCase(c)) {
-                    hasUpperCase = true;
-                }
-                if (Character.isLowerCase(c)) {
-                    hasLowerCase = true;
-                }
-                if (Character.isDigit(c)) {
-                    hasDigit = true;
-                }
-            }
-            return hasUpperCase && hasDigit && hasLowerCase;
-        }
     }
 
     public String getUsername() {
@@ -151,7 +152,7 @@ public class Account {
         return "Account [username=" + username + ", password=" + password + ", typeAccount=" + typeAccount + "]";
     }
 
-    public boolean login(String username, String password) { // thừa
-        return this.username.equals(username) && this.password.equals(password);
-    }
+//    public boolean login(String username, String password) { // thừa
+//        return this.username.equals(username) && this.password.equals(password);
+//    }
 }

@@ -32,6 +32,9 @@ public class DatabaseController {
         if (connection == null) {
             try {
                 connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+                Statement useDatabaseStatement = connection.createStatement();
+                useDatabaseStatement.execute("USE library");
+                importDataFromCSV();
                 System.out.println("Connected to database");
             } catch (SQLException e) {
                 System.out.println("Failed to create connection!");
@@ -44,6 +47,7 @@ public class DatabaseController {
     public static void closeConnection() {
         if (connection != null) {
             try {
+                exportDataToSCV();
                 connection.close();
                 connection = null;
                 System.out.println("Connection closed");
@@ -151,7 +155,12 @@ public class DatabaseController {
                 String[] values = line.split("##@#@");
 
                 statement.setInt(1, Integer.parseInt(values[0]));
-                statement.setString(2, values[1]);
+//                statement.setString(2, !values[1].equalsIgnoreCase("null") ? values[1] : java.sql.Types.VARCHAR);
+                if (!values[1].equalsIgnoreCase("null")) {
+                    statement.setString(2, values[1]);
+                } else {
+                    statement.setNull(2, java.sql.Types.VARCHAR);
+                }
                 statement.setInt(3, values[2].equalsIgnoreCase("0") ? java.sql.Types.INTEGER : Integer.parseInt(values[2])); // yearOfBirth
                 statement.setInt(4, values[3].equalsIgnoreCase("null") ? java.sql.Types.BOOLEAN : Integer.parseInt(values[3])); // gender
                 statement.setInt(5, Integer.parseInt(values[4])); // role
@@ -163,7 +172,7 @@ public class DatabaseController {
             }
 
             statement.executeBatch();
-            System.out.println("Import CSV to DB executed successfully.");
+            System.out.println("Import CSV user to DB executed successfully.");
         } finally {
             if (reader != null) {
                 reader.close();
@@ -188,7 +197,12 @@ public class DatabaseController {
             PreparedStatement statement = connection.prepareStatement(sqlQuery);
 
             statement.setInt(1, Integer.parseInt(user.getPerson_ID()));
-            statement.setString(2, user.getName());
+
+            if (user.getName() != null && !user.getName().isEmpty()) {
+                statement.setString(2, user.getName());
+            } else {
+                statement.setNull(2, java.sql.Types.VARCHAR);
+            }
 
             if (user.getYearOfBirth() != 0) {
                 statement.setInt(3, user.getYearOfBirth());
@@ -342,7 +356,7 @@ public class DatabaseController {
                 } else {
                     statement.setNull(4, java.sql.Types.VARCHAR);
                 }
-                if (values[4] != null && !values[4].equalsIgnoreCase("0")) { // year
+                if (values[4] != null && !values[4].equalsIgnoreCase("null")) { // year
                     statement.setInt(5, Integer.parseInt(values[4]));
                 } else {
                     statement.setNull(5, java.sql.Types.INTEGER);
@@ -627,6 +641,58 @@ public class DatabaseController {
 //        }
 //    }
 
+    public static void importDataFromCSV() {
+        try {
+            importUserCSVToDB(userCSVPath);
+            importAccountCSVtoBD(accountCSVPath);
+            importBookCSVtoDB(bookCSVPath);
+            importTransactionCSVtoDB(transactionCSVPath);
+            importCommentCSVtoDB(book_commentCSVPath);
+            // thieu announcement
+        } catch (SQLException e) {
+            System.out.println("Initial import -> SQL exception: Cannot import data from CSV file!");
+        } catch (IOException e) {
+            System.out.println("Initial import -> IO exception: Cannot import data from CSV file!");
+        }
+    }
+
+    public static void exportDataToSCV() {
+        ResultSet resultSetAccount = null;
+        ResultSet resultSetUser = null;
+        ResultSet resultSetBook = null;
+        ResultSet resultSetTransaction = null;
+        ResultSet resultSetComment = null;
+
+        try {
+            Statement accountQuery = DatabaseController.getConnection().createStatement();
+            Statement userQuery = DatabaseController.getConnection().createStatement();
+            Statement bookQuery = DatabaseController.getConnection().createStatement();
+            Statement transactionQuery = DatabaseController.getConnection().createStatement();
+            Statement commentQuery = DatabaseController.getConnection().createStatement();
+
+            resultSetAccount = accountQuery.executeQuery("SELECT * from account");
+            resultSetUser = userQuery.executeQuery("SELECT * from user");
+            resultSetBook = bookQuery.executeQuery("SELECT * from book");
+            resultSetTransaction = transactionQuery.executeQuery("SELECT * from transaction");
+            resultSetComment = commentQuery.executeQuery("SELECT * from book_comment");
+        } catch (SQLException e) {
+            System.out.println("SQL Exception: Cannot get result set!");
+        }
+
+        try {
+            ExportResultSetToCSV(resultSetAccount, accountCSVPath);
+            ExportResultSetToCSV(resultSetUser, userCSVPath);
+            ExportResultSetToCSV(resultSetBook, bookCSVPath);
+            ExportResultSetToCSV(resultSetTransaction, transactionCSVPath);
+            ExportResultSetToCSV(resultSetComment, book_commentCSVPath);
+        } catch (IOException e) {
+            System.out.println("IO Exception: Cannot export result set!");
+        } catch (SQLException e) {
+            System.out.println("SQL Exception: Cannot export result set!");
+        }
+
+    }
+
     public static void main(String[] args) {
 
 //
@@ -661,8 +727,7 @@ public class DatabaseController {
             Statement useDatabaseStatement = connection.createStatement();
             useDatabaseStatement.execute("USE library");
 
-            importAccountCSVtoBD(accountCSVPath);
-            importUserCSVToDB(userCSVPath);
+            importDataFromCSV();
 
             Account account = new Account.Builder()
                     .account_ID("002")
@@ -707,9 +772,6 @@ public class DatabaseController {
         } catch (SQLException e) {
             System.out.println("SQL: " + e.getCause());
             e.printStackTrace();
-        }
-        catch (IOException e) {
-            System.out.println(e.getCause());
         }
         try {
             ExportResultSetToCSV(resultSetAccount, accountCSVPath);

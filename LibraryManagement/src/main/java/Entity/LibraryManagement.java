@@ -4,29 +4,35 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LibraryManagement {
-    private Account currentAccount;
-    private Map<String, Account> accounts;
-    private Library library;
 
-    public LibraryManagement() {
-        this.accounts = new HashMap<>();
-        this.library = new Library.Builder().build();
-    }
+    private String currentAccount = null;
+    private String currentPassword = null;
+    private Map<String, Account> accounts = new HashMap<>();
+    private Library library = new Library.Builder().build();
+    private static LibraryManagement libraryManagement;
 
-    public boolean login(String username, String password) {
-        Account account = accounts.get(username);
-        if (account != null && account.getPassword().equals(password)) {
-            currentAccount = account;
-            System.out.println("Login successful.");
-            return true;
+    public static LibraryManagement getInstance() {
+        if (libraryManagement == null) {
+            libraryManagement = new LibraryManagement();
         }
-        System.out.println("Login failed. Please check your username and password.");
-        return false;
+        return libraryManagement;
     }
+
+//    public boolean login(String username, String password) {
+//        Account account = accounts.get(username);
+//        if (account != null && account.getPassword().equals(password)) {
+//            currentAccount = account;
+//            System.out.println("Login successful.");
+//            return true;
+//        }
+//        System.out.println("Login failed. Please check your username and password.");
+//        return false;
+//    }
 
     public void logout() {
         if (currentAccount != null) {
             currentAccount = null;
+            currentPassword = null;
             System.out.println("Logout successful.");
         } else {
             System.out.println("No user is currently logged in.");
@@ -47,49 +53,61 @@ public class LibraryManagement {
         }
     }
 
-    public Account getCurrentAccount() {
+    public String  getCurrentAccount() {
         return currentAccount;
+    }
+
+    public String getCurrentPassword() {
+        return currentPassword;
+    }
+
+    public void setCurrentAccount(String currentAccount) {
+        this.currentAccount = currentAccount;
+    }
+
+    public void setCurrentPassword(String currentPassword) {
+        this.currentPassword = currentPassword;
     }
 
     public Library getLibrary() {
         return library;
     }
 
-    public void addBook(Book book) {
-        if (currentAccount != null && currentAccount.getTypeAccount().equals("Manager")) {
-            library.getBooks().put(book.getIsbn(), book);
-            library.incrementTotalBooks();
-            System.out.println("Book added successfully.");
-        } else {
-            System.out.println("Only managers can add books.");
-        }
-    }
+//    public void addBook(Book book) {
+//        if (currentAccount != null && currentAccount.getTypeAccount().equals("Manager")) {
+//            library.getBooks().put(book.getIsbn(), book);
+//            library.incrementTotalBooks();
+//            System.out.println("Book added successfully.");
+//        } else {
+//            System.out.println("Only managers can add books.");
+//        }
+//    }
 
-    public void removeBook(String bookId) {
-        if (currentAccount != null && currentAccount.getTypeAccount().equals("Manager")) {
-            library.getBooks().remove(bookId);
-            library.decrementTotalBooks();
-            System.out.println("Book removed successfully.");
-        } else {
-            System.out.println("Only managers can remove books.");
-        }
-    }
+//    public void removeBook(String bookId) {
+//        if (currentAccount != null && currentAccount.getTypeAccount().equals("Manager")) {
+//            library.getBooks().remove(bookId);
+//            library.decrementTotalBooks();
+//            System.out.println("Book removed successfully.");
+//        } else {
+//            System.out.println("Only managers can remove books.");
+//        }
+//    }
 
-    public void editBook(String id, String title, int amount, String type, String author, String publisher) {
-        if (currentAccount != null && currentAccount.getTypeAccount().equals("Manager")) {
-            Book book = library.getBooks().get(id);
-            if (book != null) {
-                book.setTitle(title);
-                book.setAmount(amount);
-                book.setCategory(type);
-                book.setAuthor(author);
-                book.setPublisher(publisher);
-                System.out.println("Book edited successfully.");
-            } else {
-                System.out.println("Book not found.");
-            }
-        } else {
-            System.out.println("Only managers can edit books.");
-        }
-    }
+//    public void editBook(String id, String title, int amount, String type, String author, String publisher) {
+//        if (currentAccount != null && currentAccount.getTypeAccount().equals("Manager")) {
+//            Book book = library.getBooks().get(id);
+//            if (book != null) {
+//                book.setTitle(title);
+//                book.setAmount(amount);
+//                book.setCategory(type);
+//                book.setAuthor(author);
+//                book.setPublisher(publisher);
+//                System.out.println("Book edited successfully.");
+//            } else {
+//                System.out.println("Book not found.");
+//            }
+//        } else {
+//            System.out.println("Only managers can edit books.");
+//        }
+//    }
 }

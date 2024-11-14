@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800" minWidth="1100" prefHeight="800.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AdminPanelController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800" minWidth="1100" prefHeight="800.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AdminRemoveBookController">
     <children>
         <AnchorPane layoutX="200.0" layoutY="45.0" prefHeight="755.0" prefWidth="900.0" style="-fx-background-color: #4287f5;">
             <children>
@@ -18,10 +18,11 @@
                 <AnchorPane layoutX="64.0" layoutY="170.0" prefHeight="190.0" prefWidth="772.0" style="-fx-background-color: #e02696;">
                     <children>
                         <Label layoutX="20.0" layoutY="26.0" text="BOOK ID" />
-                        <TextField layoutX="125.0" layoutY="22.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book ID / ISBN" />
+                        <TextField fx:id="bookID_TextField" layoutX="125.0" layoutY="22.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book ID / ISBN" />
                         <Label layoutX="20.0" layoutY="67.0" text="AMOUNT *" />
-                        <TextField layoutX="125.0" layoutY="63.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter a number" />
-                        <Button layoutX="349.0" layoutY="127.0" mnemonicParsing="false" text="REMOVE" />
+                        <TextField fx:id="amount_TextField" layoutX="125.0" layoutY="63.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter a number" />
+                        <Button fx:id="remove_Button" layoutX="349.0" layoutY="127.0" mnemonicParsing="false" onAction="#handleRemoveBook" text="REMOVE" />
+                  <Label fx:id="removeMessage_Label" alignment="CENTER" contentDisplay="CENTER" layoutX="198.0" layoutY="104.0" prefHeight="16.0" prefWidth="377.0" textAlignment="CENTER" />
                     </children>
                 </AnchorPane>
             </children></AnchorPane>

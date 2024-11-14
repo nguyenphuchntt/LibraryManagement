@@ -40,6 +40,7 @@
                     </image>
                 </ImageView>
                 <Button fx:id="switchToLogin_Button" layoutX="350.0" layoutY="774.0" mnemonicParsing="false" onAction="#handleHadAccount" text="Have an account?" />
+            <Label fx:id="signupMessage_Label" alignment="CENTER" layoutX="93.0" layoutY="611.0" prefHeight="16.0" prefWidth="284.0" />
             </children>
         </Pane>
     </children>
