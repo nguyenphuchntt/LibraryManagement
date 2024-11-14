@@ -18,13 +18,13 @@ public class DatabaseController {
     private static final String URL = "jdbc:mysql://localhost:3306/";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "18092005";
-    private static final String accountCSVPath = "src/main/resources/csv/account.csv";
-    private static final String announcementCSVPath = "src/main/resources/csv/announcement.csv";
-    private static final String bookCSVPath = "src/main/resources/csv/book.csv";
-    private static final String book_commentCSVPath = "src/main/resources/csv/book_comment.csv";
-    private static final String transactionCSVPath = "src/main/resources/csv/transaction.csv";
-    private static final String userCSVPath = "src/main/resources/csv/user.csv";
-    private static final String SQL_FILE = "src/main/java/database/createTableQuery.sql";
+    private static final String accountCSVPath = Paths.get("src", "main", "resources", "csv", "account.csv").toString();
+    private static final String announcementCSVPath = Paths.get("src", "main", "resources", "csv", "announcement.csv").toString();
+    private static final String bookCSVPath = Paths.get("src", "main", "resources", "csv", "book.csv").toString();
+    private static final String book_commentCSVPath = Paths.get("src", "main", "resources", "csv", "book_comment.csv").toString();
+    private static final String transactionCSVPath = Paths.get("src", "main", "resources", "csv", "transaction.csv").toString();
+    private static final String userCSVPath = Paths.get("src", "main", "resources", "csv", "user.csv").toString();
+    private static final String SQL_FILE = Paths.get("src", "main", "java", "database", "createTableQuery.sql").toString();
 
     private static Connection connection;
 
