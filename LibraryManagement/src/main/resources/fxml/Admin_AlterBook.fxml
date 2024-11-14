@@ -6,32 +6,33 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800" minWidth="1100" prefHeight="800.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AdminPanelController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800" minWidth="1100" prefHeight="800.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AdminAlterBookController">
     <children>
         <AnchorPane layoutX="200.0" layoutY="45.0" prefHeight="755.0" prefWidth="900.0" style="-fx-background-color: #4287f5;">
             <children>
                 <AnchorPane layoutX="64.0" layoutY="134.0" prefHeight="535.0" prefWidth="772.0" style="-fx-background-color: #e02696;">
                     <children>
-                        <Label layoutX="20.0" layoutY="74.0" text="BOOK TITLE *" />
-                        <Label layoutX="20.0" layoutY="114.0" text="BOOK ID *" />
-                        <Label layoutX="20.0" layoutY="154.0" text="AUTHOR" />
-                        <Label layoutX="20.0" layoutY="194.0" text="DESCRIPTION" />
-                        <Label layoutX="393.0" layoutY="234.0" text="THEME" />
-                        <TextField layoutX="125.0" layoutY="69.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book title" />
-                        <TextField layoutX="125.0" layoutY="110.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book ID" />
-                        <TextField layoutX="125.0" layoutY="150.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book author" />
-                        <TextField layoutX="125.0" layoutY="190.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book description" />
-                        <Button layoutX="498.0" layoutY="230.0" mnemonicParsing="false" text="Upload File" />
-                        <Label layoutX="599.0" layoutY="234.0" prefHeight="16.0" prefWidth="67.0" style="-fx-background-color: #fffcfe;" />
-                        <Label layoutX="20.0" layoutY="234.0" text="AMOUNT *" />
-                        <TextField layoutX="125.0" layoutY="230.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter a number" />
-                        <Button layoutX="14.0" layoutY="305.0" mnemonicParsing="false" text="CHANGE" />
-                        <Label layoutX="393.0" layoutY="194.0" text="YEAR" />
-                        <TextField layoutX="498.0" layoutY="190.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter a number" />
-                        <Label layoutX="393.0" layoutY="154.0" text="CATEGORY" />
-                        <TextField layoutX="498.0" layoutY="150.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book category" />
-                        <TextField layoutX="14.0" layoutY="14.0" prefHeight="24.0" prefWidth="429.0" promptText="Enter book ID / ISBN" />
-                        <Button layoutX="467.0" layoutY="14.0" mnemonicParsing="false" text="Search" />
+                        <Label layoutX="20.0" layoutY="74.0" text="BOOK TITLE" />
+                        <Label layoutX="20.0" layoutY="109.0" text="AUTHOR" />
+                        <Label layoutX="20.0" layoutY="190.0" text="DESCRIPTION" />
+                        <Label layoutX="394.0" layoutY="73.0" text="THEME" />
+                        <TextField fx:id="title_TextField" layoutX="125.0" layoutY="69.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book title" />
+                        <TextField fx:id="author_TextField" layoutX="125.0" layoutY="105.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book author" />
+                        <TextField fx:id="description_TextField" alignment="TOP_LEFT" layoutX="125.0" layoutY="186.0" prefHeight="106.0" prefWidth="238.0" promptText="Enter book description" />
+                        <Button layoutX="498.0" layoutY="69.0" mnemonicParsing="false" text="Upload File" />
+                        <Label layoutX="611.0" layoutY="73.0" prefHeight="16.0" prefWidth="67.0" style="-fx-background-color: #fffcfe;" />
+                        <Label layoutX="21.0" layoutY="149.0" text="AMOUNT" />
+                        <TextField fx:id="amount_TextField" layoutX="125.0" layoutY="145.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter a number" />
+                        <Button fx:id="change_Button" layoutX="22.0" layoutY="355.0" mnemonicParsing="false" onAction="#handleChanges" text="CHANGE" />
+                        <Label layoutX="393.0" layoutY="149.0" text="YEAR" />
+                        <TextField fx:id="year_TextField" layoutX="498.0" layoutY="145.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter a number" />
+                        <Label layoutX="393.0" layoutY="109.0" text="CATEGORY" />
+                        <TextField fx:id="category_TextField" layoutX="498.0" layoutY="105.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book category" />
+                        <TextField fx:id="search_TextField" layoutX="14.0" layoutY="14.0" prefHeight="24.0" prefWidth="429.0" promptText="Enter book ID / ISBN" />
+                        <Button fx:id="search_Button" layoutX="467.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleSearch" text="Search" />
+                  <Label fx:id="alterMessage_Label" alignment="CENTER" contentDisplay="CENTER" layoutX="163.0" layoutY="310.0" prefHeight="16.0" prefWidth="463.0" textAlignment="CENTER" />
+                  <Label layoutX="393.0" layoutY="190.0" text="PUBLISHER" />
+                  <TextField fx:id="publisher_TextField" layoutX="499.0" layoutY="186.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter a number" />
                     </children>
                 </AnchorPane>
                 <Label layoutX="40.0" layoutY="70.0" text="CHANGE BOOK PROPERTIES">
