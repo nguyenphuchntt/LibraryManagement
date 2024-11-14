@@ -138,7 +138,7 @@ public class AdminAlterBookController {
             return;
         }
 
-        if (!showConfirmationDialog()) {
+        if (!PopupController.showConfirmationDialog()) {
             cleanUp();
             return;
         }
@@ -237,17 +237,6 @@ public class AdminAlterBookController {
             System.out.println("SQLException -> change book properties function of AdminAlterBook controller: " + e.getMessage());
             return;
         }
-    }
-
-    public boolean showConfirmationDialog() {
-        Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmationDialog.setTitle("Warning!");
-        confirmationDialog.setHeaderText("Are you sure?");
-        confirmationDialog.setContentText("Do you really want to proceed with this action?");
-
-        Optional<ButtonType> result = confirmationDialog.showAndWait();
-
-        return result.isPresent() && result.get() == ButtonType.OK;
     }
 
     public void showSuccessAlert() {

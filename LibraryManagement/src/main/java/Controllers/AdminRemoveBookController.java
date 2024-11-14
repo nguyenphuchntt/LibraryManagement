@@ -3,11 +3,10 @@ package Controllers;
 import database.DatabaseController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.sql.*;
+import java.util.Optional;
 
 public class AdminRemoveBookController {
 
@@ -44,6 +43,11 @@ public class AdminRemoveBookController {
             return;
         }
 
+        if (!PopupController.showConfirmationDialog()) {
+            cleanUp();
+            return;
+        }
+
         Connection connection = DatabaseController.getConnection();
 
         String sqlQuerySelect = "SELECT quantity FROM book" +
@@ -64,13 +68,13 @@ public class AdminRemoveBookController {
                     updateStatement.setInt(1, quantity);
                     updateStatement.setString(2, bookID);
                     updateStatement.executeUpdate();
-                    removeMessage_Label.setText("Book " + bookID + " has been removed");
+                    showSuccessAlert();
+                    cleanUp();
                 } else {
                     removeMessage_Label.setText("This number is larger than book amount");
                 }
             } else {
                 removeMessage_Label.setText("Book does not exist");
-                return;
             }
 
         } catch (SQLException e) {
@@ -81,6 +85,7 @@ public class AdminRemoveBookController {
 
     @FXML
     private void handleCheck(ActionEvent event) {
+        removeMessage_Label.setText("");
         String bookID = bookID_TextField.getText();
 
         Connection connection = DatabaseController.getConnection();
@@ -109,6 +114,15 @@ public class AdminRemoveBookController {
         } catch (SQLException e) {
             System.out.println("SQLException -> check info function of AdminRemoveBook controller: " + e.getMessage());
         }
+    }
+
+    public void showSuccessAlert() {
+        Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+        successAlert.setTitle("Message!");
+        successAlert.setHeaderText(null);
+        successAlert.setContentText("Remove book successfully!");
+
+        successAlert.showAndWait();
     }
 
     private void cleanUp() {
