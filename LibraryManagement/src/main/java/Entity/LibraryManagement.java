@@ -6,6 +6,7 @@ import java.util.Map;
 public class LibraryManagement {
 
     private String currentAccount = null;
+    private String currentPassword = null;
     private Map<String, Account> accounts = new HashMap<>();
     private Library library = new Library.Builder().build();
     private static LibraryManagement libraryManagement;
@@ -31,6 +32,7 @@ public class LibraryManagement {
     public void logout() {
         if (currentAccount != null) {
             currentAccount = null;
+            currentPassword = null;
             System.out.println("Logout successful.");
         } else {
             System.out.println("No user is currently logged in.");
@@ -55,8 +57,16 @@ public class LibraryManagement {
         return currentAccount;
     }
 
+    public String getCurrentPassword() {
+        return currentPassword;
+    }
+
     public void setCurrentAccount(String currentAccount) {
         this.currentAccount = currentAccount;
+    }
+
+    public void setCurrentPassword(String currentPassword) {
+        this.currentPassword = currentPassword;
     }
 
     public Library getLibrary() {

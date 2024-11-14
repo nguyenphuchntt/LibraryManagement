@@ -66,6 +66,7 @@ public class LoginController {
             if (resultSet.next()) {
                 switchToHomeScene();
                 LibraryManagement.getInstance().setCurrentAccount(username);
+                LibraryManagement.getInstance().setCurrentPassword(password);
                 username_TextField.clear();
                 password_TextField.clear();
                 loginMessage_Label.setText("");
