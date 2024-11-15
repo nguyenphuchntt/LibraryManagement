@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 public class PopupController {
 
@@ -66,6 +67,17 @@ public class PopupController {
         stage.setScene(scene);
         stage.setTitle("Error :(");
         stage.show();
+    }
+
+    public static boolean showConfirmationDialog() {
+        Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationDialog.setTitle("Warning!");
+        confirmationDialog.setHeaderText("Are you sure?");
+        confirmationDialog.setContentText("Do you really want to proceed with this action?");
+
+        Optional<ButtonType> result = confirmationDialog.showAndWait();
+
+        return result.isPresent() && result.get() == ButtonType.OK;
     }
     
 }
