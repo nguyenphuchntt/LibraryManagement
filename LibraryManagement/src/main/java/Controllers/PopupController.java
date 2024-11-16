@@ -77,7 +77,7 @@ public class PopupController {
 
         Optional<ButtonType> result = confirmationDialog.showAndWait();
 
-        return result.isPresent() && result.get() == ButtonType.OK;
+        return result.isEmpty() || result.get() != ButtonType.OK;
     }
     
 }

@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.sql.*;
-import java.util.Optional;
 
 public class AdminRemoveBookController {
 
@@ -43,7 +42,7 @@ public class AdminRemoveBookController {
             return;
         }
 
-        if (!PopupController.showConfirmationDialog()) {
+        if (PopupController.showConfirmationDialog()) {
             cleanUp();
             return;
         }
@@ -62,7 +61,7 @@ public class AdminRemoveBookController {
 
             if (resultSet.next()) {
                 int quantity = resultSet.getInt("quantity");
-                if (quantity > amount) {
+                if (quantity >= amount) {
                     PreparedStatement updateStatement = connection.prepareStatement(sqlQueryUpdate);
                     quantity -= amount;
                     updateStatement.setInt(1, quantity);
@@ -90,7 +89,7 @@ public class AdminRemoveBookController {
 
         Connection connection = DatabaseController.getConnection();
 
-        String sqlQuerySelect = "SELECT book_title, description FROM book" +
+        String sqlQuerySelect = "SELECT book_title, description, quantity FROM book" +
                 " WHERE book_id = ?";
 
         try {
@@ -106,7 +105,9 @@ public class AdminRemoveBookController {
                 if (resultSet.getString("description") != null) {
                     description = resultSet.getString("description");
                 }
-                description_Label.setText("Title: " + title + "\nDescription: " + (description == null ? "NULL" : description));
+                int quantity = resultSet.getInt("quantity");
+                description_Label.setText("Title: " + title + "\nDescription: " + (description == null ? "NULL" : description)
+                                            + "\nQuantity: " + quantity);
             } else {
                 removeMessage_Label.setText("Book does not exist");
             }

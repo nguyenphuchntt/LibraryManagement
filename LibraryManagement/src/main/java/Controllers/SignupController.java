@@ -64,26 +64,28 @@ public class SignupController {
         long timestamp = System.currentTimeMillis() % 1000000;
         int randomNum = new Random().nextInt(1000);
 
+        String userID = String.format("%012d%03d", timestamp, randomNum);
+
+        Person user = new Person.Builder<>()
+                .person_ID(userID)
+                .role("user")
+                .build();
+
+        timestamp = System.currentTimeMillis() % 1000000;
         String accountID = String.format("%012d%03d", timestamp, randomNum);
 
         Account newAccount = new Account.Builder()
                 .account_ID(accountID)
+                .user_ID(userID)
                 .username(username)
                 .password(password)
                 .typeAccount("user")
                 .build();
 
-        timestamp = System.currentTimeMillis() % 1000000;
-        randomNum = new Random().nextInt(1000);
+        System.out.println(newAccount.getUser_ID());
 
-        String userID = String.format("%012d%03d", timestamp, randomNum);
-
-        Person user = new Person.Builder<>()
-                .person_ID(userID)
-                .build();
-
-        user.setAccount(newAccount);
-        newAccount.setOwner(user);
+//        user.setAccount(newAccount);
+//        newAccount.setOwner(user);
 
         DatabaseController.addUser(user);
         DatabaseController.addAccount(newAccount);

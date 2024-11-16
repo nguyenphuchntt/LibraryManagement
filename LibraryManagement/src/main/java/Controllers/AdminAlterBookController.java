@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.sql.*;
-import java.util.Optional;
 
 public class AdminAlterBookController {
 
@@ -73,7 +72,7 @@ public class AdminAlterBookController {
             book_id = search_TextField.getText();
             searched = true;
         } else {
-            cleanUp();
+            alterMessage_Label.setText("Book does not exist");
         }
 
     }
@@ -115,7 +114,6 @@ public class AdminAlterBookController {
                 amount_TextField.setText(resultSet.getString("quantity"));
 
             } else {
-                alterMessage_Label.setText("Book does not exist");
                 return false;
             }
 
@@ -138,7 +136,7 @@ public class AdminAlterBookController {
             return;
         }
 
-        if (!PopupController.showConfirmationDialog()) {
+        if (PopupController.showConfirmationDialog()) {
             cleanUp();
             return;
         }

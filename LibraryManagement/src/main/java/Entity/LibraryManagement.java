@@ -7,8 +7,8 @@ public class LibraryManagement {
 
     private String currentAccount = null;
     private String currentPassword = null;
-    private Map<String, Account> accounts = new HashMap<>();
-    private Library library = new Library.Builder().build();
+//    private Map<String, Account> accounts = new HashMap<>();
+//    private Library library = new Library.Builder().build();
     private static LibraryManagement libraryManagement;
 
     public static LibraryManagement getInstance() {
@@ -39,19 +39,19 @@ public class LibraryManagement {
         }
     }
 
-    public void registerAccount(String username, String password, String typeAccount) {
-        if (accounts.containsKey(username)) {
-            System.out.println("Username already exists.");
-        } else {
-            Account newAccount = new Account.Builder()
-                    .username(username)
-                    .password(password)
-                    .typeAccount(typeAccount)
-                    .build();
-            accounts.put(username, newAccount);
-            System.out.println("Account registered successfully.");
-        }
-    }
+//    public void registerAccount(String username, String password, String typeAccount) {
+//        if (accounts.containsKey(username)) {
+//            System.out.println("Username already exists.");
+//        } else {
+//            Account newAccount = new Account.Builder()
+//                    .username(username)
+//                    .password(password)
+//                    .typeAccount(typeAccount)
+//                    .build();
+//            accounts.put(username, newAccount);
+//            System.out.println("Account registered successfully.");
+//        }
+//    }
 
     public String  getCurrentAccount() {
         return currentAccount;
@@ -69,9 +69,9 @@ public class LibraryManagement {
         this.currentPassword = currentPassword;
     }
 
-    public Library getLibrary() {
-        return library;
-    }
+//    public Library getLibrary() {
+//        return library;
+//    }
 
 //    public void addBook(Book book) {
 //        if (currentAccount != null && currentAccount.getTypeAccount().equals("Manager")) {
