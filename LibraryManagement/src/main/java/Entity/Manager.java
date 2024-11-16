@@ -1,22 +1,22 @@
 package Entity;
 
 public class Manager extends Person {
-    private String managerId;
+//    private String managerId;
 
     private Manager(Builder builder) {
         super(builder);
-        this.managerId = builder.managerId;
+//        this.managerId = builder.managerId;
     }
 
     public static class Builder extends Person.Builder<Builder> {
-        private String managerId;
+//        private String managerId;
 
         public Builder() {}
 
-        public Builder managerId(String managerId) {
-            this.managerId = managerId;
-            return this;
-        }
+//        public Builder managerId(String managerId) {
+//            this.managerId = managerId;
+//            return this;
+//        }
 
         @Override
         protected Builder self() {
@@ -34,13 +34,13 @@ public class Manager extends Person {
         this.person_ID = person_ID;
     }
 
-    public String getManagerId() {
-        return managerId;
-    }
-
-    public void setManagerId(String managerId) {
-        this.managerId = managerId;
-    }
+//    public String getManagerId() {
+//        return managerId;
+//    }
+//
+//    public void setManagerId(String managerId) {
+//        this.managerId = managerId;
+//    }
 
     public void addBook(Library library, Book book) {
         library.getBooks().put(book.getIsbn(), book);

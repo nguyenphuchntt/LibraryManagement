@@ -1,14 +1,15 @@
 package Entity;
 
 public class Transaction {
-    private int id;
+    private int transaction_id;
     private String book_id;
     private int user_id;
     private boolean type;
+    private String time;
     private int amount;
 
     public Transaction(int id, String book_id, int user_id, boolean type, int amount) {
-        this.id = id;
+        this.transaction_id = id;
         this.book_id = book_id;
         this.user_id = user_id;
         this.type = type;
@@ -16,11 +17,11 @@ public class Transaction {
     }
 
     public int getId() {
-        return id;
+        return transaction_id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.transaction_id = id;
     }
 
     public String getBook_id() {
@@ -55,5 +56,11 @@ public class Transaction {
         this.amount = amount;
     }
 
+    public String getTime() {
+        return time;
+    }
 
+    public void setTime(String time) {
+        this.time = time;
+    }
 }

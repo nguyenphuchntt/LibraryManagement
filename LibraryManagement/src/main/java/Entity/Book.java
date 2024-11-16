@@ -12,11 +12,8 @@ public class Book {
     private String publisher;
     private int amount;
     private String category;
-    private boolean available;
     private String description;
-    private double rating; // Rating tổng hợp
-    private Map<Account, Integer> userRatings;
-    private Map<Account, String> userComments;
+    private double averageRate;
     private int year;
 
     private Book(Builder builder) {
@@ -26,11 +23,8 @@ public class Book {
         this.publisher = builder.publisher;
         this.amount = builder.amount;
         this.category = builder.category;
-        this.available = builder.available;
-        this.rating = builder.rating;
+        this.averageRate = builder.averageRate;
         this.description = builder.description;
-        this.userRatings = new HashMap<>();
-        this.userComments = new HashMap<>();
         this.year = builder.year;
     }
 
@@ -41,8 +35,7 @@ public class Book {
         private String publisher;
         private int amount;
         private String category;
-        private boolean available;
-        private double rating;
+        private double averageRate;
         private String description;
         private int year;
 
@@ -68,7 +61,6 @@ public class Book {
         public Builder amount(int amount) {
             if (amount >= 0) {
                 this.amount = amount;
-                this.available = amount > 0;
             } else {
                 System.out.println("Amount must be greater than 0");
             }
@@ -80,8 +72,8 @@ public class Book {
             return this;
         }
 
-        public Builder rating(double rating) {
-            this.rating = rating;
+        public Builder averageRate(double averageRate) {
+            this.averageRate = averageRate;
             return this;
         }
 
@@ -135,7 +127,6 @@ public class Book {
     public void setAmount(int amount) {
         if(amount >= 0) {
             this.amount = amount;
-            this.available = amount > 0;
         } else {
             System.out.println("Amount must be greater than 0");
         }
@@ -162,7 +153,7 @@ public class Book {
     }
 
     public double getRating() {
-        return rating;
+        return averageRate;
     }
 
     public int getYear() {
@@ -173,20 +164,10 @@ public class Book {
         this.year = year;
     }
 
-    public void addRating(Account account, int rating) {
-        userRatings.put(account, rating);
-        this.rating = (double) (rating * (userRatings.size() - 1) + rating) / userRatings.size();
-    }
-
-    public void addComment(Account account, String comment) {
-        userComments.put(account, comment);
-    }
-
     @Override
     public String toString() {
-        String typeAvailable = available ? "Yes" : "No";
         return "Book [id=" + isbn + ", title=" + title + ", author=" + author
                 + ", publisher=" + publisher + ", amount=" + amount
-                + ", category=" + category + ", available=" + typeAvailable + ",rating=" + rating + "]";
+                + ", category=" + category  + ",averageRate=" + averageRate + "]";
     }
 }

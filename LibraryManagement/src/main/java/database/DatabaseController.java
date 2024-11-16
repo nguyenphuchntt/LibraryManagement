@@ -32,10 +32,8 @@ public class DatabaseController {
         if (connection == null) {
             try {
                 connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-                Statement useDatabaseStatement = connection.createStatement();
-                useDatabaseStatement.execute("USE library");
-                importDataFromCSV();
                 System.out.println("Connected to database");
+                createTables(SQL_FILE);
             } catch (SQLException e) {
                 System.out.println("Failed to create connection!");
                 e.printStackTrace();
@@ -169,6 +167,9 @@ public class DatabaseController {
                 } else {
                     statement.setNull(6, java.sql.Types.VARCHAR);
                 }
+
+                statement.addBatch();
+
             }
 
             statement.executeBatch();
@@ -216,7 +217,7 @@ public class DatabaseController {
                 statement.setNull(4, java.sql.Types.BOOLEAN);
             }
 
-            statement.setInt(5, user.getAccount().getTypeAccount().equalsIgnoreCase("admin") ? 1 : 0);
+            statement.setInt(5, user.getRole().equalsIgnoreCase("admin") ? 1 : 0);
 
             if (user.getDepartment() != null) {
                 statement.setString(6, user.getDepartment());
@@ -273,6 +274,8 @@ public class DatabaseController {
                     blobData = Base64.getDecoder().decode(values[6]);
                 }
                 statement.setBytes(7, blobData); // avatar
+
+                statement.addBatch();
             }
 
             statement.executeBatch();
@@ -303,7 +306,7 @@ public class DatabaseController {
             PreparedStatement statement = connection.prepareStatement(sqlQuery);
 
             statement.setInt(1, Integer.parseInt(account.getAccount_ID()));
-            statement.setInt(2, Integer.parseInt(account.getOwner().getPerson_ID()));
+            statement.setInt(2, Integer.parseInt(account.getUser_ID()));
 
             statement.setString(3, account.getUsername());
             statement.setString(4, account.getPassword());
@@ -330,48 +333,48 @@ public class DatabaseController {
         BufferedReader reader = null;
         PreparedStatement statement = null;
         String line;
-        String insertSQL = "INSERT IGNORE INTO `book` (book_id, book_title, author , publisher, year, quantity, description, averageRating, category) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String insertSQL = "INSERT IGNORE INTO `book` (book_id, book_title, author, publisher, year, quantity, description, averageRating, category) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
             reader = new BufferedReader(new FileReader(pathToCSV));
 
-            reader.readLine();
-
+            reader.readLine(); // Skip header
             statement = connection.prepareStatement(insertSQL);
 
             while ((line = reader.readLine()) != null) {
                 String[] values = line.split("##@#@");
 
-                statement.setString(1, values[0]); //book_id
-                statement.setString(2, values[1]); //book_title
-
-                if (values[2] != null && !values[2].equalsIgnoreCase("null")) {// author
-                    statement.setString(3, values[2]);
+                statement.setString(1, values[0]); // book_id
+                statement.setString(2, values[1]); // book_title
+                if (values[2] != null && !values[2].equalsIgnoreCase("null")) {
+                    statement.setString(3, values[2]); // author
                 } else {
                     statement.setNull(3, java.sql.Types.VARCHAR);
                 }
-
-                if (values[3] != null && !values[3].equalsIgnoreCase("null")) {// publisher
-                    statement.setString(4, values[3]);
+                if (values[3] != null && !values[3].equalsIgnoreCase("null")) {
+                    statement.setString(4, values[3]); // publisher
                 } else {
                     statement.setNull(4, java.sql.Types.VARCHAR);
                 }
-                if (values[4] != null && !values[4].equalsIgnoreCase("null")) { // year
-                    statement.setInt(5, Integer.parseInt(values[4]));
-                } else {
+                try {
+                    statement.setInt(5, Integer.parseInt(values[4])); // year
+                } catch (NumberFormatException e) {
                     statement.setNull(5, java.sql.Types.INTEGER);
                 }
-
                 statement.setInt(6, Integer.parseInt(values[5])); // quantity
-
-                if (values[6] != null && !values[6].equalsIgnoreCase("null")) { //description
-                    statement.setString(7, values[6]);
+                if (values[6] != null && !values[6].equalsIgnoreCase("null")) {
+                    statement.setString(7, values[6]); // description
                 } else {
                     statement.setNull(7, java.sql.Types.VARCHAR);
                 }
-                statement.setDouble(8, Double.parseDouble(values[7])); // rating
+                try {
+                    statement.setDouble(8, Double.parseDouble(values[7])); // averageRating
+                } catch (NumberFormatException e) {
+                    statement.setDouble(8, 0.0); // Default to 0.0
+                }
                 statement.setString(9, values[8]); // category
 
+                statement.addBatch();
             }
 
             statement.executeBatch();
@@ -471,6 +474,8 @@ public class DatabaseController {
 
                 statement.setInt(6, Integer.parseInt(values[5])); // amount
 
+                statement.addBatch();
+
             }
 
             statement.executeBatch();
@@ -542,6 +547,8 @@ public class DatabaseController {
                 statement.setInt(3, Integer.parseInt(values[2]));
                 statement.setString(4, values[3]);
                 statement.setDouble(5, Double.parseDouble(values[4]));
+
+                statement.addBatch();
 
             }
 
@@ -715,13 +722,15 @@ public class DatabaseController {
 //        }
 
         DatabaseController.getConnection();
-        createTables(SQL_FILE);
-        Statement query = null;
-        ResultSet resultSetAccount = null;
-        ResultSet resultSetUser = null;
+
+
+//        createTables(SQL_FILE);
+//        Statement query = null;
+//        ResultSet resultSetAccount = null;
+//        ResultSet resultSetUser = null;
         ResultSet resultSetBook = null;
-        ResultSet resultSetTransaction = null;
-        ResultSet resultSetComment = null;
+//        ResultSet resultSetTransaction = null;
+//        ResultSet resultSetComment = null;
         try {
 
             Statement useDatabaseStatement = connection.createStatement();
@@ -729,56 +738,56 @@ public class DatabaseController {
 
             importDataFromCSV();
 
-            Account account = new Account.Builder()
-                    .account_ID("002")
-                    .username("admin001")
-                    .password("Admin001")
-                    .typeAccount("admin").build();
+//            Account account = new Account.Builder()
+//                    .account_ID("002")
+//                    .username("admin001")
+//                    .password("Admin001")
+//                    .typeAccount("admin").build();
+//
+//            Person user = new Person.Builder<>()
+//                    .person_ID("1")
+//                    .name("NVP")
+//                    .build();
+//
+//            Book book = new Book.Builder("001")
+//                    .title("First BOOK")
+//                    .amount(100)
+//                    .category("Fun")
+//                    .build();
 
-            Person user = new Person.Builder<>()
-                    .person_ID("1")
-                    .name("NVP")
-                    .build();
+//            user.setAccount(account);
+//            account.setOwner(user);
+//
+//            Transaction transaction = new Transaction(1, "001", 1, true, 10);
 
-            Book book = new Book.Builder("001")
-                    .title("First BOOK")
-                    .amount(100)
-                    .category("Fun")
-                    .build();
+//            DatabaseController.addUser(user);
+//            DatabaseController.addAccount(account);
+//            DatabaseController.addBook(book);
+//            DatabaseController.addTransaction(transaction);
+//            DatabaseController.addComment("001", "1", "hay", 4.5);
+//            DatabaseController.addComment("001", "1", "khong hay", 1);
 
-            user.setAccount(account);
-            account.setOwner(user);
-
-            Transaction transaction = new Transaction(1, "001", 1, true, 10);
-
-            DatabaseController.addUser(user);
-            DatabaseController.addAccount(account);
-            DatabaseController.addBook(book);
-            DatabaseController.addTransaction(transaction);
-            DatabaseController.addComment("001", "1", "hay", 4.5);
-            DatabaseController.addComment("001", "1", "khong hay", 1);
-
-            query = DatabaseController.getConnection().createStatement();
+//            query = DatabaseController.getConnection().createStatement();
             Statement otherQuery = DatabaseController.getConnection().createStatement();
             Statement anotherQuery = DatabaseController.getConnection().createStatement();
             Statement otherQuery2 = DatabaseController.getConnection().createStatement();
             Statement otherQuery3 = DatabaseController.getConnection().createStatement();
-            resultSetAccount = query.executeQuery("SELECT * from account");
-            resultSetUser = otherQuery.executeQuery("SELECT * from user");
+//            resultSetAccount = query.executeQuery("SELECT * from account");
+//            resultSetUser = otherQuery.executeQuery("SELECT * from user");
             resultSetBook = anotherQuery.executeQuery("SELECT * from book");
-            resultSetTransaction = otherQuery2.executeQuery("SELECT * from transaction");
-            resultSetComment = otherQuery3.executeQuery("SELECT * from book_comment");
+//            resultSetTransaction = otherQuery2.executeQuery("SELECT * from transaction");
+//            resultSetComment = otherQuery3.executeQuery("SELECT * from book_comment");
 
         } catch (SQLException e) {
             System.out.println("SQL: " + e.getCause());
             e.printStackTrace();
         }
         try {
-            ExportResultSetToCSV(resultSetAccount, accountCSVPath);
-            ExportResultSetToCSV(resultSetUser, userCSVPath);
+//            ExportResultSetToCSV(resultSetAccount, accountCSVPath);
+//            ExportResultSetToCSV(resultSetUser, userCSVPath);
             ExportResultSetToCSV(resultSetBook, bookCSVPath);
-            ExportResultSetToCSV(resultSetTransaction, transactionCSVPath);
-            ExportResultSetToCSV(resultSetComment, book_commentCSVPath);
+//            ExportResultSetToCSV(resultSetTransaction, transactionCSVPath);
+//            ExportResultSetToCSV(resultSetComment, book_commentCSVPath);
         } catch (Exception e) {
             e.printStackTrace();
         }

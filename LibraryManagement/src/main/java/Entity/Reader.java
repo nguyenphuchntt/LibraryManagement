@@ -27,7 +27,7 @@ public class Reader extends Person {
         this.person_ID = person_ID;
     }
 
-    public List<Book> getBorrowedBooks() {
-        return borrowedBooks;
-    }
+//    public List<Book> getBorrowedBooks() {
+//        return borrowedBooks;
+//    }
 }
