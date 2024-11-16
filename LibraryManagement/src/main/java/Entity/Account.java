@@ -1,9 +1,10 @@
 package Entity;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
-@Entity
-@Table(name = "account")
+    @Entity
+    @Table(name = "account")
 public class Account {
 
     @Id
@@ -24,7 +25,7 @@ public class Account {
     private boolean typeAccount;
 
     @Column(name = "joined_date", nullable = false)
-    private String joined_date;
+    private Timestamp joined_date;
 
     private Account(Builder builder) {
         this.account_ID = builder.account_ID;
@@ -65,7 +66,7 @@ public class Account {
         private String username;
         private String password;
         private boolean typeAccount;
-        private String joined_date;
+        private Timestamp joined_date;
 
         public Builder() {
         }
@@ -98,7 +99,7 @@ public class Account {
             return this;
         }
 
-        public Builder joined_date(String joined_date) {
+        public Builder joined_date(Timestamp joined_date) {
             this.joined_date = joined_date;
             return this;
         }
@@ -154,10 +155,10 @@ public class Account {
     public int getAccount_ID() {
         return account_ID;
     }
-    public String getJoined_date() {
+    public Timestamp getJoined_date() {
         return joined_date;
     }
-    public void setJoined_date(String joined_date) {
+    public void setJoined_date(Timestamp joined_date) {
         this.joined_date = joined_date;
     }
     public Person getUser() {
