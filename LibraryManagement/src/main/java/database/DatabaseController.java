@@ -197,7 +197,7 @@ public class DatabaseController {
         try {
             PreparedStatement statement = connection.prepareStatement(sqlQuery);
 
-            statement.setInt(1, Integer.parseInt(user.getPerson_ID()));
+            statement.setInt(1, user.getPerson_ID());
 
             if (user.getName() != null && !user.getName().isEmpty()) {
                 statement.setString(2, user.getName());
@@ -217,7 +217,7 @@ public class DatabaseController {
                 statement.setNull(4, java.sql.Types.BOOLEAN);
             }
 
-            statement.setInt(5, user.getRole().equalsIgnoreCase("admin") ? 1 : 0);
+            statement.setInt(5, user.getRole() ? 1 : 0);
 
             if (user.getDepartment() != null) {
                 statement.setString(6, user.getDepartment());
@@ -305,13 +305,13 @@ public class DatabaseController {
         try {
             PreparedStatement statement = connection.prepareStatement(sqlQuery);
 
-            statement.setInt(1, Integer.parseInt(account.getAccount_ID()));
-            statement.setInt(2, Integer.parseInt(account.getUser_ID()));
+            statement.setInt(1, account.getAccount_ID());
+            statement.setInt(2, account.getUser().getPerson_ID());
 
             statement.setString(3, account.getUsername());
             statement.setString(4, account.getPassword());
 
-            statement.setInt(5, account.getTypeAccount().equalsIgnoreCase("admin") ? 1 : 0);
+            statement.setInt(5, account.getTypeAccount() ? 1 : 0);
 
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             statement.setTimestamp(6, timestamp);
@@ -505,9 +505,9 @@ public class DatabaseController {
         try {
             PreparedStatement statement = connection.prepareStatement(sqlQuery);
 
-            statement.setInt(1, transaction.getId()); // transaction_id
-            statement.setString(2, transaction.getBook_id()); // book_id
-            statement.setInt(3, transaction.getUser_id()); // user_id
+            statement.setInt(1, transaction.getTransaction_id()); // transaction_id
+            statement.setString(2, transaction.getBook().getIsbn()); // book_id
+            statement.setInt(3, transaction.getUser().getPerson_ID()); // user_id
             statement.setInt(4, transaction.getType() ? 1 : 0); // type
 
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());

@@ -1,43 +1,66 @@
 package Entity;
 
+import javax.persistence.*;
+import java.sql.Timestamp;
+
+@Entity
+@Table(name = "transaction")
 public class Transaction {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "transaction_id")
     private int transaction_id;
-    private String book_id;
-    private int user_id;
+
+    @ManyToOne
+    @JoinColumn(name = "book_id", referencedColumnName = "book_id", nullable = false)
+    private Book book;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
+    private Person user;
+
+    @Column(name = "type", nullable = false)
     private boolean type;
-    private String time;
+
+    @Column(name = "time", nullable = false)
+    private Timestamp time;
+
+    @Column(name = "amount", nullable = false)
     private int amount;
 
-    public Transaction(int id, String book_id, int user_id, boolean type, int amount) {
+    public Transaction(int id, Book book, Person user, boolean type, int amount) {
         this.transaction_id = id;
-        this.book_id = book_id;
-        this.user_id = user_id;
+        this.book = book;
+        this.user = user;
         this.type = type;
         this.amount = amount;
     }
 
-    public int getId() {
+    public Transaction() {}
+
+    public int getTransaction_id() {
         return transaction_id;
     }
 
-    public void setId(int id) {
-        this.transaction_id = id;
+    public void setTransaction_id(int transaction_id) {
+        this.transaction_id = transaction_id;
     }
 
-    public String getBook_id() {
-        return book_id;
+    public Book getBook() {
+        return book;
     }
 
-    public void setBook_id(String book_id) {
-        this.book_id = book_id;
+    public void setBook(Book book) {
+        this.book = book;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public Person getUser() {
+        return user;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUser(Person user) {
+        this.user = user;
     }
 
     public boolean getType() {
@@ -48,19 +71,19 @@ public class Transaction {
         this.type = type;
     }
 
+    public Timestamp getTime() {
+        return time;
+    }
+
+    public void setTime(Timestamp time) {
+        this.time = time;
+    }
+
     public int getAmount() {
         return amount;
     }
 
     public void setAmount(int amount) {
         this.amount = amount;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
     }
 }

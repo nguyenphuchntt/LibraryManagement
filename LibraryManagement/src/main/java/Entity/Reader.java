@@ -23,7 +23,7 @@ public class Reader extends Person {
     }
 
     @Override
-    public void setPerson_ID(String person_ID) {
+    public void setPerson_ID(int person_ID) {
         this.person_ID = person_ID;
     }
 

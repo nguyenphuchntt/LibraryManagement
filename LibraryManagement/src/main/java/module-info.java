@@ -11,6 +11,7 @@ module uet.oop.librarymanagement {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.sql;
+    requires java.persistence;
 
     opens Controllers to javafx.fxml;
     exports Controllers;

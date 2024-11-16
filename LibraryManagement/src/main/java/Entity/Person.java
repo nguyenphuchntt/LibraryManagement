@@ -1,16 +1,36 @@
 package Entity;
 
+import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Entity
+@Table(name = "user", indexes = {@Index(name = "role", columnList = "role")})
 public class Person {
-    protected String person_ID;
+
+    @Id
+    @Column(name = "user_id")
+    protected int person_ID;
+
+    @Column(name = "name", nullable = false, length = 50)
     protected String name;
+
+    @Column(name = "yearOfBirth")
     protected int yearOfBirth;
+
+    @Column(name = "gender")
     protected String gender;
+
+    @Column(name = "role", nullable = false)
+    protected Boolean role;
+
+    @Column(name = "department", length = 100)
     protected String department;
-    protected String role;
+
+
 //    protected Account account;
 //    protected List<Book> borrowedBooks;
 
@@ -25,17 +45,19 @@ public class Person {
 //        this.borrowedBooks = builder.borrowedBooks != null ? builder.borrowedBooks : new ArrayList<>();
     }
 
+    public Person() {}
+
     public static class Builder<T extends Builder<T>> {
-        protected String person_ID;
+        protected int person_ID;
         protected String name;
         protected int yearOfBirth;
         protected String gender;
         protected String department;
-        protected String role;
+        protected boolean role;
 //        protected Account account;
 //        protected List<Book> borrowedBooks;
 
-        public T person_ID(String person_ID) {
+        public T person_ID(int person_ID) {
             this.person_ID = person_ID;
             return self();
         }
@@ -60,7 +82,7 @@ public class Person {
             return self();
         }
 
-        public T role(String role) {
+        public T role(boolean role) {
             this.role = role;
             return self();
         }
@@ -84,8 +106,8 @@ public class Person {
         }
     }
 
-    public String getPerson_ID() { return person_ID; }
-    public void setPerson_ID(String person_ID) { this.person_ID = person_ID; }
+    public int getPerson_ID() { return person_ID; }
+    public void setPerson_ID(int person_ID) { this.person_ID = person_ID; }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
     public int getYearOfBirth() { return yearOfBirth; }
@@ -94,10 +116,10 @@ public class Person {
     public void setGender(String gender) { this.gender = gender; }
     public String getDepartment() { return department; }
     public void setDepartment(String department) { this.department = department; }
-    public String getRole() {
+    public boolean getRole() {
         return role;
     }
-    public void setRole(String role) {
+    public void setRole(boolean role) {
         this.role = role;
     }
 //    public Account getAccount() { return account; }

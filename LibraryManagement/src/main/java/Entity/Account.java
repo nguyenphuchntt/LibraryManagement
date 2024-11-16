@@ -1,24 +1,41 @@
 package Entity;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "account")
 public class Account {
-    private String account_ID;
-    private String user_ID;
+
+    @Id
+    @Column(name = "account_id")
+    private int account_ID;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
+    private Person user;
+
+    @Column(name = "username", nullable = false, length = 30)
     private String username;
+
+    @Column(name = "password", nullable = false, length = 60)
     private String password;
-    private String typeAccount;
+
+    @Column(name = "account_type", nullable = false)
+    private boolean typeAccount;
+
+    @Column(name = "joined_date", nullable = false)
     private String joined_date;
-//    private Person Owner;
 
     private Account(Builder builder) {
         this.account_ID = builder.account_ID;
         this.username = builder.username;
         this.password = builder.password;
-        this.typeAccount = builder.typeAccount;
         this.joined_date = builder.joined_date;
-        this.user_ID = builder.user_ID;
-//        this.Owner = builder.Owner;
-
+        this.typeAccount = builder.typeAccount;
+        this.user = builder.user;
     }
+
+    public Account() {}
 
     public static boolean isValidPassword(String password) {
         if (password.length() < 8) {
@@ -43,11 +60,11 @@ public class Account {
     }
 
     public static class Builder {
-        private String account_ID;
-        private String user_ID;
+        private int account_ID;
+        private Person user;
         private String username;
         private String password;
-        private String typeAccount;
+        private boolean typeAccount;
         private String joined_date;
 
         public Builder() {
@@ -71,28 +88,23 @@ public class Account {
             return this;
         }
 
-        public Builder typeAccount(String typeAccount) {
+        public Builder typeAccount(boolean typeAccount) {
             this.typeAccount = typeAccount;
             return this;
         }
 
-        public Builder account_ID(String account_ID) {
+        public Builder account_ID(int account_ID) {
             this.account_ID = account_ID;
             return this;
         }
-
-//        public Builder owner(Person Owner) {
-//            this.Owner = Owner;
-//            return this;
-//        }
 
         public Builder joined_date(String joined_date) {
             this.joined_date = joined_date;
             return this;
         }
 
-        public Builder user_ID(String user_ID) {
-            this.user_ID = user_ID;
+        public Builder user_ID(Person user_ID) {
+            this.user = user_ID;
             return this;
         }
 
@@ -128,26 +140,18 @@ public class Account {
         this.password = password;
     }
 
-    public String getTypeAccount() {
+    public boolean getTypeAccount() {
         return typeAccount;
     }
 
-    public void setTypeAccount(String typeAccount) {
+    public void setTypeAccount(boolean typeAccount) {
         this.typeAccount = typeAccount;
     }
 
-//    public void setOwner(Person Owner) {
-//        this.Owner = Owner;
-//    }
-//
-//    public Person getOwner() {
-//        return Owner;
-//    }
-
-    public void setAccount_ID(String account_ID) {
+    public void setAccount_ID(int account_ID) {
         this.account_ID = account_ID;
     }
-    public String getAccount_ID() {
+    public int getAccount_ID() {
         return account_ID;
     }
     public String getJoined_date() {
@@ -156,11 +160,11 @@ public class Account {
     public void setJoined_date(String joined_date) {
         this.joined_date = joined_date;
     }
-    public String getUser_ID() {
-        return user_ID;
+    public Person getUser() {
+        return user;
     }
-    public void setUser_ID(String user_ID) {
-        this.user_ID = user_ID;
+    public void setUser(Person user) {
+        this.user = user;
     }
 
     @Override

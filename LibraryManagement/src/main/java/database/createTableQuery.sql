@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS `user` (
     user_id INT NOT NULL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     yearOfBirth YEAR DEFAULT NULL,
-    gender BOOLEAN DEFAULT NULL,
+    gender VARCHAR(10) DEFAULT NULL,
     role BOOLEAN NOT NULL,
     department VARCHAR(100) DEFAULT NULL,
     index (role)
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS book_comment (
     );
 
 CREATE TABLE IF NOT EXISTS transaction (
-    transaction_id INT NOT NULL PRIMARY KEY,
+    transaction_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     book_id VARCHAR(20) NOT NULL,
     user_id INT NOT NULL,
     type BOOLEAN NOT NULL,
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS transaction (
 );
 
 CREATE TABLE IF NOT EXISTS announcement (
-    announcement_id INT NOT NULL PRIMARY KEY,
+    announcement_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     content TEXT NOT NULL,
     author_id INT NOT NULL,
     receiver_id INT NOT NULL,

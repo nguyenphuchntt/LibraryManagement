@@ -67,22 +67,20 @@ public class SignupController {
         String userID = String.format("%012d%03d", timestamp, randomNum);
 
         Person user = new Person.Builder<>()
-                .person_ID(userID)
-                .role("user")
+                .person_ID(Integer.parseInt(userID))
+                .role(true)
                 .build();
 
         timestamp = System.currentTimeMillis() % 1000000;
         String accountID = String.format("%012d%03d", timestamp, randomNum);
 
         Account newAccount = new Account.Builder()
-                .account_ID(accountID)
-                .user_ID(userID)
+                .account_ID(Integer.parseInt(accountID))
+                .user_ID(user)
                 .username(username)
                 .password(password)
-                .typeAccount("user")
+                .typeAccount(true)
                 .build();
-
-        System.out.println(newAccount.getUser_ID());
 
 //        user.setAccount(newAccount);
 //        newAccount.setOwner(user);
