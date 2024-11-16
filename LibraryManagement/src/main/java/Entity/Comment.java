@@ -24,6 +24,15 @@ public class Comment {
     @Column(name = "rate", nullable = false)
     private Double rate;
 
+    public Comment() {}
+
+    public Comment(Book book, String user_id, String book_comment, Double rate) {
+        this.book = book;
+        this.user_id = user_id;
+        this.book_comment = book_comment;
+        this.rate = rate;
+    }
+
     public String getBook_comment() {
         return book_comment;
     }

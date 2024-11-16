@@ -29,8 +29,7 @@ public class Transaction {
     @Column(name = "amount", nullable = false)
     private int amount;
 
-    public Transaction(int id, Book book, Person user, boolean type, int amount) {
-        this.transaction_id = id;
+    public Transaction(Book book, Person user, boolean type, int amount) {
         this.book = book;
         this.user = user;
         this.type = type;

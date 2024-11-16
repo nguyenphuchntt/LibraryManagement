@@ -71,7 +71,7 @@ public class SignupController {
                 .role(true)
                 .build();
 
-        timestamp = System.currentTimeMillis() % 1000000;
+        timestamp = System.currentTimeMillis() % 1000112;
         String accountID = String.format("%012d%03d", timestamp, randomNum);
 
         Account newAccount = new Account.Builder()

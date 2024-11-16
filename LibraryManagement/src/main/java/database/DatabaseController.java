@@ -338,7 +338,7 @@ public class DatabaseController {
         try {
             reader = new BufferedReader(new FileReader(pathToCSV));
 
-            reader.readLine(); // Skip header
+            reader.readLine();
             statement = connection.prepareStatement(insertSQL);
 
             while ((line = reader.readLine()) != null) {
@@ -516,10 +516,10 @@ public class DatabaseController {
             statement.setInt(6, transaction.getAmount()); // amount
 
             statement.executeUpdate();
-            System.out.println("Book added to the database successfully.");
+            System.out.println("Transaction added to the database successfully.");
 
         } catch (SQLException e) {
-            System.out.println("SQL query to add book failed!");
+            System.out.println("SQL query to add transaction failed!");
             e.printStackTrace();
         }
     }

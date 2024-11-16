@@ -13,6 +13,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class SceneTest extends Application {
 
@@ -38,7 +40,14 @@ public class SceneTest extends Application {
     }
 
     public static void main(String[] args) {
-        DatabaseController.getConnection();
+        Statement useDatabaseStatement = null;
+        try {
+            useDatabaseStatement = DatabaseController.getConnection().createStatement();
+            useDatabaseStatement.execute("USE library");
+        } catch (SQLException e) {
+            System.out.println("Database connection failed");
+        }
+        DatabaseController.importDataFromCSV();
 
         launch();
 
