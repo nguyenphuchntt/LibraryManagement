@@ -167,6 +167,9 @@ public class DatabaseController {
                 } else {
                     statement.setNull(6, java.sql.Types.VARCHAR);
                 }
+
+                statement.addBatch();
+
             }
 
             statement.executeBatch();
@@ -271,6 +274,8 @@ public class DatabaseController {
                     blobData = Base64.getDecoder().decode(values[6]);
                 }
                 statement.setBytes(7, blobData); // avatar
+
+                statement.addBatch();
             }
 
             statement.executeBatch();
@@ -469,6 +474,8 @@ public class DatabaseController {
 
                 statement.setInt(6, Integer.parseInt(values[5])); // amount
 
+                statement.addBatch();
+
             }
 
             statement.executeBatch();
@@ -540,6 +547,8 @@ public class DatabaseController {
                 statement.setInt(3, Integer.parseInt(values[2]));
                 statement.setString(4, values[3]);
                 statement.setDouble(5, Double.parseDouble(values[4]));
+
+                statement.addBatch();
 
             }
 

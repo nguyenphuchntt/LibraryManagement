@@ -228,7 +228,7 @@ public class AdminAlterBookController {
 
             updateStatement.executeUpdate();
 
-            showSuccessAlert();
+            PopupController.showSuccessAlert("Change book properties successfully!");
             cleanUp();
 
         } catch (SQLException e) {
@@ -237,12 +237,4 @@ public class AdminAlterBookController {
         }
     }
 
-    public void showSuccessAlert() {
-        Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-        successAlert.setTitle("Message!");
-        successAlert.setHeaderText(null);
-        successAlert.setContentText("Alter book successfully!");
-
-        successAlert.showAndWait();
-    }
 }

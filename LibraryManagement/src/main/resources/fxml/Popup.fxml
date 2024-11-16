@@ -11,5 +11,5 @@
             <TableColumn fx:id="errorColumn" prefWidth="97.0" text="Error" />
         </columns>
     </TableView>
-    <Button onAction="#handleClose" text="OK" />
+    <Button text="OK" />
 </VBox>

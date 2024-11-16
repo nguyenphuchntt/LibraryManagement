@@ -67,7 +67,7 @@ public class AdminRemoveBookController {
                     updateStatement.setInt(1, quantity);
                     updateStatement.setString(2, bookID);
                     updateStatement.executeUpdate();
-                    showSuccessAlert();
+                    PopupController.showSuccessAlert("Remove book successfully!");
                     cleanUp();
                 } else {
                     removeMessage_Label.setText("This number is larger than book amount");
@@ -115,15 +115,6 @@ public class AdminRemoveBookController {
         } catch (SQLException e) {
             System.out.println("SQLException -> check info function of AdminRemoveBook controller: " + e.getMessage());
         }
-    }
-
-    public void showSuccessAlert() {
-        Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-        successAlert.setTitle("Message!");
-        successAlert.setHeaderText(null);
-        successAlert.setContentText("Remove book successfully!");
-
-        successAlert.showAndWait();
     }
 
     private void cleanUp() {
