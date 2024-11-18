@@ -1,8 +1,6 @@
 package Entity;
 
 import javax.persistence.*;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
