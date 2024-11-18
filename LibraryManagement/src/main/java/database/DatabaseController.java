@@ -1,9 +1,9 @@
 package database;
 
-import Entity.Account;
-import Entity.Book;
-import Entity.Person;
-import Entity.Transaction;
+import Entity.*;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -140,7 +140,7 @@ public class DatabaseController {
         BufferedReader reader = null;
         PreparedStatement statement = null;
         String line;
-        String insertSQL = "INSERT IGNORE INTO `user` (user_id, name, yearOfBirth, gender, role, department) VALUES (?, ?, ?, ?, ?, ?)";
+        String insertSQL = "INSERT IGNORE INTO `user` (username, name, yearOfBirth, gender, department) VALUES (?, ?, ?, ?, ?)";
 
         try {
             reader = new BufferedReader(new FileReader(pathToCSV));
@@ -152,20 +152,20 @@ public class DatabaseController {
             while ((line = reader.readLine()) != null) {
                 String[] values = line.split("##@#@");
 
-                statement.setInt(1, Integer.parseInt(values[0]));
+                statement.setString(1, values[0]);
 //                statement.setString(2, !values[1].equalsIgnoreCase("null") ? values[1] : java.sql.Types.VARCHAR);
                 if (!values[1].equalsIgnoreCase("null")) {
                     statement.setString(2, values[1]);
                 } else {
-                    statement.setNull(2, java.sql.Types.VARCHAR);
+                    statement.setNull(2, Types.VARCHAR);
                 }
-                statement.setInt(3, values[2].equalsIgnoreCase("0") ? java.sql.Types.INTEGER : Integer.parseInt(values[2])); // yearOfBirth
-                statement.setInt(4, values[3].equalsIgnoreCase("null") ? java.sql.Types.BOOLEAN : Integer.parseInt(values[3])); // gender
-                statement.setInt(5, Integer.parseInt(values[4])); // role
-                if (values[5].equalsIgnoreCase("null")) { // department
-                    statement.setString(6, values[5]);
+                statement.setInt(3, values[2].equalsIgnoreCase("0") ? Types.INTEGER : Integer.parseInt(values[2])); // yearOfBirth
+                statement.setInt(4, values[3].equalsIgnoreCase("null") ? Types.BOOLEAN : Integer.parseInt(values[3])); // gender
+//                statement.setInt(5, Integer.parseInt(values[4])); // role
+                if (values[4].equalsIgnoreCase("null")) { // department
+                    statement.setString(5, values[4]);
                 } else {
-                    statement.setNull(6, java.sql.Types.VARCHAR);
+                    statement.setNull(5, Types.VARCHAR);
                 }
 
                 statement.addBatch();
@@ -184,53 +184,31 @@ public class DatabaseController {
         }
     }
 
-    public static void addUser(Person user) {
-        if (user == null) {
-            System.out.println("User is null!");
-            return;
-        }
+    public static void addUser(String username) {
+        Person user = null;
+        SessionFactory userSessionFactory = HibernateUtil.getSessionFactory();
 
-        Connection connection = DatabaseController.getConnection();
-
-        String sqlQuery = "INSERT IGNORE INTO user (user_id, name, yearOfBirth, gender, role, department) VALUES (?, ?, ?, ?, ?, ?)";
+        Session userSession = userSessionFactory.getCurrentSession();
 
         try {
-            PreparedStatement statement = connection.prepareStatement(sqlQuery);
+            userSession.beginTransaction();
 
-            statement.setInt(1, Integer.parseInt(user.getPerson_ID()));
+            user = new Person.Builder<>()
+                    .username(username)
+                    .name("null")
+                    .role(true)
+                    .build();
 
-            if (user.getName() != null && !user.getName().isEmpty()) {
-                statement.setString(2, user.getName());
-            } else {
-                statement.setNull(2, java.sql.Types.VARCHAR);
-            }
+            userSession.save(user);
 
-            if (user.getYearOfBirth() != 0) {
-                statement.setInt(3, user.getYearOfBirth());
-            } else {
-                statement.setNull(3, java.sql.Types.INTEGER);
-            }
+            userSession.getTransaction().commit();
 
-            if (user.getGender() != null) {
-                statement.setInt(4, user.getGender().equalsIgnoreCase("male") ? 1 : 0);
-            } else {
-                statement.setNull(4, java.sql.Types.BOOLEAN);
-            }
-
-            statement.setInt(5, user.getRole().equalsIgnoreCase("admin") ? 1 : 0);
-
-            if (user.getDepartment() != null) {
-                statement.setString(6, user.getDepartment());
-            } else {
-                statement.setNull(6, java.sql.Types.VARCHAR);
-            }
-
-            statement.executeUpdate();
-            System.out.println("User added to the database successfully.");
-
-        } catch (SQLException e) {
-            System.out.println("SQL query to add user failed!");
+            System.out.println("User saved!");
+        } catch (Exception e) {
+            System.out.println("Error saving user");
             e.printStackTrace();
+        } finally {
+            userSession.close();
         }
     }
 
@@ -242,7 +220,7 @@ public class DatabaseController {
         BufferedReader reader = null;
         PreparedStatement statement = null;
         String line;
-        String insertSQL = "INSERT IGNORE INTO `account` (account_id, user_id, username , password, account_type, joined_date, avatar) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String insertSQL = "INSERT IGNORE INTO `account` (username , password, account_role, joined_date, avatar) VALUES (?, ?, ?, ?, ?)";
 
         try {
             reader = new BufferedReader(new FileReader(pathToCSV));
@@ -254,26 +232,24 @@ public class DatabaseController {
             while ((line = reader.readLine()) != null) {
                 String[] values = line.split("##@#@");
 
-                statement.setInt(1, Integer.parseInt(values[0])); //account_id
-                statement.setInt(2, Integer.parseInt(values[1])); //user_id
-                statement.setString(3, values[2]); // username
-                statement.setString(4, values[3]); // password
-                statement.setInt(5, Integer.parseInt(values[4])); // account_type
+                statement.setString(1, values[0]); // username
+                statement.setString(2, values[1]); // password
+                statement.setInt(3, Integer.parseInt(values[2])); // account_type
                 Timestamp timestamp = null;
-                if (values[5] != null && !values[5].equalsIgnoreCase("null")) {
+                if (values[3] != null && !values[3].equalsIgnoreCase("null")) {
                     try {
-                        timestamp = new Timestamp(timestampFormat.parse(values[5]).getTime());
+                        timestamp = new Timestamp(timestampFormat.parse(values[3]).getTime());
                     } catch (ParseException e) {
-                        System.err.println("Error parsing timestamp: " + values[5]);
+                        System.err.println("Error parsing timestamp: " + values[3]);
                     }
                 }
-                statement.setTimestamp(6, timestamp); // joined_date
+                statement.setTimestamp(4, timestamp); // joined_date
 
                 byte[] blobData = null;
-                if (values[6] != null && !values[6].equalsIgnoreCase("null")) {
-                    blobData = Base64.getDecoder().decode(values[6]);
+                if (values[4] != null && !values[4].equalsIgnoreCase("null")) {
+                    blobData = Base64.getDecoder().decode(values[4]);
                 }
-                statement.setBytes(7, blobData); // avatar
+                statement.setBytes(5, blobData); // avatar
 
                 statement.addBatch();
             }
@@ -290,40 +266,34 @@ public class DatabaseController {
         }
     }
 
-    public static void addAccount(Account account) {
-        if (account == null) {
-            System.out.println("User is null!");
-            return;
-        }
+    public static void addAccount(String username, String password) {
+        Account account = null;
+        SessionFactory accountSessionFactory = HibernateUtil.getSessionFactory();
 
-        SimpleDateFormat timestampFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // Format for TIMESTAMP
-
-        Connection connection = DatabaseController.getConnection();
-
-        String sqlQuery = "INSERT IGNORE INTO `account` (account_id, user_id, username , password, account_type, joined_date, avatar) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        Session accoutSession = accountSessionFactory.getCurrentSession();
 
         try {
-            PreparedStatement statement = connection.prepareStatement(sqlQuery);
+            accoutSession.beginTransaction();
 
-            statement.setInt(1, Integer.parseInt(account.getAccount_ID()));
-            statement.setInt(2, Integer.parseInt(account.getUser_ID()));
+            Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
 
-            statement.setString(3, account.getUsername());
-            statement.setString(4, account.getPassword());
+            account = new Account.Builder()
+                    .username(username)
+                    .password(password)
+                    .joined_date(currentTimestamp)
+                    .typeAccount(true)
+                    .build();
 
-            statement.setInt(5, account.getTypeAccount().equalsIgnoreCase("admin") ? 1 : 0);
+            accoutSession.save(account);
 
-            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            statement.setTimestamp(6, timestamp);
+            accoutSession.getTransaction().commit();
 
-            statement.setNull(7, java.sql.Types.BLOB);
-
-            statement.executeUpdate();
-            System.out.println("Account added to the database successfully.");
-
-        } catch (SQLException e) {
-            System.out.println("SQL query to add account failed!");
+            System.out.println("Account saved!");
+        } catch (Exception e) {
+            System.out.println("Error saving account");
             e.printStackTrace();
+        } finally {
+            accoutSession.close();
         }
     }
 
@@ -338,7 +308,7 @@ public class DatabaseController {
         try {
             reader = new BufferedReader(new FileReader(pathToCSV));
 
-            reader.readLine(); // Skip header
+            reader.readLine();
             statement = connection.prepareStatement(insertSQL);
 
             while ((line = reader.readLine()) != null) {
@@ -349,23 +319,23 @@ public class DatabaseController {
                 if (values[2] != null && !values[2].equalsIgnoreCase("null")) {
                     statement.setString(3, values[2]); // author
                 } else {
-                    statement.setNull(3, java.sql.Types.VARCHAR);
+                    statement.setNull(3, Types.VARCHAR);
                 }
                 if (values[3] != null && !values[3].equalsIgnoreCase("null")) {
                     statement.setString(4, values[3]); // publisher
                 } else {
-                    statement.setNull(4, java.sql.Types.VARCHAR);
+                    statement.setNull(4, Types.VARCHAR);
                 }
                 try {
                     statement.setInt(5, Integer.parseInt(values[4])); // year
                 } catch (NumberFormatException e) {
-                    statement.setNull(5, java.sql.Types.INTEGER);
+                    statement.setNull(5, Types.INTEGER);
                 }
                 statement.setInt(6, Integer.parseInt(values[5])); // quantity
                 if (values[6] != null && !values[6].equalsIgnoreCase("null")) {
                     statement.setString(7, values[6]); // description
                 } else {
-                    statement.setNull(7, java.sql.Types.VARCHAR);
+                    statement.setNull(7, Types.VARCHAR);
                 }
                 try {
                     statement.setDouble(8, Double.parseDouble(values[7])); // averageRating
@@ -408,18 +378,18 @@ public class DatabaseController {
             if (book.getAuthor() != null) {// author
                 statement.setString(3, book.getAuthor());
             } else {
-                statement.setNull(3, java.sql.Types.VARCHAR);
+                statement.setNull(3, Types.VARCHAR);
             }
 
             if (book.getPublisher() != null) {// publisher
                 statement.setString(4, book.getPublisher());
             } else {
-                statement.setNull(4, java.sql.Types.VARCHAR);
+                statement.setNull(4, Types.VARCHAR);
             }
             if (book.getYear() != 0) { // year
                 statement.setInt(5, book.getYear());
             } else {
-                statement.setNull(5, java.sql.Types.INTEGER);
+                statement.setNull(5, Types.INTEGER);
             }
 
             statement.setInt(6, book.getAmount()); // quantity
@@ -427,7 +397,7 @@ public class DatabaseController {
             if (book.getDescription() != null) { //description
                 statement.setString(7, book.getDescription());
             } else {
-                statement.setNull(7, java.sql.Types.VARCHAR);
+                statement.setNull(7, Types.VARCHAR);
             }
             statement.setDouble(8, book.getRating()); // rating
             statement.setString(9, book.getCategory()); // category
@@ -490,39 +460,39 @@ public class DatabaseController {
         }
     }
 
-    public static void addTransaction(Transaction transaction) {
-        if (transaction == null) {
-            System.out.println("Transaction is null!");
-            return;
-        }
-
-        Connection connection = DatabaseController.getConnection();
-
-        SimpleDateFormat timestampFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // Format for TIMESTAMP
-
-        String sqlQuery = "INSERT IGNORE INTO `transaction` (transaction_id, book_id, user_id , type, time, amount) VALUES (?, ?, ?, ?, ?, ?)";
-
-        try {
-            PreparedStatement statement = connection.prepareStatement(sqlQuery);
-
-            statement.setInt(1, transaction.getId()); // transaction_id
-            statement.setString(2, transaction.getBook_id()); // book_id
-            statement.setInt(3, transaction.getUser_id()); // user_id
-            statement.setInt(4, transaction.getType() ? 1 : 0); // type
-
-            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            statement.setTimestamp(5, timestamp);
-
-            statement.setInt(6, transaction.getAmount()); // amount
-
-            statement.executeUpdate();
-            System.out.println("Book added to the database successfully.");
-
-        } catch (SQLException e) {
-            System.out.println("SQL query to add book failed!");
-            e.printStackTrace();
-        }
-    }
+//    public static void addTransaction(Transaction transaction) {
+//        if (transaction == null) {
+//            System.out.println("Transaction is null!");
+//            return;
+//        }
+//
+//        Connection connection = DatabaseController.getConnection();
+//
+//        SimpleDateFormat timestampFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // Format for TIMESTAMP
+//
+//        String sqlQuery = "INSERT IGNORE INTO `transaction` (transaction_id, book_id, user_id , type, time, amount) VALUES (?, ?, ?, ?, ?, ?)";
+//
+//        try {
+//            PreparedStatement statement = connection.prepareStatement(sqlQuery);
+//
+//            statement.setInt(1, transaction.getTransaction_id()); // transaction_id
+//            statement.setString(2, transaction.getBook().getIsbn()); // book_id
+//            statement.setInt(3, transaction.getUser().getPerson_ID()); // user_id
+//            statement.setInt(4, transaction.getType() ? 1 : 0); // type
+//
+//            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+//            statement.setTimestamp(5, timestamp);
+//
+//            statement.setInt(6, transaction.getAmount()); // amount
+//
+//            statement.executeUpdate();
+//            System.out.println("Transaction added to the database successfully.");
+//
+//        } catch (SQLException e) {
+//            System.out.println("SQL query to add transaction failed!");
+//            e.printStackTrace();
+//        }
+//    }
 
     public static void importCommentCSVtoDB(String pathToCSV) throws SQLException, IOException {
         Connection connection = DatabaseController.getConnection();
@@ -553,7 +523,7 @@ public class DatabaseController {
             }
 
             statement.executeBatch();
-            System.out.println("Import CSV transaction to DB executed successfully.");
+            System.out.println("Import CSV comment to DB executed successfully.");
         } finally {
             if (reader != null) {
                 reader.close();
@@ -698,6 +668,77 @@ public class DatabaseController {
             System.out.println("SQL Exception: Cannot export result set!");
         }
 
+    }
+
+    public static boolean isExistedUsername(String username) {
+        ResultSet user = null;
+        boolean existed = false;
+        try {
+            Connection connection = DatabaseController.getConnection();
+            String sqlQuery = "SELECT username FROM account WHERE username = ?";
+            Statement useDatabaseStatement = connection.createStatement();
+            useDatabaseStatement.execute("USE library");
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+
+            preparedStatement.setString(1, username);
+            user = preparedStatement.executeQuery();
+
+            existed = user.next();
+        } catch (SQLException e) {
+            System.out.println("SQL Exception: Cannot get result set!");
+        }
+        return existed;
+    }
+
+    public static boolean isExistedAccount(String username, String password) {
+        boolean existed = false;
+        String sqlQuery = "SELECT * FROM account WHERE username = ? AND password = ?";
+        try {
+            Statement useDatabaseStatement = connection.createStatement();
+            useDatabaseStatement.execute("USE library");
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, password);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            existed = resultSet.next();
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("Login: " + username + " failed by exception: " + e);
+        }
+        return existed;
+    }
+
+    public static Person getUserInfo(String username) {
+        SessionFactory factory = HibernateUtil.getSessionFactory();
+        Session session = factory.openSession();
+        Person user = session.get(Person.class, username);
+        session.close();
+        return user;
+    }
+
+    public static Account getAccountInfo(String username) {
+        SessionFactory factory = HibernateUtil.getSessionFactory();
+        Session session = factory.openSession();
+        Account account = session.get(Account.class, username);
+        session.close();
+        return account;
+    }
+
+    public static void changePassword(String username, String password) {
+        Connection connection = DatabaseController.getConnection();
+
+        String sqlQuery = "UPDATE account SET password = ? WHERE username = ?";
+        try {
+            Statement useDatabaseStatement = connection.createStatement();
+            useDatabaseStatement.execute("USE library");
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setString(1, password);
+            preparedStatement.setString(2, username);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("SQLException -> changePassword function of Account controller: " + e.getMessage());
+        }
+        LibraryManagement.getInstance().setCurrentPassword(password);
     }
 
     public static void main(String[] args) {

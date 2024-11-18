@@ -1,12 +1,37 @@
 package Entity;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "book_comment")
 public class Comment {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "comment_id")
     private String comment_id;
-    private String book_id;
-    private String user_id;
+
+    @ManyToOne
+    @JoinColumn(name = "book_id", referencedColumnName = "book_id", nullable = false)
+    private Book book;
+
+    @Column(name = "username", nullable = false)
+    private String username;
+
+    @Column(name = "book_comment", columnDefinition = "TEXT")
     private String book_comment;
+
+    @Column(name = "rate", nullable = false)
     private Double rate;
+
+    public Comment() {}
+
+    public Comment(Book book, String username, String book_comment, Double rate) {
+        this.book = book;
+        this.username = username;
+        this.book_comment = book_comment;
+        this.rate = rate;
+    }
 
     public String getBook_comment() {
         return book_comment;
@@ -24,20 +49,20 @@ public class Comment {
         this.comment_id = comment_id;
     }
 
-    public String getBook_id() {
-        return book_id;
+    public Book getBook() {
+        return book;
     }
 
-    public void setBook_id(String book_id) {
-        this.book_id = book_id;
+    public void setBook(Book book) {
+        this.book = book;
     }
 
     public String getUser_id() {
-        return user_id;
+        return username;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setUser_id(String username) {
+        this.username = username;
     }
 
     public Double getRate() {

@@ -1,1 +1,1 @@
-comment_id,book_id,user_id,book_comment,rate
+comment_id,book_id,username,book_comment,rate

@@ -3,6 +3,7 @@ module uet.oop.librarymanagement {
     requires javafx.fxml;
     requires javafx.web;
 
+    requires java.naming;
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
     requires net.synedra.validatorfx;
@@ -11,13 +12,15 @@ module uet.oop.librarymanagement {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.sql;
+    requires java.persistence;
+    requires org.hibernate.orm.core;
 
-    opens Controllers to javafx.fxml;
+    opens Controllers to javafx.fxml, org.hibernate.orm.core;
     exports Controllers;
 
-    opens Entity to javafx.fxml;
+    opens Entity to javafx.fxml, org.hibernate.orm.core;
     exports Entity;
 
-    opens database to javafx.fxml;
+    opens database to javafx.fxml, org.hibernate.orm.core;
     exports database;
 }

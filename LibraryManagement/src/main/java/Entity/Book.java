@@ -1,20 +1,42 @@
 package Entity;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Entity
+@Table(name = "book")
 public class Book {
-    private final String isbn;
+
+    @Id
+    @Column(name = "book_id")
+    private String isbn;
+
+    @Column(name = "book_title", nullable = false, length = 100)
     private String title;
+
+    @Column(name = "author", length = 50)
     private String author;
+
+    @Column(name = "publisher", length = 50)
     private String publisher;
-    private int amount;
-    private String category;
-    private String description;
-    private double averageRate;
+
+    @Column(name = "year")
     private int year;
+
+    @Column(name = "quantity", nullable = false)
+    private int amount;
+
+    @Column(name = "description", columnDefinition = "MEDIUMTEXT")
+    private String description;
+
+    @Column(name = "averageRating", nullable = false)
+    private double averageRate;
+
+    @Column(name = "category", nullable = false, length = 50)
+    private String category;
 
     private Book(Builder builder) {
         this.isbn = builder.isbn;
@@ -26,6 +48,10 @@ public class Book {
         this.averageRate = builder.averageRate;
         this.description = builder.description;
         this.year = builder.year;
+    }
+
+    public Book() {
+
     }
 
     public static class Builder {

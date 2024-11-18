@@ -3,6 +3,7 @@ package Entity;
 import Controllers.Controller;
 import Controllers.SideBarLoader;
 import database.DatabaseController;
+import database.HibernateUtil;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,6 +14,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class SceneTest extends Application {
 
@@ -38,10 +41,18 @@ public class SceneTest extends Application {
     }
 
     public static void main(String[] args) {
-        DatabaseController.getConnection();
+        Statement useDatabaseStatement = null;
+        try {
+            useDatabaseStatement = DatabaseController.getConnection().createStatement();
+            useDatabaseStatement.execute("USE library");
+        } catch (SQLException e) {
+            System.out.println("Database connection failed");
+        }
+        DatabaseController.importDataFromCSV();
 
         launch();
 
+        HibernateUtil.shutdown();
         DatabaseController.closeConnection();
     }
 }

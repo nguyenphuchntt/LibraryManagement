@@ -1,42 +1,69 @@
 package Entity;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Entity
+@Table(name = "user")
 public class Person {
-    protected String person_ID;
+
+    @Id
+    @Column(name = "username")
+    protected String username;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "username", referencedColumnName = "username", insertable = false, updatable = false)
+    protected Account account;
+
+    @Column(name = "name", nullable = false, length = 50)
     protected String name;
-    protected int yearOfBirth;
+
+    @Column(name = "yearOfBirth")
+    protected Integer yearOfBirth;
+
+    @Column(name = "gender")
     protected String gender;
+
+    @Column(name = "department", length = 100)
     protected String department;
-    protected String role;
+
+
 //    protected Account account;
 //    protected List<Book> borrowedBooks;
 
     protected Person(Builder<?> builder) {
-        this.person_ID = builder.person_ID;
         this.name = builder.name;
         this.yearOfBirth = builder.yearOfBirth;
         this.gender = builder.gender;
         this.department = builder.department;
-        this.role = builder.role;
+        this.account = builder.account;
+        this.username = builder.username;
 //        this.account = builder.account;
 //        this.borrowedBooks = builder.borrowedBooks != null ? builder.borrowedBooks : new ArrayList<>();
     }
 
+    public Person() {}
+
     public static class Builder<T extends Builder<T>> {
-        protected String person_ID;
+        protected String username;
+        protected Account account;
         protected String name;
-        protected int yearOfBirth;
+        protected Integer yearOfBirth;
         protected String gender;
         protected String department;
-        protected String role;
+        protected boolean role;
 //        protected Account account;
 //        protected List<Book> borrowedBooks;
 
-        public T person_ID(String person_ID) {
-            this.person_ID = person_ID;
+        public T username(String username) {
+            this.username = username;
+            return self();
+        }
+
+        public T account(Account account) {
+            this.account = account;
             return self();
         }
 
@@ -60,7 +87,7 @@ public class Person {
             return self();
         }
 
-        public T role(String role) {
+        public T role(boolean role) {
             this.role = role;
             return self();
         }
@@ -83,23 +110,29 @@ public class Person {
             return new Person(this);
         }
     }
+    public Account getAccount() {
+        return account;
+    }
 
-    public String getPerson_ID() { return person_ID; }
-    public void setPerson_ID(String person_ID) { this.person_ID = person_ID; }
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
-    public int getYearOfBirth() { return yearOfBirth; }
+    public Integer getYearOfBirth() { return yearOfBirth; }
     public void setYearOfBirth(int yearOfBirth) { this.yearOfBirth = yearOfBirth; }
     public String getGender() { return gender; }
     public void setGender(String gender) { this.gender = gender; }
     public String getDepartment() { return department; }
     public void setDepartment(String department) { this.department = department; }
-    public String getRole() {
-        return role;
-    }
-    public void setRole(String role) {
-        this.role = role;
-    }
 //    public Account getAccount() { return account; }
 //    public void setAccount(Account account) { this.account = account; }
 //    public List<Book> getBorrowedBooks() { return borrowedBooks; }
@@ -118,11 +151,11 @@ public class Person {
 //        book.setAmount(book.getAmount() + 1);
 //    }
 
-    @Override
-    public String toString() {
-        return "Person [person_ID=" + person_ID + ", name=" + name + ", yearOfBirth=" + yearOfBirth + ", gender=" + gender
-                + ", department=" + department + "]";
-    }
+//    @Override
+//    public String toString() {
+//        return "Person [person_ID=" + person_ID + ", name=" + name + ", yearOfBirth=" + yearOfBirth + ", gender=" + gender
+//                + ", department=" + department + "]";
+//    }
 
 //    public void editInformation(String name, int yearOfBirth, String gender, String department) {
 //        if (name != null && !name.isEmpty()) { this.name = name; }
@@ -157,4 +190,8 @@ public class Person {
 //        }
 //        return result;
 //    }
+
+    public String toString() {
+        return "name: " + name + "\nbirth: " + yearOfBirth + "\ngender: " + gender + "\ndepartment: " + department;
+    }
 }

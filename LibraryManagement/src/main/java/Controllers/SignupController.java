@@ -1,18 +1,10 @@
 package Controllers;
 
-import Entity.Account;
-import Entity.Library;
-import Entity.Person;
 import database.DatabaseController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-
-import java.sql.*;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
 
 public class SignupController {
 
@@ -42,53 +34,13 @@ public class SignupController {
             return;
         }
 
-        try {
-            ResultSet user = null;
-            Connection connection = DatabaseController.getConnection();
-            String sqlQuery = "SELECT * FROM account WHERE username = ?";
-            Statement useDatabaseStatement = connection.createStatement();
-            useDatabaseStatement.execute("USE library");
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
-
-            preparedStatement.setString(1, username);
-            user = preparedStatement.executeQuery();
-
-            if (user.next()) {
-                signupMessage_Label.setText("Username already exists");
-                return;
-            }
-        } catch (SQLException e) {
-            System.out.println("SQLException -> Create account: " + e.getMessage());
+        if(DatabaseController.isExistedUsername(username)) {
+            signupMessage_Label.setText("Account already exists");
+            return;
         }
 
-        long timestamp = System.currentTimeMillis() % 1000000;
-        int randomNum = new Random().nextInt(1000);
-
-        String userID = String.format("%012d%03d", timestamp, randomNum);
-
-        Person user = new Person.Builder<>()
-                .person_ID(userID)
-                .role("user")
-                .build();
-
-        timestamp = System.currentTimeMillis() % 1000000;
-        String accountID = String.format("%012d%03d", timestamp, randomNum);
-
-        Account newAccount = new Account.Builder()
-                .account_ID(accountID)
-                .user_ID(userID)
-                .username(username)
-                .password(password)
-                .typeAccount("user")
-                .build();
-
-        System.out.println(newAccount.getUser_ID());
-
-//        user.setAccount(newAccount);
-//        newAccount.setOwner(user);
-
-        DatabaseController.addUser(user);
-        DatabaseController.addAccount(newAccount);
+        DatabaseController.addAccount(username, password);
+        DatabaseController.addUser(username);
 
         switchToLoginScene();
         username_TextField.clear();

@@ -1,3 +1,2 @@
-account_id,user_id,username,password,account_type,joined_date,avatar
-33577365##@#@33576365##@#@admin001##@#@Admin001##@#@0##@#@2024-11-16 00:17:14##@#@null
-163017533##@#@163001533##@#@nvp##@#@Nguyenphuc189##@#@0##@#@2024-11-16 11:42:43##@#@null
+username,password,account_role,joined_date,avatar
+admin003##@#@Admin003##@#@1##@#@2024-11-18 14:50:17##@#@null
