@@ -1,9 +1,6 @@
 package database;
 
-import Entity.Account;
-import Entity.Book;
-import Entity.Person;
-import Entity.Transaction;
+import Entity.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -679,12 +676,12 @@ public class DatabaseController {
 
     }
 
-    public static boolean isExistedAccount(String username) {
+    public static boolean isExistedUsername(String username) {
         ResultSet user = null;
         boolean existed = false;
         try {
             Connection connection = DatabaseController.getConnection();
-            String sqlQuery = "SELECT * FROM account WHERE username = ?";
+            String sqlQuery = "SELECT username FROM account WHERE username = ?";
             Statement useDatabaseStatement = connection.createStatement();
             useDatabaseStatement.execute("USE library");
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
@@ -695,6 +692,24 @@ public class DatabaseController {
             existed = user.next();
         } catch (SQLException e) {
             System.out.println("SQL Exception: Cannot get result set!");
+        }
+        return existed;
+    }
+
+    public static boolean isExistedAccount(String username, String password) {
+        boolean existed = false;
+        String sqlQuery = "SELECT * FROM account WHERE username = ? AND password = ?";
+        try {
+            Statement useDatabaseStatement = connection.createStatement();
+            useDatabaseStatement.execute("USE library");
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, password);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            existed = resultSet.next();
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("Login: " + username + " failed by exception: " + e);
         }
         return existed;
     }

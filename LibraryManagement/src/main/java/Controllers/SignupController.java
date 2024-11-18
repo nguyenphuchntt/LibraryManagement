@@ -1,18 +1,10 @@
 package Controllers;
 
-import Entity.Account;
-import Entity.Person;
 import database.DatabaseController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-
-import java.sql.Timestamp;
-import java.util.Random;
 
 public class SignupController {
 
@@ -42,7 +34,7 @@ public class SignupController {
             return;
         }
 
-        if(DatabaseController.isExistedAccount(username)) {
+        if(DatabaseController.isExistedUsername(username)) {
             signupMessage_Label.setText("Account already exists");
             return;
         }
