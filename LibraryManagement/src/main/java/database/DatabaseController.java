@@ -724,6 +724,23 @@ public class DatabaseController {
         return account;
     }
 
+    public static void changePassword(String username, String password) {
+        Connection connection = DatabaseController.getConnection();
+
+        String sqlQuery = "UPDATE account SET password = ? WHERE username = ?";
+        try {
+            Statement useDatabaseStatement = connection.createStatement();
+            useDatabaseStatement.execute("USE library");
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setString(1, password);
+            preparedStatement.setString(2, username);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("SQLException -> changePassword function of Account controller: " + e.getMessage());
+        }
+        LibraryManagement.getInstance().setCurrentPassword(password);
+    }
+
     public static void main(String[] args) {
 
 //
