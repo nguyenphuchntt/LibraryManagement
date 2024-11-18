@@ -14,7 +14,7 @@ public class Account {
     @Column(name = "password", nullable = false, length = 60)
     private String password;
 
-    @Column(name = "account_type", nullable = false)
+    @Column(name = "account_role", nullable = false)
     private boolean typeAccount;
 
     @Column(name = "joined_date", nullable = false)

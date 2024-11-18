@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 @Entity
-@Table(name = "user", indexes = {@Index(name = "role", columnList = "role")})
+@Table(name = "user")
 public class Person {
 
     @Id
@@ -26,9 +26,6 @@ public class Person {
     @Column(name = "gender")
     protected String gender;
 
-    @Column(name = "role", nullable = false)
-    protected Boolean role;
-
     @Column(name = "department", length = 100)
     protected String department;
 
@@ -41,7 +38,6 @@ public class Person {
         this.yearOfBirth = builder.yearOfBirth;
         this.gender = builder.gender;
         this.department = builder.department;
-        this.role = builder.role;
         this.account = builder.account;
         this.username = builder.username;
 //        this.account = builder.account;
@@ -137,12 +133,6 @@ public class Person {
     public void setGender(String gender) { this.gender = gender; }
     public String getDepartment() { return department; }
     public void setDepartment(String department) { this.department = department; }
-    public boolean getRole() {
-        return role;
-    }
-    public void setRole(boolean role) {
-        this.role = role;
-    }
 //    public Account getAccount() { return account; }
 //    public void setAccount(Account account) { this.account = account; }
 //    public List<Book> getBorrowedBooks() { return borrowedBooks; }
