@@ -8,13 +8,6 @@ import java.sql.Timestamp;
 public class Account {
 
     @Id
-    @Column(name = "account_id")
-    private int account_ID;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
-    private Person user;
-
     @Column(name = "username", nullable = false, length = 30)
     private String username;
 
@@ -28,12 +21,10 @@ public class Account {
     private Timestamp joined_date;
 
     private Account(Builder builder) {
-        this.account_ID = builder.account_ID;
         this.username = builder.username;
         this.password = builder.password;
         this.joined_date = builder.joined_date;
         this.typeAccount = builder.typeAccount;
-        this.user = builder.user;
     }
 
     public Account() {}
@@ -149,23 +140,11 @@ public class Account {
         this.typeAccount = typeAccount;
     }
 
-    public void setAccount_ID(int account_ID) {
-        this.account_ID = account_ID;
-    }
-    public int getAccount_ID() {
-        return account_ID;
-    }
     public Timestamp getJoined_date() {
         return joined_date;
     }
     public void setJoined_date(Timestamp joined_date) {
         this.joined_date = joined_date;
-    }
-    public Person getUser() {
-        return user;
-    }
-    public void setUser(Person user) {
-        this.user = user;
     }
 
     @Override

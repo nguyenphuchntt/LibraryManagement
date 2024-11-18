@@ -15,5 +15,6 @@
 
 
         <mapping class="Entity.Person"/>
+        <mapping class="Entity.Account"/>
     </session-factory>
 </hibernate-configuration>

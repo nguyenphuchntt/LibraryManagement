@@ -29,11 +29,6 @@ public class Manager extends Person {
         }
     }
 
-    @Override
-    public void setPerson_ID(int person_ID) {
-        this.person_ID = person_ID;
-    }
-
 //    public String getManagerId() {
 //        return managerId;
 //    }

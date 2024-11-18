@@ -140,7 +140,7 @@ public class DatabaseController {
         BufferedReader reader = null;
         PreparedStatement statement = null;
         String line;
-        String insertSQL = "INSERT IGNORE INTO `user` (user_id, name, yearOfBirth, gender, role, department) VALUES (?, ?, ?, ?, ?, ?)";
+        String insertSQL = "INSERT IGNORE INTO `user` (username, name, yearOfBirth, gender, department) VALUES (?, ?, ?, ?, ?)";
 
         try {
             reader = new BufferedReader(new FileReader(pathToCSV));
@@ -152,7 +152,7 @@ public class DatabaseController {
             while ((line = reader.readLine()) != null) {
                 String[] values = line.split("##@#@");
 
-                statement.setInt(1, Integer.parseInt(values[0]));
+                statement.setString(1, values[0]);
 //                statement.setString(2, !values[1].equalsIgnoreCase("null") ? values[1] : java.sql.Types.VARCHAR);
                 if (!values[1].equalsIgnoreCase("null")) {
                     statement.setString(2, values[1]);
@@ -161,11 +161,11 @@ public class DatabaseController {
                 }
                 statement.setInt(3, values[2].equalsIgnoreCase("0") ? java.sql.Types.INTEGER : Integer.parseInt(values[2])); // yearOfBirth
                 statement.setInt(4, values[3].equalsIgnoreCase("null") ? java.sql.Types.BOOLEAN : Integer.parseInt(values[3])); // gender
-                statement.setInt(5, Integer.parseInt(values[4])); // role
-                if (values[5].equalsIgnoreCase("null")) { // department
-                    statement.setString(6, values[5]);
+//                statement.setInt(5, Integer.parseInt(values[4])); // role
+                if (values[4].equalsIgnoreCase("null")) { // department
+                    statement.setString(5, values[4]);
                 } else {
-                    statement.setNull(6, java.sql.Types.VARCHAR);
+                    statement.setNull(5, java.sql.Types.VARCHAR);
                 }
 
                 statement.addBatch();
@@ -192,12 +192,12 @@ public class DatabaseController {
 
         Connection connection = DatabaseController.getConnection();
 
-        String sqlQuery = "INSERT IGNORE INTO user (user_id, name, yearOfBirth, gender, role, department) VALUES (?, ?, ?, ?, ?, ?)";
+        String sqlQuery = "INSERT IGNORE INTO user (username, name, yearOfBirth, gender, role, department) VALUES (?, ?, ?, ?, ?, ?)";
 
         try {
             PreparedStatement statement = connection.prepareStatement(sqlQuery);
 
-            statement.setInt(1, user.getPerson_ID());
+            statement.setString(1, user.getUsername());
 
             if (user.getName() != null && !user.getName().isEmpty()) {
                 statement.setString(2, user.getName());
@@ -242,7 +242,7 @@ public class DatabaseController {
         BufferedReader reader = null;
         PreparedStatement statement = null;
         String line;
-        String insertSQL = "INSERT IGNORE INTO `account` (account_id, user_id, username , password, account_type, joined_date, avatar) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String insertSQL = "INSERT IGNORE INTO `account` (username , password, account_type, joined_date, avatar) VALUES (?, ?, ?, ?, ?)";
 
         try {
             reader = new BufferedReader(new FileReader(pathToCSV));
@@ -254,26 +254,24 @@ public class DatabaseController {
             while ((line = reader.readLine()) != null) {
                 String[] values = line.split("##@#@");
 
-                statement.setInt(1, Integer.parseInt(values[0])); //account_id
-                statement.setInt(2, Integer.parseInt(values[1])); //user_id
-                statement.setString(3, values[2]); // username
-                statement.setString(4, values[3]); // password
-                statement.setInt(5, Integer.parseInt(values[4])); // account_type
+                statement.setString(1, values[0]); // username
+                statement.setString(2, values[1]); // password
+                statement.setInt(3, Integer.parseInt(values[2])); // account_type
                 Timestamp timestamp = null;
-                if (values[5] != null && !values[5].equalsIgnoreCase("null")) {
+                if (values[3] != null && !values[3].equalsIgnoreCase("null")) {
                     try {
-                        timestamp = new Timestamp(timestampFormat.parse(values[5]).getTime());
+                        timestamp = new Timestamp(timestampFormat.parse(values[3]).getTime());
                     } catch (ParseException e) {
-                        System.err.println("Error parsing timestamp: " + values[5]);
+                        System.err.println("Error parsing timestamp: " + values[3]);
                     }
                 }
-                statement.setTimestamp(6, timestamp); // joined_date
+                statement.setTimestamp(4, timestamp); // joined_date
 
                 byte[] blobData = null;
-                if (values[6] != null && !values[6].equalsIgnoreCase("null")) {
-                    blobData = Base64.getDecoder().decode(values[6]);
+                if (values[4] != null && !values[4].equalsIgnoreCase("null")) {
+                    blobData = Base64.getDecoder().decode(values[4]);
                 }
-                statement.setBytes(7, blobData); // avatar
+                statement.setBytes(5, blobData); // avatar
 
                 statement.addBatch();
             }
@@ -290,42 +288,42 @@ public class DatabaseController {
         }
     }
 
-    public static void addAccount(Account account) {
-        if (account == null) {
-            System.out.println("User is null!");
-            return;
-        }
-
-        SimpleDateFormat timestampFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // Format for TIMESTAMP
-
-        Connection connection = DatabaseController.getConnection();
-
-        String sqlQuery = "INSERT IGNORE INTO `account` (account_id, user_id, username , password, account_type, joined_date, avatar) VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-        try {
-            PreparedStatement statement = connection.prepareStatement(sqlQuery);
-
-            statement.setInt(1, account.getAccount_ID());
-            statement.setInt(2, account.getUser().getPerson_ID());
-
-            statement.setString(3, account.getUsername());
-            statement.setString(4, account.getPassword());
-
-            statement.setInt(5, account.getTypeAccount() ? 1 : 0);
-
-            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            statement.setTimestamp(6, timestamp);
-
-            statement.setNull(7, java.sql.Types.BLOB);
-
-            statement.executeUpdate();
-            System.out.println("Account added to the database successfully.");
-
-        } catch (SQLException e) {
-            System.out.println("SQL query to add account failed!");
-            e.printStackTrace();
-        }
-    }
+//    public static void addAccount(Account account) {
+//        if (account == null) {
+//            System.out.println("User is null!");
+//            return;
+//        }
+//
+//        SimpleDateFormat timestampFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // Format for TIMESTAMP
+//
+//        Connection connection = DatabaseController.getConnection();
+//
+//        String sqlQuery = "INSERT IGNORE INTO `account` (username , password, account_type, joined_date, avatar) VALUES (?, ?, ?, ?, ?)";
+//
+//        try {
+//            PreparedStatement statement = connection.prepareStatement(sqlQuery);
+//
+//            statement.setInt(1, account.getAccount_ID());
+//            statement.setInt(2, account.getUser().getPerson_ID());
+//
+//            statement.setString(3, account.getUsername());
+//            statement.setString(4, account.getPassword());
+//
+//            statement.setInt(5, account.getTypeAccount() ? 1 : 0);
+//
+//            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+//            statement.setTimestamp(6, timestamp);
+//
+//            statement.setNull(7, java.sql.Types.BLOB);
+//
+//            statement.executeUpdate();
+//            System.out.println("Account added to the database successfully.");
+//
+//        } catch (SQLException e) {
+//            System.out.println("SQL query to add account failed!");
+//            e.printStackTrace();
+//        }
+//    }
 
     public static void importBookCSVtoDB(String pathToCSV) throws SQLException, IOException {
         Connection connection = DatabaseController.getConnection();
@@ -490,39 +488,39 @@ public class DatabaseController {
         }
     }
 
-    public static void addTransaction(Transaction transaction) {
-        if (transaction == null) {
-            System.out.println("Transaction is null!");
-            return;
-        }
-
-        Connection connection = DatabaseController.getConnection();
-
-        SimpleDateFormat timestampFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // Format for TIMESTAMP
-
-        String sqlQuery = "INSERT IGNORE INTO `transaction` (transaction_id, book_id, user_id , type, time, amount) VALUES (?, ?, ?, ?, ?, ?)";
-
-        try {
-            PreparedStatement statement = connection.prepareStatement(sqlQuery);
-
-            statement.setInt(1, transaction.getTransaction_id()); // transaction_id
-            statement.setString(2, transaction.getBook().getIsbn()); // book_id
-            statement.setInt(3, transaction.getUser().getPerson_ID()); // user_id
-            statement.setInt(4, transaction.getType() ? 1 : 0); // type
-
-            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            statement.setTimestamp(5, timestamp);
-
-            statement.setInt(6, transaction.getAmount()); // amount
-
-            statement.executeUpdate();
-            System.out.println("Transaction added to the database successfully.");
-
-        } catch (SQLException e) {
-            System.out.println("SQL query to add transaction failed!");
-            e.printStackTrace();
-        }
-    }
+//    public static void addTransaction(Transaction transaction) {
+//        if (transaction == null) {
+//            System.out.println("Transaction is null!");
+//            return;
+//        }
+//
+//        Connection connection = DatabaseController.getConnection();
+//
+//        SimpleDateFormat timestampFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // Format for TIMESTAMP
+//
+//        String sqlQuery = "INSERT IGNORE INTO `transaction` (transaction_id, book_id, user_id , type, time, amount) VALUES (?, ?, ?, ?, ?, ?)";
+//
+//        try {
+//            PreparedStatement statement = connection.prepareStatement(sqlQuery);
+//
+//            statement.setInt(1, transaction.getTransaction_id()); // transaction_id
+//            statement.setString(2, transaction.getBook().getIsbn()); // book_id
+//            statement.setInt(3, transaction.getUser().getPerson_ID()); // user_id
+//            statement.setInt(4, transaction.getType() ? 1 : 0); // type
+//
+//            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+//            statement.setTimestamp(5, timestamp);
+//
+//            statement.setInt(6, transaction.getAmount()); // amount
+//
+//            statement.executeUpdate();
+//            System.out.println("Transaction added to the database successfully.");
+//
+//        } catch (SQLException e) {
+//            System.out.println("SQL query to add transaction failed!");
+//            e.printStackTrace();
+//        }
+//    }
 
     public static void importCommentCSVtoDB(String pathToCSV) throws SQLException, IOException {
         Connection connection = DatabaseController.getConnection();

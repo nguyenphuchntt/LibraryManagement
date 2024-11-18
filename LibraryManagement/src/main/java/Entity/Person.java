@@ -10,8 +10,12 @@ import java.util.Map;
 public class Person {
 
     @Id
-    @Column(name = "user_id")
-    protected int person_ID;
+    @Column(name = "username")
+    protected String username;
+
+    @ManyToOne
+    @JoinColumn(name = "username", referencedColumnName = "username", insertable = false, updatable = false)
+    protected Account account;
 
     @Column(name = "name", nullable = false, length = 50)
     protected String name;
@@ -33,12 +37,13 @@ public class Person {
 //    protected List<Book> borrowedBooks;
 
     protected Person(Builder<?> builder) {
-        this.person_ID = builder.person_ID;
         this.name = builder.name;
         this.yearOfBirth = builder.yearOfBirth;
         this.gender = builder.gender;
         this.department = builder.department;
         this.role = builder.role;
+        this.account = builder.account;
+        this.username = builder.username;
 //        this.account = builder.account;
 //        this.borrowedBooks = builder.borrowedBooks != null ? builder.borrowedBooks : new ArrayList<>();
     }
@@ -46,7 +51,8 @@ public class Person {
     public Person() {}
 
     public static class Builder<T extends Builder<T>> {
-        protected int person_ID;
+        protected String username;
+        protected Account account;
         protected String name;
         protected int yearOfBirth;
         protected String gender;
@@ -55,8 +61,13 @@ public class Person {
 //        protected Account account;
 //        protected List<Book> borrowedBooks;
 
-        public T person_ID(int person_ID) {
-            this.person_ID = person_ID;
+        public T username(String username) {
+            this.username = username;
+            return self();
+        }
+
+        public T account(Account account) {
+            this.account = account;
             return self();
         }
 
@@ -103,9 +114,21 @@ public class Person {
             return new Person(this);
         }
     }
+    public Account getAccount() {
+        return account;
+    }
 
-    public int getPerson_ID() { return person_ID; }
-    public void setPerson_ID(int person_ID) { this.person_ID = person_ID; }
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
     public int getYearOfBirth() { return yearOfBirth; }
@@ -138,11 +161,11 @@ public class Person {
 //        book.setAmount(book.getAmount() + 1);
 //    }
 
-    @Override
-    public String toString() {
-        return "Person [person_ID=" + person_ID + ", name=" + name + ", yearOfBirth=" + yearOfBirth + ", gender=" + gender
-                + ", department=" + department + "]";
-    }
+//    @Override
+//    public String toString() {
+//        return "Person [person_ID=" + person_ID + ", name=" + name + ", yearOfBirth=" + yearOfBirth + ", gender=" + gender
+//                + ", department=" + department + "]";
+//    }
 
 //    public void editInformation(String name, int yearOfBirth, String gender, String department) {
 //        if (name != null && !name.isEmpty()) { this.name = name; }

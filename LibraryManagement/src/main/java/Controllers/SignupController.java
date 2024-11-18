@@ -41,39 +41,12 @@ public class SignupController {
             return;
         }
 
-        long timestamp = System.currentTimeMillis() % 1000000;
-        int randomNum = new Random().nextInt(1000);
-        String id = String.format("%012d%03d", timestamp, randomNum);
-
-        SessionFactory userSessionFactory = new Configuration()
-                .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Person.class)
-                .buildSessionFactory();
-
-        Session userSession = userSessionFactory.getCurrentSession();
+//        long timestamp = System.currentTimeMillis() % 1000000;
+//        int randomNum = new Random().nextInt(1000);
+//        String id = String.format("%012d%03d", timestamp, randomNum);
 
         Person user = null;
         Account account = null;
-        try {
-            userSession.beginTransaction();
-
-            user = new Person.Builder<>()
-                    .person_ID(Integer.parseInt(id))
-                    .name("NguyenVanA")
-                    .role(true)
-                    .build();
-
-            userSession.save(user);
-
-            userSession.getTransaction().commit();
-
-            System.out.println("User saved!");
-        } catch (Exception e) {
-            System.out.println("Error saving user");
-            e.printStackTrace();
-        } finally {
-            userSessionFactory.close();
-        }
 
         SessionFactory accountSessionFactory = new Configuration()
                 .configure("hibernate.cfg.xml")
@@ -88,8 +61,6 @@ public class SignupController {
             Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
 
             account = new Account.Builder()
-                    .account_ID(Integer.parseInt(id))
-                    .user_ID(user)
                     .username(username)
                     .password(password)
                     .joined_date(currentTimestamp)
@@ -106,6 +77,34 @@ public class SignupController {
             e.printStackTrace();
         } finally {
             accountSessionFactory.close();
+        }
+
+        SessionFactory userSessionFactory = new Configuration()
+                .configure("hibernate.cfg.xml")
+                .addAnnotatedClass(Person.class)
+                .buildSessionFactory();
+
+        Session userSession = userSessionFactory.getCurrentSession();
+
+        try {
+            userSession.beginTransaction();
+
+            user = new Person.Builder<>()
+                    .username(username)
+                    .name("NguyenVanA")
+                    .role(true)
+                    .build();
+
+            userSession.save(user);
+
+            userSession.getTransaction().commit();
+
+            System.out.println("User saved!");
+        } catch (Exception e) {
+            System.out.println("Error saving user");
+            e.printStackTrace();
+        } finally {
+            userSessionFactory.close();
         }
 
 //        try {
