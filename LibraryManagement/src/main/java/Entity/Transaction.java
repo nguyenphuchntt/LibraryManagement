@@ -17,7 +17,7 @@ public class Transaction {
     private Book book;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
+    @JoinColumn(name = "username", referencedColumnName = "username", nullable = false)
     private Person user;
 
     @Column(name = "type", nullable = false)

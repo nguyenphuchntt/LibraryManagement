@@ -186,10 +186,7 @@ public class DatabaseController {
 
     public static void addUser(String username) {
         Person user = null;
-        SessionFactory userSessionFactory = new Configuration()
-                .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Person.class)
-                .buildSessionFactory();
+        SessionFactory userSessionFactory = HibernateUtil.getSessionFactory();
 
         Session userSession = userSessionFactory.getCurrentSession();
 
@@ -198,7 +195,7 @@ public class DatabaseController {
 
             user = new Person.Builder<>()
                     .username(username)
-                    .name("NguyenVanA")
+                    .name("null")
                     .role(true)
                     .build();
 
@@ -211,7 +208,7 @@ public class DatabaseController {
             System.out.println("Error saving user");
             e.printStackTrace();
         } finally {
-            userSessionFactory.close();
+            userSession.close();
         }
     }
 
@@ -223,7 +220,7 @@ public class DatabaseController {
         BufferedReader reader = null;
         PreparedStatement statement = null;
         String line;
-        String insertSQL = "INSERT IGNORE INTO `account` (username , password, account_type, joined_date, avatar) VALUES (?, ?, ?, ?, ?)";
+        String insertSQL = "INSERT IGNORE INTO `account` (username , password, account_role, joined_date, avatar) VALUES (?, ?, ?, ?, ?)";
 
         try {
             reader = new BufferedReader(new FileReader(pathToCSV));
@@ -271,10 +268,7 @@ public class DatabaseController {
 
     public static void addAccount(String username, String password) {
         Account account = null;
-        SessionFactory accountSessionFactory = new Configuration()
-                .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Account.class)
-                .buildSessionFactory();
+        SessionFactory accountSessionFactory = HibernateUtil.getSessionFactory();
 
         Session accoutSession = accountSessionFactory.getCurrentSession();
 
@@ -299,7 +293,7 @@ public class DatabaseController {
             System.out.println("Error saving account");
             e.printStackTrace();
         } finally {
-            accountSessionFactory.close();
+            accoutSession.close();
         }
     }
 
@@ -529,7 +523,7 @@ public class DatabaseController {
             }
 
             statement.executeBatch();
-            System.out.println("Import CSV transaction to DB executed successfully.");
+            System.out.println("Import CSV comment to DB executed successfully.");
         } finally {
             if (reader != null) {
                 reader.close();
@@ -712,6 +706,22 @@ public class DatabaseController {
             System.out.println("Login: " + username + " failed by exception: " + e);
         }
         return existed;
+    }
+
+    public static Person getUserInfo(String username) {
+        SessionFactory factory = HibernateUtil.getSessionFactory();
+        Session session = factory.openSession();
+        Person user = session.get(Person.class, username);
+        session.close();
+        return user;
+    }
+
+    public static Account getAccountInfo(String username) {
+        SessionFactory factory = HibernateUtil.getSessionFactory();
+        Session session = factory.openSession();
+        Account account = session.get(Account.class, username);
+        session.close();
+        return account;
     }
 
     public static void main(String[] args) {

@@ -16,5 +16,9 @@
 
         <mapping class="Entity.Person"/>
         <mapping class="Entity.Account"/>
+        <mapping class="Entity.Comment"/>
+        <mapping class="Entity.Transaction"/>
+        <mapping class="Entity.Book"/>
+
     </session-factory>
 </hibernate-configuration>

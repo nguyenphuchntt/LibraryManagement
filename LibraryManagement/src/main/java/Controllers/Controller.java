@@ -19,7 +19,7 @@ public class Controller {
 
     private static Stage stage;
     private Map<String, Scene> scenes = new HashMap<>();
-    private static String currentScene = "Home.fxml";
+    private static String currentScene = "Login.fxml";
 
     public static Controller getInstance() {
         return instance;

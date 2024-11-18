@@ -3,6 +3,7 @@ package Entity;
 import Controllers.Controller;
 import Controllers.SideBarLoader;
 import database.DatabaseController;
+import database.HibernateUtil;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -51,6 +52,7 @@ public class SceneTest extends Application {
 
         launch();
 
+        HibernateUtil.shutdown();
         DatabaseController.closeConnection();
     }
 }

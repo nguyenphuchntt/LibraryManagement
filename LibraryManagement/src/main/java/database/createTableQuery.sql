@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS book (
 CREATE TABLE IF NOT EXISTS book_comment (
     comment_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     book_id VARCHAR(20) NOT NULL,
-    user_id INT NOT NULL,
+    username VARCHAR(30) NOT NULL,
     book_comment TEXT DEFAULT NULL,
     rate TINYINT NOT NULL,
     CONSTRAINT `book_comment_fk` FOREIGN KEY (book_id) REFERENCES book (book_id) ON UPDATE CASCADE

@@ -13,7 +13,7 @@ public class Person {
     @Column(name = "username")
     protected String username;
 
-    @ManyToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "username", referencedColumnName = "username", insertable = false, updatable = false)
     protected Account account;
 
@@ -21,7 +21,7 @@ public class Person {
     protected String name;
 
     @Column(name = "yearOfBirth")
-    protected int yearOfBirth;
+    protected Integer yearOfBirth;
 
     @Column(name = "gender")
     protected String gender;
@@ -50,7 +50,7 @@ public class Person {
         protected String username;
         protected Account account;
         protected String name;
-        protected int yearOfBirth;
+        protected Integer yearOfBirth;
         protected String gender;
         protected String department;
         protected boolean role;
@@ -127,7 +127,7 @@ public class Person {
     }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
-    public int getYearOfBirth() { return yearOfBirth; }
+    public Integer getYearOfBirth() { return yearOfBirth; }
     public void setYearOfBirth(int yearOfBirth) { this.yearOfBirth = yearOfBirth; }
     public String getGender() { return gender; }
     public void setGender(String gender) { this.gender = gender; }
@@ -190,4 +190,8 @@ public class Person {
 //        }
 //        return result;
 //    }
+
+    public String toString() {
+        return "name: " + name + "\nbirth: " + yearOfBirth + "\ngender: " + gender + "\ndepartment: " + department;
+    }
 }

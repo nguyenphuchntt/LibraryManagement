@@ -2,6 +2,7 @@ package Controllers;
 
 import Entity.Account;
 import Entity.LibraryManagement;
+import Entity.Person;
 import database.DatabaseController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -57,45 +58,54 @@ public class AccountController {
     @FXML
     private Label changePasswordMessage_Label;
 
-    @FXML
-    private void initialize() {
-        refreshInfo();
-    }
-
     public void refreshInfo() {
         cleanUp();
-        String sqlQuery = "select name, user.yearOfBirth, user.department, account.joined_date\n" +
-                "from account\n" +
-                "JOIN\n" +
-                "user ON account.user_id = user.user_id\n" +
-                "where username = ?";
-        try {
-            Connection connection = DatabaseController.getConnection();
-            Statement useDatabaseStatement = connection.createStatement();
-            useDatabaseStatement.execute("USE library");
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
-            preparedStatement.setString(1, LibraryManagement.getInstance().getCurrentAccount());
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                String name = resultSet.getString("name");
-                name_Label.setText("NAME: " + (!name.isEmpty() ? name : "NULL"));
 
-                String yearOfBirthStr = resultSet.getString("yearOfBirth");
-                String ageStr = (yearOfBirthStr != null) ? yearOfBirthStr : "NULL";
-                age_Label.setText("AGE: " + ageStr);
-                if (!ageStr.equals("NULL")) {
-                    int age = Integer.parseInt(ageStr);
-                }
+        Person currentUser = DatabaseController.getUserInfo(LibraryManagement.getInstance().getCurrentAccount());
 
-                String department = resultSet.getString("department");
-                department_Label.setText("DEPARTMENT: " + (department != null ? department : "NULL"));
+        name_Label.setText("NAME: " + currentUser.getName());
 
-                String joinedDate = resultSet.getString("joined_date");
-                usedTime_Label.setText("JOINED DATE: " + (joinedDate != null ? joinedDate : "NULL"));
-            }
-        } catch (SQLException e) {
-            System.out.println("SQLException -> initialize function of Account controller: " + e.getMessage());
-        }
+        age_Label.setText("AGE: " + ((currentUser.getYearOfBirth() != null) ? String.valueOf(currentUser.getYearOfBirth()) : "null"));
+
+        department_Label.setText("DEPARTMENT: " + currentUser.getDepartment());
+
+        Account currentAccount = DatabaseController.getAccountInfo(LibraryManagement.getInstance().getCurrentAccount());
+
+        usedTime_Label.setText("JOINED TIME: " + currentAccount.getJoined_date());
+
+//
+//        String sqlQuery = "select user.name, user.yearOfBirth, user.department, account.joined_date\n" +
+//                "from account\n" +
+//                "JOIN\n" +
+//                "user ON account.username = user.username\n" +
+//                "where user.username = ?";
+//        try {
+//            Connection connection = DatabaseController.getConnection();
+//            Statement useDatabaseStatement = connection.createStatement();
+//            useDatabaseStatement.execute("USE library");
+//            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+//            preparedStatement.setString(1, LibraryManagement.getInstance().getCurrentAccount());
+//            ResultSet resultSet = preparedStatement.executeQuery();
+//            while (resultSet.next()) {
+//                String name = resultSet.getString("name");
+//                name_Label.setText("NAME: " + (!name.isEmpty() ? name : "NULL"));
+//
+//                String yearOfBirthStr = resultSet.getString("yearOfBirth");
+//                String ageStr = (yearOfBirthStr != null) ? yearOfBirthStr : "NULL";
+//                age_Label.setText("AGE: " + ageStr);
+//                if (!ageStr.equals("NULL")) {
+//                    int age = Integer.parseInt(ageStr);
+//                }
+//
+//                String department = resultSet.getString("department");
+//                department_Label.setText("DEPARTMENT: " + (department != null ? department : "NULL"));
+//
+//                String joinedDate = resultSet.getString("joined_date");
+//                usedTime_Label.setText("JOINED DATE: " + (joinedDate != null ? joinedDate : "NULL"));
+//            }
+//        } catch (SQLException e) {
+//            System.out.println("SQLException -> initialize function of Account controller: " + e.getMessage());
+//        }
     }
 
     @FXML

@@ -15,8 +15,8 @@ public class Comment {
     @JoinColumn(name = "book_id", referencedColumnName = "book_id", nullable = false)
     private Book book;
 
-    @Column(name = "user_id", nullable = false)
-    private String user_id;
+    @Column(name = "username", nullable = false)
+    private String username;
 
     @Column(name = "book_comment", columnDefinition = "TEXT")
     private String book_comment;
@@ -26,9 +26,9 @@ public class Comment {
 
     public Comment() {}
 
-    public Comment(Book book, String user_id, String book_comment, Double rate) {
+    public Comment(Book book, String username, String book_comment, Double rate) {
         this.book = book;
-        this.user_id = user_id;
+        this.username = username;
         this.book_comment = book_comment;
         this.rate = rate;
     }
@@ -58,11 +58,11 @@ public class Comment {
     }
 
     public String getUser_id() {
-        return user_id;
+        return username;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setUser_id(String username) {
+        this.username = username;
     }
 
     public Double getRate() {
