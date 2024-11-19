@@ -3,7 +3,7 @@ package database;
 import Entity.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -12,6 +12,7 @@ import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
+import java.util.List;
 
 public class DatabaseController {
 
@@ -392,14 +393,14 @@ public class DatabaseController {
                 statement.setNull(5, Types.INTEGER);
             }
 
-            statement.setInt(6, book.getAmount()); // quantity
+            statement.setInt(6, book.getQuantity()); // quantity
 
             if (book.getDescription() != null) { //description
                 statement.setString(7, book.getDescription());
             } else {
                 statement.setNull(7, Types.VARCHAR);
             }
-            statement.setDouble(8, book.getRating()); // rating
+            statement.setDouble(8, book.getAverageRate()); // rating
             statement.setString(9, book.getCategory()); // category
 
             statement.executeUpdate();
@@ -740,6 +741,82 @@ public class DatabaseController {
         }
         LibraryManagement.getInstance().setCurrentPassword(password);
     }
+
+    public static List<Book> getAllBooks() {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        List<Book> books = null;
+
+        try {
+            session.beginTransaction();
+            books = session.createQuery("from Book", Book.class).getResultList();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return books;
+    }
+
+    public static List<Book> searchBook(String isbn, String title, String author, String category, String year) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+        try {
+            session.beginTransaction();
+
+            StringBuilder stringBuilder = new StringBuilder("FROM Book b WHERE 1=1");
+
+            if (isbn != null) {
+                stringBuilder.append(" AND b.isbn LIKE :isbn");
+                System.out.println("isbn" + isbn);
+            }
+            if (title != null) {
+                stringBuilder.append(" AND b.title LIKE :title");
+                System.out.println(title);
+            }
+            if (author != null) {
+                stringBuilder.append(" AND b.author LIKE :author");
+            }
+            if (category != null) {
+                stringBuilder.append(" AND b.category LIKE :category");
+            }
+            if (year != null) {
+                stringBuilder.append(" AND b.year = :year");
+            }
+
+            Query<Book> query = session.createQuery(stringBuilder.toString(), Book.class);
+
+            if (isbn != null) {
+                query.setParameter("isbn", "%" + isbn + "%");
+            }
+            if (title != null) {
+                query.setParameter("title", "%" + title + "%");
+            }
+            if (author != null) {
+                query.setParameter("author", "%" + author + "%");
+            }
+            if (category != null) {
+                query.setParameter("category", "%" + category + "%");
+            }
+            if (year != null) {
+                query.setParameter("year", Integer.parseInt(year));
+            }
+
+            List<Book> books = query.list();
+
+            session.getTransaction().commit();
+            return books;
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
+
+
 
     public static void main(String[] args) {
 
