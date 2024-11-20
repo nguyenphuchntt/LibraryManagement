@@ -1,11 +1,11 @@
-book_id,book_title,author,publisher,year,quantity,description,averageRating,category
-001##@#@my first book##@#@NVP##@#@UET##@#@2000##@#@900##@#@Rat hay##@#@5.0##@#@Toan hoc
-002##@#@Advanced Programming##@#@Tran Van A##@#@NXB Tre##@#@2015##@#@9999##@#@Hữu ích##@#@4.5##@#@Công nghệ thông tin
-003##@#@Cooking 101##@#@Le Thi B##@#@NXB Thanh Nien##@#@2018##@#@2000##@#@Dễ hiểu và thực tế##@#@4.8##@#@Nấu ăn
-004##@#@History of Vietnam##@#@Nguyen Van C##@#@NXB Giao Duc##@#@1990##@#@3000##@#@Nội dung phong phú##@#@4.2##@#@Lịch sử
-005##@#@Learning Java##@#@Phan Thi D##@#@NXB Dai Hoc Quoc Gia##@#@2020##@#@1200##@#@Phù hợp cho người mới bắt đầu##@#@4.9##@#@Lập trình
-006##@#@Photography Basics##@#@Pham Van E##@#@NXB Van Hoa##@#@2017##@#@1700##@#@Hướng dẫn chi tiết##@#@4.7##@#@Nhiếp ảnh
-007##@#@Space Exploration##@#@Hoang Thi F##@#@NXB Khoa Hoc##@#@2010##@#@2200##@#@Cực kỳ thú vị##@#@4.6##@#@Khoa học
-008##@#@Self-Help Guide##@#@Tran Van G##@#@NXB Tre##@#@2019##@#@1800##@#@Truyền cảm hứng##@#@4.4##@#@Kỹ năng sống
-009##@#@Artificial Intelligence##@#@Nguyen Thi H##@#@NXB Cong Nghe##@#@2021##@#@2500##@#@Rất sâu sắc##@#@5.0##@#@Công nghệ thông tin
-010##@#@World Atlas##@#@Le Van K##@#@NXB Tre##@#@2015##@#@2800##@#@Hình ảnh minh họa đẹp##@#@4.3##@#@Địa lý
+book_id,book_title,author,publisher,year,quantity,description,averageRating,category,thumbnail_link
+001##@#@my first book##@#@NVP##@#@UET##@#@2000##@#@900##@#@Rat hay##@#@5.0##@#@Toan hoc##@#@null
+002##@#@Advanced Programming##@#@Tran Van A##@#@NXB Tre##@#@2015##@#@9999##@#@Hữu ích##@#@4.5##@#@Công nghệ thông tin##@#@null
+003##@#@Cooking 101##@#@Le Thi B##@#@NXB Thanh Nien##@#@2018##@#@10000##@#@Dễ hiểu và thực tế##@#@4.8##@#@Nấu ăn##@#@null
+004##@#@History of Vietnam##@#@Nguyen Van C##@#@NXB Giao Duc##@#@1990##@#@3000##@#@Nội dung phong phú##@#@4.2##@#@Lịch sử##@#@null
+005##@#@Learning Java##@#@Phan Thi D##@#@NXB Dai Hoc Quoc Gia##@#@2020##@#@1200##@#@Phù hợp cho người mới bắt đầu##@#@4.9##@#@Lập trình##@#@null
+006##@#@Photography Basics##@#@Pham Van E##@#@NXB Van Hoa##@#@2017##@#@1700##@#@Hướng dẫn chi tiết##@#@4.7##@#@Nhiếp ảnh##@#@null
+007##@#@Space Exploration##@#@Hoang Thi F##@#@NXB Khoa Hoc##@#@2010##@#@2200##@#@Cực kỳ thú vị##@#@4.6##@#@Khoa học##@#@null
+008##@#@Self-Help Guide##@#@Tran Van G##@#@NXB Tre##@#@2019##@#@1800##@#@Truyền cảm hứng##@#@4.4##@#@Kỹ năng sống##@#@null
+009##@#@Artificial Intelligence##@#@Nguyen Thi H##@#@NXB Cong Nghe##@#@2021##@#@2500##@#@Rất sâu sắc##@#@5.0##@#@Công nghệ thông tin##@#@null
+010##@#@World Atlas##@#@Le Van K##@#@NXB Tre##@#@2015##@#@2800##@#@Hình ảnh minh họa đẹp##@#@4.3##@#@Địa lý##@#@null

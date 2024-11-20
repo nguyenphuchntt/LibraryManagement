@@ -420,7 +420,7 @@ public class DatabaseController {
 
         SimpleDateFormat timestampFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // Format for TIMESTAMP
 
-        String insertSQL = "INSERT IGNORE INTO `transaction` (transaction_id, book_id, user_id , type, time, amount) VALUES (?, ?, ?, ?, ?, ?)";
+        String insertSQL = "INSERT IGNORE INTO `transaction` (transaction_id, book_id, username , borrow_time, return_time) VALUES (?, ?, ?, ?, ?)";
 
         try {
             reader = new BufferedReader(new FileReader(pathToCSV));
@@ -434,17 +434,23 @@ public class DatabaseController {
 
                 statement.setInt(1, Integer.parseInt(values[0])); // transaction_id
                 statement.setString(2, values[1]); // book_id
-                statement.setInt(3, Integer.parseInt(values[2])); // user_id
-                statement.setInt(4, Integer.parseInt(values[3])); // type
+                statement.setString(3, values[2]); // user_id
+
+                Timestamp borrow_Timestamp = null; // time
+                Timestamp return_Timestamp = null;
                 try {
-                    Timestamp timestamp = new Timestamp(timestampFormat.parse(values[4]).getTime()); // time
-                    statement.setTimestamp(5, timestamp); // time
+                    borrow_Timestamp = new Timestamp(timestampFormat.parse(values[3]).getTime());
+                    statement.setTimestamp(4, borrow_Timestamp);
+
+                    if (values[4] != null && !values[4].equalsIgnoreCase("null")) {
+                        return_Timestamp = new Timestamp(timestampFormat.parse(values[4]).getTime());
+                    } else {
+                        statement.setNull(4, java.sql.Types.TIMESTAMP);
+                    }
                 } catch (ParseException e) {
-                    System.out.println("Transaction CSV Cannot parse timestamp!");
+                    System.out.println("SQL query to add transaction failed!");
+                    throw new RuntimeException(e);
                 }
-
-                statement.setInt(6, Integer.parseInt(values[5])); // amount
-
                 statement.addBatch();
 
             }
@@ -501,7 +507,7 @@ public class DatabaseController {
         PreparedStatement statement = null;
         String line;
 
-        String insertSQL = "INSERT IGNORE INTO `book_comment` (comment_id, book_id, user_id , book_comment, rate) VALUES (?, ?, ?, ?, ?)";
+        String insertSQL = "INSERT IGNORE INTO `book_comment` (comment_id, book_id, username , book_comment, rate) VALUES (?, ?, ?, ?, ?)";
 
         try {
             reader = new BufferedReader(new FileReader(pathToCSV));
@@ -515,7 +521,7 @@ public class DatabaseController {
 
                 statement.setInt(1, Integer.parseInt(values[0]));
                 statement.setString(2, values[1]);
-                statement.setInt(3, Integer.parseInt(values[2]));
+                statement.setString(3, values[2]);
                 statement.setString(4, values[3]);
                 statement.setDouble(5, Double.parseDouble(values[4]));
 
@@ -621,8 +627,8 @@ public class DatabaseController {
 
     public static void importDataFromCSV() {
         try {
-            importUserCSVToDB(userCSVPath);
             importAccountCSVtoBD(accountCSVPath);
+            importUserCSVToDB(userCSVPath);
             importBookCSVtoDB(bookCSVPath);
             importTransactionCSVtoDB(transactionCSVPath);
             importCommentCSVtoDB(book_commentCSVPath);
@@ -816,7 +822,62 @@ public class DatabaseController {
         }
     }
 
+    public static List<Transaction> getFilteredBorrowTransactions(String title, String author, String category, String isbn, String username) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 
+        try {
+            session.beginTransaction();
+
+            StringBuilder stringBuilder = new StringBuilder("FROM Transaction b WHERE 1=1");
+
+            stringBuilder.append(" AND b.user.username =:username");
+
+            if (isbn != null) {
+                stringBuilder.append(" AND b.book.isbn LIKE :isbn");
+                System.out.println("isbn" + isbn);
+            }
+            if (title != null) {
+                stringBuilder.append(" AND b.book.title LIKE :title");
+                System.out.println(title);
+            }
+            if (author != null) {
+                stringBuilder.append(" AND b.book.author LIKE :author");
+            }
+            if (category != null) {
+                stringBuilder.append(" AND b.book.category LIKE :category");
+            }
+
+            Query<Transaction> query = session.createQuery(stringBuilder.toString(), Transaction.class);
+
+            query.setParameter("username", username);
+
+            if (isbn != null) {
+                query.setParameter("isbn", "%" + isbn + "%");
+            }
+            if (title != null) {
+                query.setParameter("title", "%" + title + "%");
+            }
+            if (author != null) {
+                query.setParameter("author", "%" + author + "%");
+            }
+            if (category != null) {
+                query.setParameter("category", "%" + category + "%");
+            }
+
+            List<Transaction> transactions = query.list();
+
+            session.getTransaction().commit();
+            return transactions;
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+
+    }
 
     public static void main(String[] args) {
 

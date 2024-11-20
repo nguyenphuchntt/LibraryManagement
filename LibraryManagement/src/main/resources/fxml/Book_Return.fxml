@@ -31,35 +31,34 @@
                         <Button fx:id="return_Button" layoutX="419.0" layoutY="465.0" mnemonicParsing="false" text="RETURN" />
                         <Label layoutX="20.0" layoutY="516.0" text="WRITE BOOK COMMENT" />
                         <TextField fx:id="bookIDInComment_TextField" layoutX="20.0" layoutY="549.0" promptText="BOOK ID / ISBN" />
-                        <TextArea fx:id="comment_TextField" layoutX="20.0" layoutY="583.0" prefHeight="114.0" prefWidth="860.0" promptText="Write your comment here!" />
+                        <TextArea fx:id="comment_TextArea" layoutX="20.0" layoutY="583.0" prefHeight="114.0" prefWidth="860.0" promptText="Write your comment here!" />
                         <Button fx:id="post_Button" layoutX="20.0" layoutY="705.0" mnemonicParsing="false" text="POST" />
                   <TextField fx:id="searchBar_TextField" layoutX="20.0" layoutY="55.0" prefHeight="40.0" prefWidth="572.0" promptText="Enter book title" />
-                  <Button fx:id="search_Button" layoutX="529.0" layoutY="122.0" mnemonicParsing="false" text="Search" />
+                  <Button fx:id="search_Button" layoutX="529.0" layoutY="122.0" mnemonicParsing="false" onAction="#handleSearch" text="Search" />
                   <HBox layoutX="20.0" layoutY="121.0" prefHeight="25.0" prefWidth="496.0" style="-fx-background-color: #c17270;">
                      <children>
                         <Label alignment="CENTER" prefHeight="25.0" prefWidth="56.0" text="FILTER: " textAlignment="CENTER" />
                         <TextField fx:id="isbn_TextField" prefHeight="25.0" prefWidth="145.0" promptText="ISBN" />
-                        <TextField fx:id="category_TextField" prefHeight="25.0" prefWidth="100.0" promptText="CATEGORY" />
-                        <TextField fx:id="author_TextField" prefHeight="25.0" prefWidth="80.0" promptText="AUTHOR" />
-                        <TextField fx:id="status_TextField" prefHeight="25.0" prefWidth="121.0" promptText="Status" />
+                        <TextField fx:id="category_TextField" prefHeight="25.0" prefWidth="139.0" promptText="CATEGORY" />
+                        <TextField fx:id="author_TextField" prefHeight="25.0" prefWidth="157.0" promptText="AUTHOR" />
                      </children>
                   </HBox>
                   <TableView fx:id="searchTable_TableView" editable="true" layoutX="20.0" layoutY="174.0" prefHeight="278.0" prefWidth="860.0">
                      <columns>
                         <TableColumn fx:id="amount_Column" prefWidth="31.0" text="X" />
                         <TableColumn fx:id="bookTitle_Column" editable="false" prefWidth="191.0" text="BOOK TITLE" />
-                        <TableColumn fx:id="bookID_Column" editable="false" prefWidth="129.0" text="BOOK ID" />
-                        <TableColumn fx:id="category_Column" editable="false" prefWidth="163.0" sortable="false" text="CATEGORY" />
+                        <TableColumn fx:id="bookID_Column" editable="false" prefWidth="150.0" text="BOOK ID" />
+                        <TableColumn fx:id="category_Column" editable="false" prefWidth="142.0" sortable="false" text="CATEGORY" />
                         <TableColumn fx:id="borrowDate_Column" prefWidth="195.0" text="BORROW DATE" />
                         <TableColumn fx:id="status_Column" minWidth="0.0" prefWidth="150.0" text="STATUS" />
                      </columns>
                   </TableView>
                   <Label fx:id="postCommentMessage_Label" layoutX="98.0" layoutY="709.0" prefHeight="16.0" prefWidth="537.0" />
-                  <Button fx:id="oneStar_Button" layoutX="205.0" layoutY="549.0" mnemonicParsing="false" text="1" />
-                  <Button fx:id="twoStart_Button" layoutX="235.0" layoutY="549.0" mnemonicParsing="false" text="2" />
-                  <Button fx:id="threeStar_Button" layoutX="265.0" layoutY="549.0" mnemonicParsing="false" text="3" />
-                  <Button fx:id="fourStar_Button" layoutX="295.0" layoutY="549.0" mnemonicParsing="false" text="4" />
-                  <Button fx:id="fiveStar_Button" layoutX="325.0" layoutY="549.0" mnemonicParsing="false" text="5" />
+                  <Button fx:id="oneStar_Button" layoutX="205.0" layoutY="549.0" mnemonicParsing="false" onAction="#handleOneStar" text="1" />
+                  <Button fx:id="twoStart_Button" layoutX="235.0" layoutY="549.0" mnemonicParsing="false" onAction="#handleTwoStar" text="2" />
+                  <Button fx:id="threeStar_Button" layoutX="265.0" layoutY="549.0" mnemonicParsing="false" onAction="#handleThreeStar" text="3" />
+                  <Button fx:id="fourStar_Button" layoutX="295.0" layoutY="549.0" mnemonicParsing="false" onAction="#handleFourStar" text="4" />
+                  <Button fx:id="fiveStar_Button" layoutX="325.0" layoutY="549.0" mnemonicParsing="false" onAction="#handleFiveStar" text="5" />
                     </children>
                 </AnchorPane>
             </children>
