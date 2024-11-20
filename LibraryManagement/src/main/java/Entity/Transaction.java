@@ -23,12 +23,13 @@ public class Transaction {
     @Column(name = "borrow_time", nullable = false)
     private Timestamp borrow_time;
 
-    @Column(name = "return_time", nullable = false)
+    @Column(name = "return_time")
     private Timestamp return_time;
 
     public Transaction(Book book, Person user) {
         this.book = book;
         this.user = user;
+        borrow_time = new Timestamp(System.currentTimeMillis());
     }
 
     public Transaction() {

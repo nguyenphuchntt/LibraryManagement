@@ -25,7 +25,7 @@
                             </font>
                         </Label>
                         <TextField fx:id="searchBar_TextField" layoutX="20.0" layoutY="61.0" prefHeight="40.0" prefWidth="572.0" promptText="Enter book title" />
-                        <Button fx:id="search_Button" layoutX="529.0" layoutY="128.0" mnemonicParsing="false" onAction="#handleSearch" text="Search" />
+                        <Button fx:id="search_Button" layoutX="529.0" layoutY="128.0" mnemonicParsing="false" onAction="#handleSearchButton" text="Search" />
                         <Label layoutX="309.0" layoutY="203.0" style="-fx-background-color: #c170bf;" text="NO BOOK FOUND YET!">
                             <font>
                                 <Font size="25.0" />
@@ -53,7 +53,7 @@
                                 <TextField fx:id="author_TextField" prefHeight="25.0" prefWidth="80.0" promptText="AUTHOR" />
                             </children>
                         </HBox>
-                        <Button fx:id="borrowSearch_Button" layoutX="419.0" layoutY="419.0" mnemonicParsing="false" text="BORROW" />
+                        <Button fx:id="borrowSearch_Button" layoutX="419.0" layoutY="419.0" mnemonicParsing="false" onAction="#handleBorrowButton" text="BORROW" />
                     </children></AnchorPane>
                 <AnchorPane layoutY="455.0" prefHeight="300.0" prefWidth="900.0">
                     <children>

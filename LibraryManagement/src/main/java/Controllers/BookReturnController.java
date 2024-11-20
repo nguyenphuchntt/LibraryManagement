@@ -129,11 +129,6 @@ public class BookReturnController {
         String author = author_TextField.getText().isEmpty() ? null : author_TextField.getText();
         String category = category_TextField.getText().isEmpty() ? null : category_TextField.getText();
 
-        System.out.println("Title: " + title);
-        System.out.println("Isbn: " + isbn);
-        System.out.println("Author: " + author);
-        System.out.println("Category: " + category);
-
         String currentUsername = LibraryManagement.getInstance().getCurrentAccount();
         List<Transaction> transactionList = DatabaseController.getFilteredBorrowTransactions(
                 title, author, category, isbn, currentUsername

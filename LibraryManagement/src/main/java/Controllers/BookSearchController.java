@@ -1,7 +1,10 @@
 package Controllers;
 
 import Entity.Book;
+import Entity.Person;
+import Entity.Transaction;
 import database.DatabaseController;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,6 +15,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
+
+import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class BookSearchController {
 
@@ -87,28 +95,20 @@ public class BookSearchController {
     @FXML
     private Text publishedYear_Text;
 
+    private ObservableList<Book> bookList;
 
-    private ObservableMap<Integer, Integer> xColumnValues = FXCollections.observableHashMap();
-
-    FilteredList<Book> filteredBooks;
+    private int priorityOrder = 1;
 
     @FXML
     public void initialize() {
         mapColumnValue();
 
-        ObservableList<Book> bookList = FXCollections.observableArrayList(DatabaseController.getAllBooks());
+        bookList = FXCollections.observableArrayList(DatabaseController.getAllBooks());
         searchTable_TableView.setItems(bookList);
 
-        // checkbox column
-        amount_Column.setCellFactory(CheckBoxTableCell.forTableColumn(index -> {
-            SimpleBooleanProperty booleanProperty = new SimpleBooleanProperty(xColumnValues.getOrDefault(index.intValue(), 0) > 0);
+        amount_Column.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
 
-            booleanProperty.addListener((obs, wasSelected, isNowSelected) -> {
-                xColumnValues.put(index.intValue(), isNowSelected ? 1 : 0);
-            });
-
-            return booleanProperty;
-        }));
+        amount_Column.setCellFactory(CheckBoxTableCell.forTableColumn(amount_Column));
 
     }
 
@@ -122,19 +122,66 @@ public class BookSearchController {
         rate_Column.setCellValueFactory(new PropertyValueFactory<>("averageRate"));
     }
 
+    public static List<Book> getSelectedBooks(ObservableList<Book> books) {
+        if (books == null) {
+            return null;
+        }
+        return books.stream()
+                .filter(Book::getSelected)
+                .collect(Collectors.toList());
+    }
+
     @FXML
-    private void handleSearch() {
+    private void handleSearchButton() {
         String title = searchBar_TextField.getText().isEmpty() ? null : searchBar_TextField.getText();
         String isbn = isbn_TextField.getText().isEmpty() ? null : isbn_TextField.getText();
         String author = author_TextField.getText().isEmpty() ? null : author_TextField.getText();
         String category = category_TextField.getText().isEmpty() ? null : category_TextField.getText();
         String year = year_TextField.getText().isEmpty() ? null : year_TextField.getText();
 
-        ObservableList<Book> bookList = FXCollections.observableArrayList(DatabaseController.searchBook(
+        bookList = FXCollections.observableArrayList(DatabaseController.searchBook(
                 isbn, title, author, category, year
         ));
 
         searchTable_TableView.setItems(bookList);
+    }
+
+    @FXML
+    private void handleBorrowButton() {
+        List<Book> books = getSelectedBooks(bookList);
+        if (books == null) {
+            return;
+        }
+        if (books.isEmpty()) {
+            PopupController.showSuccessAlert("No books are selected");
+            return;
+        }
+        List<Transaction> transactions = new ArrayList<>();
+        Person currentUser = DatabaseController.getCurrentUser();
+        StringBuilder alert = new StringBuilder();
+        if (currentUser == null) {
+            PopupController.showSuccessAlert("User is null");
+        }
+        for (Book book : books) {
+            if (book.getQuantity() <= 0) {
+                alert.append(book.getTitle()).append('\n');
+            }
+            if (alert.isEmpty()) {
+                transactions.add(new Transaction(book, currentUser));
+            }
+        }
+        if (alert.isEmpty()) {
+            DatabaseController.addBorrowTransactions(transactions);
+            DatabaseController.updateBookAmountAfterBorrowed(books);
+            PopupController.showSuccessAlert("Borrowed " + books.size() + " books successfully");
+            cleanUp();
+        } else {
+            PopupController.showSuccessAlert(alert.toString() + "doesn't not have enough quantity :((");
+        }
+    }
+
+    private void cleanUp() {
+        handleSearchButton();
     }
 
 }

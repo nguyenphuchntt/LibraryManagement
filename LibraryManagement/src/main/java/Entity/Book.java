@@ -1,5 +1,8 @@
 package Entity;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
 import javax.persistence.*;
 
 @Entity
@@ -33,6 +36,21 @@ public class Book {
 
     @Column(name = "category", nullable = false, length = 50)
     private String category;
+
+    @Transient
+    private final BooleanProperty selected = new SimpleBooleanProperty(false);
+
+    public boolean getSelected() {
+        return selected.get();
+    }
+
+    public void setSelected(boolean value) {
+        selected.set(value);
+    }
+
+    public BooleanProperty selectedProperty() {
+        return selected;
+    }
 
     private Book(Builder builder) {
         this.isbn = builder.isbn;
