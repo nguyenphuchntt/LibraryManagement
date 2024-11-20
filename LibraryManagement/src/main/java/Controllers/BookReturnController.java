@@ -1,9 +1,6 @@
 package Controllers;
 
-import Entity.Book;
-import Entity.LibraryManagement;
-import Entity.Transaction;
-import Entity.TransactionDTO;
+import Entity.*;
 import database.DatabaseController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,8 +15,7 @@ public class BookReturnController {
 
     private String star = null;
 
-    @FXML
-    private TextField status_TextField;
+    private List<Transaction> transactionList;
 
     @FXML
     private TextField category_TextField;
@@ -61,13 +57,13 @@ public class BookReturnController {
     private Button return_Button;
 
     @FXML
+    private TextField bookIDInComment_TextField;
+
+    @FXML
     private Label postCommentMessage_Label;
 
     @FXML
     private Button post_Button;
-
-    @FXML
-    private TextField bookID_TextField;
 
     @FXML
     private TextArea comment_TextArea;
@@ -130,9 +126,53 @@ public class BookReturnController {
         String category = category_TextField.getText().isEmpty() ? null : category_TextField.getText();
 
         String currentUsername = LibraryManagement.getInstance().getCurrentAccount();
-        List<Transaction> transactionList = DatabaseController.getFilteredBorrowTransactions(
+        transactionList = DatabaseController.getFilteredBorrowTransactions(
                 title, author, category, isbn, currentUsername
         );
         searchTable_TableView.setItems(TransactionDTO.loadTransactions(transactionList));
+    }
+
+    @FXML
+    private void handlePostComment() {
+        if (bookIDInComment_TextField.getText().isEmpty()) {
+            postCommentMessage_Label.setText("Please enter a valid book ID");
+            cleanUp();
+            return;
+        }
+        if (comment_TextArea.getText().isEmpty()) {
+            postCommentMessage_Label.setText("Please enter a valid comment");
+            cleanUp();
+            return;
+        }
+        if (star == null) {
+            postCommentMessage_Label.setText("Please enter a valid rating star");
+            cleanUp();
+            return;
+        }
+        isbn_TextField.setText(bookIDInComment_TextField.getText());
+        handleSearch();
+        if (transactionList.isEmpty()) {
+            cleanUp();
+            postCommentMessage_Label.setText("You haven't been read this book!");
+            return;
+        }
+        Book book = transactionList.get(0).getBook();
+        String username = LibraryManagement.getInstance().getCurrentAccount();
+        Double rate = Double.parseDouble(star);
+        String commentContent = comment_TextArea.getText();
+        Comment comment = new Comment(book, username, commentContent, rate);
+        DatabaseController.addBookComment(comment);
+        PopupController.showSuccessAlert("Posted comment successfully");
+        cleanUp();
+    }
+
+    private void cleanUp() {
+        bookIDInComment_TextField.clear();
+        comment_TextArea.clear();
+        searchBar_TextField.clear();
+        isbn_TextField.clear();
+        category_TextField.clear();
+        author_TextField.clear();
+        star = null;
     }
 }
