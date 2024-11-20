@@ -4,6 +4,7 @@ import Entity.Book;
 import Entity.Person;
 import Entity.Transaction;
 import database.DatabaseController;
+import database.HibernateUtil;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
@@ -15,6 +16,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
+import org.hibernate.Session;
 
 import java.time.Period;
 import java.util.ArrayList;
@@ -81,7 +83,7 @@ public class BookSearchController {
     private Label ratingStar_Label;
 
     @FXML
-    private Text name_Text;
+    private Text title_Text;
 
     @FXML
     private Text author_Text;
@@ -97,11 +99,17 @@ public class BookSearchController {
 
     private ObservableList<Book> bookList;
 
-    private int priorityOrder = 1;
+    private List<Object[]> recommendedBookList;
+
+    private int priorityOrder = 0;
 
     @FXML
     public void initialize() {
         mapColumnValue();
+
+        recommendedBookList = DatabaseController.getBookForRecommend();
+
+        showRecommendedBooks();
 
         bookList = FXCollections.observableArrayList(DatabaseController.getAllBooks());
         searchTable_TableView.setItems(bookList);
@@ -178,6 +186,41 @@ public class BookSearchController {
         } else {
             PopupController.showSuccessAlert(alert.toString() + "doesn't not have enough quantity :((");
         }
+    }
+
+    private void showRecommendedBooks() {
+        Object[] book = recommendedBookList.get(priorityOrder);
+        title_Text.setText("Title:" + book[0].toString() + '\n');
+        author_Text.setText("Author: " + book[1].toString() + '\n');
+        category_Text.setText("Category: " + book[2].toString() + '\n');
+        publishedYear_Text.setText("Published Year: " + book[3].toString() + '\n');
+        description_Text.setText("Description: " + book[4].toString() + '\n');
+        ratingStar_Label.setText("Rating: " + book[5].toString());
+        priorityOrder = (priorityOrder + 1) % recommendedBookList.size();
+    }
+
+    @FXML
+    private void handleBorrowRecommendBook() {
+        String book_id = recommendedBookList.get((priorityOrder + 9) % recommendedBookList.size())[6].toString();
+        List<Book> books = new ArrayList<>();
+        List<Transaction> transactions = new ArrayList<>();
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Book book = session.get(Book.class, book_id);
+        session.close();
+        books.add(book);
+
+        Person currentUser = DatabaseController.getCurrentUser();
+        transactions.add(new Transaction(book, currentUser));
+
+        DatabaseController.addBorrowTransactions(transactions);
+        DatabaseController.updateBookAmountAfterBorrowed(books);
+        PopupController.showSuccessAlert("Borrowed " + book.getTitle() + " successfully");
+    }
+
+    @FXML
+    private void handleRefreshButton() {
+        showRecommendedBooks();
     }
 
     private void cleanUp() {

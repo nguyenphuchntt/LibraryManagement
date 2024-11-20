@@ -468,19 +468,21 @@ public class DatabaseController {
         }
     }
 
-    public static List<Book> getBookForRecommend() {
-        List<Book> results = null;
+    public static List<Object[]> getBookForRecommend() {
+        List<Object[]> results = null;
 
         Session session = HibernateUtil.getSessionFactory().openSession();
 
         try {
             session.beginTransaction();
 
-            String hql = "SELECT b FROM Transaction b " +
-                    "GROUP BY b.book.isbn " +
-                    "ORDER BY COUNT(*) DESC";
+            String hql = "SELECT s.title, s.author, s.category, s.year, s.description, s.averageRate, s.id " +
+                    "FROM Transaction b " +
+                    "JOIN b.book s " +
+                    "GROUP BY s.isbn " +
+                    "ORDER BY COUNT(s.isbn) DESC";
 
-            Query<Book> query = session.createQuery(hql, Book.class);
+            Query<Object[]> query = session.createQuery(hql, Object[].class);
             query.setMaxResults(10);
             session.getTransaction().commit();
             results = query.getResultList();
