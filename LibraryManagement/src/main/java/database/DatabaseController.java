@@ -518,16 +518,51 @@ public class DatabaseController {
         }
     }
 
-    public static void updateBookAmountAfterBorrowed(List<Book> books) {
+    public static void addReturnTransactions(List<TransactionDTO> transactionDTOs) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            session.beginTransaction();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Timestamp now = new Timestamp(System.currentTimeMillis());
+
+            for (TransactionDTO transactionDTO: transactionDTOs) {
+                String hql = "UPDATE Transaction t SET t.return_time = :returnTime " +
+                        "WHERE t.user.id = :username AND t.book.id = :bookId AND t.borrow_time = :time";
+
+                session.createQuery(hql)
+                        .setParameter("returnTime", now)
+                        .setParameter("username", LibraryManagement.getInstance().getCurrentAccount())
+                        .setParameter("bookId", transactionDTO.getBookId())
+                        .setParameter("time", new Timestamp(sdf.parse(transactionDTO.getBorrowDate()).getTime()))
+                        .executeUpdate();
+            }
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            System.out.println("Error while adding transactions to the database!");
+        } finally {
+            session.close();
+        }
+    }
+
+    public static void updateBookAmountAfterBorrowed(List<String> booksID, boolean type) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.beginTransaction();
 
-            for (Book book : books) {
-                Book persistentBook = session.get(Book.class, book.getIsbn());
+            for (String bookID : booksID) {
+                Book persistentBook = session.get(Book.class, bookID);
 
                 if (persistentBook != null) {
-                    persistentBook.setAmount(book.getQuantity() - 1);
+                    if (type) {
+                        persistentBook.setAmount(persistentBook.getQuantity() + 1);
+                    } else {
+                        persistentBook.setAmount(persistentBook.getQuantity() - 1);
+                    }
                 }
             }
 
@@ -903,99 +938,31 @@ public class DatabaseController {
 
     }
 
-    public static void main(String[] args) {
+    public static boolean hadComment(String username, String bookIsbn) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
 
-//
-//        DatabaseController.getConnection();
-//        createTables(SQL_FILE);
-//        Statement query = null;
-//        ResultSet resultSet = null;
-//        try {
-//            Statement useDatabaseStatement = connection.createStatement();
-//            useDatabaseStatement.execute("USE library");
-//            query = DatabaseController.getConnection().createStatement();
-//            resultSet = query.executeQuery("SELECT * from transaction");
-//        } catch (SQLException e) {
-//            System.out.println(e.getCause());
-//        }
-//        try {
-//            ExportResultSetToCSV(resultSet, transactionCSVPath);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
-        DatabaseController.getConnection();
-
-
-//        createTables(SQL_FILE);
-//        Statement query = null;
-//        ResultSet resultSetAccount = null;
-//        ResultSet resultSetUser = null;
-        ResultSet resultSetBook = null;
-//        ResultSet resultSetTransaction = null;
-//        ResultSet resultSetComment = null;
         try {
+            session.beginTransaction();
 
-            Statement useDatabaseStatement = connection.createStatement();
-            useDatabaseStatement.execute("USE library");
+            String hql = "FROM Transaction t WHERE t.user.username =:username AND t.book.id = :bookIsbn";
+            Query<Transaction> query = session.createQuery(hql, Transaction.class);
+            query.setParameter("username", username);
+            query.setParameter("bookIsbn", bookIsbn);
 
-            importDataFromCSV();
+            List<Transaction> transactions = query.list();
+            session.getTransaction().commit();
 
-//            Account account = new Account.Builder()
-//                    .account_ID("002")
-//                    .username("admin001")
-//                    .password("Admin001")
-//                    .typeAccount("admin").build();
-//
-//            Person user = new Person.Builder<>()
-//                    .person_ID("1")
-//                    .name("NVP")
-//                    .build();
-//
-//            Book book = new Book.Builder("001")
-//                    .title("First BOOK")
-//                    .amount(100)
-//                    .category("Fun")
-//                    .build();
+            return !transactions.isEmpty();
 
-//            user.setAccount(account);
-//            account.setOwner(user);
-//
-//            Transaction transaction = new Transaction(1, "001", 1, true, 10);
-
-//            DatabaseController.addUser(user);
-//            DatabaseController.addAccount(account);
-//            DatabaseController.addBook(book);
-//            DatabaseController.addTransaction(transaction);
-//            DatabaseController.addComment("001", "1", "hay", 4.5);
-//            DatabaseController.addComment("001", "1", "khong hay", 1);
-
-//            query = DatabaseController.getConnection().createStatement();
-            Statement otherQuery = DatabaseController.getConnection().createStatement();
-            Statement anotherQuery = DatabaseController.getConnection().createStatement();
-            Statement otherQuery2 = DatabaseController.getConnection().createStatement();
-            Statement otherQuery3 = DatabaseController.getConnection().createStatement();
-//            resultSetAccount = query.executeQuery("SELECT * from account");
-//            resultSetUser = otherQuery.executeQuery("SELECT * from user");
-            resultSetBook = anotherQuery.executeQuery("SELECT * from book");
-//            resultSetTransaction = otherQuery2.executeQuery("SELECT * from transaction");
-//            resultSetComment = otherQuery3.executeQuery("SELECT * from book_comment");
-
-        } catch (SQLException e) {
-            System.out.println("SQL: " + e.getCause());
-            e.printStackTrace();
-        }
-        try {
-//            ExportResultSetToCSV(resultSetAccount, accountCSVPath);
-//            ExportResultSetToCSV(resultSetUser, userCSVPath);
-            ExportResultSetToCSV(resultSetBook, bookCSVPath);
-//            ExportResultSetToCSV(resultSetTransaction, transactionCSVPath);
-//            ExportResultSetToCSV(resultSetComment, book_commentCSVPath);
         } catch (Exception e) {
-            e.printStackTrace();
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
         }
     }
-
 
 
 }

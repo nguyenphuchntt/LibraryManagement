@@ -1,9 +1,12 @@
 package Entity;
 
 import database.DatabaseController;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import javax.persistence.Transient;
 import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -64,6 +67,21 @@ public class TransactionDTO {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Transient
+    private final BooleanProperty selected = new SimpleBooleanProperty(false);
+
+    public boolean getSelected() {
+        return selected.get();
+    }
+
+    public void setSelected(boolean value) {
+        selected.set(value);
+    }
+
+    public BooleanProperty selectedProperty() {
+        return selected;
     }
 
     public static ObservableList<TransactionDTO> loadTransactions(List<Transaction> transactionList) {

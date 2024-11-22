@@ -6,9 +6,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class BookReturnController {
@@ -16,6 +19,8 @@ public class BookReturnController {
     private String star = null;
 
     private List<Transaction> transactionList;
+
+    private ObservableList<TransactionDTO> transactionDTOObservableList;
 
     @FXML
     private TextField category_TextField;
@@ -86,6 +91,11 @@ public class BookReturnController {
     @FXML
     public void initialize() {
         assignColumnValue();
+
+        amount_Column.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
+
+        amount_Column.setCellFactory(CheckBoxTableCell.forTableColumn(amount_Column));
+
         handleSearch();
     }
 
@@ -95,6 +105,15 @@ public class BookReturnController {
         category_Column.setCellValueFactory(new PropertyValueFactory<>("category"));
         borrowDate_Column.setCellValueFactory(new PropertyValueFactory<>("borrowDate"));
         status_Column.setCellValueFactory(new PropertyValueFactory<>("status"));
+    }
+
+    public static List<TransactionDTO> getSelectedTransactions(ObservableList<TransactionDTO> transactions) {
+        if (transactions == null) {
+            return null;
+        }
+        return transactions.stream()
+                .filter(TransactionDTO::getSelected)
+                .collect(Collectors.toList());
     }
 
     @FXML
@@ -129,7 +148,39 @@ public class BookReturnController {
         transactionList = DatabaseController.getFilteredBorrowTransactions(
                 title, author, category, isbn, currentUsername
         );
-        searchTable_TableView.setItems(TransactionDTO.loadTransactions(transactionList));
+
+        transactionDTOObservableList = TransactionDTO.loadTransactions(transactionList);
+        searchTable_TableView.setItems(transactionDTOObservableList);
+    }
+
+    @FXML
+    private void handleReturn() {
+        List<TransactionDTO> transactions = getSelectedTransactions(transactionDTOObservableList);
+        if (transactions == null) {
+            return;
+        }
+        if (transactions.isEmpty()) {
+            PopupController.showSuccessAlert("No books are selected");
+        }
+        List<String> toReturnBookID = new ArrayList<>();
+        Person currentUser = DatabaseController.getCurrentUser();
+        StringBuilder alert = new StringBuilder();
+        if (currentUser == null) {
+            PopupController.showSuccessAlert("User is null");
+        }
+        for (TransactionDTO transactionDTO : transactions) {
+            if (transactionDTO.getStatus().equalsIgnoreCase("Returned")) {
+                alert.append(transactionDTO.getBookTitle()).append("\n");
+            }
+        }
+        if (alert.isEmpty()) {
+            DatabaseController.addReturnTransactions(transactions);
+            DatabaseController.updateBookAmountAfterBorrowed(toReturnBookID, true);
+            PopupController.showSuccessAlert("Returned " + transactions.size() + " books successfully");
+            cleanUp();
+        } else {
+            PopupController.showSuccessAlert(alert.toString() + "had been returned!");
+        }
     }
 
     @FXML
@@ -161,6 +212,12 @@ public class BookReturnController {
         Double rate = Double.parseDouble(star);
         String commentContent = comment_TextArea.getText();
         Comment comment = new Comment(book, username, commentContent, rate);
+        if (comment.isWrittenComment(username, bookIDInComment_TextField.getText())) {
+            cleanUp();
+            postCommentMessage_Label.setText("You have been written this book's comment!");
+            comment = null;
+            return;
+        }
         DatabaseController.addBookComment(comment);
         PopupController.showSuccessAlert("Posted comment successfully");
         cleanUp();

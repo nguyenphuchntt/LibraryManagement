@@ -157,6 +157,7 @@ public class BookSearchController {
     @FXML
     private void handleBorrowButton() {
         List<Book> books = getSelectedBooks(bookList);
+        List<String> booksID = new ArrayList<>();
         if (books == null) {
             return;
         }
@@ -176,11 +177,12 @@ public class BookSearchController {
             }
             if (alert.isEmpty()) {
                 transactions.add(new Transaction(book, currentUser));
+                booksID.add(book.getIsbn());
             }
         }
         if (alert.isEmpty()) {
             DatabaseController.addBorrowTransactions(transactions);
-            DatabaseController.updateBookAmountAfterBorrowed(books);
+            DatabaseController.updateBookAmountAfterBorrowed(booksID, false);
             PopupController.showSuccessAlert("Borrowed " + books.size() + " books successfully");
             cleanUp();
         } else {
@@ -202,19 +204,19 @@ public class BookSearchController {
     @FXML
     private void handleBorrowRecommendBook() {
         String book_id = recommendedBookList.get((priorityOrder + 9) % recommendedBookList.size())[6].toString();
-        List<Book> books = new ArrayList<>();
+        List<String> books = new ArrayList<>();
         List<Transaction> transactions = new ArrayList<>();
 
         Session session = HibernateUtil.getSessionFactory().openSession();
         Book book = session.get(Book.class, book_id);
         session.close();
-        books.add(book);
+        books.add(book.getIsbn());
 
         Person currentUser = DatabaseController.getCurrentUser();
         transactions.add(new Transaction(book, currentUser));
 
         DatabaseController.addBorrowTransactions(transactions);
-        DatabaseController.updateBookAmountAfterBorrowed(books);
+        DatabaseController.updateBookAmountAfterBorrowed(books, false);
         PopupController.showSuccessAlert("Borrowed " + book.getTitle() + " successfully");
     }
 
