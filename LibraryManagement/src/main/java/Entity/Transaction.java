@@ -20,23 +20,20 @@ public class Transaction {
     @JoinColumn(name = "username", referencedColumnName = "username", nullable = false)
     private Person user;
 
-    @Column(name = "type", nullable = false)
-    private boolean type;
+    @Column(name = "borrow_time", nullable = false)
+    private Timestamp borrow_time;
 
-    @Column(name = "time", nullable = false)
-    private Timestamp time;
+    @Column(name = "return_time")
+    private Timestamp return_time;
 
-    @Column(name = "amount", nullable = false)
-    private int amount;
-
-    public Transaction(Book book, Person user, boolean type, int amount) {
+    public Transaction(Book book, Person user) {
         this.book = book;
         this.user = user;
-        this.type = type;
-        this.amount = amount;
+        borrow_time = new Timestamp(System.currentTimeMillis());
     }
 
-    public Transaction() {}
+    public Transaction() {
+    }
 
     public int getTransaction_id() {
         return transaction_id;
@@ -62,27 +59,22 @@ public class Transaction {
         this.user = user;
     }
 
-    public boolean getType() {
-        return type;
+    public Timestamp getBorrow_time() {
+        return borrow_time;
     }
 
-    public void setType(boolean type) {
-        this.type = type;
+    public void setBorrow_time(Timestamp borrow_time) {
+        this.borrow_time = borrow_time;
     }
 
-    public Timestamp getTime() {
-        return time;
+    public Timestamp getReturn_time() {
+        return return_time;
     }
 
-    public void setTime(Timestamp time) {
-        this.time = time;
+    public void setReturn_time(Timestamp return_time) {
+        this.return_time = return_time;
     }
 
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
 }
+
+

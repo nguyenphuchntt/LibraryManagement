@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.BooksController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.BookSearchController">
     <children>
         <AnchorPane layoutX="200.0" layoutY="45.0" prefHeight="755.0" prefWidth="900.0" style="-fx-background-color: #44d7ff;">
             <children>
@@ -24,14 +24,14 @@
                                 <Font size="20.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="searchBar_TextField" layoutX="20.0" layoutY="61.0" prefHeight="40.0" prefWidth="572.0" promptText="Enter book title or book ID / ISBN" />
-                        <Button fx:id="search_Button" layoutX="529.0" layoutY="128.0" mnemonicParsing="false" text="Search" />
+                        <TextField fx:id="searchBar_TextField" layoutX="20.0" layoutY="61.0" prefHeight="40.0" prefWidth="572.0" promptText="Enter book title" />
+                        <Button fx:id="search_Button" layoutX="529.0" layoutY="128.0" mnemonicParsing="false" onAction="#handleSearchButton" text="Search" />
                         <Label layoutX="309.0" layoutY="203.0" style="-fx-background-color: #c170bf;" text="NO BOOK FOUND YET!">
                             <font>
                                 <Font size="25.0" />
                             </font>
                         </Label>
-                        <TableView fx:id="searchTable_TableView" layoutX="20.0" layoutY="156.0" prefHeight="249.0" prefWidth="860.0">
+                        <TableView fx:id="searchTable_TableView" editable="true" layoutX="20.0" layoutY="156.0" prefHeight="249.0" prefWidth="860.0">
                             <columns>
                                 <TableColumn fx:id="amount_Column" prefWidth="31.0" text="X" />
                                 <TableColumn fx:id="bookTitle_Column" editable="false" prefWidth="155.0" text="BOOK TITLE" />
@@ -44,20 +44,16 @@
                             </columns>
                         </TableView>
                         <Pagination fx:id="pageFlow_Pagination" layoutX="755.0" layoutY="408.0" prefHeight="46.0" prefWidth="125.0" />
-                        <HBox layoutX="20.0" layoutY="127.0" prefHeight="25.0" prefWidth="484.0" style="-fx-background-color: #c17270;">
+                        <HBox layoutX="20.0" layoutY="127.0" prefHeight="25.0" prefWidth="496.0" style="-fx-background-color: #c17270;">
                             <children>
                                 <Label alignment="CENTER" prefHeight="25.0" prefWidth="56.0" text="FILTER: " textAlignment="CENTER" />
+                        <TextField fx:id="isbn_TextField" prefHeight="25.0" prefWidth="197.0" promptText="ISBN" />
                                 <TextField fx:id="year_TextField" prefHeight="25.0" prefWidth="67.0" promptText="YEAR" />
-                                <TextField fx:id="category_TextField" prefHeight="25.0" prefWidth="166.0" promptText="CATEGORY" />
-                                <TextField fx:id="author_TextField" prefHeight="25.0" prefWidth="136.0" promptText="AUTHOR" />
-                                <Button fx:id="apply_Button" mnemonicParsing="false" prefHeight="25.0" prefWidth="59.0" text="APPLY" />
+                                <TextField fx:id="category_TextField" prefHeight="25.0" prefWidth="100.0" promptText="CATEGORY" />
+                                <TextField fx:id="author_TextField" prefHeight="25.0" prefWidth="80.0" promptText="AUTHOR" />
                             </children>
                         </HBox>
-                        <Button fx:id="borrowSearch_Button" layoutX="419.0" layoutY="419.0" mnemonicParsing="false" text="BORROW" />
-                        <ImageView fitHeight="150.0" fitWidth="130.0" layoutX="672.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label layoutX="694.0" layoutY="33.0" prefHeight="56.0" prefWidth="185.0" text="A PICTURE HERE(PRE VIEW)" />
-                        <Label layoutX="377.0" layoutY="15.0" text="NOTE: DESCRIPTION-&gt;QR, BOOK TITLE -&gt; THEME" />
-                        <Label layoutX="12.0" layoutY="411.0" text="Cot X nay la so luong (int), default = 0" />
+                        <Button fx:id="borrowSearch_Button" layoutX="419.0" layoutY="419.0" mnemonicParsing="false" onAction="#handleBorrowButton" text="BORROW" />
                     </children></AnchorPane>
                 <AnchorPane layoutY="455.0" prefHeight="300.0" prefWidth="900.0">
                     <children>
@@ -72,12 +68,12 @@
                                 <Label alignment="CENTER" layoutX="62.0" layoutY="72.0" prefHeight="56.0" prefWidth="152.0" text="A PICTURE HERE" />
                             </children>
                         </AnchorPane>
-                        <Button fx:id="borrowRecommend_Butoon" layoutX="30.0" layoutY="256.0" mnemonicParsing="false" text="BORROW" />
-                        <Button fx:id="refresh_Button" layoutX="810.0" layoutY="11.0" mnemonicParsing="false" text="REFRESH" />
+                        <Button fx:id="borrowRecommend_Button" layoutX="30.0" layoutY="256.0" mnemonicParsing="false" onAction="#handleBorrowRecommendBook" text="BORROW" />
+                        <Button fx:id="refresh_Button" layoutX="810.0" layoutY="11.0" mnemonicParsing="false" onAction="#handleRefreshButton" text="REFRESH" />
                         <Label fx:id="ratingStar_Label" layoutX="30.0" layoutY="232.0" text="RATING STAR: " />
                         <TextFlow fx:id="recommendBook_TextField" layoutX="27.0" layoutY="50.0" prefHeight="175.0" prefWidth="534.0" style="-fx-background-color: #4287f5;">
                             <children>
-                                <Text fx:id="name_Text" strokeType="OUTSIDE" strokeWidth="0.0" text="Name: " />
+                                <Text fx:id="title_Text" strokeType="OUTSIDE" strokeWidth="0.0" text="Title:" />
                                 <Text fx:id="author_Text" strokeType="OUTSIDE" strokeWidth="0.0" text="Author: " />
                                 <Text fx:id="category_Text" strokeType="OUTSIDE" strokeWidth="0.0" text="Category: " />
                                 <Text fx:id="publishedYear_Text" strokeType="OUTSIDE" strokeWidth="0.0" text="Published year: " />

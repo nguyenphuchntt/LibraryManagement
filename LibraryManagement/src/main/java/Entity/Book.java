@@ -1,10 +1,9 @@
 package Entity;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Entity
 @Table(name = "book")
@@ -27,7 +26,7 @@ public class Book {
     private int year;
 
     @Column(name = "quantity", nullable = false)
-    private int amount;
+    private int quantity;
 
     @Column(name = "description", columnDefinition = "MEDIUMTEXT")
     private String description;
@@ -38,12 +37,27 @@ public class Book {
     @Column(name = "category", nullable = false, length = 50)
     private String category;
 
+    @Transient
+    private final BooleanProperty selected = new SimpleBooleanProperty(false);
+
+    public boolean getSelected() {
+        return selected.get();
+    }
+
+    public void setSelected(boolean value) {
+        selected.set(value);
+    }
+
+    public BooleanProperty selectedProperty() {
+        return selected;
+    }
+
     private Book(Builder builder) {
         this.isbn = builder.isbn;
         this.title = builder.title;
         this.author = builder.author;
         this.publisher = builder.publisher;
-        this.amount = builder.amount;
+        this.quantity = builder.amount;
         this.category = builder.category;
         this.averageRate = builder.averageRate;
         this.description = builder.description;
@@ -146,13 +160,13 @@ public class Book {
         this.publisher = publisher;
     }
 
-    public int getAmount() {
-        return amount;
+    public int getQuantity() {
+        return quantity;
     }
 
     public void setAmount(int amount) {
         if(amount >= 0) {
-            this.amount = amount;
+            this.quantity = amount;
         } else {
             System.out.println("Amount must be greater than 0");
         }
@@ -175,10 +189,10 @@ public class Book {
     }
 
     public boolean isAvailable() {
-        return amount > 0;
+        return quantity > 0;
     }
 
-    public double getRating() {
+    public double getAverageRate() {
         return averageRate;
     }
 
@@ -193,7 +207,7 @@ public class Book {
     @Override
     public String toString() {
         return "Book [id=" + isbn + ", title=" + title + ", author=" + author
-                + ", publisher=" + publisher + ", amount=" + amount
+                + ", publisher=" + publisher + ", quantity=" + quantity
                 + ", category=" + category  + ",averageRate=" + averageRate + "]";
     }
 }

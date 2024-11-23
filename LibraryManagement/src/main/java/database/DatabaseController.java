@@ -3,7 +3,7 @@ package database;
 import Entity.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -12,6 +12,7 @@ import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
+import java.util.List;
 
 public class DatabaseController {
 
@@ -392,14 +393,14 @@ public class DatabaseController {
                 statement.setNull(5, Types.INTEGER);
             }
 
-            statement.setInt(6, book.getAmount()); // quantity
+            statement.setInt(6, book.getQuantity()); // quantity
 
             if (book.getDescription() != null) { //description
                 statement.setString(7, book.getDescription());
             } else {
                 statement.setNull(7, Types.VARCHAR);
             }
-            statement.setDouble(8, book.getRating()); // rating
+            statement.setDouble(8, book.getAverageRate()); // rating
             statement.setString(9, book.getCategory()); // category
 
             statement.executeUpdate();
@@ -419,7 +420,7 @@ public class DatabaseController {
 
         SimpleDateFormat timestampFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // Format for TIMESTAMP
 
-        String insertSQL = "INSERT IGNORE INTO `transaction` (transaction_id, book_id, user_id , type, time, amount) VALUES (?, ?, ?, ?, ?, ?)";
+        String insertSQL = "INSERT IGNORE INTO `transaction` (transaction_id, book_id, username , borrow_time, return_time) VALUES (?, ?, ?, ?, ?)";
 
         try {
             reader = new BufferedReader(new FileReader(pathToCSV));
@@ -433,17 +434,24 @@ public class DatabaseController {
 
                 statement.setInt(1, Integer.parseInt(values[0])); // transaction_id
                 statement.setString(2, values[1]); // book_id
-                statement.setInt(3, Integer.parseInt(values[2])); // user_id
-                statement.setInt(4, Integer.parseInt(values[3])); // type
+                statement.setString(3, values[2]); // username
+
+                Timestamp borrow_Timestamp = null; // time
+                Timestamp return_Timestamp = null;
                 try {
-                    Timestamp timestamp = new Timestamp(timestampFormat.parse(values[4]).getTime()); // time
-                    statement.setTimestamp(5, timestamp); // time
+                    borrow_Timestamp = new Timestamp(timestampFormat.parse(values[3]).getTime());
+                    statement.setTimestamp(4, borrow_Timestamp);
+
+                    if (values[4] != null && !values[4].equalsIgnoreCase("null")) {
+                        return_Timestamp = new Timestamp(timestampFormat.parse(values[4]).getTime());
+                        statement.setTimestamp(5, return_Timestamp);
+                    } else {
+                        statement.setNull(5, java.sql.Types.TIMESTAMP);
+                    }
                 } catch (ParseException e) {
-                    System.out.println("Transaction CSV Cannot parse timestamp!");
+                    System.out.println("SQL query to add transaction failed!");
+                    throw new RuntimeException(e);
                 }
-
-                statement.setInt(6, Integer.parseInt(values[5])); // amount
-
                 statement.addBatch();
 
             }
@@ -460,39 +468,133 @@ public class DatabaseController {
         }
     }
 
-//    public static void addTransaction(Transaction transaction) {
-//        if (transaction == null) {
-//            System.out.println("Transaction is null!");
-//            return;
-//        }
-//
-//        Connection connection = DatabaseController.getConnection();
-//
-//        SimpleDateFormat timestampFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // Format for TIMESTAMP
-//
-//        String sqlQuery = "INSERT IGNORE INTO `transaction` (transaction_id, book_id, user_id , type, time, amount) VALUES (?, ?, ?, ?, ?, ?)";
-//
-//        try {
-//            PreparedStatement statement = connection.prepareStatement(sqlQuery);
-//
-//            statement.setInt(1, transaction.getTransaction_id()); // transaction_id
-//            statement.setString(2, transaction.getBook().getIsbn()); // book_id
-//            statement.setInt(3, transaction.getUser().getPerson_ID()); // user_id
-//            statement.setInt(4, transaction.getType() ? 1 : 0); // type
-//
-//            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-//            statement.setTimestamp(5, timestamp);
-//
-//            statement.setInt(6, transaction.getAmount()); // amount
-//
-//            statement.executeUpdate();
-//            System.out.println("Transaction added to the database successfully.");
-//
-//        } catch (SQLException e) {
-//            System.out.println("SQL query to add transaction failed!");
-//            e.printStackTrace();
-//        }
-//    }
+    public static List<Object[]> getBookForRecommend() {
+        List<Object[]> results = null;
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            session.beginTransaction();
+
+            String hql = "SELECT s.title, s.author, s.category, s.year, s.description, s.averageRate, s.id " +
+                    "FROM Transaction b " +
+                    "JOIN b.book s " +
+                    "GROUP BY s.isbn " +
+                    "ORDER BY COUNT(s.isbn) DESC";
+
+            Query<Object[]> query = session.createQuery(hql, Object[].class);
+            query.setMaxResults(10);
+            session.getTransaction().commit();
+            results = query.getResultList();
+            return results;
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
+
+    public static void addBorrowTransactions(List<Transaction> transactions) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            session.beginTransaction();
+
+            for (Transaction transaction : transactions) {
+                session.save(transaction);
+            }
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
+
+    public static void addReturnTransactions(List<TransactionDTO> transactionDTOs) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            session.beginTransaction();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Timestamp now = new Timestamp(System.currentTimeMillis());
+
+            for (TransactionDTO transactionDTO: transactionDTOs) {
+                String hql = "UPDATE Transaction t SET t.return_time = :returnTime " +
+                        "WHERE t.user.id = :username AND t.book.id = :bookId AND t.borrow_time = :time";
+
+                session.createQuery(hql)
+                        .setParameter("returnTime", now)
+                        .setParameter("username", LibraryManagement.getInstance().getCurrentAccount())
+                        .setParameter("bookId", transactionDTO.getBookId())
+                        .setParameter("time", new Timestamp(sdf.parse(transactionDTO.getBorrowDate()).getTime()))
+                        .executeUpdate();
+            }
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            System.out.println("Error while adding transactions to the database!");
+        } finally {
+            session.close();
+        }
+    }
+
+    public static void updateBookAmountAfterBorrowed(List<String> booksID, boolean type) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+
+            for (String bookID : booksID) {
+                Book persistentBook = session.get(Book.class, bookID);
+
+                if (persistentBook != null) {
+                    if (type) {
+                        persistentBook.setAmount(persistentBook.getQuantity() + 1);
+                        System.out.println("return");
+                    } else {
+                        persistentBook.setAmount(persistentBook.getQuantity() - 1);
+                        System.out.println("borrow");
+                    }
+                }
+            }
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (session.getTransaction() != null) session.getTransaction().rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+    }
+
+    public static void addBookComment(Comment comment) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+
+            session.save(comment);
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (session.getTransaction() != null) session.getTransaction().rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+
+    }
 
     public static void importCommentCSVtoDB(String pathToCSV) throws SQLException, IOException {
         Connection connection = DatabaseController.getConnection();
@@ -500,7 +602,7 @@ public class DatabaseController {
         PreparedStatement statement = null;
         String line;
 
-        String insertSQL = "INSERT IGNORE INTO `book_comment` (comment_id, book_id, user_id , book_comment, rate) VALUES (?, ?, ?, ?, ?)";
+        String insertSQL = "INSERT IGNORE INTO `book_comment` (comment_id, book_id, username , book_comment, rate) VALUES (?, ?, ?, ?, ?)";
 
         try {
             reader = new BufferedReader(new FileReader(pathToCSV));
@@ -514,7 +616,7 @@ public class DatabaseController {
 
                 statement.setInt(1, Integer.parseInt(values[0]));
                 statement.setString(2, values[1]);
-                statement.setInt(3, Integer.parseInt(values[2]));
+                statement.setString(3, values[2]);
                 statement.setString(4, values[3]);
                 statement.setDouble(5, Double.parseDouble(values[4]));
 
@@ -557,71 +659,37 @@ public class DatabaseController {
         }
     }
 
-//    public static void importAnnouncementCSVtoDB(String pathToCSV) throws SQLException, IOException {
-//        Connection connection = DatabaseController.getConnection();
-//        BufferedReader reader = null;
-//        PreparedStatement statement = null;
-//        String line;
-//
-//        String insertSQL = "INSERT IGNORE INTO `book_comment` (comment_id, book_id, user_id , book_comment, rate) VALUES (?, ?, ?, ?, ?)";
-//
-//        try {
-//            reader = new BufferedReader(new FileReader(pathToCSV));
-//
-//            reader.readLine();
-//
-//            statement = connection.prepareStatement(insertSQL);
-//
-//            while ((line = reader.readLine()) != null) {
-//                String[] values = line.split("##@#@");
-//
-//                statement.setInt(1, Integer.parseInt(values[0]));
-//                statement.setString(2, values[1]);
-//                statement.setInt(3, Integer.parseInt(values[2]));
-//                statement.setString(4, values[3]);
-//                statement.setDouble(5, Double.parseDouble(values[4]));
-//
-//            }
-//
-//            statement.executeBatch();
-//            System.out.println("Import CSV transaction to DB executed successfully.");
-//        } finally {
-//            if (reader != null) {
-//                reader.close();
-//            }
-//            if (statement != null) {
-//                statement.close();
-//            }
-//        }
-//    }
-//
-//    public static void addAnnouncement() {
-//        Connection connection = DatabaseController.getConnection();
-//
-//        String sqlQuery = "INSERT IGNORE INTO `book_comment` (book_id, user_id, book_comment, rate) VALUES (?, ?, ?, ?)";
-//
-//        try {
-//            PreparedStatement statement = connection.prepareStatement(sqlQuery);
-//
-//            statement.setString(1, book_id);
-//            statement.setInt(2, Integer.parseInt(user_id));
-//            statement.setString(3, comment);
-//            statement.setDouble(4, rating);
-//
-//            statement.executeUpdate();
-//
-//            System.out.println("Comment added to the database successfully.");
-//
-//        } catch (SQLException e) {
-//            System.out.println("SQL query to add comment failed!");
-//            e.printStackTrace();
-//        }
-//    }
+    public static Person getCurrentUser() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Person user = null;
+        try {
+            session.beginTransaction();
+            String username = LibraryManagement.getInstance().getCurrentAccount();
+
+            String hql = "FROM Person WHERE username = :username";
+            Query<Person> query = session.createQuery(hql, Person.class);
+            query.setParameter("username", username);
+
+            user = query.uniqueResult();
+
+            session.getTransaction().commit();
+
+            return user;
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
+
 
     public static void importDataFromCSV() {
         try {
-            importUserCSVToDB(userCSVPath);
             importAccountCSVtoBD(accountCSVPath);
+            importUserCSVToDB(userCSVPath);
             importBookCSVtoDB(bookCSVPath);
             importTransactionCSVtoDB(transactionCSVPath);
             importCommentCSVtoDB(book_commentCSVPath);
@@ -741,99 +809,162 @@ public class DatabaseController {
         LibraryManagement.getInstance().setCurrentPassword(password);
     }
 
-    public static void main(String[] args) {
+    public static List<Book> getAllBooks() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        List<Book> books = null;
 
-//
-//        DatabaseController.getConnection();
-//        createTables(SQL_FILE);
-//        Statement query = null;
-//        ResultSet resultSet = null;
-//        try {
-//            Statement useDatabaseStatement = connection.createStatement();
-//            useDatabaseStatement.execute("USE library");
-//            query = DatabaseController.getConnection().createStatement();
-//            resultSet = query.executeQuery("SELECT * from transaction");
-//        } catch (SQLException e) {
-//            System.out.println(e.getCause());
-//        }
-//        try {
-//            ExportResultSetToCSV(resultSet, transactionCSVPath);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
-        DatabaseController.getConnection();
-
-
-//        createTables(SQL_FILE);
-//        Statement query = null;
-//        ResultSet resultSetAccount = null;
-//        ResultSet resultSetUser = null;
-        ResultSet resultSetBook = null;
-//        ResultSet resultSetTransaction = null;
-//        ResultSet resultSetComment = null;
         try {
-
-            Statement useDatabaseStatement = connection.createStatement();
-            useDatabaseStatement.execute("USE library");
-
-            importDataFromCSV();
-
-//            Account account = new Account.Builder()
-//                    .account_ID("002")
-//                    .username("admin001")
-//                    .password("Admin001")
-//                    .typeAccount("admin").build();
-//
-//            Person user = new Person.Builder<>()
-//                    .person_ID("1")
-//                    .name("NVP")
-//                    .build();
-//
-//            Book book = new Book.Builder("001")
-//                    .title("First BOOK")
-//                    .amount(100)
-//                    .category("Fun")
-//                    .build();
-
-//            user.setAccount(account);
-//            account.setOwner(user);
-//
-//            Transaction transaction = new Transaction(1, "001", 1, true, 10);
-
-//            DatabaseController.addUser(user);
-//            DatabaseController.addAccount(account);
-//            DatabaseController.addBook(book);
-//            DatabaseController.addTransaction(transaction);
-//            DatabaseController.addComment("001", "1", "hay", 4.5);
-//            DatabaseController.addComment("001", "1", "khong hay", 1);
-
-//            query = DatabaseController.getConnection().createStatement();
-            Statement otherQuery = DatabaseController.getConnection().createStatement();
-            Statement anotherQuery = DatabaseController.getConnection().createStatement();
-            Statement otherQuery2 = DatabaseController.getConnection().createStatement();
-            Statement otherQuery3 = DatabaseController.getConnection().createStatement();
-//            resultSetAccount = query.executeQuery("SELECT * from account");
-//            resultSetUser = otherQuery.executeQuery("SELECT * from user");
-            resultSetBook = anotherQuery.executeQuery("SELECT * from book");
-//            resultSetTransaction = otherQuery2.executeQuery("SELECT * from transaction");
-//            resultSetComment = otherQuery3.executeQuery("SELECT * from book_comment");
-
-        } catch (SQLException e) {
-            System.out.println("SQL: " + e.getCause());
-            e.printStackTrace();
-        }
-        try {
-//            ExportResultSetToCSV(resultSetAccount, accountCSVPath);
-//            ExportResultSetToCSV(resultSetUser, userCSVPath);
-            ExportResultSetToCSV(resultSetBook, bookCSVPath);
-//            ExportResultSetToCSV(resultSetTransaction, transactionCSVPath);
-//            ExportResultSetToCSV(resultSetComment, book_commentCSVPath);
+            session.beginTransaction();
+            books = session.createQuery("from Book", Book.class).getResultList();
+            session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return books;
+    }
+
+    public static List<Book> searchBook(String isbn, String title, String author, String category, String year) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            session.beginTransaction();
+
+            StringBuilder stringBuilder = new StringBuilder("FROM Book b WHERE 1=1");
+
+            if (isbn != null) {
+                stringBuilder.append(" AND b.isbn LIKE :isbn");
+                System.out.println("isbn" + isbn);
+            }
+            if (title != null) {
+                stringBuilder.append(" AND b.title LIKE :title");
+                System.out.println(title);
+            }
+            if (author != null) {
+                stringBuilder.append(" AND b.author LIKE :author");
+            }
+            if (category != null) {
+                stringBuilder.append(" AND b.category LIKE :category");
+            }
+            if (year != null) {
+                stringBuilder.append(" AND b.year = :year");
+            }
+
+            Query<Book> query = session.createQuery(stringBuilder.toString(), Book.class);
+
+            if (isbn != null) {
+                query.setParameter("isbn", "%" + isbn + "%");
+            }
+            if (title != null) {
+                query.setParameter("title", "%" + title + "%");
+            }
+            if (author != null) {
+                query.setParameter("author", "%" + author + "%");
+            }
+            if (category != null) {
+                query.setParameter("category", "%" + category + "%");
+            }
+            if (year != null) {
+                query.setParameter("year", Integer.parseInt(year));
+            }
+
+            List<Book> books = query.list();
+
+            session.getTransaction().commit();
+            return books;
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
         }
     }
 
+    public static List<Transaction> getFilteredBorrowTransactions(String title, String author, String category, String isbn, String username) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            session.beginTransaction();
+
+            StringBuilder stringBuilder = new StringBuilder("FROM Transaction b WHERE 1=1");
+
+            stringBuilder.append(" AND b.user.username =:username");
+
+            if (isbn != null) {
+                stringBuilder.append(" AND b.book.isbn LIKE :isbn");
+                System.out.println("isbn" + isbn);
+            }
+            if (title != null) {
+                stringBuilder.append(" AND b.book.title LIKE :title");
+                System.out.println(title);
+            }
+            if (author != null) {
+                stringBuilder.append(" AND b.book.author LIKE :author");
+            }
+            if (category != null) {
+                stringBuilder.append(" AND b.book.category LIKE :category");
+            }
+
+            Query<Transaction> query = session.createQuery(stringBuilder.toString(), Transaction.class);
+
+            query.setParameter("username", username);
+
+            if (isbn != null) {
+                query.setParameter("isbn", "%" + isbn + "%");
+            }
+            if (title != null) {
+                query.setParameter("title", "%" + title + "%");
+            }
+            if (author != null) {
+                query.setParameter("author", "%" + author + "%");
+            }
+            if (category != null) {
+                query.setParameter("category", "%" + category + "%");
+            }
+
+            List<Transaction> transactions = query.list();
+
+            session.getTransaction().commit();
+            return transactions;
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+
+    }
+
+    public static boolean hadComment(String username, String bookIsbn) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            session.beginTransaction();
+
+            String hql = "FROM Transaction t WHERE t.user.username =:username AND t.book.id = :bookIsbn";
+            Query<Transaction> query = session.createQuery(hql, Transaction.class);
+            query.setParameter("username", username);
+            query.setParameter("bookIsbn", bookIsbn);
+
+            List<Transaction> transactions = query.list();
+            session.getTransaction().commit();
+
+            return !transactions.isEmpty();
+
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
 
 
 }
