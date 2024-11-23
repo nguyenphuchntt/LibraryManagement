@@ -174,6 +174,9 @@ public class BookReturnController {
             }
         }
         if (alert.isEmpty()) {
+            for (TransactionDTO transactionDTO : transactions) {
+                toReturnBookID.add(transactionDTO.getBookId());
+            }
             DatabaseController.addReturnTransactions(transactions);
             DatabaseController.updateBookAmountAfterBorrowed(toReturnBookID, true);
             PopupController.showSuccessAlert("Returned " + transactions.size() + " books successfully");
@@ -182,7 +185,7 @@ public class BookReturnController {
             PopupController.showSuccessAlert(alert.toString() + "had been returned!");
         }
     }
-
+    
     @FXML
     private void handlePostComment() {
         if (bookIDInComment_TextField.getText().isEmpty()) {

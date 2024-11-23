@@ -560,8 +560,10 @@ public class DatabaseController {
                 if (persistentBook != null) {
                     if (type) {
                         persistentBook.setAmount(persistentBook.getQuantity() + 1);
+                        System.out.println("return");
                     } else {
                         persistentBook.setAmount(persistentBook.getQuantity() - 1);
+                        System.out.println("borrow");
                     }
                 }
             }
