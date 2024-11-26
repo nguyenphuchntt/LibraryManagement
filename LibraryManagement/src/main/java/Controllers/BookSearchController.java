@@ -3,11 +3,8 @@ package Controllers;
 import Entity.Book;
 import Entity.Person;
 import Entity.Transaction;
-import Utils.AccountUserUtils;
-import Utils.BookUtils;
-import Utils.TransactionUtils;
+import Utils.*;
 import database.DatabaseController;
-import Utils.HibernateUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -202,7 +199,7 @@ public class BookSearchController {
         author_Text.setText("Author: " + book[1].toString() + '\n');
         category_Text.setText("Category: " + book[2].toString() + '\n');
         publishedYear_Text.setText("Published Year: " + book[3].toString() + '\n');
-        description_Text.setText("Description: " + (book[4].toString().length() > 500 ? book[4].toString().substring(0, 500) + "..." : book[4].toString()) + '\n');
+        description_Text.setText("Description: " + FormatUtils.getShortDescription(book[4].toString(), 500) + '\n');
 
         ratingStar_Label.setText("Rating: " + book[5].toString());
         if (book[7] != null) {
