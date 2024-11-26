@@ -2,7 +2,9 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -18,7 +20,6 @@
                         <Label layoutX="394.0" layoutY="73.0" text="THEME" />
                         <TextField fx:id="title_TextField" layoutX="125.0" layoutY="69.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book title" />
                         <TextField fx:id="author_TextField" layoutX="125.0" layoutY="105.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book author" />
-                        <TextField fx:id="description_TextField" alignment="TOP_LEFT" layoutX="125.0" layoutY="186.0" prefHeight="106.0" prefWidth="238.0" promptText="Enter book description" />
                         <Button layoutX="498.0" layoutY="69.0" mnemonicParsing="false" text="Upload File" />
                         <Label layoutX="611.0" layoutY="73.0" prefHeight="16.0" prefWidth="67.0" style="-fx-background-color: #fffcfe;" />
                         <Label layoutX="21.0" layoutY="149.0" text="AMOUNT" />
@@ -33,6 +34,8 @@
                   <Label fx:id="alterMessage_Label" alignment="CENTER" contentDisplay="CENTER" layoutX="163.0" layoutY="310.0" prefHeight="16.0" prefWidth="463.0" textAlignment="CENTER" />
                   <Label layoutX="393.0" layoutY="190.0" text="PUBLISHER" />
                   <TextField fx:id="publisher_TextField" layoutX="499.0" layoutY="186.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter a number" />
+                  <TextArea fx:id="description_TextArea" layoutX="125.0" layoutY="186.0" prefHeight="145.0" prefWidth="238.0" promptText="Description" />
+                  <ImageView fx:id="thumbnail_ImageView" fitHeight="190.0" fitWidth="160.0" layoutX="533.0" layoutY="256.0" pickOnBounds="true" preserveRatio="true" />
                     </children>
                 </AnchorPane>
                 <Label layoutX="40.0" layoutY="70.0" text="CHANGE BOOK PROPERTIES">

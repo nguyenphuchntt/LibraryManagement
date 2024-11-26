@@ -21,7 +21,7 @@ public class AdminAlterBookController {
     private TextField author_TextField;
 
     @FXML
-    private TextField description_TextField;
+    private TextArea description_TextArea;
 
     @FXML
     private TextField amount_TextField;
@@ -49,7 +49,7 @@ public class AdminAlterBookController {
         search_TextField.clear();
         title_TextField.clear();
         author_TextField.clear();
-        description_TextField.clear();
+        description_TextArea.clear();
         amount_TextField.clear();
         category_TextField.clear();
         year_TextField.clear();
@@ -98,7 +98,7 @@ public class AdminAlterBookController {
                 }
 
                 if (resultSet.getString("description") != null) {
-                    description_TextField.setText(resultSet.getString("description"));
+                    description_TextArea.setText(resultSet.getString("description"));
                 }
 
                 category_TextField.setText(resultSet.getString("category"));
@@ -143,7 +143,7 @@ public class AdminAlterBookController {
 
         String newTitle = title_TextField.getText().isEmpty() ? null : title_TextField.getText();
         String newAuthor = author_TextField.getText().isEmpty() ? null : author_TextField.getText();
-        String newDescription = description_TextField.getText().isEmpty() ? null : description_TextField.getText();
+        String newDescription = description_TextArea.getText().isEmpty() ? null : description_TextArea.getText();
         String newCategory = category_TextField.getText().isEmpty() ? null : category_TextField.getText();
         String newYearText = year_TextField.getText().isEmpty() ? null : year_TextField.getText();
         String newPublisher = publisher_TextField.getText().isEmpty() ? null : publisher_TextField.getText();

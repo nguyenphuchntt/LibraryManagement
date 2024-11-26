@@ -366,50 +366,23 @@ public class DatabaseController {
             return;
         }
 
-        Connection connection = DatabaseController.getConnection();
-
-        String sqlQuery = "INSERT IGNORE INTO `book` (book_id, book_title, author , publisher, year, quantity, description, averageRating, category) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        Session session = HibernateUtil.getSessionFactory().openSession();
 
         try {
-            PreparedStatement statement = connection.prepareStatement(sqlQuery);
+            session.beginTransaction();
 
-            statement.setString(1, book.getIsbn()); //book_id
-            statement.setString(2, book.getTitle()); //book_title
+            session.save(book);
 
-            if (book.getAuthor() != null) {// author
-                statement.setString(3, book.getAuthor());
-            } else {
-                statement.setNull(3, Types.VARCHAR);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
             }
-
-            if (book.getPublisher() != null) {// publisher
-                statement.setString(4, book.getPublisher());
-            } else {
-                statement.setNull(4, Types.VARCHAR);
-            }
-            if (book.getYear() != 0) { // year
-                statement.setInt(5, book.getYear());
-            } else {
-                statement.setNull(5, Types.INTEGER);
-            }
-
-            statement.setInt(6, book.getQuantity()); // quantity
-
-            if (book.getDescription() != null) { //description
-                statement.setString(7, book.getDescription());
-            } else {
-                statement.setNull(7, Types.VARCHAR);
-            }
-            statement.setDouble(8, book.getAverageRate()); // rating
-            statement.setString(9, book.getCategory()); // category
-
-            statement.executeUpdate();
-            System.out.println("Book added to the database successfully.");
-
-        } catch (SQLException e) {
-            System.out.println("SQL query to add book failed!");
-            e.printStackTrace();
+            throw e;
+        } finally {
+            session.close();
         }
+
     }
 
     public static void importTransactionCSVtoDB(String pathToCSV) throws SQLException, IOException {
@@ -964,6 +937,31 @@ public class DatabaseController {
         } finally {
             session.close();
         }
+    }
+
+    public static Book getBookByISBN(String isbn) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            session.beginTransaction();
+
+            Book book = session.get(Book.class, isbn);
+
+            session.getTransaction().commit();
+            return book;
+
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
+
+    public static boolean hadBook(String isbn) {
+        return getBookByISBN(isbn) != null;
     }
 
 
