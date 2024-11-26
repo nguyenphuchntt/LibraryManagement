@@ -9,6 +9,9 @@ public class FormatUtils {
         int i = 0;
         try {
             i = Integer.parseInt(value);
+            if (i < 0) {
+                throw new NumberFormatException();
+            }
         } catch (NumberFormatException e) {
             throw new NumberFormatException();
         }

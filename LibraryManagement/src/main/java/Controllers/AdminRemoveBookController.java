@@ -1,5 +1,6 @@
 package Controllers;
 
+import Utils.FormatUtils;
 import database.DatabaseController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,11 +33,7 @@ public class AdminRemoveBookController {
         String bookID = bookID_TextField.getText();
         int amount = 0;
         try {
-            amount = Integer.parseInt(amount_TextField.getText());
-            if (amount < 0) {
-                removeMessage_Label.setText("Invalid Amount");
-                return;
-            }
+            amount = FormatUtils.StringToInteger(amount_TextField.getText());
         } catch (NumberFormatException e) {
             removeMessage_Label.setText("Please enter a valid number");
             return;

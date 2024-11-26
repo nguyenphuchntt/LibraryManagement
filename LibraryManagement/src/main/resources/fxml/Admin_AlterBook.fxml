@@ -28,7 +28,7 @@
                         <TextField fx:id="category_TextField" layoutX="500.0" layoutY="69.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book category" />
                         <TextField fx:id="search_TextField" layoutX="14.0" layoutY="14.0" prefHeight="24.0" prefWidth="429.0" promptText="Enter book ID / ISBN" />
                         <Button fx:id="search_Button" layoutX="467.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleSearch" text="Search" />
-                  <Label fx:id="alterMessage_Label" alignment="CENTER" contentDisplay="CENTER" layoutX="155.0" layoutY="339.0" prefHeight="16.0" prefWidth="463.0" textAlignment="CENTER" />
+                  <Label fx:id="alterMessage_Label" alignment="CENTER" contentDisplay="CENTER" layoutX="165.0" layoutY="461.0" prefHeight="16.0" prefWidth="463.0" textAlignment="CENTER" />
                   <Label layoutX="396.0" layoutY="149.0" text="PUBLISHER" />
                   <TextField fx:id="publisher_TextField" layoutX="500.0" layoutY="145.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter a number" />
                   <TextArea fx:id="description_TextArea" layoutX="36.0" layoutY="216.0" prefHeight="237.0" prefWidth="463.0" promptText="Description" wrapText="true" />

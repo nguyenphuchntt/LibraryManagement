@@ -2,6 +2,7 @@ package Controllers;
 
 import Entity.Book;
 import Utils.BookUtils;
+import Utils.FormatUtils;
 import database.DatabaseController;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -142,16 +143,8 @@ public class AdminAlterBookController {
         int year = 0;
         int quantity = 0;
         try {
-            if (newQuantity == null || newQuantity.isEmpty()) {
-                throw new NumberFormatException();
-            }
-            quantity = Integer.parseInt(newQuantity);
-            if (newYearText != null && !newYearText.isEmpty()) {
-                year = Integer.parseInt(newYearText);
-            }
-            if (quantity < 0) {
-                throw new NumberFormatException();
-            }
+            year = FormatUtils.StringToInteger(newYearText);
+            quantity = FormatUtils.StringToInteger(newQuantity);
         } catch (NumberFormatException e) {
             alterMessage_Label.setText("Please enter a valid number!");
             return;
