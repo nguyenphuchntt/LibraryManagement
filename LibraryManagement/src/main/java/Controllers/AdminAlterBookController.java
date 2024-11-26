@@ -138,92 +138,41 @@ public class AdminAlterBookController {
         String newPublisher = publisher_TextField.getText().isEmpty() ? null : publisher_TextField.getText();
         String newQuantity = amount_TextField.getText().isEmpty() ? null : amount_TextField.getText();
 
-        String sqlQueryUpdate = "UPDATE book SET book_title = ?, author = ?, description = ?, category = ?, year = ?, publisher = ?, quantity = ? WHERE book_id = ?";
+        int year = 0;
+        int quantity = 0;
         try {
-
-            Connection connection = DatabaseController.getConnection();
-            Statement useDatabaseStatement = connection.createStatement();
-            useDatabaseStatement.execute("USE library");
-
-            PreparedStatement updateStatement = connection.prepareStatement(sqlQueryUpdate);
-
-
-            if (newTitle != null) {
-                updateStatement.setString(1, newTitle);
-            } else {
-                alterMessage_Label.setText("Title, Category, Quantity must not be null");
-                return;
+            if (newQuantity == null || newQuantity.isEmpty()) {
+                throw new NumberFormatException();
             }
-
-            if (newAuthor != null) {
-                updateStatement.setString(2, newAuthor);
-            } else {
-                updateStatement.setNull(2, java.sql.Types.VARCHAR);
+            quantity = Integer.parseInt(newQuantity);
+            if (newYearText != null && !newYearText.isEmpty()) {
+                year = Integer.parseInt(newYearText);
             }
-
-            if (newDescription != null) {
-                updateStatement.setString(3, newDescription);
-            } else {
-                updateStatement.setNull(3, java.sql.Types.VARCHAR);
+            if (quantity < 0) {
+                throw new NumberFormatException();
             }
-
-            if (newCategory != null) {
-                updateStatement.setString(4, newCategory);
-            } else {
-                alterMessage_Label.setText("Title, Category, Quantity must not be null");
-                return;
-            }
-
-            if (newYearText != null) {
-                try {
-                    int newYear = Integer.parseInt(newYearText);
-                    if (newYear < 0) {
-                        alterMessage_Label.setText("Year must be greater than 0");
-                        return;
-                    }
-                    updateStatement.setInt(5, newYear);
-                } catch (NullPointerException e) {
-                    alterMessage_Label.setText("Incorrect year format");
-                    return;
-                }
-            } else {
-                updateStatement.setNull(5, java.sql.Types.INTEGER);
-            }
-
-            if (newPublisher != null) {
-                updateStatement.setString(6, newPublisher);
-            } else {
-                updateStatement.setNull(6, java.sql.Types.VARCHAR);
-            }
-
-            if (newQuantity != null) {
-                try {
-                    int quantity = Integer.parseInt(newQuantity);
-                    if (quantity < 0) {
-                        alterMessage_Label.setText("Quantity must be greater than 0");
-                        return;
-                    }
-                    updateStatement.setInt(7, quantity);
-                } catch (NumberFormatException e) {
-                    alterMessage_Label.setText("Incorrect quantity format");
-                    return;
-                }
-            } else {
-                alterMessage_Label.setText("Title, Category, Quantity must not be null");
-                return;
-            }
-
-            updateStatement.setString(8, book_id);
-
-            updateStatement.executeUpdate();
-
-            PopupController.showSuccessAlert("Change book properties successfully!");
-            cleanUp();
-
-        } catch (SQLException e) {
-            System.out.println("SQLException -> change book properties function of AdminAlterBook controller: " + e.getMessage());
+        } catch (NumberFormatException e) {
+            alterMessage_Label.setText("Please enter a valid number!");
             return;
         }
-    }
 
+        if (newTitle == null || newTitle.isEmpty()) {
+            alterMessage_Label.setText("Please enter a valid title!");
+            return;
+        }
+
+        Book changedBook = new Book.Builder(book_id)
+                .title(newTitle)
+                .author(newAuthor)
+                .category(newCategory)
+                .year(year)
+                .description(newDescription)
+                .amount(quantity)
+                .publisher(newPublisher)
+                .build();
+
+        DatabaseController.alterBook(changedBook);
+        PopupController.showSuccessAlert("Change book properties successfully!");
+        cleanUp();
+    }
 }

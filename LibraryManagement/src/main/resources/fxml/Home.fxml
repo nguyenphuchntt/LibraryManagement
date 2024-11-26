@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.LineChart?>
-<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Pagination?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800" minWidth="1100" prefHeight="800.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.HomeController">
     <children>
@@ -28,25 +24,12 @@
                         <Label layoutY="90.0" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #dadada;" text="Returned" textFill="RED" />
                     </children>
                 </AnchorPane>
-                <TableView layoutX="80.0" layoutY="199.0" prefHeight="239.0" prefWidth="741.0">
-                    <columns>
-                        <TableColumn prefWidth="170.0" text="Book Name" />
-                        <TableColumn prefWidth="100.0" text="Book ID" />
-                        <TableColumn prefWidth="170.0" text="Borrow Date" />
-                        <TableColumn prefWidth="100.0" text="Due Date" />
-                        <TableColumn prefWidth="100.0" text="User ID" />
-                        <TableColumn prefWidth="100.0" text="Status" />
-                    </columns>
-                </TableView>
-                <Pagination layoutX="750.0" layoutY="438.0" maxPageIndicatorCount="3" pageCount="100" prefHeight="29.0" prefWidth="70.0" />
-                <LineChart layoutX="80.0" layoutY="484.0" prefHeight="233.0" prefWidth="741.0">
-                    <xAxis>
-                        <CategoryAxis side="BOTTOM" />
-                    </xAxis>
-                    <yAxis>
-                        <NumberAxis side="LEFT" tickLabelGap="1.0" upperBound="25.0" />
-                    </yAxis>
-                </LineChart>
+            <Label layoutX="42.0" layoutY="217.0" text="Messages">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <ListView layoutX="41.0" layoutY="262.0" prefHeight="437.0" prefWidth="818.0" />
             </children>
         </AnchorPane>
     </children>

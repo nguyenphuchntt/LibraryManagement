@@ -964,5 +964,32 @@ public class DatabaseController {
         return getBookByISBN(isbn) != null;
     }
 
+    public static void alterBook(Book book) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
 
+        try {
+            session.beginTransaction();
+
+            Book bookToUpdate = session.get(Book.class, book.getIsbn());
+
+            bookToUpdate.setTitle(book.getTitle());
+            bookToUpdate.setAuthor(book.getAuthor());
+            bookToUpdate.setCategory(book.getCategory());
+            bookToUpdate.setYear(book.getYear());
+            bookToUpdate.setAmount(book.getQuantity());
+            bookToUpdate.setDescription(book.getDescription());
+            bookToUpdate.setPublisher(book.getPublisher());
+
+            session.update(bookToUpdate);
+            session.getTransaction().commit();
+
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
 }

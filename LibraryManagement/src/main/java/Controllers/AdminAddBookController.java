@@ -51,6 +51,7 @@ public class AdminAddBookController {
     @FXML
     private void handleSearch() {
         addBookMessage_Label.setText("");
+        cleanUp();
         String isbn = bookId_TextField.getText();
         if (isbn.trim().isEmpty() || isbn.matches(".*[^0-9].*")) {
             addBookMessage_Label.setText("Invalid Book ID");
@@ -73,7 +74,6 @@ public class AdminAddBookController {
     @FXML
     private void handleAdd() {
         String isbn = bookId_TextField.getText();
-        String title = bookTitle_TextField.getText();
         String amount = amount_TextField.getText();
         try {
             int amountInt = Integer.parseInt(amount);
@@ -85,14 +85,22 @@ public class AdminAddBookController {
             addBookMessage_Label.setText("Invalid Amount");
             return;
         }
+
+        if (PopupController.showConfirmationDialog()) {
+            return;
+        }
+
         if (DatabaseController.hadBook(isbn)) {
             addBookMessage_Label.setText("Book already exists. You can switch to \"Change book\" tab to edit this book!");
             return;
         }
         if (selected) {
-            System.out.println("h");
-            System.out.println(book.toString());
+            if (!isbn.equalsIgnoreCase(book.getIsbn())) {
+                addBookMessage_Label.setText("You should not change the book ID");
+                return;
+            }
             DatabaseController.addBook(book);
+            cleanUp();
         }
     }
 
@@ -114,5 +122,7 @@ public class AdminAddBookController {
         description_TextArea.clear();
         category_TextField.clear();
         amount_TextField.clear();
+        book = null;
+        selected = false;
     }
 }
