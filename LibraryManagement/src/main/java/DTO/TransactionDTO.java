@@ -1,6 +1,7 @@
-package Entity;
+package DTO;
 
-import database.DatabaseController;
+import Entity.Book;
+import Entity.Transaction;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;

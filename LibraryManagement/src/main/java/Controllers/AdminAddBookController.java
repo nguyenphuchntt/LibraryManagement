@@ -1,7 +1,8 @@
 package Controllers;
 
 import Entity.Book;
-import api.APIUtil;
+import Utils.APIUtil;
+import Utils.BookUtils;
 import database.DatabaseController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -51,7 +52,6 @@ public class AdminAddBookController {
     @FXML
     private void handleSearch() {
         addBookMessage_Label.setText("");
-        cleanUp();
         String isbn = bookId_TextField.getText();
         if (isbn.trim().isEmpty() || isbn.matches(".*[^0-9].*")) {
             addBookMessage_Label.setText("Invalid Book ID");
@@ -90,7 +90,7 @@ public class AdminAddBookController {
             return;
         }
 
-        if (DatabaseController.hadBook(isbn)) {
+        if (BookUtils.hadBook(isbn)) {
             addBookMessage_Label.setText("Book already exists. You can switch to \"Change book\" tab to edit this book!");
             return;
         }
@@ -99,8 +99,7 @@ public class AdminAddBookController {
                 addBookMessage_Label.setText("You should not change the book ID");
                 return;
             }
-            DatabaseController.addBook(book);
-            cleanUp();
+            BookUtils.addBook(book);
         }
     }
 

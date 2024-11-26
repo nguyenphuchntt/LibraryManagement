@@ -1,6 +1,7 @@
 package Controllers;
 
 import Entity.LibraryManagement;
+import Utils.AccountUserUtils;
 import database.DatabaseController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,7 +36,7 @@ public class LoginController {
 
         Connection connection = DatabaseController.getConnection();
 
-        boolean loginSuccessful = DatabaseController.isExistedAccount(username, password);
+        boolean loginSuccessful = AccountUserUtils.isExistedAccount(username, password);
 
         if (!loginSuccessful) {
             loginMessage_Label.setText("Invalid username or password");

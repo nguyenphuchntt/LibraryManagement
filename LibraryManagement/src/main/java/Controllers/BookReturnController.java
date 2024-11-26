@@ -1,8 +1,10 @@
 package Controllers;
 
+import DTO.TransactionDTO;
 import Entity.*;
-import database.DatabaseController;
-import javafx.collections.FXCollections;
+import Utils.AccountUserUtils;
+import Utils.BookUtils;
+import Utils.TransactionUtils;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -145,7 +147,7 @@ public class BookReturnController {
         String category = category_TextField.getText().isEmpty() ? null : category_TextField.getText();
 
         String currentUsername = LibraryManagement.getInstance().getCurrentAccount();
-        transactionList = DatabaseController.getFilteredBorrowTransactions(
+        transactionList = TransactionUtils.getFilteredBorrowTransactions(
                 title, author, category, isbn, currentUsername
         );
 
@@ -160,13 +162,13 @@ public class BookReturnController {
             return;
         }
         if (transactions.isEmpty()) {
-            PopupController.showSuccessAlert("No books are selected");
+            PopupController.showAlert("No books are selected");
         }
         List<String> toReturnBookID = new ArrayList<>();
-        Person currentUser = DatabaseController.getCurrentUser();
+        Person currentUser = AccountUserUtils.getCurrentUser();
         StringBuilder alert = new StringBuilder();
         if (currentUser == null) {
-            PopupController.showSuccessAlert("User is null");
+            PopupController.showAlert("User is null");
         }
         for (TransactionDTO transactionDTO : transactions) {
             if (transactionDTO.getStatus().equalsIgnoreCase("Returned")) {
@@ -177,12 +179,12 @@ public class BookReturnController {
             for (TransactionDTO transactionDTO : transactions) {
                 toReturnBookID.add(transactionDTO.getBookId());
             }
-            DatabaseController.addReturnTransactions(transactions);
-            DatabaseController.updateBookAmountAfterBorrowed(toReturnBookID, true);
-            PopupController.showSuccessAlert("Returned " + transactions.size() + " books successfully");
+            TransactionUtils.addReturnTransactions(transactions);
+            BookUtils.updateBookAmountAfterBorrowed(toReturnBookID, true);
+            PopupController.showAlert("Returned " + transactions.size() + " books successfully");
             cleanUp();
         } else {
-            PopupController.showSuccessAlert(alert.toString() + "had been returned!");
+            PopupController.showAlert(alert.toString() + "had been returned!");
         }
     }
     
@@ -221,8 +223,8 @@ public class BookReturnController {
             comment = null;
             return;
         }
-        DatabaseController.addBookComment(comment);
-        PopupController.showSuccessAlert("Posted comment successfully");
+        BookUtils.addBookComment(comment);
+        PopupController.showAlert("Posted comment successfully");
         cleanUp();
     }
 

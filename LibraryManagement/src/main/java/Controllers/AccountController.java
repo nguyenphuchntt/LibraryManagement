@@ -3,6 +3,7 @@ package Controllers;
 import Entity.Account;
 import Entity.LibraryManagement;
 import Entity.Person;
+import Utils.AccountUserUtils;
 import database.DatabaseController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -61,7 +62,7 @@ public class AccountController {
     public void refreshInfo() {
         cleanUp();
 
-        Person currentUser = DatabaseController.getUserInfo(LibraryManagement.getInstance().getCurrentAccount());
+        Person currentUser = AccountUserUtils.getUserInfo(LibraryManagement.getInstance().getCurrentAccount());
 
         name_Label.setText("NAME: " + currentUser.getName());
 
@@ -69,7 +70,7 @@ public class AccountController {
 
         department_Label.setText("DEPARTMENT: " + currentUser.getDepartment());
 
-        Account currentAccount = DatabaseController.getAccountInfo(LibraryManagement.getInstance().getCurrentAccount());
+        Account currentAccount = AccountUserUtils.getAccountInfo(LibraryManagement.getInstance().getCurrentAccount());
 
         usedTime_Label.setText("JOINED TIME: " + currentAccount.getJoined_date());
     }
@@ -107,7 +108,7 @@ public class AccountController {
             return;
         }
         String username = LibraryManagement.getInstance().getCurrentAccount();
-        DatabaseController.changePassword(username, newPassword);
+        AccountUserUtils.changePassword(username, newPassword);
         cleanUp();
     }
 

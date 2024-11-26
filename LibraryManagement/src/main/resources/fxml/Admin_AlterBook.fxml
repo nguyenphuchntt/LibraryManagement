@@ -10,9 +10,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800" minWidth="1100" prefHeight="800.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AdminAlterBookController">
     <children>
-        <AnchorPane layoutX="200.0" layoutY="45.0" prefHeight="755.0" prefWidth="900.0" style="-fx-background-color: #4287f5;">
+        <AnchorPane layoutX="200.0" layoutY="45.0" prefHeight="755.0" prefWidth="900.0">
             <children>
-                <AnchorPane layoutX="64.0" layoutY="134.0" prefHeight="535.0" prefWidth="772.0" style="-fx-background-color: #e02696;">
+                <AnchorPane layoutX="64.0" layoutY="134.0" prefHeight="535.0" prefWidth="772.0">
                     <children>
                         <Label layoutX="20.0" layoutY="74.0" text="BOOK TITLE" />
                         <Label layoutX="20.0" layoutY="109.0" text="AUTHOR" />
@@ -28,7 +28,7 @@
                         <TextField fx:id="category_TextField" layoutX="500.0" layoutY="69.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book category" />
                         <TextField fx:id="search_TextField" layoutX="14.0" layoutY="14.0" prefHeight="24.0" prefWidth="429.0" promptText="Enter book ID / ISBN" />
                         <Button fx:id="search_Button" layoutX="467.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleSearch" text="Search" />
-                  <Label fx:id="alterMessage_Label" alignment="CENTER" contentDisplay="CENTER" layoutX="155.0" layoutY="339.0" prefHeight="16.0" prefWidth="463.0" textAlignment="CENTER" />
+                  <Label fx:id="alterMessage_Label" alignment="CENTER" contentDisplay="CENTER" layoutX="165.0" layoutY="461.0" prefHeight="16.0" prefWidth="463.0" textAlignment="CENTER" />
                   <Label layoutX="396.0" layoutY="149.0" text="PUBLISHER" />
                   <TextField fx:id="publisher_TextField" layoutX="500.0" layoutY="145.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter a number" />
                   <TextArea fx:id="description_TextArea" layoutX="36.0" layoutY="216.0" prefHeight="237.0" prefWidth="463.0" promptText="Description" wrapText="true" />

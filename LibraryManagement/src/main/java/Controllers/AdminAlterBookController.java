@@ -1,6 +1,8 @@
 package Controllers;
 
 import Entity.Book;
+import Utils.BookUtils;
+import Utils.FormatUtils;
 import database.DatabaseController;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -85,7 +87,7 @@ public class AdminAlterBookController {
     }
 
     private boolean getProperties(String book_id) {
-        Book book = DatabaseController.getBookByISBN(book_id);
+        Book book = BookUtils.getBookByISBN(book_id);
         if (book == null) {
             return false;
         }
@@ -141,16 +143,8 @@ public class AdminAlterBookController {
         int year = 0;
         int quantity = 0;
         try {
-            if (newQuantity == null || newQuantity.isEmpty()) {
-                throw new NumberFormatException();
-            }
-            quantity = Integer.parseInt(newQuantity);
-            if (newYearText != null && !newYearText.isEmpty()) {
-                year = Integer.parseInt(newYearText);
-            }
-            if (quantity < 0) {
-                throw new NumberFormatException();
-            }
+            year = FormatUtils.StringToInteger(newYearText);
+            quantity = FormatUtils.StringToInteger(newQuantity);
         } catch (NumberFormatException e) {
             alterMessage_Label.setText("Please enter a valid number!");
             return;
@@ -171,8 +165,8 @@ public class AdminAlterBookController {
                 .publisher(newPublisher)
                 .build();
 
-        DatabaseController.alterBook(changedBook);
-        PopupController.showSuccessAlert("Change book properties successfully!");
+        BookUtils.alterBook(changedBook);
+        PopupController.showAlert("Change book properties successfully!");
         cleanUp();
     }
 }

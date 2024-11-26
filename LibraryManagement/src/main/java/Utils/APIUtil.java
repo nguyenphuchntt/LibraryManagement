@@ -1,4 +1,4 @@
-package api;
+package Utils;
 
 import Entity.Book;
 
@@ -8,9 +8,6 @@ import com.google.gson.JsonParser;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class APIUtil {
 
@@ -46,8 +43,8 @@ public class APIUtil {
         String title = volumeInfo.has("title") ? volumeInfo.get("title").getAsString() : "Unknown";
         String description = volumeInfo.has("description") ? volumeInfo.get("description").getAsString() : "No description available";
         String publishedDate = volumeInfo.has("publishedDate") ? volumeInfo.get("publishedDate").getAsString() : "Unknown";
-        String authors = volumeInfo.has("authors") ? refactorNames(volumeInfo.getAsJsonArray("authors").toString()) : "Unknown";
-        String categories = volumeInfo.has("categories") ? refactorNames(volumeInfo.getAsJsonArray("categories").toString()) : "No categories";
+        String authors = volumeInfo.has("authors") ? FormatUtils.refactorNames(volumeInfo.getAsJsonArray("authors").toString()) : "Unknown";
+        String categories = volumeInfo.has("categories") ? FormatUtils.refactorNames(volumeInfo.getAsJsonArray("categories").toString()) : "No categories";
         String thumbnail = volumeInfo.has("imageLinks") && volumeInfo.getAsJsonObject("imageLinks").has("smallThumbnail")
                 ? volumeInfo.getAsJsonObject("imageLinks").get("smallThumbnail").getAsString()
                 : "No thumbnail available";
@@ -56,7 +53,7 @@ public class APIUtil {
                 .title(title)
                 .author(authors)
                 .description(description)
-                .year(Integer.parseInt(extractYear(publishedDate).equalsIgnoreCase("unknown") ? "0" : extractYear(publishedDate)))
+                .year(Integer.parseInt(FormatUtils.extractYear(publishedDate).equalsIgnoreCase("unknown") ? "0" : FormatUtils.extractYear(publishedDate)))
                 .category(categories)
                 .thumbnailLink(thumbnail)
                 .build();
@@ -64,40 +61,5 @@ public class APIUtil {
     return book;
     }
 
-    private static String extractYear(String publishedDate) {
-        if (publishedDate == null || publishedDate.isEmpty()) {
-            return "Unknown";
-        }
-        return publishedDate.split("-")[0];
-    }
 
-    private static String refactorNames(String namesString) {
-        String[] names = namesString.replaceAll("[\\[\\]\"]", "").split(",\\s*");
-
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < names.length; i++) {
-            String firstName = names[i].split(" ")[0];
-            result.append(firstName);
-
-            if (i < names.length - 1) {
-                result.append(", ");
-            }
-        }
-        return result.toString();
-    }
-
-    public static void main(String[] args) {
-        String query = "9781491910740";
-        if (!query.isEmpty()) {
-            try {
-                APIUtil api = new APIUtil();
-                Book books = api.searchBooks(query);
-
-                System.out.println(books.toString());
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
 }

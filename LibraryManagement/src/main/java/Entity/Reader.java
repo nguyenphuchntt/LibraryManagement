@@ -1,5 +1,4 @@
 package Entity;
-import java.util.List;
 
 public class Reader extends Person {
 
@@ -22,8 +21,4 @@ public class Reader extends Person {
         }
     }
 
-
-//    public List<Book> getBorrowedBooks() {
-//        return borrowedBooks;
-//    }
 }
