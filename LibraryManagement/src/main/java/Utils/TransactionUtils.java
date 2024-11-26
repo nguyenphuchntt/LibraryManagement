@@ -2,7 +2,7 @@ package Utils;
 
 import Entity.LibraryManagement;
 import Entity.Transaction;
-import Entity.TransactionDTO;
+import DTO.TransactionDTO;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 

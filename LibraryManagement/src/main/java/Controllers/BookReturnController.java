@@ -1,11 +1,10 @@
 package Controllers;
 
+import DTO.TransactionDTO;
 import Entity.*;
 import Utils.AccountUserUtils;
 import Utils.BookUtils;
 import Utils.TransactionUtils;
-import database.DatabaseController;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
