@@ -10,7 +10,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AccountController">
     <children>
-        <AnchorPane layoutX="200.0" layoutY="45.0" prefHeight="755.0" prefWidth="900.0" style="-fx-background-color: #4287f5;">
+        <AnchorPane layoutX="200.0" layoutY="45.0" prefHeight="755.0" prefWidth="900.0">
             <children>
                 <ImageView fitHeight="185.0" fitWidth="200.0" layoutX="350.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
                 <Label layoutX="396.0" layoutY="106.0" text="A PICTURE HERE" />

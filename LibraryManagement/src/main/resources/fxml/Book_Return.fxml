@@ -17,7 +17,7 @@
             <children>
                 <AnchorPane prefHeight="755.0" prefWidth="900.0" style="-fx-background-color: #dadada;">
                     <children>
-                        <Label layoutX="30.0" layoutY="10.0" style="-fx-background-color: #8f69d1;" text="BORROWED BOOK">
+                        <Label layoutX="30.0" layoutY="10.0" text="BORROWED BOOK">
                             <font>
                                 <Font size="20.0" />
                             </font>
@@ -35,7 +35,7 @@
                         <Button fx:id="post_Button" layoutX="20.0" layoutY="705.0" mnemonicParsing="false" onAction="#handlePostComment" text="POST" />
                   <TextField fx:id="searchBar_TextField" layoutX="20.0" layoutY="55.0" prefHeight="40.0" prefWidth="572.0" promptText="Enter book title" />
                   <Button fx:id="search_Button" layoutX="529.0" layoutY="122.0" mnemonicParsing="false" onAction="#handleSearch" text="Search" />
-                  <HBox layoutX="20.0" layoutY="121.0" prefHeight="25.0" prefWidth="496.0" style="-fx-background-color: #c17270;">
+                  <HBox layoutX="20.0" layoutY="121.0" prefHeight="25.0" prefWidth="496.0">
                      <children>
                         <Label alignment="CENTER" prefHeight="25.0" prefWidth="56.0" text="FILTER: " textAlignment="CENTER" />
                         <TextField fx:id="isbn_TextField" prefHeight="25.0" prefWidth="145.0" promptText="ISBN" />

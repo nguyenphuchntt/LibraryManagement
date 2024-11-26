@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.VBox?>
-
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.scene.control.Label?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 
-<VBox fx:id="LeftSideBar_VBox" prefHeight="755.0" prefWidth="200.0" style="-fx-background-color: #69d1c3;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.Controller">
+<VBox fx:id="LeftSideBar_VBox" prefHeight="755.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.Controller">
     <children>
         <AnchorPane fx:id="AccountInfo_Pane" prefHeight="90.0" prefWidth="200.0">
             <children>
@@ -21,9 +20,8 @@
                         <Image url="@../assets/img/user_icon.png" />
                     </image>
                 </ImageView>
-                <Label fx:id="TopLeftUserName_Label" layoutX="75.0" prefHeight="40.0" prefWidth="125.0" style="-fx-background-color: #d169ab;" />
-                <Circle fx:id="Status_Circle" fill="DODGERBLUE" layoutX="89.0" layoutY="61.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
-                <Label fx:id="UserCategory_Label" layoutX="100.0" layoutY="53.0" prefHeight="16.0" prefWidth="59.0" style="-fx-background-color: #d169ab;" text="User" />
+                <Circle fx:id="Status_Circle" fill="DODGERBLUE" layoutX="89.0" layoutY="45.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                <Label fx:id="UserCategory_Label" layoutX="100.0" layoutY="37.0" prefHeight="16.0" prefWidth="59.0" style="-fx-background-color: #d169ab;" text="User" />
             </children>
         </AnchorPane>
         <Label fx:id="MainNavigation_Label" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #3c8dbc;" text="MAIN_NAVIGATION">

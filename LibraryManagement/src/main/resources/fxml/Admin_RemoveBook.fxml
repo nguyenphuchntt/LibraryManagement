@@ -8,14 +8,14 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800" minWidth="1100" prefHeight="800.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AdminRemoveBookController">
     <children>
-        <AnchorPane layoutX="200.0" layoutY="45.0" prefHeight="755.0" prefWidth="900.0" style="-fx-background-color: #4287f5;">
+        <AnchorPane layoutX="200.0" layoutY="45.0" prefHeight="755.0" prefWidth="900.0">
             <children>
                 <Label layoutX="40.0" layoutY="70.0" text="REMOVE BOOKS">
                     <font>
                         <Font size="21.0" />
                     </font>
                 </Label>
-                <AnchorPane layoutX="64.0" layoutY="170.0" prefHeight="503.0" prefWidth="772.0" style="-fx-background-color: #e02696;">
+                <AnchorPane layoutX="64.0" layoutY="170.0" prefHeight="503.0" prefWidth="772.0">
                     <children>
                   <Label fx:id="description_Label" alignment="TOP_LEFT" layoutX="12.0" layoutY="93.0" prefHeight="318.0" prefWidth="749.0" wrapText="true" />
                         <Label layoutX="20.0" layoutY="26.0" text="BOOK ID" />
