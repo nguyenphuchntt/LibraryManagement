@@ -1,8 +1,11 @@
 package Controllers;
 
+import Entity.Book;
 import database.DatabaseController;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.sql.*;
 
@@ -41,6 +44,9 @@ public class AdminAlterBookController {
     @FXML
     private Button change_Button;
 
+    @FXML
+    private ImageView thumbnail_ImageView;
+
     private boolean searched = false;
     private String book_id = null;
 
@@ -54,6 +60,7 @@ public class AdminAlterBookController {
         category_TextField.clear();
         year_TextField.clear();
         publisher_TextField.clear();
+        thumbnail_ImageView.setImage(null);
         searched = false;
         book_id = null;
     }
@@ -68,7 +75,7 @@ public class AdminAlterBookController {
 
         Connection connection = DatabaseController.getConnection();
 
-        if (getProperties(connection)) {
+        if (getProperties(search_TextField.getText())) {
             book_id = search_TextField.getText();
             searched = true;
         } else {
@@ -77,50 +84,32 @@ public class AdminAlterBookController {
 
     }
 
-    private boolean getProperties(Connection connection) {
-        String sqlQuerySelect = "SELECT * FROM book " +
-                " WHERE book_id = ?";
-        try {
-            Statement useDatabaseStatement = connection.createStatement();
-            useDatabaseStatement.execute("USE library");
-            PreparedStatement selectStatement = connection.prepareStatement(sqlQuerySelect);
-
-            selectStatement.setString(1, search_TextField.getText());
-
-            ResultSet resultSet = selectStatement.executeQuery();
-
-            if (resultSet.next()) {
-
-                title_TextField.setText(resultSet.getString("book_title"));
-
-                if (resultSet.getString("author") != null) {
-                    author_TextField.setText(resultSet.getString("author"));
-                }
-
-                if (resultSet.getString("description") != null) {
-                    description_TextArea.setText(resultSet.getString("description"));
-                }
-
-                category_TextField.setText(resultSet.getString("category"));
-
-                if (resultSet.getString("year") != null) {
-                    year_TextField.setText(resultSet.getString("year"));
-                }
-
-                if (resultSet.getString("publisher") != null) {
-                    publisher_TextField.setText(resultSet.getString("publisher"));
-                }
-
-                amount_TextField.setText(resultSet.getString("quantity"));
-
-            } else {
-                return false;
-            }
-
-
-        } catch (SQLException e) {
-            System.out.println("SQLException -> get book properties function of AdminAlterBook controller: " + e.getMessage());
+    private boolean getProperties(String book_id) {
+        Book book = DatabaseController.getBookByISBN(book_id);
+        if (book == null) {
             return false;
+        }
+        if (book.getTitle() != null && !book.getTitle().isEmpty()) {
+            title_TextField.setText(book.getTitle());
+        }
+        if (book.getAuthor() != null && !book.getAuthor().isEmpty()) {
+            author_TextField.setText(book.getAuthor());
+        }
+        if (book.getDescription() != null && !book.getDescription().isEmpty()) {
+            description_TextArea.setText(book.getDescription());
+        }
+        amount_TextField.setText(String.valueOf(book.getQuantity()));
+        if (book.getCategory() != null && !book.getCategory().isEmpty()) {
+            category_TextField.setText(book.getCategory());
+        }
+        if (book.getYear() != 0) {
+            year_TextField.setText(String.valueOf(book.getYear()));
+        }
+        if (book.getPublisher() != null && !book.getPublisher().isEmpty()) {
+            publisher_TextField.setText(book.getPublisher());
+        }
+        if (book.getThumbnailLink() != null && !book.getThumbnailLink().isEmpty()) {
+            thumbnail_ImageView.setImage(new Image(book.getThumbnailLink()));
         }
         return true;
     }

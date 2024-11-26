@@ -17,25 +17,22 @@
                         <Label layoutX="20.0" layoutY="74.0" text="BOOK TITLE" />
                         <Label layoutX="20.0" layoutY="109.0" text="AUTHOR" />
                         <Label layoutX="20.0" layoutY="190.0" text="DESCRIPTION" />
-                        <Label layoutX="394.0" layoutY="73.0" text="THEME" />
                         <TextField fx:id="title_TextField" layoutX="125.0" layoutY="69.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book title" />
                         <TextField fx:id="author_TextField" layoutX="125.0" layoutY="105.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book author" />
-                        <Button layoutX="498.0" layoutY="69.0" mnemonicParsing="false" text="Upload File" />
-                        <Label layoutX="611.0" layoutY="73.0" prefHeight="16.0" prefWidth="67.0" style="-fx-background-color: #fffcfe;" />
                         <Label layoutX="21.0" layoutY="149.0" text="AMOUNT" />
                         <TextField fx:id="amount_TextField" layoutX="125.0" layoutY="145.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter a number" />
                         <Button fx:id="change_Button" layoutX="22.0" layoutY="355.0" mnemonicParsing="false" onAction="#handleChanges" text="CHANGE" />
-                        <Label layoutX="393.0" layoutY="149.0" text="YEAR" />
-                        <TextField fx:id="year_TextField" layoutX="498.0" layoutY="145.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter a number" />
-                        <Label layoutX="393.0" layoutY="109.0" text="CATEGORY" />
-                        <TextField fx:id="category_TextField" layoutX="498.0" layoutY="105.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book category" />
+                        <Label layoutX="396.0" layoutY="109.0" text="YEAR" />
+                        <TextField fx:id="year_TextField" layoutX="500.0" layoutY="105.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter a number" />
+                        <Label layoutX="396.0" layoutY="73.0" prefHeight="7.0" prefWidth="72.0" text="CATEGORY" />
+                        <TextField fx:id="category_TextField" layoutX="500.0" layoutY="69.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book category" />
                         <TextField fx:id="search_TextField" layoutX="14.0" layoutY="14.0" prefHeight="24.0" prefWidth="429.0" promptText="Enter book ID / ISBN" />
                         <Button fx:id="search_Button" layoutX="467.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleSearch" text="Search" />
                   <Label fx:id="alterMessage_Label" alignment="CENTER" contentDisplay="CENTER" layoutX="163.0" layoutY="310.0" prefHeight="16.0" prefWidth="463.0" textAlignment="CENTER" />
-                  <Label layoutX="393.0" layoutY="190.0" text="PUBLISHER" />
-                  <TextField fx:id="publisher_TextField" layoutX="499.0" layoutY="186.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter a number" />
-                  <TextArea fx:id="description_TextArea" layoutX="125.0" layoutY="186.0" prefHeight="145.0" prefWidth="238.0" promptText="Description" />
-                  <ImageView fx:id="thumbnail_ImageView" fitHeight="190.0" fitWidth="160.0" layoutX="533.0" layoutY="256.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label layoutX="396.0" layoutY="149.0" text="PUBLISHER" />
+                  <TextField fx:id="publisher_TextField" layoutX="500.0" layoutY="145.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter a number" />
+                  <TextArea fx:id="description_TextArea" layoutX="125.0" layoutY="186.0" prefHeight="145.0" prefWidth="238.0" promptText="Description" wrapText="true" />
+                  <ImageView fx:id="thumbnail_ImageView" fitHeight="190.0" fitWidth="160.0" layoutX="539.0" layoutY="244.0" pickOnBounds="true" preserveRatio="true" />
                     </children>
                 </AnchorPane>
                 <Label layoutX="40.0" layoutY="70.0" text="CHANGE BOOK PROPERTIES">
