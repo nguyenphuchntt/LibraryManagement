@@ -90,7 +90,7 @@ public class AdminAddBookController {
             return;
         }
 
-        if (DatabaseController.hadBook(isbn)) {
+        if (BookUtils.hadBook(isbn)) {
             addBookMessage_Label.setText("Book already exists. You can switch to \"Change book\" tab to edit this book!");
             return;
         }

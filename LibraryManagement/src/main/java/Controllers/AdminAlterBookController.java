@@ -1,6 +1,7 @@
 package Controllers;
 
 import Entity.Book;
+import Utils.BookUtils;
 import database.DatabaseController;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -85,7 +86,7 @@ public class AdminAlterBookController {
     }
 
     private boolean getProperties(String book_id) {
-        Book book = DatabaseController.getBookByISBN(book_id);
+        Book book = BookUtils.getBookByISBN(book_id);
         if (book == null) {
             return false;
         }
@@ -171,8 +172,8 @@ public class AdminAlterBookController {
                 .publisher(newPublisher)
                 .build();
 
-        DatabaseController.alterBook(changedBook);
-        PopupController.showSuccessAlert("Change book properties successfully!");
+        BookUtils.alterBook(changedBook);
+        PopupController.showAlert("Change book properties successfully!");
         cleanUp();
     }
 }

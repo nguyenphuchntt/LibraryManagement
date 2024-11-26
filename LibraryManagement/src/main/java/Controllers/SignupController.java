@@ -1,5 +1,6 @@
 package Controllers;
 
+import Utils.AccountUserUtils;
 import database.DatabaseController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,13 +35,13 @@ public class SignupController {
             return;
         }
 
-        if(DatabaseController.isExistedUsername(username)) {
+        if(AccountUserUtils.isExistedUsername(username)) {
             signupMessage_Label.setText("Account already exists");
             return;
         }
 
-        DatabaseController.addAccount(username, password);
-        DatabaseController.addUser(username);
+        AccountUserUtils.addAccount(username, password);
+        AccountUserUtils.addUser(username);
 
         switchToLoginScene();
         username_TextField.clear();

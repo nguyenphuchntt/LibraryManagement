@@ -67,7 +67,7 @@ public class AdminRemoveBookController {
                     updateStatement.setInt(1, quantity);
                     updateStatement.setString(2, bookID);
                     updateStatement.executeUpdate();
-                    PopupController.showSuccessAlert("Remove book successfully!");
+                    PopupController.showAlert("Remove book successfully!");
                     cleanUp();
                 } else {
                     removeMessage_Label.setText("This number is larger than book amount");

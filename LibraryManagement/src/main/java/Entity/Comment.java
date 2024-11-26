@@ -1,5 +1,6 @@
 package Entity;
 
+import Utils.BookUtils;
 import database.DatabaseController;
 
 import javax.persistence.*;
@@ -75,9 +76,8 @@ public class Comment {
         this.rate = rate;
     }
 
-
     public boolean isWrittenComment(String username, String bookIsbn) {
-        return DatabaseController.hadComment(username, bookIsbn);
+        return BookUtils.hadComment(username, bookIsbn);
     }
 
 }

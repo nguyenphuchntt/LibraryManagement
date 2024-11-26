@@ -3,6 +3,9 @@ package Controllers;
 import Entity.Book;
 import Entity.Person;
 import Entity.Transaction;
+import Utils.AccountUserUtils;
+import Utils.BookUtils;
+import Utils.TransactionUtils;
 import database.DatabaseController;
 import Utils.HibernateUtil;
 import javafx.collections.FXCollections;
@@ -110,11 +113,11 @@ public class BookSearchController {
     public void initialize() {
         mapColumnValue();
 
-        recommendedBookList = DatabaseController.getBookForRecommend();
+        recommendedBookList = BookUtils.getBookListForRecommend();
 
         showRecommendedBooks();
 
-        bookList = FXCollections.observableArrayList(DatabaseController.getAllBooks());
+        bookList = FXCollections.observableArrayList(BookUtils.getAllBooks());
         searchTable_TableView.setItems(bookList);
 
         amount_Column.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
@@ -150,7 +153,7 @@ public class BookSearchController {
         String category = category_TextField.getText().isEmpty() ? null : category_TextField.getText();
         String year = year_TextField.getText().isEmpty() ? null : year_TextField.getText();
 
-        bookList = FXCollections.observableArrayList(DatabaseController.searchBook(
+        bookList = FXCollections.observableArrayList(BookUtils.searchBook(
                 isbn, title, author, category, year
         ));
 
@@ -165,14 +168,14 @@ public class BookSearchController {
             return;
         }
         if (books.isEmpty()) {
-            PopupController.showSuccessAlert("No books are selected");
+            PopupController.showAlert("No books are selected");
             return;
         }
         List<Transaction> transactions = new ArrayList<>();
-        Person currentUser = DatabaseController.getCurrentUser();
+        Person currentUser = AccountUserUtils.getCurrentUser();
         StringBuilder alert = new StringBuilder();
         if (currentUser == null) {
-            PopupController.showSuccessAlert("User is null");
+            PopupController.showAlert("User is null");
         }
         for (Book book : books) {
             if (book.getQuantity() <= 0) {
@@ -184,12 +187,12 @@ public class BookSearchController {
             }
         }
         if (alert.isEmpty()) {
-            DatabaseController.addBorrowTransactions(transactions);
-            DatabaseController.updateBookAmountAfterBorrowed(booksID, false);
-            PopupController.showSuccessAlert("Borrowed " + books.size() + " books successfully");
+            TransactionUtils.addBorrowTransactions(transactions);
+            BookUtils.updateBookAmountAfterBorrowed(booksID, false);
+            PopupController.showAlert("Borrowed " + books.size() + " books successfully");
             cleanUp();
         } else {
-            PopupController.showSuccessAlert(alert.toString() + "doesn't not have enough quantity :((");
+            PopupController.showAlert(alert.toString() + "doesn't not have enough quantity :((");
         }
     }
 
@@ -223,12 +226,12 @@ public class BookSearchController {
         session.close();
         books.add(book.getIsbn());
 
-        Person currentUser = DatabaseController.getCurrentUser();
+        Person currentUser = AccountUserUtils.getCurrentUser();
         transactions.add(new Transaction(book, currentUser));
 
-        DatabaseController.addBorrowTransactions(transactions);
-        DatabaseController.updateBookAmountAfterBorrowed(books, false);
-        PopupController.showSuccessAlert("Borrowed " + book.getTitle() + " successfully");
+        TransactionUtils.addBorrowTransactions(transactions);
+        BookUtils.updateBookAmountAfterBorrowed(books, false);
+        PopupController.showAlert("Borrowed " + book.getTitle() + " successfully");
     }
 
     @FXML

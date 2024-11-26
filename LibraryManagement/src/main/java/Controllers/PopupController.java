@@ -69,7 +69,7 @@ public class PopupController {
 //        stage.show();
 //    }
 
-    public static void showSuccessAlert(String message) {
+    public static void showAlert(String message) {
         Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
         successAlert.setTitle("Message!");
         successAlert.setHeaderText(null);
