@@ -15,16 +15,16 @@
                         <Font size="21.0" />
                     </font>
                 </Label>
-                <AnchorPane layoutX="64.0" layoutY="170.0" prefHeight="287.0" prefWidth="772.0" style="-fx-background-color: #e02696;">
+                <AnchorPane layoutX="64.0" layoutY="170.0" prefHeight="503.0" prefWidth="772.0" style="-fx-background-color: #e02696;">
                     <children>
                         <Label layoutX="20.0" layoutY="26.0" text="BOOK ID" />
                         <TextField fx:id="bookID_TextField" layoutX="125.0" layoutY="22.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book ID / ISBN" />
                         <Label layoutX="20.0" layoutY="67.0" text="AMOUNT *" />
                         <TextField fx:id="amount_TextField" layoutX="125.0" layoutY="63.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter a number" />
-                        <Button fx:id="remove_Button" layoutX="349.0" layoutY="206.0" mnemonicParsing="false" onAction="#handleRemoveBook" text="REMOVE" />
+                        <Button fx:id="remove_Button" layoutX="349.0" layoutY="451.0" mnemonicParsing="false" onAction="#handleRemoveBook" text="REMOVE" />
                   <Label fx:id="removeMessage_Label" alignment="CENTER" contentDisplay="CENTER" layoutX="198.0" layoutY="173.0" prefHeight="16.0" prefWidth="377.0" textAlignment="CENTER" />
                   <Button fx:id="check_Button" layoutX="410.0" layoutY="22.0" mnemonicParsing="false" onAction="#handleCheck" text="CHECK" />
-                  <Label fx:id="description_Label" alignment="TOP_LEFT" layoutX="12.0" layoutY="96.0" prefHeight="71.0" prefWidth="749.0" />
+                  <Label fx:id="description_Label" alignment="TOP_LEFT" layoutX="12.0" layoutY="96.0" prefHeight="318.0" prefWidth="749.0" wrapText="true" />
                     </children>
                 </AnchorPane>
             </children></AnchorPane>

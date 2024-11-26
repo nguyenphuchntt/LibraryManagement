@@ -24,4 +24,7 @@ module uet.oop.librarymanagement {
 
     opens database to javafx.fxml, org.hibernate.orm.core;
     exports database;
+
+    opens Utils to javafx.fxml, org.hibernate.orm.core;
+    exports Utils;
 }

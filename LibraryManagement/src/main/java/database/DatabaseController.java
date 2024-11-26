@@ -1,6 +1,7 @@
 package database;
 
 import Entity.*;
+import Utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -358,31 +359,6 @@ public class DatabaseController {
                 statement.close();
             }
         }
-    }
-
-    public static void addBook(Book book) {
-        if (book == null) {
-            System.out.println("Book is null!");
-            return;
-        }
-
-        Session session = HibernateUtil.getSessionFactory().openSession();
-
-        try {
-            session.beginTransaction();
-
-            session.save(book);
-
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            if (session.getTransaction() != null) {
-                session.getTransaction().rollback();
-            }
-            throw e;
-        } finally {
-            session.close();
-        }
-
     }
 
     public static void importTransactionCSVtoDB(String pathToCSV) throws SQLException, IOException {

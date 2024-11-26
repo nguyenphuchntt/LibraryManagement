@@ -1,4 +1,4 @@
-package api;
+package Utils;
 
 import Entity.Book;
 
@@ -8,9 +8,6 @@ import com.google.gson.JsonParser;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class APIUtil {
 
@@ -86,18 +83,4 @@ public class APIUtil {
         return result.toString();
     }
 
-    public static void main(String[] args) {
-        String query = "9781491910740";
-        if (!query.isEmpty()) {
-            try {
-                APIUtil api = new APIUtil();
-                Book books = api.searchBooks(query);
-
-                System.out.println(books.toString());
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
 }

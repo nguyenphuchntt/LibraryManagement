@@ -1,16 +1,13 @@
 package Entity;
 
 import Controllers.Controller;
-import Controllers.SideBarLoader;
 import database.DatabaseController;
-import database.HibernateUtil;
+import Utils.HibernateUtil;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
