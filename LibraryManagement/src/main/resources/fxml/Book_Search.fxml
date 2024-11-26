@@ -43,7 +43,7 @@
                                 <TableColumn fx:id="rate_Column" editable="false" prefWidth="51.0" text="RATE" />
                             </columns>
                         </TableView>
-                        <Pagination fx:id="pageFlow_Pagination" layoutX="755.0" layoutY="408.0" prefHeight="46.0" prefWidth="125.0" />
+                        <Pagination fx:id="pageFlow_Pagination" layoutX="755.0" layoutY="406.0" prefHeight="46.0" prefWidth="125.0" />
                         <HBox layoutX="20.0" layoutY="127.0" prefHeight="25.0" prefWidth="496.0" style="-fx-background-color: #c17270;">
                             <children>
                                 <Label alignment="CENTER" prefHeight="25.0" prefWidth="56.0" text="FILTER: " textAlignment="CENTER" />
@@ -62,16 +62,10 @@
                                 <Font size="20.0" />
                             </font>
                         </Label>
-                        <AnchorPane layoutX="581.0" layoutY="50.0" prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: #c19b70;">
-                            <children>
-                                <ImageView fx:id="recommendBook_ImageView" fitHeight="150.0" fitWidth="130.0" layoutX="73.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
-                                <Label alignment="CENTER" layoutX="62.0" layoutY="72.0" prefHeight="56.0" prefWidth="152.0" text="A PICTURE HERE" />
-                            </children>
-                        </AnchorPane>
-                        <Button fx:id="borrowRecommend_Button" layoutX="30.0" layoutY="256.0" mnemonicParsing="false" onAction="#handleBorrowRecommendBook" text="BORROW" />
+                        <Button fx:id="borrowRecommend_Button" layoutX="333.0" layoutY="256.0" mnemonicParsing="false" onAction="#handleBorrowRecommendBook" text="BORROW" />
                         <Button fx:id="refresh_Button" layoutX="810.0" layoutY="11.0" mnemonicParsing="false" onAction="#handleRefreshButton" text="REFRESH" />
-                        <Label fx:id="ratingStar_Label" layoutX="30.0" layoutY="232.0" text="RATING STAR: " />
-                        <TextFlow fx:id="recommendBook_TextField" layoutX="27.0" layoutY="50.0" prefHeight="175.0" prefWidth="534.0" style="-fx-background-color: #4287f5;">
+                        <Label fx:id="ratingStar_Label" layoutX="30.0" layoutY="260.0" text="RATING STAR: " />
+                        <TextFlow fx:id="recommendBook_TextField" layoutX="27.0" layoutY="50.0" prefHeight="200.0" prefWidth="691.0" style="-fx-background-color: #4287f5;">
                             <children>
                                 <Text fx:id="title_Text" strokeType="OUTSIDE" strokeWidth="0.0" text="Title:" />
                                 <Text fx:id="author_Text" strokeType="OUTSIDE" strokeWidth="0.0" text="Author: " />
@@ -79,6 +73,8 @@
                                 <Text fx:id="publishedYear_Text" strokeType="OUTSIDE" strokeWidth="0.0" text="Published year: " />
                                 <Text fx:id="description_Text" strokeType="OUTSIDE" strokeWidth="0.0" text="Description: " />
                             </children></TextFlow>
+                  <ImageView fx:id="thumbnail_ImageView" fitHeight="190.0" fitWidth="160.0" layoutX="730.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true" />
+                          <Label fx:id="thumbnailMessage_Label" alignment="CENTER" layoutX="721.0" layoutY="122.0" prefHeight="56.0" prefWidth="179.0" text="No thumnail available" />
                     </children></AnchorPane>
             </children>
         </AnchorPane>

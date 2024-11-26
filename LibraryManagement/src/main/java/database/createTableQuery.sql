@@ -31,14 +31,14 @@ CREATE TABLE IF NOT EXISTS `user` (
 CREATE TABLE IF NOT EXISTS book (
     book_id VARCHAR(20) NOT NULL PRIMARY KEY,
     book_title VARCHAR(100) NOT NULL,
-    author VARCHAR(50) DEFAULT NULL,
+    author VARCHAR(200) DEFAULT NULL,
     publisher VARCHAR(50) DEFAULT NULL,
     year INT DEFAULT NULL,
     quantity INT NOT NULL,
     description MEDIUMTEXT DEFAULT NULL,
     averageRating DOUBLE NOT NULL,
-    category VARCHAR(50) NOT NULL,
-    thumbnail_link VARCHAR(255) DEFAULT NULL
+    category VARCHAR(150) DEFAULT NULL,
+    thumbnailLink VARCHAR(255) DEFAULT NULL
     );
 
 CREATE TABLE IF NOT EXISTS book_comment (
@@ -70,3 +70,5 @@ CREATE TABLE IF NOT EXISTS announcement (
     );
 
 
+ALTER TABLE book
+    MODIFY COLUMN description TEXT;

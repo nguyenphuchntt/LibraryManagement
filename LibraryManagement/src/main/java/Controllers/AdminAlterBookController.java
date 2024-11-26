@@ -1,8 +1,11 @@
 package Controllers;
 
+import Entity.Book;
 import database.DatabaseController;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.sql.*;
 
@@ -21,7 +24,7 @@ public class AdminAlterBookController {
     private TextField author_TextField;
 
     @FXML
-    private TextField description_TextField;
+    private TextArea description_TextArea;
 
     @FXML
     private TextField amount_TextField;
@@ -41,6 +44,9 @@ public class AdminAlterBookController {
     @FXML
     private Button change_Button;
 
+    @FXML
+    private ImageView thumbnail_ImageView;
+
     private boolean searched = false;
     private String book_id = null;
 
@@ -49,11 +55,12 @@ public class AdminAlterBookController {
         search_TextField.clear();
         title_TextField.clear();
         author_TextField.clear();
-        description_TextField.clear();
+        description_TextArea.clear();
         amount_TextField.clear();
         category_TextField.clear();
         year_TextField.clear();
         publisher_TextField.clear();
+        thumbnail_ImageView.setImage(null);
         searched = false;
         book_id = null;
     }
@@ -68,7 +75,7 @@ public class AdminAlterBookController {
 
         Connection connection = DatabaseController.getConnection();
 
-        if (getProperties(connection)) {
+        if (getProperties(search_TextField.getText())) {
             book_id = search_TextField.getText();
             searched = true;
         } else {
@@ -77,50 +84,32 @@ public class AdminAlterBookController {
 
     }
 
-    private boolean getProperties(Connection connection) {
-        String sqlQuerySelect = "SELECT * FROM book " +
-                " WHERE book_id = ?";
-        try {
-            Statement useDatabaseStatement = connection.createStatement();
-            useDatabaseStatement.execute("USE library");
-            PreparedStatement selectStatement = connection.prepareStatement(sqlQuerySelect);
-
-            selectStatement.setString(1, search_TextField.getText());
-
-            ResultSet resultSet = selectStatement.executeQuery();
-
-            if (resultSet.next()) {
-
-                title_TextField.setText(resultSet.getString("book_title"));
-
-                if (resultSet.getString("author") != null) {
-                    author_TextField.setText(resultSet.getString("author"));
-                }
-
-                if (resultSet.getString("description") != null) {
-                    description_TextField.setText(resultSet.getString("description"));
-                }
-
-                category_TextField.setText(resultSet.getString("category"));
-
-                if (resultSet.getString("year") != null) {
-                    year_TextField.setText(resultSet.getString("year"));
-                }
-
-                if (resultSet.getString("publisher") != null) {
-                    publisher_TextField.setText(resultSet.getString("publisher"));
-                }
-
-                amount_TextField.setText(resultSet.getString("quantity"));
-
-            } else {
-                return false;
-            }
-
-
-        } catch (SQLException e) {
-            System.out.println("SQLException -> get book properties function of AdminAlterBook controller: " + e.getMessage());
+    private boolean getProperties(String book_id) {
+        Book book = DatabaseController.getBookByISBN(book_id);
+        if (book == null) {
             return false;
+        }
+        if (book.getTitle() != null && !book.getTitle().isEmpty()) {
+            title_TextField.setText(book.getTitle());
+        }
+        if (book.getAuthor() != null && !book.getAuthor().isEmpty()) {
+            author_TextField.setText(book.getAuthor());
+        }
+        if (book.getDescription() != null && !book.getDescription().isEmpty()) {
+            description_TextArea.setText(book.getDescription());
+        }
+        amount_TextField.setText(String.valueOf(book.getQuantity()));
+        if (book.getCategory() != null && !book.getCategory().isEmpty()) {
+            category_TextField.setText(book.getCategory());
+        }
+        if (book.getYear() != 0) {
+            year_TextField.setText(String.valueOf(book.getYear()));
+        }
+        if (book.getPublisher() != null && !book.getPublisher().isEmpty()) {
+            publisher_TextField.setText(book.getPublisher());
+        }
+        if (book.getThumbnailLink() != null && !book.getThumbnailLink().isEmpty()) {
+            thumbnail_ImageView.setImage(new Image(book.getThumbnailLink()));
         }
         return true;
     }
@@ -143,98 +132,47 @@ public class AdminAlterBookController {
 
         String newTitle = title_TextField.getText().isEmpty() ? null : title_TextField.getText();
         String newAuthor = author_TextField.getText().isEmpty() ? null : author_TextField.getText();
-        String newDescription = description_TextField.getText().isEmpty() ? null : description_TextField.getText();
+        String newDescription = description_TextArea.getText().isEmpty() ? null : description_TextArea.getText();
         String newCategory = category_TextField.getText().isEmpty() ? null : category_TextField.getText();
         String newYearText = year_TextField.getText().isEmpty() ? null : year_TextField.getText();
         String newPublisher = publisher_TextField.getText().isEmpty() ? null : publisher_TextField.getText();
         String newQuantity = amount_TextField.getText().isEmpty() ? null : amount_TextField.getText();
 
-        String sqlQueryUpdate = "UPDATE book SET book_title = ?, author = ?, description = ?, category = ?, year = ?, publisher = ?, quantity = ? WHERE book_id = ?";
+        int year = 0;
+        int quantity = 0;
         try {
-
-            Connection connection = DatabaseController.getConnection();
-            Statement useDatabaseStatement = connection.createStatement();
-            useDatabaseStatement.execute("USE library");
-
-            PreparedStatement updateStatement = connection.prepareStatement(sqlQueryUpdate);
-
-
-            if (newTitle != null) {
-                updateStatement.setString(1, newTitle);
-            } else {
-                alterMessage_Label.setText("Title, Category, Quantity must not be null");
-                return;
+            if (newQuantity == null || newQuantity.isEmpty()) {
+                throw new NumberFormatException();
             }
-
-            if (newAuthor != null) {
-                updateStatement.setString(2, newAuthor);
-            } else {
-                updateStatement.setNull(2, java.sql.Types.VARCHAR);
+            quantity = Integer.parseInt(newQuantity);
+            if (newYearText != null && !newYearText.isEmpty()) {
+                year = Integer.parseInt(newYearText);
             }
-
-            if (newDescription != null) {
-                updateStatement.setString(3, newDescription);
-            } else {
-                updateStatement.setNull(3, java.sql.Types.VARCHAR);
+            if (quantity < 0) {
+                throw new NumberFormatException();
             }
-
-            if (newCategory != null) {
-                updateStatement.setString(4, newCategory);
-            } else {
-                alterMessage_Label.setText("Title, Category, Quantity must not be null");
-                return;
-            }
-
-            if (newYearText != null) {
-                try {
-                    int newYear = Integer.parseInt(newYearText);
-                    if (newYear < 0) {
-                        alterMessage_Label.setText("Year must be greater than 0");
-                        return;
-                    }
-                    updateStatement.setInt(5, newYear);
-                } catch (NullPointerException e) {
-                    alterMessage_Label.setText("Incorrect year format");
-                    return;
-                }
-            } else {
-                updateStatement.setNull(5, java.sql.Types.INTEGER);
-            }
-
-            if (newPublisher != null) {
-                updateStatement.setString(6, newPublisher);
-            } else {
-                updateStatement.setNull(6, java.sql.Types.VARCHAR);
-            }
-
-            if (newQuantity != null) {
-                try {
-                    int quantity = Integer.parseInt(newQuantity);
-                    if (quantity < 0) {
-                        alterMessage_Label.setText("Quantity must be greater than 0");
-                        return;
-                    }
-                    updateStatement.setInt(7, quantity);
-                } catch (NumberFormatException e) {
-                    alterMessage_Label.setText("Incorrect quantity format");
-                    return;
-                }
-            } else {
-                alterMessage_Label.setText("Title, Category, Quantity must not be null");
-                return;
-            }
-
-            updateStatement.setString(8, book_id);
-
-            updateStatement.executeUpdate();
-
-            PopupController.showSuccessAlert("Change book properties successfully!");
-            cleanUp();
-
-        } catch (SQLException e) {
-            System.out.println("SQLException -> change book properties function of AdminAlterBook controller: " + e.getMessage());
+        } catch (NumberFormatException e) {
+            alterMessage_Label.setText("Please enter a valid number!");
             return;
         }
-    }
 
+        if (newTitle == null || newTitle.isEmpty()) {
+            alterMessage_Label.setText("Please enter a valid title!");
+            return;
+        }
+
+        Book changedBook = new Book.Builder(book_id)
+                .title(newTitle)
+                .author(newAuthor)
+                .category(newCategory)
+                .year(year)
+                .description(newDescription)
+                .amount(quantity)
+                .publisher(newPublisher)
+                .build();
+
+        DatabaseController.alterBook(changedBook);
+        PopupController.showSuccessAlert("Change book properties successfully!");
+        cleanUp();
+    }
 }

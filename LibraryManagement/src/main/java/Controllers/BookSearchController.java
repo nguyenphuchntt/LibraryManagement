@@ -15,6 +15,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import org.hibernate.Session;
 
@@ -24,6 +26,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class BookSearchController {
+
+    @FXML
+    private Label thumbnailMessage_Label;
 
     @FXML
     private TableView<Book> searchTable_TableView;
@@ -96,6 +101,9 @@ public class BookSearchController {
 
     @FXML
     private Text publishedYear_Text;
+
+    @FXML
+    private ImageView thumbnail_ImageView;
 
     private ObservableList<Book> bookList;
 
@@ -196,8 +204,16 @@ public class BookSearchController {
         author_Text.setText("Author: " + book[1].toString() + '\n');
         category_Text.setText("Category: " + book[2].toString() + '\n');
         publishedYear_Text.setText("Published Year: " + book[3].toString() + '\n');
-        description_Text.setText("Description: " + book[4].toString() + '\n');
+        description_Text.setText("Description: " + (book[4].toString().length() > 500 ? book[4].toString().substring(0, 500) + "..." : book[4].toString()) + '\n');
+
         ratingStar_Label.setText("Rating: " + book[5].toString());
+        if (book[7] != null) {
+            thumbnail_ImageView.setImage(new Image(book[7].toString()));
+            thumbnailMessage_Label.setText("");
+        } else {
+            thumbnail_ImageView.setImage(null);
+            thumbnailMessage_Label.setText("No thumbnail available!");
+        }
         priorityOrder = (priorityOrder + 1) % recommendedBookList.size();
     }
 

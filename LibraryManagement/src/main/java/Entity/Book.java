@@ -16,7 +16,7 @@ public class Book {
     @Column(name = "book_title", nullable = false, length = 100)
     private String title;
 
-    @Column(name = "author", length = 50)
+    @Column(name = "author", length = 200)
     private String author;
 
     @Column(name = "publisher", length = 50)
@@ -34,8 +34,11 @@ public class Book {
     @Column(name = "averageRating", nullable = false)
     private double averageRate;
 
-    @Column(name = "category", nullable = false, length = 50)
+    @Column(name = "category", nullable = false, length = 150)
     private String category;
+
+    @Column(name = "thumbnailLink")
+    private String thumbnailLink;
 
     @Transient
     private final BooleanProperty selected = new SimpleBooleanProperty(false);
@@ -62,6 +65,7 @@ public class Book {
         this.averageRate = builder.averageRate;
         this.description = builder.description;
         this.year = builder.year;
+        this.thumbnailLink = builder.thumbnailLink;
     }
 
     public Book() {
@@ -78,6 +82,7 @@ public class Book {
         private double averageRate;
         private String description;
         private int year;
+        private String thumbnailLink;
 
         public Builder(String id) {
             this.isbn = id;
@@ -124,6 +129,11 @@ public class Book {
 
         public Builder description(String description) {
             this.description = description;
+            return this;
+        }
+
+        public Builder thumbnailLink(String thumbnailLink) {
+            this.thumbnailLink = thumbnailLink;
             return this;
         }
 
@@ -204,10 +214,18 @@ public class Book {
         this.year = year;
     }
 
+    public String getThumbnailLink() {
+        return thumbnailLink;
+    }
+
+    public void setThumbnailLink(String thumbnailLink) {
+        this.thumbnailLink = thumbnailLink;
+    }
+
     @Override
     public String toString() {
         return "Book [id=" + isbn + ", title=" + title + ", author=" + author
                 + ", publisher=" + publisher + ", quantity=" + quantity
-                + ", category=" + category  + ",averageRate=" + averageRate + "]";
+                + ", category=" + category  + ",averageRate=" + averageRate + ",thumbnailLink=" + thumbnailLink + ",description=" +description + "]";
     }
 }

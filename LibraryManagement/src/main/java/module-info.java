@@ -14,6 +14,7 @@ module uet.oop.librarymanagement {
     requires java.sql;
     requires java.persistence;
     requires org.hibernate.orm.core;
+    requires com.google.gson;
 
     opens Controllers to javafx.fxml, org.hibernate.orm.core;
     exports Controllers;
