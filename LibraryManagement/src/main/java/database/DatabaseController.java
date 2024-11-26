@@ -449,7 +449,7 @@ public class DatabaseController {
         try {
             session.beginTransaction();
 
-            String hql = "SELECT s.title, s.author, s.category, s.year, s.description, s.averageRate, s.id " +
+            String hql = "SELECT s.title, s.author, s.category, s.year, s.description, s.averageRate, s.id, s.thumbnailLink " +
                     "FROM Transaction b " +
                     "JOIN b.book s " +
                     "GROUP BY s.isbn " +
