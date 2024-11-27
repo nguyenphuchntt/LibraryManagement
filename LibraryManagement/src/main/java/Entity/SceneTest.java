@@ -27,7 +27,6 @@ public class SceneTest extends Application {
 
         Scene scene = new Scene(root, WIDTH, HEIGHT);
 
-//        Controller.setSideBar(root);
         Controller.setStage(stage);
 
         stage.setTitle("UET Library Management System");

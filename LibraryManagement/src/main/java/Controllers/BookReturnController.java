@@ -5,6 +5,7 @@ import Entity.*;
 import Utils.AccountUserUtils;
 import Utils.BookUtils;
 import Utils.TransactionUtils;
+import database.DatabaseController;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -184,7 +185,7 @@ public class BookReturnController {
             PopupController.showAlert("Returned " + transactions.size() + " books successfully");
             cleanUp();
         } else {
-            PopupController.showAlert(alert.toString() + "had been returned!");
+            PopupController.showAlert(alert.append(" had been returned!").toString());
         }
     }
     
@@ -223,7 +224,7 @@ public class BookReturnController {
             comment = null;
             return;
         }
-        BookUtils.addBookComment(comment);
+        DatabaseController.saveEntity(comment);
         PopupController.showAlert("Posted comment successfully");
         cleanUp();
     }

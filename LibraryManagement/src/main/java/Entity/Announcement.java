@@ -17,6 +17,14 @@ public class Announcement {
 
     private LocalDate end_date;
 
+    public Announcement() {}
+
+    public Announcement(String content, LocalDate start_date, LocalDate end_date) {
+        this.content = content;
+        this.start_date = start_date;
+        this.end_date = end_date;
+    }
+
     public int getAnnouncement_id() {
         return announcement_id;
     }

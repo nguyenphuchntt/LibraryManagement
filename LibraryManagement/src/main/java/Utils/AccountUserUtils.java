@@ -126,7 +126,7 @@ public class AccountUserUtils {
                     .username(username)
                     .password(password)
                     .joined_date(currentTimestamp)
-                    .typeAccount(true)
+                    .typeAccount(false)
                     .build();
 
             accoutSession.save(account);

@@ -543,4 +543,9 @@ public class DatabaseController {
         }
     }
 
+    public static void main(String[] args) {
+        Announcement announcement = new Announcement("Hello moi nguoi", LocalDate.now(), LocalDate.now());
+        saveEntity(announcement);
+    }
+
 }
