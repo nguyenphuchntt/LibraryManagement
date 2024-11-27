@@ -19,6 +19,6 @@
         <mapping class="Entity.Comment"/>
         <mapping class="Entity.Transaction"/>
         <mapping class="Entity.Book"/>
-
+        <mapping class="Entity.Announcement"/>
     </session-factory>
 </hibernate-configuration>

@@ -1,5 +1,6 @@
 package Controllers;
 
+import Entity.Account;
 import Entity.LibraryManagement;
 import Utils.AccountUserUtils;
 import database.DatabaseController;
@@ -36,7 +37,8 @@ public class LoginController {
 
         Connection connection = DatabaseController.getConnection();
 
-        boolean loginSuccessful = AccountUserUtils.isExistedAccount(username, password);
+        Account account = AccountUserUtils.isExistedAccount(username, password);
+        boolean loginSuccessful = account != null;
 
         if (!loginSuccessful) {
             loginMessage_Label.setText("Invalid username or password");
@@ -44,6 +46,9 @@ public class LoginController {
             switchToHomeScene();
             LibraryManagement.getInstance().setCurrentAccount(username);
             LibraryManagement.getInstance().setCurrentPassword(password);
+            LibraryManagement.getInstance().setRole((account.getTypeAccount()) ? "admin" : "user");
+            SideBarLoader.getLeftController().loadUserInfo();
+            SideBarLoader.getLeftController().setAdminPanelVisible(account.getTypeAccount());
             cleanUp();
         }
     }

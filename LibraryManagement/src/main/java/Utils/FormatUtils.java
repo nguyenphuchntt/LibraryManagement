@@ -1,5 +1,7 @@
 package Utils;
 
+import java.text.SimpleDateFormat;
+
 public class FormatUtils {
 
     public static int StringToInteger(String value) throws NumberFormatException {
@@ -45,5 +47,13 @@ public class FormatUtils {
             return "No description available";
         }
         return text.length() > maxLength ? text.substring(0, maxLength) + "..." : text;
+    }
+
+    public static SimpleDateFormat getDateFormat() {
+        return new SimpleDateFormat("yyyy-MM-dd");
+    }
+
+    public static SimpleDateFormat getDateTimeFormat() {
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     }
 }

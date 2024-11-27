@@ -60,15 +60,22 @@ CREATE TABLE IF NOT EXISTS transaction (
     CONSTRAINT `transaction_user_fk` FOREIGN KEY (username) REFERENCES `user`(username) ON UPDATE CASCADE
     );
 
-CREATE TABLE IF NOT EXISTS announcement (
-    announcement_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    content TEXT NOT NULL,
-    author_username VARCHAR(30) COLLATE utf8_bin NOT NULL,
-    receiver_username VARCHAR(30) COLLATE utf8_bin NOT NULL,
-    CONSTRAINT `announcement_author_fk` FOREIGN KEY (author_username) REFERENCES `user`(username) ON UPDATE CASCADE,
-    CONSTRAINT `announcement_receiver_fk` FOREIGN KEY (receiver_username) REFERENCES `user`(username) ON UPDATE CASCADE
-    );
-
+create table if not exists announcement (
+    announcement_id int not null auto_increment primary key,
+    content text not null,
+    start_date date not null,
+    end_date date not null
+);
 
 ALTER TABLE book
     MODIFY COLUMN description TEXT;
+
+CREATE TABLE IF NOT EXISTS messages (
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    sender VARCHAR(30) COLLATE utf8_bin NOT NULL,
+    receiver VARCHAR(30) COLLATE utf8_bin NOT NULL,
+    content TEXT NOT NULL,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT `sender_user_fk` FOREIGN KEY (sender) REFERENCES account (username) ON UPDATE CASCADE,
+    CONSTRAINT `receiver_user_fk` FOREIGN KEY (receiver) REFERENCES account (username) ON UPDATE CASCADE
+);

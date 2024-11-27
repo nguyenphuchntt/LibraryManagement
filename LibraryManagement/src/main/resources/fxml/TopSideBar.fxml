@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.HBox?>
 
 <HBox nodeOrientation="RIGHT_TO_LEFT" prefHeight="45.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.Controller">
     <children>
-        <Label fx:id="TabName_Label" alignment="CENTER" prefHeight="45.0" prefWidth="160.0" style="-fx-background-color: #33f3d8;" text="HOME" />
-        <Label fx:id="Announcement_Label" alignment="CENTER_RIGHT" prefHeight="45.0" prefWidth="740.0" text="Announcement here!" wrapText="true" />
+      <ScrollPane hbarPolicy="NEVER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="45.0" prefWidth="900.0">
+         <content>
+              <Label fx:id="announcement_Label" alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="45.0" prefWidth="900.0" textFill="RED" wrapText="true" />
+         </content>
+         <cursor>
+            <Cursor fx:constant="CLOSED_HAND" />
+         </cursor>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </ScrollPane>
         <Label fx:id="LibraryName_Label" alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #33f3d8;" text="UET LIB" textAlignment="CENTER" textFill="RED" />
     </children>
 </HBox>

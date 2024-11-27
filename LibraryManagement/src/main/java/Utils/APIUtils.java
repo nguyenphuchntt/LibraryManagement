@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class APIUtil {
+public class APIUtils {
 
     private static final String API_KEY = "AIzaSyBHhrP5SG8DmlOWYzttGGYwJkxxVldz5qs";
     private static final String API_URL = "https://www.googleapis.com/books/v1/volumes?q=";

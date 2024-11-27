@@ -133,63 +133,6 @@ public class Person {
     public void setGender(String gender) { this.gender = gender; }
     public String getDepartment() { return department; }
     public void setDepartment(String department) { this.department = department; }
-//    public Account getAccount() { return account; }
-//    public void setAccount(Account account) { this.account = account; }
-//    public List<Book> getBorrowedBooks() { return borrowedBooks; }
-
-//    public void borrowBook(Book book) {
-//        if (book.isAvailable()) {
-//            borrowedBooks.add(book);
-//            book.setAmount(book.getAmount() - 1);
-//        } else {
-//            System.out.println("Đã hết sách có thể cho mượn");
-//        }
-//    }
-//
-//    public void returnBook(Book book) {
-//        borrowedBooks.remove(book);
-//        book.setAmount(book.getAmount() + 1);
-//    }
-
-//    @Override
-//    public String toString() {
-//        return "Person [person_ID=" + person_ID + ", name=" + name + ", yearOfBirth=" + yearOfBirth + ", gender=" + gender
-//                + ", department=" + department + "]";
-//    }
-
-//    public void editInformation(String name, int yearOfBirth, String gender, String department) {
-//        if (name != null && !name.isEmpty()) { this.name = name; }
-//        if (yearOfBirth > 0) { this.yearOfBirth = yearOfBirth; }
-//        if (gender != null && !gender.isEmpty()) { this.gender = gender; }
-//        if (department != null && !department.isEmpty()) { this.department = department; }
-//    }
-//
-//    public boolean changePassword(String oldPassword, String newPassword, String confirmPassword) {
-//        if (!this.account.getPassword().equals(oldPassword)) {
-//            System.out.println("Old password does not match");
-//            return false;
-//        }
-//        if (!newPassword.equals(confirmPassword)) {
-//            System.out.println("New password and confirm password do not match");
-//            return false;
-//        }
-//        this.account.setPassword(newPassword);
-//        System.out.println("Password changed successfully");
-//        return true;
-//    }
-//
-//    public List<Book> searchBook(Library library, String id, String title, String author) {
-//        List<Book> result = new ArrayList<>();
-//        for (Map.Entry<String, Book> entry : library.getBooks().entrySet()) {
-//            boolean match = true;
-//            Book book = entry.getValue();
-//            if (id != null && book.getIsbn().equals(id)) { match = false; }
-//            if (title != null && !book.getTitle().toLowerCase().contains(title.toLowerCase())) { match = false; }
-//            if (author != null && !book.getAuthor().toLowerCase().contains(author.toLowerCase())) { match = false; }
-//            if (match) { result.add(book); }
-//        }
-//        return result;
-//    }
 
     public String toString() {
         return "name: " + name + "\nbirth: " + yearOfBirth + "\ngender: " + gender + "\ndepartment: " + department;

@@ -1,6 +1,7 @@
 package database;
 
 import Entity.*;
+import Utils.FormatUtils;
 import Utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,6 +13,8 @@ import java.nio.file.Paths;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
@@ -26,6 +29,7 @@ public class DatabaseController {
     private static final String book_commentCSVPath = Paths.get("src", "main", "resources", "csv", "book_comment.csv").toString();
     private static final String transactionCSVPath = Paths.get("src", "main", "resources", "csv", "transaction.csv").toString();
     private static final String userCSVPath = Paths.get("src", "main", "resources", "csv", "user.csv").toString();
+    private static final String messageCSVPath = Paths.get("src", "main", "resources", "csv", "message.csv").toString();
     private static final String SQL_FILE = Paths.get("src", "main", "java", "database", "createTableQuery.sql").toString();
 
     private static Connection connection;
@@ -84,8 +88,6 @@ public class DatabaseController {
         try {
             writer = new BufferedWriter(new FileWriter(pathToSCV));
 
-            SimpleDateFormat timestampFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // Format for TIMESTAMP
-
             ResultSetMetaData resultSetMetaData = resultSets.getMetaData();
             int columnCount = resultSetMetaData.getColumnCount();
 
@@ -105,12 +107,15 @@ public class DatabaseController {
 
                     if (resultSetMetaData.getColumnTypeName(i).equalsIgnoreCase("TIMESTAMP")) {
                         Timestamp timestamp = resultSets.getTimestamp(i);
-                        value = (timestamp != null) ? timestampFormat.format(timestamp) : "null";
+                        value = (timestamp != null) ? FormatUtils.getDateTimeFormat().format(timestamp) : "null";
                     } else if (resultSetMetaData.getColumnTypeName(i).equalsIgnoreCase("MEDIUMBLOB")) {
                         byte[] blobData = resultSets.getBytes(i);
                         value = (blobData != null) ? Base64.getEncoder().encodeToString(blobData) : "null";
                     } else if (resultSetMetaData.getColumnTypeName(i).equalsIgnoreCase("YEAR")) {
                         value = String.valueOf(resultSets.getInt(i));
+                    } else if (resultSetMetaData.getColumnTypeName(i).equalsIgnoreCase("DATE")) {
+                        Date date = resultSets.getDate(i);
+                        value = (date != null) ? FormatUtils.getDateFormat().format(date) : "null";
                     } else {
                         value = resultSets.getString(i);
                     }
@@ -187,8 +192,6 @@ public class DatabaseController {
     private static void importAccountCSVtoBD(String pathToCSV) throws SQLException, IOException {
         Connection connection = DatabaseController.getConnection();
 
-        SimpleDateFormat timestampFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // Format for TIMESTAMP
-
         BufferedReader reader = null;
         PreparedStatement statement = null;
         String line;
@@ -210,7 +213,7 @@ public class DatabaseController {
                 Timestamp timestamp = null;
                 if (values[3] != null && !values[3].equalsIgnoreCase("null")) {
                     try {
-                        timestamp = new Timestamp(timestampFormat.parse(values[3]).getTime());
+                        timestamp = new Timestamp(FormatUtils.getDateTimeFormat().parse(values[3]).getTime());
                     } catch (ParseException e) {
                         System.err.println("Error parsing timestamp: " + values[3]);
                     }
@@ -300,13 +303,53 @@ public class DatabaseController {
         }
     }
 
-    private static void importTransactionCSVtoDB(String pathToCSV) throws SQLException, IOException {
+    private static void importMessageCSVtoDB(String pathToCSV)  throws SQLException, IOException {
         Connection connection = DatabaseController.getConnection();
         BufferedReader reader = null;
         PreparedStatement statement = null;
         String line;
 
-        SimpleDateFormat timestampFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // Format for TIMESTAMP
+        String insertSQL = "INSERT IGNORE INTO `messages` (id, sender, receiver , content, timestamp) VALUES (?, ?, ?, ?, ?)";
+
+        try {
+            reader = new BufferedReader(new FileReader(pathToCSV));
+            reader.readLine();
+
+            statement = connection.prepareStatement(insertSQL);
+
+            while ((line = reader.readLine()) != null) {
+                String[] values = line.split("##@#@");
+
+                statement.setInt(1, Integer.parseInt(values[0]));
+                statement.setString(2, values[1]);
+                statement.setString(3, values[2]);
+                statement.setString(4, values[3]);
+                try {
+                    statement.setTimestamp(5, new Timestamp(FormatUtils.getDateTimeFormat().parse(values[4]).getTime()));
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
+
+                statement.addBatch();
+            }
+
+            statement.executeBatch();
+            System.out.println("Import CSV message to DB executed successfully.");
+        } finally {
+            if (reader != null) {
+                reader.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+        }
+    }
+
+    private static void importTransactionCSVtoDB(String pathToCSV) throws SQLException, IOException {
+        Connection connection = DatabaseController.getConnection();
+        BufferedReader reader = null;
+        PreparedStatement statement = null;
+        String line;
 
         String insertSQL = "INSERT IGNORE INTO `transaction` (transaction_id, book_id, username , borrow_time, return_time) VALUES (?, ?, ?, ?, ?)";
 
@@ -327,11 +370,11 @@ public class DatabaseController {
                 Timestamp borrow_Timestamp = null; // time
                 Timestamp return_Timestamp = null;
                 try {
-                    borrow_Timestamp = new Timestamp(timestampFormat.parse(values[3]).getTime());
+                    borrow_Timestamp = new Timestamp(FormatUtils.getDateTimeFormat().parse(values[3]).getTime());
                     statement.setTimestamp(4, borrow_Timestamp);
 
                     if (values[4] != null && !values[4].equalsIgnoreCase("null")) {
-                        return_Timestamp = new Timestamp(timestampFormat.parse(values[4]).getTime());
+                        return_Timestamp = new Timestamp(FormatUtils.getDateTimeFormat().parse(values[4]).getTime());
                         statement.setTimestamp(5, return_Timestamp);
                     } else {
                         statement.setNull(5, java.sql.Types.TIMESTAMP);
@@ -396,6 +439,50 @@ public class DatabaseController {
         }
     }
 
+
+
+    private static void importAnnouncementCSVtoDB(String pathToCSV) throws SQLException, IOException {
+        Connection connection = DatabaseController.getConnection();
+        BufferedReader reader = null;
+        PreparedStatement statement = null;
+        String line;
+
+        String insertSQL = "INSERT IGNORE INTO `announcement` (announcement_id, content, start_date , end_date) VALUES (?, ?, ?, ?)";
+
+        try {
+            reader = new BufferedReader(new FileReader(pathToCSV));
+
+            reader.readLine();
+
+            statement = connection.prepareStatement(insertSQL);
+
+            while ((line = reader.readLine()) != null) {
+                String[] values = line.split("##@#@");
+
+                statement.setInt(1, Integer.parseInt(values[0]));
+                statement.setString(2, values[1]);
+                try {
+                    statement.setDate(3, new Date(FormatUtils.getDateFormat().parse(values[2]).getTime()));
+                    statement.setDate(4, new Date(FormatUtils.getDateFormat().parse(values[3]).getTime()));
+                } catch (ParseException e) {
+                    System.out.println("Can not parse date!");
+                    throw new RuntimeException(e);
+                }
+
+                statement.addBatch();
+            }
+
+            statement.executeBatch();
+            System.out.println("Import CSV announcement to DB executed successfully.");
+        } finally {
+            if (reader != null) {
+                reader.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+        }
+    }
     public static void importDataFromCSV() {
         try {
             importAccountCSVtoBD(accountCSVPath);
@@ -403,7 +490,8 @@ public class DatabaseController {
             importBookCSVtoDB(bookCSVPath);
             importTransactionCSVtoDB(transactionCSVPath);
             importCommentCSVtoDB(book_commentCSVPath);
-            // thieu announcement
+            importAnnouncementCSVtoDB(announcementCSVPath);
+            importMessageCSVtoDB(messageCSVPath);
         } catch (SQLException e) {
             System.out.println("Initial import -> SQL exception: Cannot import data from CSV file!");
         } catch (IOException e) {
@@ -417,6 +505,8 @@ public class DatabaseController {
         ResultSet resultSetBook = null;
         ResultSet resultSetTransaction = null;
         ResultSet resultSetComment = null;
+        ResultSet resultSetAnnouncement = null;
+        ResultSet resultSetMessage = null;
 
         try {
             Statement accountQuery = DatabaseController.getConnection().createStatement();
@@ -424,12 +514,16 @@ public class DatabaseController {
             Statement bookQuery = DatabaseController.getConnection().createStatement();
             Statement transactionQuery = DatabaseController.getConnection().createStatement();
             Statement commentQuery = DatabaseController.getConnection().createStatement();
+            Statement announcementQuery = DatabaseController.getConnection().createStatement();
+            Statement messageQuery = DatabaseController.getConnection().createStatement();
 
             resultSetAccount = accountQuery.executeQuery("SELECT * from account");
             resultSetUser = userQuery.executeQuery("SELECT * from user");
             resultSetBook = bookQuery.executeQuery("SELECT * from book");
             resultSetTransaction = transactionQuery.executeQuery("SELECT * from transaction");
             resultSetComment = commentQuery.executeQuery("SELECT * from book_comment");
+            resultSetAnnouncement = announcementQuery.executeQuery("SELECT * from announcement");
+            resultSetMessage = messageQuery.executeQuery("SELECT * from messages");
         } catch (SQLException e) {
             System.out.println("SQL Exception: Cannot get result set!");
         }
@@ -440,12 +534,61 @@ public class DatabaseController {
             ExportResultSetToCSV(resultSetBook, bookCSVPath);
             ExportResultSetToCSV(resultSetTransaction, transactionCSVPath);
             ExportResultSetToCSV(resultSetComment, book_commentCSVPath);
+            ExportResultSetToCSV(resultSetAnnouncement, announcementCSVPath);
+            ExportResultSetToCSV(resultSetMessage, messageCSVPath);
         } catch (IOException e) {
             System.out.println("IO Exception: Cannot export result set!");
         } catch (SQLException e) {
             System.out.println("SQL Exception: Cannot export result set!");
         }
 
+    }
+
+    public static List<Announcement> getAllAnnouncements() {
+        LocalDate currentDate = LocalDate.now();
+        List<Announcement> announcements = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            session.beginTransaction();
+
+            String hql = "FROM Announcement a WHERE a.start_date <= :currentDate AND a.end_date >= :currentDate";
+
+            Query<Announcement> query = session.createQuery(hql, Announcement.class);
+            query.setParameter("currentDate", currentDate);
+
+            announcements = query.list();
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+
+        return announcements;
+    }
+
+    public static <T> void saveEntity(T entity) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            session.beginTransaction();
+
+            session.save(entity);
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
     }
 
 }
