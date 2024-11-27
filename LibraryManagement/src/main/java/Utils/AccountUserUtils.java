@@ -32,22 +32,31 @@ public class AccountUserUtils {
         return existed;
     }
 
-    public static boolean isExistedAccount(String username, String password) {
-        boolean existed = false;
-        String sqlQuery = "SELECT * FROM account WHERE username = ? AND password = ?";
+    public static Account isExistedAccount(String username, String password) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Account user = null;
         try {
-            Statement useDatabaseStatement = DatabaseController.getConnection().createStatement();
-            useDatabaseStatement.execute("USE library");
-            PreparedStatement preparedStatement = DatabaseController.getConnection().prepareStatement(sqlQuery);
-            preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            existed = resultSet.next();
-        } catch (SQLException e) {
-            System.out.println("SQLException: " + e.getMessage());
-            System.out.println("Login: " + username + " failed by exception: " + e);
+            session.beginTransaction();
+
+            String hql = "FROM Account WHERE username = :username AND password = :password";
+            Query<Account> query = session.createQuery(hql, Account.class);
+            query.setParameter("username", username);
+            query.setParameter("password", password);
+
+            user = query.uniqueResult();
+
+            session.getTransaction().commit();
+
+            return user;
+
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
         }
-        return existed;
     }
 
     public static Person getUserInfo(String username) {

@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
 <VBox fx:id="LeftSideBar_VBox" prefHeight="755.0" prefWidth="200.0" style="-fx-background-color: #e6fcfa;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.Controller">
     <children>
@@ -22,7 +23,12 @@
                 </ImageView>
                 <Circle fx:id="Status_Circle" fill="DODGERBLUE" layoutX="87.0" layoutY="76.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
                 <Label fx:id="role_Label" layoutX="100.0" layoutY="68.0" prefHeight="16.0" prefWidth="59.0" />
-            <Label fx:id="username_Label" layoutX="82.0" layoutY="37.0" prefHeight="16.0" prefWidth="112.0" />
+            <Label fx:id="username_Label" alignment="CENTER" contentDisplay="CENTER" layoutX="82.0" layoutY="40.0" prefHeight="16.0" prefWidth="112.0" />
+            <Label layoutX="82.0" layoutY="8.0" text="WELCOME!">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
             </children>
         </AnchorPane>
         <Label fx:id="MainNavigation_Label" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #3c8dbc;" text="MAIN_NAVIGATION">
