@@ -29,6 +29,7 @@ public class DatabaseController {
     private static final String book_commentCSVPath = Paths.get("src", "main", "resources", "csv", "book_comment.csv").toString();
     private static final String transactionCSVPath = Paths.get("src", "main", "resources", "csv", "transaction.csv").toString();
     private static final String userCSVPath = Paths.get("src", "main", "resources", "csv", "user.csv").toString();
+    private static final String messageCSVPath = Paths.get("src", "main", "resources", "csv", "message.csv").toString();
     private static final String SQL_FILE = Paths.get("src", "main", "java", "database", "createTableQuery.sql").toString();
 
     private static Connection connection;
@@ -302,6 +303,48 @@ public class DatabaseController {
         }
     }
 
+    private static void importMessageCSVtoDB(String pathToCSV)  throws SQLException, IOException {
+        Connection connection = DatabaseController.getConnection();
+        BufferedReader reader = null;
+        PreparedStatement statement = null;
+        String line;
+
+        String insertSQL = "INSERT IGNORE INTO `messages` (id, sender, receiver , content, timestamp) VALUES (?, ?, ?, ?, ?)";
+
+        try {
+            reader = new BufferedReader(new FileReader(pathToCSV));
+            reader.readLine();
+
+            statement = connection.prepareStatement(insertSQL);
+
+            while ((line = reader.readLine()) != null) {
+                String[] values = line.split("##@#@");
+
+                statement.setInt(1, Integer.parseInt(values[0]));
+                statement.setString(2, values[1]);
+                statement.setString(3, values[2]);
+                statement.setString(4, values[3]);
+                try {
+                    statement.setTimestamp(5, new Timestamp(FormatUtils.getDateTimeFormat().parse(values[4]).getTime()));
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
+
+                statement.addBatch();
+            }
+
+            statement.executeBatch();
+            System.out.println("Import CSV message to DB executed successfully.");
+        } finally {
+            if (reader != null) {
+                reader.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+        }
+    }
+
     private static void importTransactionCSVtoDB(String pathToCSV) throws SQLException, IOException {
         Connection connection = DatabaseController.getConnection();
         BufferedReader reader = null;
@@ -396,7 +439,9 @@ public class DatabaseController {
         }
     }
 
-    public static void importAnnouncementCSVtoDB(String pathToCSV) throws SQLException, IOException {
+
+
+    private static void importAnnouncementCSVtoDB(String pathToCSV) throws SQLException, IOException {
         Connection connection = DatabaseController.getConnection();
         BufferedReader reader = null;
         PreparedStatement statement = null;
@@ -446,7 +491,7 @@ public class DatabaseController {
             importTransactionCSVtoDB(transactionCSVPath);
             importCommentCSVtoDB(book_commentCSVPath);
             importAnnouncementCSVtoDB(announcementCSVPath);
-            // thieu announcement
+            importMessageCSVtoDB(messageCSVPath);
         } catch (SQLException e) {
             System.out.println("Initial import -> SQL exception: Cannot import data from CSV file!");
         } catch (IOException e) {
@@ -461,6 +506,7 @@ public class DatabaseController {
         ResultSet resultSetTransaction = null;
         ResultSet resultSetComment = null;
         ResultSet resultSetAnnouncement = null;
+        ResultSet resultSetMessage = null;
 
         try {
             Statement accountQuery = DatabaseController.getConnection().createStatement();
@@ -469,6 +515,7 @@ public class DatabaseController {
             Statement transactionQuery = DatabaseController.getConnection().createStatement();
             Statement commentQuery = DatabaseController.getConnection().createStatement();
             Statement announcementQuery = DatabaseController.getConnection().createStatement();
+            Statement messageQuery = DatabaseController.getConnection().createStatement();
 
             resultSetAccount = accountQuery.executeQuery("SELECT * from account");
             resultSetUser = userQuery.executeQuery("SELECT * from user");
@@ -476,6 +523,7 @@ public class DatabaseController {
             resultSetTransaction = transactionQuery.executeQuery("SELECT * from transaction");
             resultSetComment = commentQuery.executeQuery("SELECT * from book_comment");
             resultSetAnnouncement = announcementQuery.executeQuery("SELECT * from announcement");
+            resultSetMessage = messageQuery.executeQuery("SELECT * from messages");
         } catch (SQLException e) {
             System.out.println("SQL Exception: Cannot get result set!");
         }
@@ -487,6 +535,7 @@ public class DatabaseController {
             ExportResultSetToCSV(resultSetTransaction, transactionCSVPath);
             ExportResultSetToCSV(resultSetComment, book_commentCSVPath);
             ExportResultSetToCSV(resultSetAnnouncement, announcementCSVPath);
+            ExportResultSetToCSV(resultSetMessage, messageCSVPath);
         } catch (IOException e) {
             System.out.println("IO Exception: Cannot export result set!");
         } catch (SQLException e) {
@@ -540,11 +589,6 @@ public class DatabaseController {
         } finally {
             session.close();
         }
-    }
-
-    public static void main(String[] args) {
-        Announcement announcement = new Announcement("Hello moi nguoi", LocalDate.now(), LocalDate.now());
-        saveEntity(announcement);
     }
 
 }

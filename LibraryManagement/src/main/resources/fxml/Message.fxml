@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            prefHeight="400.0" prefWidth="600.0">
+    <VBox spacing="10" alignment="CENTER" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <ScrollPane fx:id="chatScrollPane" fitToWidth="true" hbarPolicy="NEVER" prefHeight="500.0" prefWidth="600.0">
+            <VBox fx:id="messageContainer" spacing="5" prefWidth="580.0" />
+        </ScrollPane>
+        <HBox>
+            <TextField fx:id="messageInput" promptText="Type your message..." HBox.hgrow="ALWAYS" />
+            <Button text="Send" fx:id="sendButton" />
+        </HBox>
+    </VBox>
+</AnchorPane>

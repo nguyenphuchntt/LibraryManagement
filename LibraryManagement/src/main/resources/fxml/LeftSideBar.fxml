@@ -20,8 +20,9 @@
                         <Image url="@../assets/img/user_icon.png" />
                     </image>
                 </ImageView>
-                <Circle fx:id="Status_Circle" fill="DODGERBLUE" layoutX="89.0" layoutY="45.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
-                <Label fx:id="UserCategory_Label" layoutX="100.0" layoutY="37.0" prefHeight="16.0" prefWidth="59.0" style="-fx-background-color: #d169ab;" text="User" />
+                <Circle fx:id="Status_Circle" fill="DODGERBLUE" layoutX="87.0" layoutY="76.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                <Label fx:id="role_Label" layoutX="100.0" layoutY="68.0" prefHeight="16.0" prefWidth="59.0" />
+            <Label fx:id="username_Label" layoutX="82.0" layoutY="37.0" prefHeight="16.0" prefWidth="112.0" />
             </children>
         </AnchorPane>
         <Label fx:id="MainNavigation_Label" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #3c8dbc;" text="MAIN_NAVIGATION">
