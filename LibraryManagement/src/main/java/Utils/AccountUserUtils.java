@@ -3,14 +3,12 @@ package Utils;
 import Entity.Account;
 import Entity.LibraryManagement;
 import Entity.Person;
-import Entity.Transaction;
 import database.DatabaseController;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
 import java.sql.*;
-import java.util.List;
 
 public class AccountUserUtils {
 

@@ -99,7 +99,7 @@ public class AdminAddBookController {
                 addBookMessage_Label.setText("You should not change the book ID");
                 return;
             }
-            BookUtils.addBook(book);
+            DatabaseController.saveEntity(book);
         }
     }
 
