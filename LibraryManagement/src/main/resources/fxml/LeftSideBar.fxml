@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<VBox fx:id="LeftSideBar_VBox" prefHeight="755.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.Controller">
+<VBox fx:id="LeftSideBar_VBox" prefHeight="755.0" prefWidth="200.0" style="-fx-background-color: #e6fcfa;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.Controller">
     <children>
         <AnchorPane fx:id="AccountInfo_Pane" prefHeight="90.0" prefWidth="200.0">
             <children>
@@ -52,6 +52,5 @@
             </padding>
         </MenuButton>
         <Button fx:id="AccountTab_Button" mnemonicParsing="false" onAction="#handleAccount_Button" prefHeight="50.0" prefWidth="200.0" text="Account" />
-        <Button fx:id="SettingsTab_Button" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="Settings" />
     </children>
 </VBox>

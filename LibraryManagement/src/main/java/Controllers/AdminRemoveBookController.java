@@ -1,6 +1,7 @@
 package Controllers;
 
 import Utils.FormatUtils;
+import Utils.PopupUtils;
 import database.DatabaseController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,7 +40,7 @@ public class AdminRemoveBookController {
             return;
         }
 
-        if (PopupController.showConfirmationDialog()) {
+        if (PopupUtils.showConfirmationDialog()) {
             cleanUp();
             return;
         }
@@ -64,7 +65,7 @@ public class AdminRemoveBookController {
                     updateStatement.setInt(1, quantity);
                     updateStatement.setString(2, bookID);
                     updateStatement.executeUpdate();
-                    PopupController.showAlert("Remove book successfully!");
+                    PopupUtils.showAlert("Remove book successfully!");
                     cleanUp();
                 } else {
                     removeMessage_Label.setText("This number is larger than book amount");

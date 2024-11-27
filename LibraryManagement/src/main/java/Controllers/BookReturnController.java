@@ -4,6 +4,7 @@ import DTO.TransactionDTO;
 import Entity.*;
 import Utils.AccountUserUtils;
 import Utils.BookUtils;
+import Utils.PopupUtils;
 import Utils.TransactionUtils;
 import database.DatabaseController;
 import javafx.collections.ObservableList;
@@ -163,13 +164,13 @@ public class BookReturnController {
             return;
         }
         if (transactions.isEmpty()) {
-            PopupController.showAlert("No books are selected");
+            PopupUtils.showAlert("No books are selected");
         }
         List<String> toReturnBookID = new ArrayList<>();
         Person currentUser = AccountUserUtils.getCurrentUser();
         StringBuilder alert = new StringBuilder();
         if (currentUser == null) {
-            PopupController.showAlert("User is null");
+            PopupUtils.showAlert("User is null");
         }
         for (TransactionDTO transactionDTO : transactions) {
             if (transactionDTO.getStatus().equalsIgnoreCase("Returned")) {
@@ -182,10 +183,10 @@ public class BookReturnController {
             }
             TransactionUtils.addReturnTransactions(transactions);
             BookUtils.updateBookAmountAfterBorrowed(toReturnBookID, true);
-            PopupController.showAlert("Returned " + transactions.size() + " books successfully");
+            PopupUtils.showAlert("Returned " + transactions.size() + " books successfully");
             cleanUp();
         } else {
-            PopupController.showAlert(alert.append(" had been returned!").toString());
+            PopupUtils.showAlert(alert.append(" had been returned!").toString());
         }
     }
     
@@ -225,7 +226,7 @@ public class BookReturnController {
             return;
         }
         DatabaseController.saveEntity(comment);
-        PopupController.showAlert("Posted comment successfully");
+        PopupUtils.showAlert("Posted comment successfully");
         cleanUp();
     }
 

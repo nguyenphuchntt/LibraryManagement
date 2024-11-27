@@ -1,8 +1,9 @@
 package Controllers;
 
 import Entity.Book;
-import Utils.APIUtil;
+import Utils.APIUtils;
 import Utils.BookUtils;
+import Utils.PopupUtils;
 import database.DatabaseController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -58,7 +59,7 @@ public class AdminAddBookController {
             return;
         }
         try {
-            book = APIUtil.searchBooks(isbn);
+            book = APIUtils.searchBooks(isbn);
         } catch (Exception e) {
             System.out.println("Error in Add book controller: " + e.getMessage());
             throw new RuntimeException(e);
@@ -86,7 +87,7 @@ public class AdminAddBookController {
             return;
         }
 
-        if (PopupController.showConfirmationDialog()) {
+        if (PopupUtils.showConfirmationDialog()) {
             return;
         }
 

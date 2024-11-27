@@ -4,7 +4,6 @@ import Entity.Book;
 import Entity.Person;
 import Entity.Transaction;
 import Utils.*;
-import database.DatabaseController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -165,14 +164,14 @@ public class BookSearchController {
             return;
         }
         if (books.isEmpty()) {
-            PopupController.showAlert("No books are selected");
+            PopupUtils.showAlert("No books are selected");
             return;
         }
         List<Transaction> transactions = new ArrayList<>();
         Person currentUser = AccountUserUtils.getCurrentUser();
         StringBuilder alert = new StringBuilder();
         if (currentUser == null) {
-            PopupController.showAlert("User is null");
+            PopupUtils.showAlert("User is null");
         }
         for (Book book : books) {
             if (book.getQuantity() <= 0) {
@@ -186,10 +185,10 @@ public class BookSearchController {
         if (alert.isEmpty()) {
             TransactionUtils.addBorrowTransactions(transactions);
             BookUtils.updateBookAmountAfterBorrowed(booksID, false);
-            PopupController.showAlert("Borrowed " + books.size() + " books successfully");
+            PopupUtils.showAlert("Borrowed " + books.size() + " books successfully");
             cleanUp();
         } else {
-            PopupController.showAlert(alert.toString() + "doesn't not have enough quantity :((");
+            PopupUtils.showAlert(alert.toString() + "doesn't not have enough quantity :((");
         }
     }
 
@@ -228,7 +227,7 @@ public class BookSearchController {
 
         TransactionUtils.addBorrowTransactions(transactions);
         BookUtils.updateBookAmountAfterBorrowed(books, false);
-        PopupController.showAlert("Borrowed " + book.getTitle() + " successfully");
+        PopupUtils.showAlert("Borrowed " + book.getTitle() + " successfully");
     }
 
     @FXML

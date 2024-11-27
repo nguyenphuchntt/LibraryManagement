@@ -497,7 +497,6 @@ public class DatabaseController {
 
     public static List<Announcement> getAllAnnouncements() {
         LocalDate currentDate = LocalDate.now();
-
         List<Announcement> announcements = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
 
@@ -507,7 +506,7 @@ public class DatabaseController {
             String hql = "FROM Announcement a WHERE a.start_date <= :currentDate AND a.end_date >= :currentDate";
 
             Query<Announcement> query = session.createQuery(hql, Announcement.class);
-            query.setParameter("currentDate", java.sql.Date.valueOf(currentDate));
+            query.setParameter("currentDate", currentDate);
 
             announcements = query.list();
 

@@ -1,8 +1,12 @@
 package Controllers;
 
+import Entity.Announcement;
+import com.mysql.cj.x.protobuf.MysqlxDatatypes;
+import database.DatabaseController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -10,6 +14,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -32,6 +37,9 @@ public class Controller {
     public static void setStage(Stage stage) {
         Controller.stage = stage;
     }
+
+    @FXML
+    private Label announcement_Label;
 
     @FXML
     private void handleHomeTab_Button() throws Exception {
@@ -145,8 +153,8 @@ public class Controller {
     }
 
     public static void setSideBar(AnchorPane root) throws IOException {
-        HBox topSidebar = SideBarLoader.getTopSidebar();
         VBox leftSidebar = SideBarLoader.getLeftSidebar();
+        HBox topSidebar = SideBarLoader.getTopSidebar();
 
         AnchorPane.setTopAnchor(topSidebar, 0.0);
         AnchorPane.setLeftAnchor(topSidebar, 0.0);
@@ -156,5 +164,15 @@ public class Controller {
 
         root.getChildren().add(topSidebar);
         root.getChildren().add(leftSidebar);
+    }
+
+    public void loadAnnouncement() {
+        List<Announcement> announcements = DatabaseController.getAllAnnouncements();
+        announcement_Label.setMinHeight(announcements.size() * 16);
+        StringBuilder announcementString = new StringBuilder();
+        for (Announcement announcement : announcements) {
+            announcementString.append(announcement.getContent()).append('\n');
+        }
+        announcement_Label.setText(announcementString.toString());
     }
 }

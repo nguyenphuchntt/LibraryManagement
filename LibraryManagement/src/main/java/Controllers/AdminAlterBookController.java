@@ -3,6 +3,7 @@ package Controllers;
 import Entity.Book;
 import Utils.BookUtils;
 import Utils.FormatUtils;
+import Utils.PopupUtils;
 import database.DatabaseController;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -127,7 +128,7 @@ public class AdminAlterBookController {
             return;
         }
 
-        if (PopupController.showConfirmationDialog()) {
+        if (PopupUtils.showConfirmationDialog()) {
             cleanUp();
             return;
         }
@@ -166,7 +167,7 @@ public class AdminAlterBookController {
                 .build();
 
         BookUtils.alterBook(changedBook);
-        PopupController.showAlert("Change book properties successfully!");
+        PopupUtils.showAlert("Change book properties successfully!");
         cleanUp();
     }
 }
