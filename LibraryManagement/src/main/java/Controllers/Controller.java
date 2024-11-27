@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -48,6 +49,9 @@ public class Controller {
 
     @FXML
     private Label username_Label;
+
+    @FXML
+    private MenuButton AdminPanelTab_Button;
 
     @FXML
     private void handleHomeTab_Button() throws Exception {
@@ -187,5 +191,9 @@ public class Controller {
     public void loadUserInfo() {
         role_Label.setText(LibraryManagement.getInstance().getRole());
         username_Label.setText(LibraryManagement.getInstance().getCurrentAccount());
+    }
+
+    public void setAdminPanelVisible(boolean isVisible) {
+        AdminPanelTab_Button.setVisible(isVisible);
     }
 }

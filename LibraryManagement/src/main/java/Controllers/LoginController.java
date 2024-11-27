@@ -48,6 +48,7 @@ public class LoginController {
             LibraryManagement.getInstance().setCurrentPassword(password);
             LibraryManagement.getInstance().setRole((account.getTypeAccount()) ? "admin" : "user");
             SideBarLoader.getLeftController().loadUserInfo();
+            SideBarLoader.getLeftController().setAdminPanelVisible(account.getTypeAccount());
             cleanUp();
         }
     }

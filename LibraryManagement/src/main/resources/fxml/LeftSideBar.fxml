@@ -37,6 +37,8 @@
             </padding>
         </Label>
         <Button fx:id="HomeTab_Button" mnemonicParsing="false" onAction="#handleHomeTab_Button" prefHeight="50.0" prefWidth="200.0" text="Home" />
+      <Button mnemonicParsing="false" onAction="#handleBookSearch_MenuItem" prefHeight="50.0" prefWidth="200.0" text="Search Book" />
+      <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="Return Book" />
         <MenuButton fx:id="BooksTab_Button" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="Books" textAlignment="CENTER">
             <items>
                 <MenuItem fx:id="Book_Seach_MenuItem" mnemonicParsing="false" onAction="#handleBookSearch_MenuItem" text="Search" />
@@ -46,6 +48,7 @@
                 <Insets left="20.0" />
             </padding>
         </MenuButton>
+        <Button fx:id="AccountTab_Button" mnemonicParsing="false" onAction="#handleAccount_Button" prefHeight="50.0" prefWidth="200.0" text="Account" />
         <MenuButton fx:id="AdminPanelTab_Button" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="Admin Panel" textAlignment="CENTER">
             <items>
                 <MenuItem fx:id="AdminPanel_Overview_MenuItem" mnemonicParsing="false" onAction="#handleAdminOverview_MenuItem" text="Overview" />
@@ -58,6 +61,5 @@
                 <Insets left="20.0" />
             </padding>
         </MenuButton>
-        <Button fx:id="AccountTab_Button" mnemonicParsing="false" onAction="#handleAccount_Button" prefHeight="50.0" prefWidth="200.0" text="Account" />
     </children>
 </VBox>
