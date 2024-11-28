@@ -1,7 +1,9 @@
 package Controllers;
 
 import DTO.TransactionDTO;
+import Entity.LibraryManagement;
 import Entity.Transaction;
+import Utils.PopupUtils;
 import Utils.TransactionUtils;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -36,6 +38,14 @@ public class AdminDashboard {
     @FXML
     private void initialize() {
         assignColumnValue();
+        overdue_TableView.setOnMouseClicked(event -> {
+            if (event.getClickCount() >= 2) {
+                TransactionDTO selectedItem = overdue_TableView.getSelectionModel().getSelectedItem();
+                if (selectedItem != null) {
+                    handleDoubleClick(selectedItem.getUsername());
+                }
+            }
+        });
         refreshOverdueTableView();
     }
 
@@ -53,7 +63,12 @@ public class AdminDashboard {
         overdue_TableView.setItems(overdueList);
     }
 
-
+    private void handleDoubleClick(String username) {
+        if (username.equals(LibraryManagement.getInstance().getCurrentAccount())) {
+            return;
+        }
+        PopupUtils.openQuickMessage(username);
+    }
 
 
 }

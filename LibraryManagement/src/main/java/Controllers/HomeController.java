@@ -5,6 +5,7 @@ import Entity.Message;
 import Entity.Person;
 import Utils.AccountUserUtils;
 import Utils.FormatUtils;
+import Utils.PopupUtils;
 import database.DatabaseController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,7 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HomeController {
+public class HomeController implements PopupUtils.PopupClosedCallback {
 
     private List<String> usersChatWith = new ArrayList<>();
 
@@ -61,7 +62,7 @@ public class HomeController {
                 return;
             }
             usersChatWith.add(user.getUsername());
-            openChatWindow(user.getUsername());
+            PopupUtils.openChatWindow(user.getUsername(), this);
         });
 
         return hbox;
@@ -87,7 +88,7 @@ public class HomeController {
             return;
         }
         usersChatWith.add(receiver);
-        openChatWindow(receiver);
+        PopupUtils.openChatWindow(receiver, this);
     }
 
     private void loadUsersIntoListView() {
@@ -99,30 +100,8 @@ public class HomeController {
         messages_ListView.setItems(userHBoxes);
     }
 
-    private void openChatWindow(String username) {
-        Stage chatStage = new Stage();
-        VBox chatBox = null;
-
-        FXMLLoader rootLoader = new FXMLLoader(getClass().getResource("/fxml/Message.fxml"));
-        try {
-            chatBox = rootLoader.load();
-            ChatController chatController = rootLoader.getController();
-            chatController.setup(username);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        chatBox.setSpacing(10);
-
-        Scene chatScene = new Scene(chatBox, 700, 500);
-        chatStage.setScene(chatScene);
-        chatStage.setTitle("Chat with " + username);
-        chatStage.setResizable(false);
-
-        chatStage.setOnCloseRequest((WindowEvent event) -> {
-            usersChatWith.remove(username);
-        });
-
-        chatStage.show();
+    @Override
+    public void onPopupClosed(String username) {
+        this.usersChatWith.remove(username);
     }
 }
