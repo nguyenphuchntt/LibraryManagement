@@ -63,7 +63,7 @@ public class Controller {
 
     @FXML
     private void handleBookSearch_MenuItem() throws Exception {
-        if (Objects.equals(currentScene, "BookSearch.fxml")) {
+        if (Objects.equals(currentScene, "Book_Search.fxml")) {
             return;
         }
         switchScene("Book_Search.fxml");
@@ -71,7 +71,7 @@ public class Controller {
 
     @FXML
     private void handleBookReturn_MenuItem() throws Exception {
-        if (Objects.equals(currentScene, "BookReturn.fxml")) {
+        if (Objects.equals(currentScene, "Book_Return.fxml")) {
             return;
         }
         switchScene("Book_Return.fxml");
@@ -79,7 +79,7 @@ public class Controller {
 
     @FXML
     private void handleAdminOverview_MenuItem() throws Exception {
-        if (Objects.equals(currentScene, "AdminOverview.fxml")) {
+        if (Objects.equals(currentScene, "Admin_Overview.fxml")) {
             return;
         }
         switchScene("Admin_Overview.fxml");
@@ -87,7 +87,7 @@ public class Controller {
 
     @FXML
     private void handleAdminAnnouncement_MenuItem() throws Exception {
-        if (Objects.equals(currentScene, "AdminAnnouncement.fxml")) {
+        if (Objects.equals(currentScene, "Admin_Announcement.fxml")) {
             return;
         }
         switchScene("Admin_Announcement.fxml");
@@ -95,7 +95,7 @@ public class Controller {
 
     @FXML
     private void handleAdminAlterBook_MenuItem() throws Exception {
-        if (Objects.equals(currentScene, "AdminAlterBook.fxml")) {
+        if (Objects.equals(currentScene, "Admin_AlterBook.fxml")) {
             return;
         }
         switchScene("Admin_AlterBook.fxml");
@@ -103,7 +103,7 @@ public class Controller {
 
     @FXML
     private void handleAdminAddBook_MenuItem() throws Exception {
-        if (Objects.equals(currentScene, "AdminAddBook.fxml")) {
+        if (Objects.equals(currentScene, "Admin_AddBook.fxml")) {
             return;
         }
         switchScene("Admin_AddBook.fxml");
@@ -111,7 +111,7 @@ public class Controller {
 
     @FXML
     private void handleAdminRemoveBook_MenuItem() throws Exception {
-        if (Objects.equals(currentScene, "AdminRemoveBook.fxml")) {
+        if (Objects.equals(currentScene, "Admin_RemoveBook.fxml")) {
             return;
         }
         switchScene("Admin_RemoveBook.fxml");

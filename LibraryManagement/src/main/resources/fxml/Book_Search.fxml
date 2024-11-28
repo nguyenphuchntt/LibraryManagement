@@ -55,7 +55,7 @@
                         </HBox>
                         <Button fx:id="borrowSearch_Button" layoutX="419.0" layoutY="419.0" mnemonicParsing="false" onAction="#handleBorrowButton" text="BORROW" />
                     </children></AnchorPane>
-                <AnchorPane layoutY="455.0" prefHeight="300.0" prefWidth="900.0" style="-fx-background-image: #dadada;">
+                <AnchorPane layoutY="455.0" prefHeight="300.0" prefWidth="900.0" style="-fx-background-color: #dadada;">
                     <children>
                         <Label layoutX="30.0" layoutY="10.0" text="RECOMMEND FOR YOU">
                             <font>

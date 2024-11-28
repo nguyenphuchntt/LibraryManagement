@@ -184,6 +184,7 @@ public class BookReturnController {
             TransactionUtils.addReturnTransactions(transactions);
             BookUtils.updateBookAmountAfterBorrowed(toReturnBookID, true);
             PopupUtils.showAlert("Returned " + transactions.size() + " books successfully");
+            handleSearch();
             cleanUp();
         } else {
             PopupUtils.showAlert(alert.append(" had been returned!").toString());
