@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800" minWidth="1100" prefHeight="800.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AdminPanelController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800" minWidth="1100" prefHeight="800.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AdminDashboard">
     <children>
         <AnchorPane layoutX="200.0" layoutY="45.0" prefHeight="755.0" prefWidth="900.0">
             <children>
@@ -25,13 +25,13 @@
                         <Label layoutY="90.0" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #dadada;" text="Total Returned Books" textFill="RED" />
                     </children>
                 </AnchorPane>
-                <TableView layoutX="25.0" layoutY="189.0" prefHeight="532.0" prefWidth="850.0">
+                <TableView fx:id="overdue_TableView" layoutX="25.0" layoutY="189.0" prefHeight="532.0" prefWidth="850.0">
                     <columns>
-                        <TableColumn prefWidth="149.0" text="BOOK ID" />
-                        <TableColumn prefWidth="179.0" text="BOOK TITLE" />
-                        <TableColumn prefWidth="143.0" text="USER_ID" />
-                        <TableColumn prefWidth="184.0" text="TIME" />
-                        <TableColumn prefWidth="194.0" text="NOTE" />
+                        <TableColumn fx:id="bookID_Column" prefWidth="149.0" text="BOOK ID" />
+                        <TableColumn fx:id="title_Column" prefWidth="179.0" text="BOOK TITLE" />
+                        <TableColumn fx:id="username_Column" prefWidth="143.0" text="USERNAME" />
+                        <TableColumn fx:id="time_Column" prefWidth="184.0" text="TIME" />
+                        <TableColumn fx:id="note_Column" prefWidth="194.0" text="NOTE" />
                     </columns>
                 </TableView>
                 <Label layoutX="25.0" layoutY="153.0" text="OVERDUE">

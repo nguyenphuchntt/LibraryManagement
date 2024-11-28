@@ -114,7 +114,7 @@ public class HomeController {
 
         chatBox.setSpacing(10);
 
-        Scene chatScene = new Scene(chatBox, 400, 600);
+        Scene chatScene = new Scene(chatBox, 700, 500);
         chatStage.setScene(chatScene);
         chatStage.setTitle("Chat with " + username);
         chatStage.setResizable(false);
