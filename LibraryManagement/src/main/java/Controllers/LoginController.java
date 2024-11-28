@@ -43,9 +43,9 @@ public class LoginController {
         if (!loginSuccessful) {
             loginMessage_Label.setText("Invalid username or password");
         } else {
-            switchToHomeScene();
             LibraryManagement.getInstance().setCurrentAccount(username);
             LibraryManagement.getInstance().setCurrentPassword(password);
+            switchToHomeScene();
             LibraryManagement.getInstance().setRole((account.getTypeAccount()) ? "admin" : "user");
             SideBarLoader.getLeftController().loadUserInfo();
             SideBarLoader.getLeftController().setAdminPanelVisible(account.getTypeAccount());

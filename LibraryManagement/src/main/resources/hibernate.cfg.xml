@@ -20,5 +20,6 @@
         <mapping class="Entity.Transaction"/>
         <mapping class="Entity.Book"/>
         <mapping class="Entity.Announcement"/>
+        <mapping class="Entity.Message"/>
     </session-factory>
 </hibernate-configuration>

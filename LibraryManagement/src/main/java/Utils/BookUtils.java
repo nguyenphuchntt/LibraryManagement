@@ -202,7 +202,7 @@ public class BookUtils {
         try {
             session.beginTransaction();
 
-            String hql = "FROM Transaction t WHERE t.user.username =:username AND t.book.id = :bookIsbn";
+            String hql = "FROM Comment t WHERE t.username =:username AND t.book.id = :bookIsbn";
             Query<Transaction> query = session.createQuery(hql, Transaction.class);
             query.setParameter("username", username);
             query.setParameter("bookIsbn", bookIsbn);

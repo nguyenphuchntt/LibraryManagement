@@ -29,7 +29,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <ListView layoutX="41.0" layoutY="262.0" prefHeight="432.0" prefWidth="818.0" />
+            <ListView fx:id="messages_ListView" layoutX="41.0" layoutY="262.0" prefHeight="432.0" prefWidth="818.0" />
             </children>
         </AnchorPane>
     </children>

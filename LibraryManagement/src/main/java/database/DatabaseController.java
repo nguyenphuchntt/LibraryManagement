@@ -591,4 +591,40 @@ public class DatabaseController {
         }
     }
 
+    public static List<Person> getUsersWhoSentMessagesToCurrentUser() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            session.beginTransaction();
+            String hql = "SELECT DISTINCT m.sender FROM Message m WHERE m.receiver.username = :currentUserId";
+            Query<Person> query = session.createQuery(hql, Person.class);
+            query.setParameter("currentUserId", LibraryManagement.getInstance().getCurrentAccount());
+            List<Person> users = query.getResultList();
+            session.getTransaction().commit();
+            return users;
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
+
+    public static List<Message> getMessagesBetweenUsers(String receiver) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        String hql = "FROM Message m WHERE (m.sender.username = :userId AND m.receiver.username = :currentUserId) " +
+                "OR (m.sender.username = :currentUserId AND m.receiver.username = :userId)";
+        Query<Message> query = session.createQuery(hql, Message.class);
+        query.setParameter("userId", receiver);
+        query.setParameter("currentUserId", LibraryManagement.getInstance().getCurrentAccount());
+        List<Message> messages = query.getResultList();
+
+        session.getTransaction().commit();
+        session.close();
+        return messages;
+    }
 }
