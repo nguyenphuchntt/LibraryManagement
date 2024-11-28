@@ -37,18 +37,20 @@ public class SceneTest extends Application {
     }
 
     public static void main(String[] args) {
-        Statement useDatabaseStatement = null;
-        try {
-            useDatabaseStatement = DatabaseController.getConnection().createStatement();
-            useDatabaseStatement.execute("USE library");
-        } catch (SQLException e) {
-            System.out.println("Database connection failed");
-        }
+        new Thread(() -> {
+            try {
+                Statement useDatabaseStatement = DatabaseController.getConnection().createStatement();
+                useDatabaseStatement.execute("USE library");
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
         DatabaseController.importDataFromCSV();
+        new Thread(HibernateUtil::getSessionFactory).start();
 
         launch();
 
-        HibernateUtil.shutdown();
         DatabaseController.closeConnection();
+        HibernateUtil.shutdown();
     }
 }

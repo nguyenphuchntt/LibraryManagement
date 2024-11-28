@@ -21,8 +21,10 @@ public class HibernateUtil {
     }
 
     public static void shutdown() {
-        if (sessionFactory != null) {
-            sessionFactory.close();
-        }
+        new Thread(() -> {
+            if (sessionFactory != null) {
+                sessionFactory.close();
+            }
+        }).start();
     }
 }

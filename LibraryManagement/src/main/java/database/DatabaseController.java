@@ -17,6 +17,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class DatabaseController {
 
@@ -34,16 +37,24 @@ public class DatabaseController {
 
     private static Connection connection;
 
+    private static CountDownLatch createTableLatch = new CountDownLatch(1);
+    private static CountDownLatch exportDBLatch = new CountDownLatch(7);
+
+    private static ExecutorService executor = Executors.newFixedThreadPool(7);
+
     public static Connection getConnection() {
         if (connection == null) {
             try {
                 connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-                System.out.println("Connected to database");
-                createTables(SQL_FILE);
             } catch (SQLException e) {
-                System.out.println("Failed to create connection!");
-                e.printStackTrace();
+                System.out.println("Database connection failed");
+                throw new RuntimeException(e);
             }
+            System.out.println("Connected to database");
+            new Thread(() -> {
+                createTables(SQL_FILE);
+                createTableLatch.countDown();
+            }).start();
         }
         return connection;
     }
@@ -52,12 +63,15 @@ public class DatabaseController {
         if (connection != null) {
             try {
                 exportDataToSCV();
+                exportDBLatch.await();
                 connection.close();
                 connection = null;
                 System.out.println("Connection closed");
             } catch (SQLException e) {
                 System.out.println("Failed to close connection!");
                 e.printStackTrace();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
         }
     }
@@ -483,65 +497,182 @@ public class DatabaseController {
             }
         }
     }
+
     public static void importDataFromCSV() {
-        try {
-            importAccountCSVtoBD(accountCSVPath);
-            importUserCSVToDB(userCSVPath);
-            importBookCSVtoDB(bookCSVPath);
-            importTransactionCSVtoDB(transactionCSVPath);
-            importCommentCSVtoDB(book_commentCSVPath);
-            importAnnouncementCSVtoDB(announcementCSVPath);
-            importMessageCSVtoDB(messageCSVPath);
-        } catch (SQLException e) {
-            System.out.println("Initial import -> SQL exception: Cannot import data from CSV file!");
-        } catch (IOException e) {
-            System.out.println("Initial import -> IO exception: Cannot import data from CSV file!");
-        }
+        new Thread(() -> {
+            try {
+                createTableLatch.await();
+                importAccountCSVtoBD(accountCSVPath);
+            } catch (SQLException | IOException e) {
+                System.err.println("Error importing accounts: " + e.getMessage());
+                throw new RuntimeException(e);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
+
+        new Thread(() -> {
+            try {
+                createTableLatch.await();
+                importUserCSVToDB(userCSVPath);
+            } catch (SQLException | IOException e) {
+                System.err.println("Error importing users: " + e.getMessage());
+                throw new RuntimeException(e);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
+
+        new Thread(() -> {
+            try {
+                createTableLatch.await();
+                importBookCSVtoDB(bookCSVPath);
+            } catch (SQLException | IOException e) {
+                System.err.println("Error importing books: " + e.getMessage());
+                throw new RuntimeException(e);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
+
+        new Thread(() -> {
+            try {
+                createTableLatch.await();
+                importTransactionCSVtoDB(transactionCSVPath);
+            } catch (SQLException | IOException e) {
+                System.err.println("Error importing transactions: " + e.getMessage());
+                throw new RuntimeException(e);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
+
+        new Thread(() -> {
+            try {
+                createTableLatch.await();
+                importCommentCSVtoDB(book_commentCSVPath);
+            } catch (SQLException | IOException e) {
+                System.err.println("Error importing comments: " + e.getMessage());
+                throw new RuntimeException(e);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
+
+        new Thread(() -> {
+            try {
+                createTableLatch.await();
+                importAnnouncementCSVtoDB(announcementCSVPath);
+            } catch (SQLException | IOException e) {
+                System.err.println("Error importing announcements: " + e.getMessage());
+                throw new RuntimeException(e);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
+
+        new Thread(() -> {
+            try {
+                createTableLatch.await();
+                importMessageCSVtoDB(messageCSVPath);
+            } catch (SQLException | IOException e) {
+                System.err.println("Error importing messages: " + e.getMessage());
+                throw new RuntimeException(e);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
     }
 
-    public static void exportDataToSCV() {
-        ResultSet resultSetAccount = null;
-        ResultSet resultSetUser = null;
-        ResultSet resultSetBook = null;
-        ResultSet resultSetTransaction = null;
-        ResultSet resultSetComment = null;
-        ResultSet resultSetAnnouncement = null;
-        ResultSet resultSetMessage = null;
 
-        try {
-            Statement accountQuery = DatabaseController.getConnection().createStatement();
-            Statement userQuery = DatabaseController.getConnection().createStatement();
-            Statement bookQuery = DatabaseController.getConnection().createStatement();
-            Statement transactionQuery = DatabaseController.getConnection().createStatement();
-            Statement commentQuery = DatabaseController.getConnection().createStatement();
-            Statement announcementQuery = DatabaseController.getConnection().createStatement();
-            Statement messageQuery = DatabaseController.getConnection().createStatement();
+    public static void exportDataToSCV() throws SQLException {
+        Statement accountQuery = DatabaseController.getConnection().createStatement();
+        Statement userQuery = DatabaseController.getConnection().createStatement();
+        Statement bookQuery = DatabaseController.getConnection().createStatement();
+        Statement transactionQuery = DatabaseController.getConnection().createStatement();
+        Statement commentQuery = DatabaseController.getConnection().createStatement();
+        Statement announcementQuery = DatabaseController.getConnection().createStatement();
+        Statement messageQuery = DatabaseController.getConnection().createStatement();
 
-            resultSetAccount = accountQuery.executeQuery("SELECT * from account");
-            resultSetUser = userQuery.executeQuery("SELECT * from user");
-            resultSetBook = bookQuery.executeQuery("SELECT * from book");
-            resultSetTransaction = transactionQuery.executeQuery("SELECT * from transaction");
-            resultSetComment = commentQuery.executeQuery("SELECT * from book_comment");
-            resultSetAnnouncement = announcementQuery.executeQuery("SELECT * from announcement");
-            resultSetMessage = messageQuery.executeQuery("SELECT * from messages");
-        } catch (SQLException e) {
-            System.out.println("SQL Exception: Cannot get result set!");
-        }
+        ResultSet resultSetAccount = accountQuery.executeQuery("SELECT * from account");
+        ResultSet resultSetUser = userQuery.executeQuery("SELECT * from user");
+        ResultSet resultSetBook = bookQuery.executeQuery("SELECT * from book");
+        ResultSet resultSetTransaction = transactionQuery.executeQuery("SELECT * from transaction");
+        ResultSet resultSetComment = commentQuery.executeQuery("SELECT * from book_comment");
+        ResultSet resultSetAnnouncement = announcementQuery.executeQuery("SELECT * from announcement");
+        ResultSet resultSetMessage = messageQuery.executeQuery("SELECT * from messages");
 
-        try {
-            ExportResultSetToCSV(resultSetAccount, accountCSVPath);
-            ExportResultSetToCSV(resultSetUser, userCSVPath);
-            ExportResultSetToCSV(resultSetBook, bookCSVPath);
-            ExportResultSetToCSV(resultSetTransaction, transactionCSVPath);
-            ExportResultSetToCSV(resultSetComment, book_commentCSVPath);
-            ExportResultSetToCSV(resultSetAnnouncement, announcementCSVPath);
-            ExportResultSetToCSV(resultSetMessage, messageCSVPath);
-        } catch (IOException e) {
-            System.out.println("IO Exception: Cannot export result set!");
-        } catch (SQLException e) {
-            System.out.println("SQL Exception: Cannot export result set!");
-        }
+        executor.submit(() -> {
+            try {
+                ExportResultSetToCSV(resultSetAccount, accountCSVPath);
+            } catch (SQLException | IOException e) {
+                throw new RuntimeException(e);
+            } finally {
+                exportDBLatch.countDown();
+            }
+        });
 
+        executor.submit(() -> {
+            try {
+                ExportResultSetToCSV(resultSetUser, userCSVPath);
+            } catch (SQLException | IOException e) {
+                throw new RuntimeException(e);
+            } finally {
+                exportDBLatch.countDown();
+            }
+        });
+
+        executor.submit(() -> {
+            try {
+                ExportResultSetToCSV(resultSetBook, bookCSVPath);
+            } catch (SQLException | IOException e) {
+                throw new RuntimeException(e);
+            } finally {
+                exportDBLatch.countDown();
+            }
+        });
+
+        executor.submit(() -> {
+            try {
+                ExportResultSetToCSV(resultSetTransaction, transactionCSVPath);
+            } catch (SQLException | IOException e) {
+                throw new RuntimeException(e);
+            } finally {
+                exportDBLatch.countDown();
+            }
+        });
+
+        executor.submit(() -> {
+            try {
+                ExportResultSetToCSV(resultSetComment, book_commentCSVPath);
+            } catch (SQLException | IOException e) {
+                throw new RuntimeException(e);
+            } finally {
+                exportDBLatch.countDown();
+            }
+        });
+
+        executor.submit(() -> {
+            try {
+                ExportResultSetToCSV(resultSetAnnouncement, announcementCSVPath);
+            } catch (SQLException | IOException e) {
+                throw new RuntimeException(e);
+            } finally {
+                exportDBLatch.countDown();
+            }
+        });
+
+        executor.submit(() -> {
+            try {
+                ExportResultSetToCSV(resultSetMessage, messageCSVPath);
+            } catch (SQLException | IOException e) {
+                throw new RuntimeException(e);
+            } finally {
+                exportDBLatch.countDown();
+            }
+        });
+
+        executor.shutdown();
     }
 
     public static List<Announcement> getAllAnnouncements() {
