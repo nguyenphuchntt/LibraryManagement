@@ -53,7 +53,6 @@ public class PopupUtils {
         Scene chatScene = new Scene(chatBox, 700, 500);
         chatStage.setScene(chatScene);
         chatStage.setTitle("Chat with " + username);
-        chatStage.setResizable(false);
 
         chatStage.setOnCloseRequest(e -> {
             if (callback != null) {
