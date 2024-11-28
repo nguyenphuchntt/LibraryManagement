@@ -153,7 +153,7 @@ public class BookReturnController {
                 title, author, category, isbn, currentUsername
         );
 
-        transactionDTOObservableList = TransactionDTO.loadTransactions(transactionList);
+        transactionDTOObservableList = TransactionDTO.loadTransactionsForReturn(transactionList);
         searchTable_TableView.setItems(transactionDTOObservableList);
     }
 

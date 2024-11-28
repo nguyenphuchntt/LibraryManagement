@@ -37,10 +37,24 @@ public class SideBarLoader {
     }
 
     public static Controller getTopController() {
+        if (Topcontroller == null) {
+            try {
+                getTopSidebar();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
         return Topcontroller;
     }
 
     public static Controller getLeftController() {
+        if (Leftcontroller == null) {
+            try {
+                getLeftSidebar();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
         return Leftcontroller;
     }
 

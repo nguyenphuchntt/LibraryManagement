@@ -30,9 +30,6 @@ public class Person {
     protected String department;
 
 
-//    protected Account account;
-//    protected List<Book> borrowedBooks;
-
     protected Person(Builder<?> builder) {
         this.name = builder.name;
         this.yearOfBirth = builder.yearOfBirth;
@@ -40,8 +37,6 @@ public class Person {
         this.department = builder.department;
         this.account = builder.account;
         this.username = builder.username;
-//        this.account = builder.account;
-//        this.borrowedBooks = builder.borrowedBooks != null ? builder.borrowedBooks : new ArrayList<>();
     }
 
     public Person() {}
@@ -54,8 +49,6 @@ public class Person {
         protected String gender;
         protected String department;
         protected boolean role;
-//        protected Account account;
-//        protected List<Book> borrowedBooks;
 
         public T username(String username) {
             this.username = username;
@@ -91,16 +84,6 @@ public class Person {
             this.role = role;
             return self();
         }
-
-//        public T account(Account account) {
-//            this.account = account;
-//            return self();
-//        }
-//
-//        public T borrowedBooks(List<Book> borrowedBooks) {
-//            this.borrowedBooks = borrowedBooks;
-//            return self();
-//        }
 
         protected T self() {
             return (T) this;

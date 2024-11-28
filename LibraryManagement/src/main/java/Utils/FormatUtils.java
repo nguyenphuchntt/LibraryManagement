@@ -56,4 +56,8 @@ public class FormatUtils {
     public static SimpleDateFormat getDateTimeFormat() {
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     }
+
+    public static SimpleDateFormat getDateTimeFormatForMessage() {
+        return new SimpleDateFormat("MM-dd HH:mm");
+    }
 }

@@ -19,12 +19,22 @@ public class TransactionDTO {
     private String category;
     private String borrowDate;
     private String status;
+    private String username;
 
     // Constructor
     public TransactionDTO(String bookTitle, String bookId, String category, String borrowDate, String status) {
         this.bookTitle = bookTitle;
         this.bookId = bookId;
         this.category = category;
+        this.borrowDate = borrowDate;
+        this.status = status;
+    }
+
+    // Constructor
+    public TransactionDTO(String bookTitle, String bookId, String username, String borrowDate, String status, boolean notHaveCategory) {
+        this.bookTitle = bookTitle;
+        this.bookId = bookId;
+        this.username = username;
         this.borrowDate = borrowDate;
         this.status = status;
     }
@@ -85,7 +95,15 @@ public class TransactionDTO {
         return selected;
     }
 
-    public static ObservableList<TransactionDTO> loadTransactions(List<Transaction> transactionList) {
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public static ObservableList<TransactionDTO> loadTransactionsForReturn(List<Transaction> transactionList) {
         ObservableList<TransactionDTO> transactions = FXCollections.observableArrayList();
         for (Transaction transaction : transactionList) {
 
@@ -95,28 +113,48 @@ public class TransactionDTO {
             String category = book.getCategory();
             String borrowDate = transaction.getBorrow_time().toString();
 
-            Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
             Timestamp transactionTimestamp = transaction.getBorrow_time();
 
-            LocalDateTime currentTime = currentTimestamp.toLocalDateTime();
+            LocalDateTime currentTime = LocalDateTime.now();
             LocalDateTime transactionTime = transactionTimestamp.toLocalDateTime();
             long daysDifference = Duration.between(transactionTime, currentTime).toDays();
-            String status = null;
+            String status;
             if (transaction.getReturn_time() != null) {
                 status = "Returned";
             } else {
                 if (daysDifference > 21) {
-                    status = "Late";
+                    status = "Overdue " + (daysDifference - 21) + "day(s)";
                 } else {
                     long daysRemaining = 21 - daysDifference;
-                    status = "Remain " + daysRemaining + " day";
-                    if (daysRemaining > 1) {
-                        status += 's';
-                    }
+                    status = "Remain " + daysRemaining + " day(s)";
                 }
             }
 
             transactions.add(new TransactionDTO(bookTitle, bookId, category, borrowDate, status));
+        }
+
+        return transactions;
+    }
+
+    public static ObservableList<TransactionDTO> loadTransactionsForAdminDashboard(List<Transaction> transactionList) {
+        ObservableList<TransactionDTO> transactions = FXCollections.observableArrayList();
+        for (Transaction transaction : transactionList) {
+
+            Book book = transaction.getBook();
+            String bookID = book.getIsbn();
+            String bookTitle = book.getTitle();
+            String username = transaction.getUser().getUsername();
+            String borrowDate = transaction.getBorrow_time().toString();
+
+            Timestamp transactionTimestamp = transaction.getBorrow_time();
+
+            LocalDateTime current = LocalDateTime.now();
+            LocalDateTime transactionTime = transactionTimestamp.toLocalDateTime();
+            long daysDifference = Duration.between(transactionTime, current).toDays();
+
+            String status = "Overdue " + (daysDifference - 21) + "day(s)";
+
+            transactions.add(new TransactionDTO(bookTitle, bookID, username, borrowDate, status, true));
         }
 
         return transactions;

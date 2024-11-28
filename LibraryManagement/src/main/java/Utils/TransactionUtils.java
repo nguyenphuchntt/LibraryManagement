@@ -120,4 +120,26 @@ public class TransactionUtils {
         }
     }
 
+    public static List<Transaction> getOverdueTransactions() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            session.beginTransaction();
+            String hql = "FROM Transaction t WHERE "
+                    + "t.return_time IS NULL AND "
+                    + "datediff(now(), t.borrow_time) > 21";
+            Query<Transaction> query = session.createQuery(hql, Transaction.class);
+            List<Transaction> transactions = query.list();
+            session.getTransaction().commit();
+            return transactions;
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
+
 }
