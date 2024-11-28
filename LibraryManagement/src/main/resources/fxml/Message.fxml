@@ -6,13 +6,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="600.0" prefWidth="400.0" spacing="10" style="-fx-background-color: #f0f0f0;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="Controllers.ChatController">
-    <!-- Scrollable chat box -->
-    <ScrollPane maxHeight="Infinity" prefHeight="500" style="-fx-background-color: transparent; -fx-border-color: transparent;" VBox.vgrow="ALWAYS">
+<VBox prefHeight="600.0" prefWidth="400.0" spacing="10" style="-fx-background-color: #f0f0f0;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ChatController">
+    <ScrollPane maxHeight="Infinity" prefHeight="500" prefWidth="400.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" VBox.vgrow="ALWAYS">
         <VBox fx:id="chatBox" spacing="5" style="-fx-background-color: transparent;" />
     </ScrollPane>
 
-    <!-- Message input field and send button -->
     <HBox spacing="10">
         <TextField fx:id="messageInput" promptText="Type your message..." HBox.hgrow="ALWAYS" />
         <Button fx:id="sendButton" text="Send" />

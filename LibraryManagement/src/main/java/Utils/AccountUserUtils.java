@@ -152,28 +152,6 @@ public class AccountUserUtils {
     }
 
     public static Person getCurrentUser() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Person user = null;
-        try {
-            session.beginTransaction();
-            String username = LibraryManagement.getInstance().getCurrentAccount();
-
-            String hql = "FROM Person WHERE username = :username";
-            Query<Person> query = session.createQuery(hql, Person.class);
-            query.setParameter("username", username);
-
-            user = query.uniqueResult();
-
-            session.getTransaction().commit();
-
-            return user;
-        } catch (Exception e) {
-            if (session.getTransaction() != null) {
-                session.getTransaction().rollback();
-            }
-            throw e;
-        } finally {
-            session.close();
-        }
+        return getUserInfo(LibraryManagement.getInstance().getCurrentAccount());
     }
 }

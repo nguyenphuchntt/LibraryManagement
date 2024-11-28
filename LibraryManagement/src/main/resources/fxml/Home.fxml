@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -29,7 +31,10 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <ListView fx:id="messages_ListView" layoutX="41.0" layoutY="262.0" prefHeight="432.0" prefWidth="818.0" />
+            <ListView fx:id="messages_ListView" layoutX="41.0" layoutY="278.0" prefHeight="416.0" prefWidth="818.0" />
+            <Button layoutX="751.0" layoutY="242.0" mnemonicParsing="false" onAction="#handleNewMessagesButton" text="New Message" />
+            <TextField fx:id="receiver_TextField" layoutX="570.0" layoutY="242.0" />
+            <Label fx:id="notifications_Label" layoutX="571.0" layoutY="222.0" prefHeight="16.0" prefWidth="284.0" />
             </children>
         </AnchorPane>
     </children>

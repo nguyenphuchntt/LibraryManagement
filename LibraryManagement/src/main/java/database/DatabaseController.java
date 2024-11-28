@@ -617,7 +617,8 @@ public class DatabaseController {
         session.beginTransaction();
 
         String hql = "FROM Message m WHERE (m.sender.username = :userId AND m.receiver.username = :currentUserId) " +
-                "OR (m.sender.username = :currentUserId AND m.receiver.username = :userId)";
+                "OR (m.sender.username = :currentUserId AND m.receiver.username = :userId) "
+                + "ORDER BY m.timestamp ASC";
         Query<Message> query = session.createQuery(hql, Message.class);
         query.setParameter("userId", receiver);
         query.setParameter("currentUserId", LibraryManagement.getInstance().getCurrentAccount());
