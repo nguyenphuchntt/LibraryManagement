@@ -205,4 +205,8 @@ public class Controller {
     public void setAdminPanelVisible(boolean isVisible) {
         AdminPanelTab_Button.setVisible(isVisible);
     }
+
+    public Map<String, Scene> getScenes() {
+        return scenes;
+    }
 }

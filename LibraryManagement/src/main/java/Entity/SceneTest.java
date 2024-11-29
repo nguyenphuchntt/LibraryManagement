@@ -1,9 +1,12 @@
 package Entity;
 
+import Controllers.BookSearchController;
 import Controllers.Controller;
+import Controllers.SideBarLoader;
 import database.DatabaseController;
 import Utils.HibernateUtil;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -23,6 +26,11 @@ public class SceneTest extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader rootLoader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
         AnchorPane root = rootLoader.load();
+        Scene scene = new Scene(root, WIDTH, HEIGHT);
+        Controller.setStage(stage);
+        stage.setTitle("UET Library Management System");
+        stage.setScene(scene);
+        stage.setResizable(false);
 
         new Thread(() -> {
             try {
@@ -35,15 +43,13 @@ public class SceneTest extends Application {
         DatabaseController.importDataFromCSV();
         new Thread(HibernateUtil::getSessionFactory).start();
 
-        Scene scene = new Scene(root, WIDTH, HEIGHT);
+        stage.setOnCloseRequest(event -> {
+            BookSearchController bookSearchController = (BookSearchController) SideBarLoader.getLeftController().getScenes().get("Book_Search.fxml").getUserData();
+            bookSearchController.cleanup();
+            Platform.exit();
+        });
 
-        Controller.setStage(stage);
-
-        stage.setTitle("UET Library Management System");
-        stage.setScene(scene);
-        stage.setResizable(false);
         stage.show();
-
     }
 
     public static void main(String[] args) {

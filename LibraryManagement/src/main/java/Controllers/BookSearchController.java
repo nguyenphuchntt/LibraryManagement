@@ -4,8 +4,12 @@ import Entity.Book;
 import Entity.Person;
 import Entity.Transaction;
 import Utils.*;
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
@@ -17,6 +21,10 @@ import org.hibernate.Session;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class BookSearchController {
@@ -105,6 +113,9 @@ public class BookSearchController {
 
     private int priorityOrder = 0;
 
+    private ExecutorService executorService = Executors.newFixedThreadPool(1);
+    private Future<?> runningTask;
+
     @FXML
     public void initialize() {
         mapColumnValue();
@@ -120,6 +131,41 @@ public class BookSearchController {
 
         amount_Column.setCellFactory(CheckBoxTableCell.forTableColumn(amount_Column));
 
+        searchBar_TextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (runningTask != null && !runningTask.isDone()) {
+                runningTask.cancel(true);
+            }
+
+            Task<ObservableList<Book>> task = new Task<>() {
+                @Override
+                protected ObservableList<Book> call() throws Exception {
+                    try {
+                        handleSearchButton();
+                        if (isCancelled()) return null;
+                        return bookList;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return null;
+                    }
+                }
+                @Override
+                protected void succeeded() {
+                    super.succeeded();
+                    ObservableList<Book> updatedBookList = getValue();
+                    Platform.runLater(() -> {
+                        if (updatedBookList != null) {
+                            searchTable_TableView.setItems(updatedBookList);
+                        }
+                    });
+                }
+                @Override
+                protected void cancelled() {
+                    super.cancelled();
+                }
+            };
+
+            runningTask = executorService.submit(task);
+        });
     }
 
     private void mapColumnValue() {
@@ -153,6 +199,10 @@ public class BookSearchController {
                 isbn, title, author, category, year
         ));
 
+    }
+
+    private void showTable() {
+        handleBorrowButton();
         searchTable_TableView.setItems(bookList);
     }
 
@@ -186,7 +236,7 @@ public class BookSearchController {
             TransactionUtils.addBorrowTransactions(transactions);
             BookUtils.updateBookAmountAfterBorrowed(booksID, false);
             PopupUtils.showAlert("Borrowed " + books.size() + " books successfully");
-            cleanUp();
+            showTable();
         } else {
             PopupUtils.showAlert(alert.toString() + "doesn't not have enough quantity :((");
         }
@@ -235,8 +285,18 @@ public class BookSearchController {
         showRecommendedBooks();
     }
 
-    private void cleanUp() {
-        handleSearchButton();
+    public void cleanup() {
+        if (executorService != null && !executorService.isShutdown()) {
+            executorService.shutdown();
+            try {
+                if (!executorService.awaitTermination(60, TimeUnit.SECONDS)) {
+                    executorService.shutdownNow();
+                }
+            } catch (InterruptedException e) {
+                executorService.shutdownNow();
+                Thread.currentThread().interrupt();
+            }
+        }
     }
 
 }
