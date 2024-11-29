@@ -120,9 +120,11 @@ public class BookSearchController {
     public void initialize() {
         mapColumnValue();
 
-        recommendedBookList = BookUtils.getBookListForRecommend();
+        new Thread(() -> {
+            recommendedBookList = BookUtils.getBookListForRecommend();
+            showRecommendedBooks();
+        }).start();
 
-        showRecommendedBooks();
 
         bookList = FXCollections.observableArrayList(BookUtils.getAllBooks());
         searchTable_TableView.setItems(bookList);
@@ -131,7 +133,15 @@ public class BookSearchController {
 
         amount_Column.setCellFactory(CheckBoxTableCell.forTableColumn(amount_Column));
 
-        searchBar_TextField.textProperty().addListener((observable, oldValue, newValue) -> {
+        addTextFieldListener(searchBar_TextField);
+        addTextFieldListener(year_TextField);
+        addTextFieldListener(category_TextField);
+        addTextFieldListener(author_TextField);
+        addTextFieldListener(category_TextField);
+    }
+
+    private void addTextFieldListener(TextField textField) {
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (runningTask != null && !runningTask.isDone()) {
                 runningTask.cancel(true);
             }
@@ -140,7 +150,7 @@ public class BookSearchController {
                 @Override
                 protected ObservableList<Book> call() throws Exception {
                     try {
-                        handleSearchButton();
+                        searchBooks();
                         if (isCancelled()) return null;
                         return bookList;
                     } catch (Exception e) {
@@ -148,16 +158,18 @@ public class BookSearchController {
                         return null;
                     }
                 }
+
                 @Override
                 protected void succeeded() {
                     super.succeeded();
-                    ObservableList<Book> updatedBookList = getValue();
+                    bookList = getValue();
                     Platform.runLater(() -> {
-                        if (updatedBookList != null) {
-                            searchTable_TableView.setItems(updatedBookList);
+                        if (bookList != null) {
+                            searchTable_TableView.setItems(bookList);
                         }
                     });
                 }
+
                 @Override
                 protected void cancelled() {
                     super.cancelled();
@@ -189,6 +201,11 @@ public class BookSearchController {
 
     @FXML
     private void handleSearchButton() {
+        searchBooks();
+        showTable();
+    }
+
+    private void searchBooks() {
         String title = searchBar_TextField.getText().isEmpty() ? null : searchBar_TextField.getText();
         String isbn = isbn_TextField.getText().isEmpty() ? null : isbn_TextField.getText();
         String author = author_TextField.getText().isEmpty() ? null : author_TextField.getText();
@@ -198,11 +215,9 @@ public class BookSearchController {
         bookList = FXCollections.observableArrayList(BookUtils.searchBook(
                 isbn, title, author, category, year
         ));
-
     }
 
     private void showTable() {
-        handleBorrowButton();
         searchTable_TableView.setItems(bookList);
     }
 
