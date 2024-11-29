@@ -100,7 +100,8 @@ public class BookReturnController {
 
         amount_Column.setCellFactory(CheckBoxTableCell.forTableColumn(amount_Column));
 
-        handleSearch();
+        new Thread(this::handleSearch).start();
+
     }
 
     private void assignColumnValue() {

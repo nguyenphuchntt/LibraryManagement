@@ -8,12 +8,15 @@
 
 <HBox nodeOrientation="RIGHT_TO_LEFT" prefHeight="45.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.Controller">
     <children>
-      <ScrollPane hbarPolicy="NEVER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="45.0" prefWidth="900.0">
+      <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="45.0" prefWidth="900.0">
          <content>
-              <Label fx:id="announcement_Label" alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="45.0" prefWidth="900.0" textFill="RED" wrapText="true" />
+              <Label fx:id="announcement_Label" alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="45.0" prefWidth="883.0" textFill="RED" wrapText="true">
+               <opaqueInsets>
+                  <Insets right="20.0" />
+               </opaqueInsets></Label>
          </content>
          <cursor>
-            <Cursor fx:constant="CLOSED_HAND" />
+            <Cursor fx:constant="V_RESIZE" />
          </cursor>
          <opaqueInsets>
             <Insets />

@@ -30,10 +30,12 @@ public class Account {
     public Account() {}
 
     public static boolean isValidPassword(String password) {
-        if (password.length() < 8) {
+        if (password.length() < 8 || password.length() > 60) {
             return false;
         }
-
+        if (password.contains(" ")) {
+            return false;
+        }
         boolean hasUpperCase = false;
         boolean hasLowerCase = false;
         boolean hasDigit = false;
@@ -52,7 +54,6 @@ public class Account {
     }
 
     public static class Builder {
-        private int account_ID;
         private Person user;
         private String username;
         private String password;
@@ -85,11 +86,6 @@ public class Account {
             return this;
         }
 
-        public Builder account_ID(int account_ID) {
-            this.account_ID = account_ID;
-            return this;
-        }
-
         public Builder joined_date(Timestamp joined_date) {
             this.joined_date = joined_date;
             return this;
@@ -105,7 +101,7 @@ public class Account {
         }
 
         private boolean isValidUsername(String username) {
-            if (username.length() < 3 || username.length() > 20) {
+            if (username.length() < 3 || username.length() > 30) {
                 return false;
             }
             if (!username.matches("^[a-zA-Z0-9_]+$")) {

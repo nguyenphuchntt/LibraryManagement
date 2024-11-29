@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -52,6 +53,14 @@ public class Controller {
 
     @FXML
     private MenuButton AdminPanelTab_Button;
+
+    @FXML
+    private ScrollPane scrollPane;
+
+    public void setScrollPaneBarPolicy() {
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+    }
 
     @FXML
     private void handleHomeTab_Button() throws Exception {

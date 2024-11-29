@@ -23,6 +23,7 @@ public class SideBarLoader {
             TopSidebar = loader.load();
             Topcontroller = loader.getController();
             Topcontroller.loadAnnouncement();
+            Topcontroller.setScrollPaneBarPolicy();
         }
         return TopSidebar;
     }

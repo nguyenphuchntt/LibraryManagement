@@ -21,9 +21,19 @@ public class SceneTest extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-
         FXMLLoader rootLoader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
         AnchorPane root = rootLoader.load();
+
+        new Thread(() -> {
+            try {
+                Statement useDatabaseStatement = DatabaseController.getConnection().createStatement();
+                useDatabaseStatement.execute("USE library");
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
+        DatabaseController.importDataFromCSV();
+        new Thread(HibernateUtil::getSessionFactory).start();
 
         Scene scene = new Scene(root, WIDTH, HEIGHT);
 
@@ -37,17 +47,6 @@ public class SceneTest extends Application {
     }
 
     public static void main(String[] args) {
-        new Thread(() -> {
-            try {
-                Statement useDatabaseStatement = DatabaseController.getConnection().createStatement();
-                useDatabaseStatement.execute("USE library");
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }).start();
-        DatabaseController.importDataFromCSV();
-        new Thread(HibernateUtil::getSessionFactory).start();
-
         launch();
 
         DatabaseController.closeConnection();
