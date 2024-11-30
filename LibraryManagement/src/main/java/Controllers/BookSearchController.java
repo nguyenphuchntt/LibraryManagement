@@ -150,6 +150,7 @@ public class BookSearchController {
                 @Override
                 protected ObservableList<Book> call() throws Exception {
                     try {
+                        currentPage = 0;
                         searchBooks();
                         if (isCancelled()) return null;
                         return bookList;
@@ -307,7 +308,8 @@ public class BookSearchController {
         }
         currentPage--;
         System.out.println("do previous page");
-        refresh();
+        searchBooks();
+        showTable();
     }
 
     @FXML
@@ -317,7 +319,8 @@ public class BookSearchController {
         }
         currentPage++;
         System.out.println("do next page");
-        refresh();
+        searchBooks();
+        showTable();
     }
 
     @FXML

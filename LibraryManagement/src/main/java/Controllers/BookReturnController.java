@@ -194,6 +194,7 @@ public class BookReturnController {
                 @Override
                 protected ObservableList<TransactionDTO> call() throws Exception {
                     try {
+                        currentPage = 0;
                         searchBorrowedTransactions();
                         if (isCancelled()) return null;
                         return transactionDTOObservableList;
@@ -305,7 +306,8 @@ public class BookReturnController {
         }
         currentPage--;
         System.out.println("do previous page");
-        refresh();
+        searchBorrowedTransactions();
+        showTables();
     }
 
     @FXML
@@ -315,7 +317,8 @@ public class BookReturnController {
         }
         currentPage++;
         System.out.println("do next page");
-        refresh();
+        searchBorrowedTransactions();
+        showTables();
     }
 
     private void cleanUpData() {
