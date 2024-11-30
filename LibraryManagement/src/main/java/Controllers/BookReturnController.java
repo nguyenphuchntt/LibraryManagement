@@ -7,7 +7,9 @@ import Utils.BookUtils;
 import Utils.PopupUtils;
 import Utils.TransactionUtils;
 import database.DatabaseController;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
@@ -15,6 +17,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 
@@ -92,6 +98,9 @@ public class BookReturnController {
     @FXML
     private Button fiveStar_Button;
 
+    private ExecutorService executorService = Executors.newFixedThreadPool(1);
+    private Future<?> runningTask;
+
     @FXML
     public void initialize() {
         assignColumnValue();
@@ -102,6 +111,10 @@ public class BookReturnController {
 
         new Thread(this::handleSearch).start();
 
+        addTextFieldListener(searchBar_TextField);
+        addTextFieldListener(category_TextField);
+        addTextFieldListener(isbn_TextField);
+        addTextFieldListener(author_TextField);
     }
 
     private void assignColumnValue() {
@@ -144,18 +157,65 @@ public class BookReturnController {
 
     @FXML
     private void handleSearch() {
+        searchBorrowedTransactions();
+        showTables();
+    }
+
+    private void showTables() {
+        searchTable_TableView.setItems(transactionDTOObservableList);
+    }
+
+    private void searchBorrowedTransactions() {
         String title = searchBar_TextField.getText().isEmpty() ? null : searchBar_TextField.getText();
         String isbn = isbn_TextField.getText().isEmpty() ? null : isbn_TextField.getText();
         String author = author_TextField.getText().isEmpty() ? null : author_TextField.getText();
         String category = category_TextField.getText().isEmpty() ? null : category_TextField.getText();
-
         String currentUsername = LibraryManagement.getInstance().getCurrentAccount();
         transactionList = TransactionUtils.getFilteredBorrowTransactions(
                 title, author, category, isbn, currentUsername
         );
 
         transactionDTOObservableList = TransactionDTO.loadTransactionsForReturn(transactionList);
-        searchTable_TableView.setItems(transactionDTOObservableList);
+    }
+
+    private void addTextFieldListener(TextField textField) {
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (runningTask != null && !runningTask.isDone()) {
+                runningTask.cancel(true);
+            }
+
+            Task<ObservableList<TransactionDTO>> task = new Task<>() {
+                @Override
+                protected ObservableList<TransactionDTO> call() throws Exception {
+                    try {
+                        searchBorrowedTransactions();
+                        if (isCancelled()) return null;
+                        return transactionDTOObservableList;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return null;
+                    }
+                }
+
+                @Override
+                protected void succeeded() {
+                    super.succeeded();
+                    transactionDTOObservableList = getValue();
+                    Platform.runLater(() -> {
+                        if (transactionDTOObservableList != null) {
+                            showTables();
+                        }
+                    });
+                }
+
+                @Override
+                protected void cancelled() {
+                    super.cancelled();
+                }
+            };
+
+            runningTask = executorService.submit(task);
+        });
     }
 
     @FXML
@@ -186,7 +246,7 @@ public class BookReturnController {
             BookUtils.updateBookAmountAfterBorrowed(toReturnBookID, true);
             PopupUtils.showAlert("Returned " + transactions.size() + " books successfully");
             handleSearch();
-            cleanUp();
+            cleanUpData();
         } else {
             PopupUtils.showAlert(alert.append(" had been returned!").toString());
         }
@@ -196,23 +256,23 @@ public class BookReturnController {
     private void handlePostComment() {
         if (bookIDInComment_TextField.getText().isEmpty()) {
             postCommentMessage_Label.setText("Please enter a valid book ID");
-            cleanUp();
+            cleanUpData();
             return;
         }
         if (comment_TextArea.getText().isEmpty()) {
             postCommentMessage_Label.setText("Please enter a valid comment");
-            cleanUp();
+            cleanUpData();
             return;
         }
         if (star == null) {
             postCommentMessage_Label.setText("Please enter a valid rating star");
-            cleanUp();
+            cleanUpData();
             return;
         }
         isbn_TextField.setText(bookIDInComment_TextField.getText());
         handleSearch();
         if (transactionList.isEmpty()) {
-            cleanUp();
+            cleanUpData();
             postCommentMessage_Label.setText("You haven't been read this book!");
             return;
         }
@@ -222,17 +282,17 @@ public class BookReturnController {
         String commentContent = comment_TextArea.getText();
         Comment comment = new Comment(book, username, commentContent, rate);
         if (comment.isWrittenComment(username, bookIDInComment_TextField.getText())) {
-            cleanUp();
+            cleanUpData();
             postCommentMessage_Label.setText("You have been written this book's comment!");
             comment = null;
             return;
         }
         DatabaseController.saveEntity(comment);
         PopupUtils.showAlert("Posted comment successfully");
-        cleanUp();
+        cleanUpData();
     }
 
-    private void cleanUp() {
+    private void cleanUpData() {
         bookIDInComment_TextField.clear();
         comment_TextArea.clear();
         searchBar_TextField.clear();
@@ -240,5 +300,19 @@ public class BookReturnController {
         category_TextField.clear();
         author_TextField.clear();
         star = null;
+    }
+
+    public void cleanup() {
+        if (executorService != null && !executorService.isShutdown()) {
+            executorService.shutdown();
+            try {
+                if (!executorService.awaitTermination(60, TimeUnit.SECONDS)) {
+                    executorService.shutdownNow();
+                }
+            } catch (InterruptedException e) {
+                executorService.shutdownNow();
+                Thread.currentThread().interrupt();
+            }
+        }
     }
 }

@@ -127,7 +127,7 @@ public class BookSearchController {
 
 
         bookList = FXCollections.observableArrayList(BookUtils.getAllBooks());
-        searchTable_TableView.setItems(bookList);
+        showTable();
 
         amount_Column.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
 
@@ -165,7 +165,7 @@ public class BookSearchController {
                     bookList = getValue();
                     Platform.runLater(() -> {
                         if (bookList != null) {
-                            searchTable_TableView.setItems(bookList);
+                            showTable();
                         }
                     });
                 }

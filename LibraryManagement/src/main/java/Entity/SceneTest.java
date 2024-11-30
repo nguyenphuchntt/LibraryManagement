@@ -1,5 +1,6 @@
 package Entity;
 
+import Controllers.BookReturnController;
 import Controllers.BookSearchController;
 import Controllers.Controller;
 import Controllers.SideBarLoader;
@@ -44,9 +45,19 @@ public class SceneTest extends Application {
         new Thread(HibernateUtil::getSessionFactory).start();
 
         stage.setOnCloseRequest(event -> {
-            BookSearchController bookSearchController = (BookSearchController) SideBarLoader.getLeftController().getScenes().get("Book_Search.fxml").getUserData();
-            bookSearchController.cleanup();
-            Platform.exit();
+            Scene bookSearchScene = SideBarLoader.getLeftController().getScenes().get("Book_Search.fxml");
+            if (bookSearchScene != null) {
+                BookSearchController bookSearchController = (BookSearchController) bookSearchScene.getUserData();
+                bookSearchController.cleanup();
+                Platform.exit();
+            }
+
+            Scene bookReturnScene = SideBarLoader.getLeftController().getScenes().get("Book_Return.fxml");
+            if (bookReturnScene != null) {
+                BookReturnController bookReturnController = (BookReturnController) bookReturnScene.getUserData();
+                bookReturnController.cleanup();
+                Platform.exit();
+            }
         });
 
         stage.show();
