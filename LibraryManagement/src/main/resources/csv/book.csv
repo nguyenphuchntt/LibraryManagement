@@ -1,5 +1,8 @@
 book_id,book_title,author,publisher,year,quantity,description,averageRating,category,thumbnailLink
 001##@#@my first book##@#@NVP##@#@UET##@#@2000##@#@895##@#@Rat hay##@#@5.0##@#@Toan hoc##@#@null
+0012##@#@The Code of Federal Regulations of the United States of America##@#@Unknown##@#@null##@#@1998##@#@10##@#@The Code of Federal Regulations is the codification of the general and permanent rules published in the Federal Register by the executive departments and agencies of the Federal Government.##@#@0.0##@#@Administrative##@#@http://books.google.com/books/content?id=_Ss7AAAAIAAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api
+0013##@#@Unknown##@#@Unknown##@#@null##@#@0##@#@15##@#@No description available##@#@0.0##@#@No categories##@#@http://books.google.com/books/content?id=THasCgAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api
+0014##@#@European Currency and Finance ....##@#@John, Stati##@#@null##@#@1925##@#@10##@#@No description available##@#@0.0##@#@Currency##@#@http://books.google.com/books/content?id=ytFEAQAAMAAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api
 002##@#@Advanced Programming##@#@Tran Van A##@#@NXB Tre##@#@2015##@#@9998##@#@Hữu ích##@#@4.5##@#@Công nghệ thông tin##@#@null
 003##@#@Cooking 101##@#@Le Thi B##@#@NXB Thanh Nien##@#@2018##@#@9996##@#@Dễ hiểu và thực tế##@#@4.8##@#@Nấu ăn##@#@null
 004##@#@History of Vietnam##@#@Nguyen Van C##@#@NXB Giao Duc##@#@1990##@#@3000##@#@Nội dung phong phú##@#@4.2##@#@Lịch sử##@#@null

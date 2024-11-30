@@ -2,7 +2,6 @@ package Controllers;
 
 import Entity.Announcement;
 import Entity.LibraryManagement;
-import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import database.DatabaseController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +12,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -76,6 +74,8 @@ public class Controller {
             return;
         }
         switchScene("Book_Search.fxml");
+        BookSearchController bookSearchController = (BookSearchController) scenes.get("Book_Search.fxml").getUserData();
+        bookSearchController.refresh();
     }
 
     @FXML
@@ -84,6 +84,8 @@ public class Controller {
             return;
         }
         switchScene("Book_Return.fxml");
+        BookReturnController bookReturnController = (BookReturnController) scenes.get("Book_Return.fxml").getUserData();
+        bookReturnController.refresh();
     }
 
     @FXML
@@ -92,6 +94,8 @@ public class Controller {
             return;
         }
         switchScene("Admin_Overview.fxml");
+        AdminDashboardController adminDashboardController = (AdminDashboardController) scenes.get("Admin_Overview.fxml").getUserData();
+        adminDashboardController.cleanUp();
     }
 
     @FXML
@@ -100,6 +104,8 @@ public class Controller {
             return;
         }
         switchScene("Admin_Announcement.fxml");
+        AdminAnnouncementController adminAnnouncementController = (AdminAnnouncementController) scenes.get("Admin_Announcement.fxml").getUserData();
+        adminAnnouncementController.cleanUp();
     }
 
     @FXML
@@ -108,6 +114,8 @@ public class Controller {
             return;
         }
         switchScene("Admin_AlterBook.fxml");
+        AdminAlterBookController adminAlterBookController = (AdminAlterBookController) scenes.get("Admin_AlterBook.fxml").getUserData();
+        adminAlterBookController.cleanUp();
     }
 
     @FXML
@@ -116,6 +124,8 @@ public class Controller {
             return;
         }
         switchScene("Admin_AddBook.fxml");
+        AdminAddBookController adminAddBookController = (AdminAddBookController) scenes.get("Admin_AddBook.fxml").getUserData();
+        adminAddBookController.cleanUp();
     }
 
     @FXML
@@ -124,6 +134,8 @@ public class Controller {
             return;
         }
         switchScene("Admin_RemoveBook.fxml");
+        AdminRemoveBookController adminRemoveBookController = (AdminRemoveBookController) scenes.get("Admin_RemoveBook.fxml").getUserData();
+        adminRemoveBookController.cleanUp();
     }
 
     @FXML

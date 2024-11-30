@@ -109,7 +109,7 @@ public class BookReturnController {
 
         amount_Column.setCellFactory(CheckBoxTableCell.forTableColumn(amount_Column));
 
-        new Thread(this::handleSearch).start();
+        new Thread(this::refresh).start();
 
         addTextFieldListener(searchBar_TextField);
         addTextFieldListener(category_TextField);
@@ -155,8 +155,8 @@ public class BookReturnController {
         star = "5";
     }
 
-    @FXML
-    private void handleSearch() {
+    public void refresh() {
+        cleanUpData();
         searchBorrowedTransactions();
         showTables();
     }
@@ -245,7 +245,7 @@ public class BookReturnController {
             TransactionUtils.addReturnTransactions(transactions);
             BookUtils.updateBookAmountAfterBorrowed(toReturnBookID, true);
             PopupUtils.showAlert("Returned " + transactions.size() + " books successfully");
-            handleSearch();
+            refresh();
             cleanUpData();
         } else {
             PopupUtils.showAlert(alert.append(" had been returned!").toString());
@@ -270,7 +270,7 @@ public class BookReturnController {
             return;
         }
         isbn_TextField.setText(bookIDInComment_TextField.getText());
-        handleSearch();
+        refresh();
         if (transactionList.isEmpty()) {
             cleanUpData();
             postCommentMessage_Label.setText("You haven't been read this book!");

@@ -25,7 +25,6 @@
                             </font>
                         </Label>
                         <TextField fx:id="searchBar_TextField" layoutX="20.0" layoutY="38.0" prefHeight="40.0" prefWidth="572.0" promptText="Enter book title" />
-                        <Button fx:id="search_Button" layoutX="529.0" layoutY="87.0" mnemonicParsing="false" onAction="#handleSearchButton" text="Search" />
                         <Label layoutX="309.0" layoutY="203.0" style="-fx-background-color: #c170bf;" text="NO BOOK FOUND YET!">
                             <font>
                                 <Font size="25.0" />

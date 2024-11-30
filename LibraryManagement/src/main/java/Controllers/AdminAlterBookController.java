@@ -53,7 +53,7 @@ public class AdminAlterBookController {
     private boolean searched = false;
     private String book_id = null;
 
-    private void cleanUp() {
+    public void cleanUp() {
         alterMessage_Label.setText("");
         search_TextField.clear();
         title_TextField.clear();

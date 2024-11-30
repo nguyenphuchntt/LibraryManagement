@@ -13,7 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.util.List;
 
-public class AdminDashboard {
+public class AdminDashboardController {
 
     @FXML
     private TableView<TransactionDTO> overdue_TableView;
@@ -56,7 +56,7 @@ public class AdminDashboard {
         username_Column.setCellValueFactory(new PropertyValueFactory<>("username"));
         note_Column.setCellValueFactory(new PropertyValueFactory<>("status"));
     }
-    
+
     private void refreshOverdueTableView() {
         List<Transaction> transactionList = TransactionUtils.getOverdueTransactions();
         overdueList = TransactionDTO.loadTransactionsForAdminDashboard(transactionList);
@@ -70,5 +70,7 @@ public class AdminDashboard {
         PopupUtils.openQuickMessage(username);
     }
 
-
+    public void cleanUp() {
+        refreshOverdueTableView();
+    }
 }

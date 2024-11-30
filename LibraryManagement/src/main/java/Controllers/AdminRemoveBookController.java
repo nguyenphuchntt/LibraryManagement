@@ -115,7 +115,7 @@ public class AdminRemoveBookController {
         }
     }
 
-    private void cleanUp() {
+    public void cleanUp() {
         bookID_TextField.clear();
         amount_TextField.clear();
         removeMessage_Label.setText("");

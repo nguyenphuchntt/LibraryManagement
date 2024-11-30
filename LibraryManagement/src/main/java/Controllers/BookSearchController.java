@@ -120,11 +120,7 @@ public class BookSearchController {
     public void initialize() {
         mapColumnValue();
 
-        new Thread(() -> {
-            recommendedBookList = BookUtils.getBookListForRecommend();
-            showRecommendedBooks();
-        }).start();
-
+        getRecommendBooks();
 
         bookList = FXCollections.observableArrayList(BookUtils.getAllBooks());
         showTable();
@@ -137,7 +133,7 @@ public class BookSearchController {
         addTextFieldListener(year_TextField);
         addTextFieldListener(category_TextField);
         addTextFieldListener(author_TextField);
-        addTextFieldListener(category_TextField);
+        addTextFieldListener(isbn_TextField);
     }
 
     private void addTextFieldListener(TextField textField) {
@@ -180,6 +176,17 @@ public class BookSearchController {
         });
     }
 
+    public void refresh() {
+        getRecommendBooks();
+        searchBooks();
+        showTable();
+    }
+
+    private void getRecommendBooks() {
+        recommendedBookList = BookUtils.getBookListForRecommend();
+        showRecommendedBooks();
+    }
+
     private void mapColumnValue() {
         bookTitle_Column.setCellValueFactory(new PropertyValueFactory<>("title"));
         bookID_Column.setCellValueFactory(new PropertyValueFactory<>("isbn"));
@@ -197,12 +204,6 @@ public class BookSearchController {
         return books.stream()
                 .filter(Book::getSelected)
                 .collect(Collectors.toList());
-    }
-
-    @FXML
-    private void handleSearchButton() {
-        searchBooks();
-        showTable();
     }
 
     private void searchBooks() {
