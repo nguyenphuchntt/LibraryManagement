@@ -70,6 +70,7 @@
                                 <Text fx:id="category_Text" strokeType="OUTSIDE" strokeWidth="0.0" text="Category: " />
                                 <Text fx:id="publishedYear_Text" strokeType="OUTSIDE" strokeWidth="0.0" text="Published year: " />
                                 <Text fx:id="description_Text" strokeType="OUTSIDE" strokeWidth="0.0" text="Description: " />
+                        <Text fx:id="comment_Text" strokeType="OUTSIDE" strokeWidth="0.0" text="Comment:" />
                             </children></TextFlow>
                   <ImageView fx:id="thumbnail_ImageView" fitHeight="190.0" fitWidth="160.0" layoutX="730.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true" />
                           <Label fx:id="thumbnailMessage_Label" alignment="CENTER" layoutX="721.0" layoutY="122.0" prefHeight="56.0" prefWidth="179.0" text="No thumnail available" />

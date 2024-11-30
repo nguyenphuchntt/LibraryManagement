@@ -1,10 +1,13 @@
 package Controllers;
 
 import Entity.Book;
+import Entity.Comment;
 import Entity.Person;
 import Entity.Transaction;
 import Utils.*;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -109,7 +112,13 @@ public class BookSearchController {
     private Text publishedYear_Text;
 
     @FXML
+    private Text comment_Text;
+
+    @FXML
     private ImageView thumbnail_ImageView;
+
+    @FXML
+    private ImageView searchThumbnail_ImageView;
 
     private ObservableList<Book> bookList;
 
@@ -138,6 +147,21 @@ public class BookSearchController {
         addTextFieldListener(category_TextField);
         addTextFieldListener(author_TextField);
         addTextFieldListener(isbn_TextField);
+
+        searchTable_TableView.getSelectionModel().selectedItemProperty().addListener(
+                new ChangeListener<Book>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Book> observable, Book oldValue, Book newValue) {
+                        if (newValue != null) {
+                            if (newValue.getThumbnailLink() != null) {
+                                searchThumbnail_ImageView.setImage(new Image(newValue.getThumbnailLink()));
+                            } else {
+                                searchThumbnail_ImageView.setImage(null);
+                            }
+                        }
+                    }
+                }
+        );
     }
 
     private void addTextFieldListener(TextField textField) {
@@ -272,6 +296,14 @@ public class BookSearchController {
         description_Text.setText("Description: " + FormatUtils.getShortDescription(book[4].toString(), 500) + '\n');
 
         ratingStar_Label.setText("Rating: " + book[5].toString());
+
+        Comment comment = BookUtils.getBestCommentOfBook(book[6].toString());
+        if (comment != null) {
+            comment_Text.setText("COMMENT:\n" + comment.toString() + '\n');
+        } else {
+            comment_Text.setText("");
+        }
+
         if (book[7] != null) {
             thumbnail_ImageView.setImage(new Image(book[7].toString()));
             thumbnailMessage_Label.setText("");

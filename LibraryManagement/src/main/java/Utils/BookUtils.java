@@ -236,5 +236,28 @@ public class BookUtils {
         }
     }
 
+    public static Comment getBestCommentOfBook(String isbn) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
 
+        try {
+            session.beginTransaction();
+
+            String hql = "FROM Comment t WHERE t.book.isbn = :isbn ORDER BY t.rate DESC";
+            Query<Comment> query = session.createQuery(hql, Comment.class);
+            query.setParameter("isbn", isbn);
+            query.setMaxResults(1);
+
+            session.getTransaction().commit();
+
+            return query.uniqueResultOptional().orElse(null);
+
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
 }

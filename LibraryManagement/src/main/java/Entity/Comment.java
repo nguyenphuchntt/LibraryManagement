@@ -80,4 +80,8 @@ public class Comment {
         return BookUtils.hadComment(username, bookIsbn);
     }
 
+    public String toString() {
+        return "Author: " + username + "\n" + book_comment + " Star: " + rate;
+    }
+
 }
