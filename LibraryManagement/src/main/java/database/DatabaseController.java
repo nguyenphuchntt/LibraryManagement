@@ -161,7 +161,7 @@ public class DatabaseController {
         BufferedReader reader = null;
         PreparedStatement statement = null;
         String line;
-        String insertSQL = "INSERT IGNORE INTO `user` (username, name, yearOfBirth, gender, department) VALUES (?, ?, ?, ?, ?)";
+        String insertSQL = "INSERT IGNORE INTO `user` (username, name, age, gender, department) VALUES (?, ?, ?, ?, ?)";
 
         try {
             reader = new BufferedReader(new FileReader(pathToCSV));
@@ -179,14 +179,15 @@ public class DatabaseController {
                 } else {
                     statement.setNull(2, Types.VARCHAR);
                 }
-                statement.setInt(3, values[2].equalsIgnoreCase("0") ? Types.INTEGER : Integer.parseInt(values[2])); // yearOfBirth
-                statement.setInt(4, values[3].equalsIgnoreCase("null") ? Types.BOOLEAN : Integer.parseInt(values[3])); // gender
-                if (values[4].equalsIgnoreCase("null")) { // department
-                    statement.setString(5, values[4]);
+                statement.setInt(3, values[2].equalsIgnoreCase("null") ? Types.INTEGER : Integer.parseInt(values[2])); // yearOfBirth
+
+                if (values[3].equalsIgnoreCase("null")) { // department
+                    statement.setString(5, values[3]);
                 } else {
                     statement.setNull(5, Types.VARCHAR);
                 }
 
+                statement.setInt(4, values[4].equalsIgnoreCase("null") ? Types.BOOLEAN : Integer.parseInt(values[4])); // gender
                 statement.addBatch();
 
             }

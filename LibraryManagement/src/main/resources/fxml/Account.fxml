@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
@@ -12,7 +13,10 @@
     <children>
         <AnchorPane layoutX="200.0" layoutY="45.0" prefHeight="755.0" prefWidth="900.0">
             <children>
-                <ImageView fitHeight="185.0" fitWidth="200.0" layoutX="350.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
+                <ImageView fitHeight="185.0" fitWidth="200.0" layoutX="350.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/img/user_icon.png" />
+               </image></ImageView>
                 <Label fx:id="name_Label" layoutX="72.0" layoutY="306.0" text="NAME:">
                     <font>
                         <Font size="17.0" />
@@ -59,9 +63,11 @@
                   <Label fx:id="changePasswordMessage_Label" alignment="CENTER" contentDisplay="CENTER" layoutX="147.0" layoutY="131.0" prefHeight="16.0" prefWidth="262.0" />
                </children>
             </Pane>
-            <TextField fx:id="name_TextField" layoutX="271.0" layoutY="306.0" prefHeight="24.0" prefWidth="247.0" promptText="Enter your name" />
-            <TextField fx:id="age_TextField" layoutX="271.0" layoutY="355.0" prefHeight="24.0" prefWidth="247.0" promptText="Enter your age" />
-            <TextField fx:id="department_TextField" layoutX="271.0" layoutY="405.0" prefHeight="24.0" prefWidth="247.0" promptText="Enter your department" />
+            <TextField fx:id="name_TextField" layoutX="271.0" layoutY="306.0" prefHeight="24.0" prefWidth="247.0" promptText="Enter your name" visible="false" />
+            <TextField fx:id="age_TextField" layoutX="271.0" layoutY="355.0" prefHeight="24.0" prefWidth="247.0" promptText="Enter your age" visible="false" />
+            <TextField fx:id="department_TextField" layoutX="271.0" layoutY="405.0" prefHeight="24.0" prefWidth="247.0" promptText="Enter your department" visible="false" />
+            <Button layoutX="60.0" layoutY="481.0" mnemonicParsing="false" onAction="#handleChangeInfoButton" text="Change Info" />
+            <Label fx:id="changeInfo_Label" layoutX="195.0" layoutY="485.0" prefHeight="16.0" prefWidth="326.0" />
             </children>
         </AnchorPane>
     </children>

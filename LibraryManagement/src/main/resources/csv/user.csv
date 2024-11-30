@@ -1,6 +1,6 @@
-username,name,yearOfBirth,gender,department
-admin001##@#@##@#@2004##@#@16##@#@null
-knockout##@#@null##@#@0##@#@null##@#@null
-nguyenphuc##@#@null##@#@0##@#@null##@#@null
-nvp##@#@##@#@2004##@#@16##@#@null
-nvp123##@#@null##@#@0##@#@null##@#@null
+username,name,age,department,gender
+admin001##@#@NguyenPhuc##@#@19##@#@##@#@null
+knockout##@#@null##@#@null##@#@null##@#@null
+nguyenphuc##@#@Nguyen Phuc##@#@17##@#@##@#@null
+nvp##@#@haha##@#@19##@#@##@#@null
+nvp123##@#@null##@#@null##@#@null##@#@null

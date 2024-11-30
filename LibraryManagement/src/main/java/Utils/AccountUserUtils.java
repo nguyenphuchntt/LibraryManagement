@@ -154,4 +154,30 @@ public class AccountUserUtils {
     public static Person getCurrentUser() {
         return getUserInfo(LibraryManagement.getInstance().getCurrentAccount());
     }
+
+    public static void updateUserInfo(String name, int age, String department) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            session.beginTransaction();
+            String username = LibraryManagement.getInstance().getCurrentAccount();
+            Person user = session.get(Person.class, username);
+            user.setName(name);
+            if (age != 0) {
+                System.out.println(age);
+                user.setYearOfBirth(age);
+            }
+            user.setDepartment(department);
+
+            session.update(user);
+
+            session.getTransaction().commit();
+
+        } catch (Exception e) {
+            System.out.println("Error saving account");
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
 }

@@ -17,6 +17,8 @@ import java.sql.*;
 
 public class AccountController {
 
+    private boolean isChangeInfo = false;
+
     @FXML
     private Label name_Label;
 
@@ -59,10 +61,22 @@ public class AccountController {
     @FXML
     private Label changePasswordMessage_Label;
 
+    @FXML
+    private TextField name_TextField;
+
+    @FXML
+    private TextField age_TextField;
+
+    @FXML
+    private TextField department_TextField;
+
+    @FXML
+    private Label changeInfo_Label;
+
     public void refreshInfo() {
         cleanUp();
 
-        Person currentUser = AccountUserUtils.getUserInfo(LibraryManagement.getInstance().getCurrentAccount());
+        Person currentUser = AccountUserUtils.getCurrentUser();
 
         name_Label.setText("NAME: " + currentUser.getName());
 
@@ -118,6 +132,12 @@ public class AccountController {
         currentPassword_TextField.clear();
         changePasswordMessage_Label.setText("");
         setChangePasswordInvisible();
+        name_TextField.clear();
+        age_TextField.clear();
+        department_TextField.clear();
+        name_TextField.setVisible(false);
+        age_TextField.setVisible(false);
+        department_TextField.setVisible(false);
     }
 
 
@@ -129,6 +149,36 @@ public class AccountController {
             e.getCause();
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void handleChangeInfoButton() {
+        isChangeInfo = isChangeInfo ? false : true;
+        if (!isChangeInfo) {
+            String name = name_TextField.getText();
+            String age = age_TextField.getText();
+            int ageInt = 0;
+            try {
+                if (age != null && !age.trim().isEmpty()) {
+                    ageInt = Integer.parseInt(age);
+                }
+            } catch (NumberFormatException e) {
+                changeInfo_Label.setText("Invalid Age");
+                return;
+            }
+            String department = department_TextField.getText();
+            AccountUserUtils.updateUserInfo(name, ageInt, department);
+            refreshInfo();
+        }
+        if (isChangeInfo) {
+            name_Label.setText("NAME: ");
+            age_Label.setText("AGE: ");
+            department_Label.setText("DEPARTMENT: ");
+        }
+        name_TextField.setVisible(isChangeInfo);
+        age_TextField.setVisible(isChangeInfo);
+        department_TextField.setVisible(isChangeInfo);
+
     }
 
 }

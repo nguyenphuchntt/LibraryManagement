@@ -20,8 +20,8 @@ public class Person {
     @Column(name = "name", nullable = false, length = 50)
     protected String name;
 
-    @Column(name = "yearOfBirth")
-    protected Integer yearOfBirth;
+    @Column(name = "age")
+    protected Integer age;
 
     @Column(name = "gender")
     protected String gender;
@@ -32,7 +32,7 @@ public class Person {
 
     protected Person(Builder<?> builder) {
         this.name = builder.name;
-        this.yearOfBirth = builder.yearOfBirth;
+        this.age = builder.age;
         this.gender = builder.gender;
         this.department = builder.department;
         this.account = builder.account;
@@ -45,7 +45,7 @@ public class Person {
         protected String username;
         protected Account account;
         protected String name;
-        protected Integer yearOfBirth;
+        protected Integer age;
         protected String gender;
         protected String department;
         protected boolean role;
@@ -65,8 +65,8 @@ public class Person {
             return self();
         }
 
-        public T yearOfBirth(int yearOfBirth) {
-            this.yearOfBirth = yearOfBirth;
+        public T age(int age) {
+            this.age = age;
             return self();
         }
 
@@ -110,14 +110,14 @@ public class Person {
     }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
-    public Integer getYearOfBirth() { return yearOfBirth; }
-    public void setYearOfBirth(int yearOfBirth) { this.yearOfBirth = yearOfBirth; }
+    public Integer getYearOfBirth() { return age; }
+    public void setYearOfBirth(int age) { this.age = age; }
     public String getGender() { return gender; }
     public void setGender(String gender) { this.gender = gender; }
     public String getDepartment() { return department; }
     public void setDepartment(String department) { this.department = department; }
 
     public String toString() {
-        return "name: " + name + "\nbirth: " + yearOfBirth + "\ngender: " + gender + "\ndepartment: " + department;
+        return "name: " + name + "\nbirth: " + age + "\ngender: " + gender + "\ndepartment: " + department;
     }
 }
