@@ -51,7 +51,16 @@ public class AdminAddBookController {
     private ImageView thumbnail_ImageView;
 
     @FXML
+    private Label internetError_Label;
+
+    @FXML
+    private void initialize() {
+        internetError_Label.setVisible(false);
+    }
+
+    @FXML
     private void handleSearch() {
+        internetError_Label.setVisible(false);
         addBookMessage_Label.setText("");
         String isbn = bookId_TextField.getText();
         if (isbn.trim().isEmpty() || isbn.matches(".*[^0-9].*")) {
@@ -62,6 +71,7 @@ public class AdminAddBookController {
             book = APIUtils.searchBooks(isbn);
         } catch (Exception e) {
             System.out.println("Error in Add book controller: " + e.getMessage());
+            internetError_Label.setVisible(true);
             throw new RuntimeException(e);
         }
         if (book == null) {
@@ -100,7 +110,10 @@ public class AdminAddBookController {
                 addBookMessage_Label.setText("You should not change the book ID");
                 return;
             }
-            DatabaseController.saveEntity(book);
+            new Thread(() -> {
+                DatabaseController.saveEntity(book);
+            }).start();
+            cleanUp();
         }
     }
 
@@ -114,7 +127,7 @@ public class AdminAddBookController {
         thumbnail_ImageView.setImage(thumbnail);
     }
 
-    private void cleanUp() {
+    public void cleanUp() {
         bookTitle_TextField.clear();
         bookId_TextField.clear();
         author_TextField.clear();
@@ -122,7 +135,9 @@ public class AdminAddBookController {
         description_TextArea.clear();
         category_TextField.clear();
         amount_TextField.clear();
+        thumbnail_ImageView.setImage(null);
         book = null;
         selected = false;
+        internetError_Label.setVisible(false);
     }
 }

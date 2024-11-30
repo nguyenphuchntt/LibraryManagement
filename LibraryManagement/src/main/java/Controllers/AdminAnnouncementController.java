@@ -51,7 +51,7 @@ public class AdminAnnouncementController {
         cleanUp();
     }
 
-    private void cleanUp() {
+    public void cleanUp() {
         content_TextArea.clear();
         endTime_DatePicker.setValue(null);
         startTime_DatePicker.setValue(null);

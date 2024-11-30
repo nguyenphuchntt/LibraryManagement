@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Pagination?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -24,27 +23,25 @@
                                 <Font size="20.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="searchBar_TextField" layoutX="20.0" layoutY="61.0" prefHeight="40.0" prefWidth="572.0" promptText="Enter book title" />
-                        <Button fx:id="search_Button" layoutX="529.0" layoutY="128.0" mnemonicParsing="false" onAction="#handleSearchButton" text="Search" />
+                        <TextField fx:id="searchBar_TextField" layoutX="20.0" layoutY="38.0" prefHeight="40.0" prefWidth="572.0" promptText="Enter book title" />
                         <Label layoutX="309.0" layoutY="203.0" style="-fx-background-color: #c170bf;" text="NO BOOK FOUND YET!">
                             <font>
                                 <Font size="25.0" />
                             </font>
                         </Label>
-                        <TableView fx:id="searchTable_TableView" editable="true" layoutX="20.0" layoutY="156.0" prefHeight="249.0" prefWidth="860.0">
+                        <TableView fx:id="searchTable_TableView" editable="true" layoutX="20.0" layoutY="117.0" prefHeight="338.0" prefWidth="860.0">
                             <columns>
-                                <TableColumn fx:id="amount_Column" prefWidth="31.0" text="X" />
-                                <TableColumn fx:id="bookTitle_Column" editable="false" prefWidth="155.0" text="BOOK TITLE" />
-                                <TableColumn fx:id="bookID_Column" editable="false" prefWidth="86.0" text="BOOK ID" />
-                                <TableColumn fx:id="author_Column" editable="false" prefWidth="104.0" text="AUTHOR" />
-                                <TableColumn fx:id="category_Column" editable="false" prefWidth="87.0" sortable="false" text="CATEGORY" />
-                                <TableColumn fx:id="description_Column" editable="false" prefWidth="266.0" sortable="false" text="DESCRIPTION" />
-                                <TableColumn fx:id="quantity_Column" editable="false" prefWidth="79.0" text="QUANTITY" />
-                                <TableColumn fx:id="rate_Column" editable="false" prefWidth="51.0" text="RATE" />
+                                <TableColumn fx:id="amount_Column" maxWidth="30.0" prefWidth="30.0" resizable="false" text="X" />
+                                <TableColumn fx:id="bookTitle_Column" editable="false" prefWidth="161.0" resizable="false" text="BOOK TITLE" />
+                                <TableColumn fx:id="bookID_Column" editable="false" prefWidth="113.0" resizable="false" text="BOOK ID" />
+                                <TableColumn fx:id="author_Column" editable="false" prefWidth="99.0" resizable="false" text="AUTHOR" />
+                                <TableColumn fx:id="category_Column" editable="false" prefWidth="113.0" resizable="false" sortable="false" text="CATEGORY" />
+                                <TableColumn fx:id="description_Column" editable="false" prefWidth="187.0" resizable="false" sortable="false" text="DESCRIPTION" />
+                                <TableColumn fx:id="quantity_Column" editable="false" prefWidth="96.0" resizable="false" text="QUANTITY" />
+                                <TableColumn fx:id="rate_Column" editable="false" prefWidth="59.0" text="RATE" />
                             </columns>
                         </TableView>
-                        <Pagination fx:id="pageFlow_Pagination" layoutX="755.0" layoutY="406.0" prefHeight="46.0" prefWidth="125.0" />
-                        <HBox layoutX="20.0" layoutY="127.0" prefHeight="25.0" prefWidth="496.0">
+                        <HBox layoutX="20.0" layoutY="86.0" prefHeight="25.0" prefWidth="496.0">
                             <children>
                                 <Label alignment="CENTER" prefHeight="25.0" prefWidth="56.0" text="FILTER: " textAlignment="CENTER" />
                         <TextField fx:id="isbn_TextField" prefHeight="25.0" prefWidth="197.0" promptText="ISBN" />
@@ -53,19 +50,19 @@
                                 <TextField fx:id="author_TextField" prefHeight="25.0" prefWidth="80.0" promptText="AUTHOR" />
                             </children>
                         </HBox>
-                        <Button fx:id="borrowSearch_Button" layoutX="419.0" layoutY="419.0" mnemonicParsing="false" onAction="#handleBorrowButton" text="BORROW" />
+                        <Button fx:id="borrowSearch_Button" layoutX="418.0" layoutY="464.0" mnemonicParsing="false" onAction="#handleBorrowButton" text="BORROW" />
                     </children></AnchorPane>
-                <AnchorPane layoutY="455.0" prefHeight="300.0" prefWidth="900.0" style="-fx-background-image: #dadada;">
+                <AnchorPane layoutY="485.0" prefHeight="185.0" prefWidth="900.0" style="-fx-background-color: #dadada;">
                     <children>
                         <Label layoutX="30.0" layoutY="10.0" text="RECOMMEND FOR YOU">
                             <font>
                                 <Font size="20.0" />
                             </font>
                         </Label>
-                        <Button fx:id="borrowRecommend_Button" layoutX="333.0" layoutY="256.0" mnemonicParsing="false" onAction="#handleBorrowRecommendBook" text="BORROW" />
+                        <Button fx:id="borrowRecommend_Button" layoutX="241.0" layoutY="238.0" mnemonicParsing="false" onAction="#handleBorrowRecommendBook" text="BORROW" />
                         <Button fx:id="refresh_Button" layoutX="810.0" layoutY="11.0" mnemonicParsing="false" onAction="#handleRefreshButton" text="REFRESH" />
-                        <Label fx:id="ratingStar_Label" layoutX="30.0" layoutY="260.0" text="RATING STAR: " />
-                        <TextFlow fx:id="recommendBook_TextField" layoutX="27.0" layoutY="50.0" prefHeight="200.0" prefWidth="691.0">
+                        <Label fx:id="ratingStar_Label" layoutX="37.0" layoutY="242.0" text="RATING STAR: " />
+                        <TextFlow fx:id="recommendBook_TextField" layoutX="27.0" layoutY="50.0" prefHeight="161.0" prefWidth="691.0">
                             <children>
                                 <Text fx:id="title_Text" strokeType="OUTSIDE" strokeWidth="0.0" text="Title:" />
                                 <Text fx:id="author_Text" strokeType="OUTSIDE" strokeWidth="0.0" text="Author: " />
@@ -76,6 +73,8 @@
                   <ImageView fx:id="thumbnail_ImageView" fitHeight="190.0" fitWidth="160.0" layoutX="730.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true" />
                           <Label fx:id="thumbnailMessage_Label" alignment="CENTER" layoutX="721.0" layoutY="122.0" prefHeight="56.0" prefWidth="179.0" text="No thumnail available" />
                     </children></AnchorPane>
+            <Button fx:id="previousPage_Button" layoutX="816.0" layoutY="457.0" mnemonicParsing="false" onAction="#handlePreviousPageButton" text="&lt;" />
+            <Button fx:id="nextPage_Button" layoutX="851.0" layoutY="457.0" mnemonicParsing="false" onAction="#handleNextPageButton" text="&gt;" />
             </children>
         </AnchorPane>
     </children>

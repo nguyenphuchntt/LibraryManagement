@@ -4,8 +4,10 @@ import Entity.Book;
 import Entity.Person;
 import Entity.Transaction;
 import Utils.*;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
@@ -17,9 +19,19 @@ import org.hibernate.Session;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class BookSearchController {
+
+    private static final int ROWS_PER_PAGE = 12;
+
+    private int currentPage = 0;
+    int totalRows = BookUtils.getTotalRowBook();
+    private int pageCount = (int) Math.ceil((double) totalRows / ROWS_PER_PAGE);
 
     @FXML
     private Label thumbnailMessage_Label;
@@ -105,21 +117,78 @@ public class BookSearchController {
 
     private int priorityOrder = 0;
 
+    private ExecutorService executorService = Executors.newFixedThreadPool(1);
+    private Future<?> runningTask;
+
     @FXML
     public void initialize() {
         mapColumnValue();
 
-        recommendedBookList = BookUtils.getBookListForRecommend();
-
-        showRecommendedBooks();
+        getRecommendBooks();
 
         bookList = FXCollections.observableArrayList(BookUtils.getAllBooks());
-        searchTable_TableView.setItems(bookList);
+        showTable();
 
         amount_Column.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
 
         amount_Column.setCellFactory(CheckBoxTableCell.forTableColumn(amount_Column));
 
+        addTextFieldListener(searchBar_TextField);
+        addTextFieldListener(year_TextField);
+        addTextFieldListener(category_TextField);
+        addTextFieldListener(author_TextField);
+        addTextFieldListener(isbn_TextField);
+    }
+
+    private void addTextFieldListener(TextField textField) {
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (runningTask != null && !runningTask.isDone()) {
+                runningTask.cancel(true);
+            }
+
+            Task<ObservableList<Book>> task = new Task<>() {
+                @Override
+                protected ObservableList<Book> call() throws Exception {
+                    try {
+                        searchBooks();
+                        if (isCancelled()) return null;
+                        return bookList;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return null;
+                    }
+                }
+
+                @Override
+                protected void succeeded() {
+                    super.succeeded();
+                    bookList = getValue();
+                    Platform.runLater(() -> {
+                        if (bookList != null) {
+                            showTable();
+                        }
+                    });
+                }
+
+                @Override
+                protected void cancelled() {
+                    super.cancelled();
+                }
+            };
+
+            runningTask = executorService.submit(task);
+        });
+    }
+
+    public void refresh() {
+        getRecommendBooks();
+        searchBooks();
+        showTable();
+    }
+
+    private void getRecommendBooks() {
+        recommendedBookList = BookUtils.getBookListForRecommend();
+        showRecommendedBooks();
     }
 
     private void mapColumnValue() {
@@ -141,8 +210,7 @@ public class BookSearchController {
                 .collect(Collectors.toList());
     }
 
-    @FXML
-    private void handleSearchButton() {
+    private void searchBooks() {
         String title = searchBar_TextField.getText().isEmpty() ? null : searchBar_TextField.getText();
         String isbn = isbn_TextField.getText().isEmpty() ? null : isbn_TextField.getText();
         String author = author_TextField.getText().isEmpty() ? null : author_TextField.getText();
@@ -150,9 +218,11 @@ public class BookSearchController {
         String year = year_TextField.getText().isEmpty() ? null : year_TextField.getText();
 
         bookList = FXCollections.observableArrayList(BookUtils.searchBook(
-                isbn, title, author, category, year
+                isbn, title, author, category, year, currentPage * ROWS_PER_PAGE, ROWS_PER_PAGE
         ));
+    }
 
+    private void showTable() {
         searchTable_TableView.setItems(bookList);
     }
 
@@ -186,7 +256,7 @@ public class BookSearchController {
             TransactionUtils.addBorrowTransactions(transactions);
             BookUtils.updateBookAmountAfterBorrowed(booksID, false);
             PopupUtils.showAlert("Borrowed " + books.size() + " books successfully");
-            cleanUp();
+            refresh();
         } else {
             PopupUtils.showAlert(alert.toString() + "doesn't not have enough quantity :((");
         }
@@ -231,12 +301,42 @@ public class BookSearchController {
     }
 
     @FXML
+    private void handlePreviousPageButton() {
+        if (currentPage == 0) {
+            return;
+        }
+        currentPage--;
+        System.out.println("do previous page");
+        refresh();
+    }
+
+    @FXML
+    private void handleNextPageButton() {
+        if (currentPage == pageCount - 1) {
+            return;
+        }
+        currentPage++;
+        System.out.println("do next page");
+        refresh();
+    }
+
+    @FXML
     private void handleRefreshButton() {
         showRecommendedBooks();
     }
 
-    private void cleanUp() {
-        handleSearchButton();
+    public void cleanup() {
+        if (executorService != null && !executorService.isShutdown()) {
+            executorService.shutdown();
+            try {
+                if (!executorService.awaitTermination(60, TimeUnit.SECONDS)) {
+                    executorService.shutdownNow();
+                }
+            } catch (InterruptedException e) {
+                executorService.shutdownNow();
+                Thread.currentThread().interrupt();
+            }
+        }
     }
 
 }

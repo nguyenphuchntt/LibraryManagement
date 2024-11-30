@@ -2,6 +2,7 @@ package Utils;
 
 import Entity.Book;
 import Entity.Comment;
+import Entity.LibraryManagement;
 import Entity.Transaction;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -84,7 +85,7 @@ public class BookUtils {
         return books;
     }
 
-    public static List<Book> searchBook(String isbn, String title, String author, String category, String year) {
+    public static List<Book> searchBook(String isbn, String title, String author, String category, String year, int offset, int limit) {
         Session session = HibernateUtil.getSessionFactory().openSession();
 
         try {
@@ -127,7 +128,8 @@ public class BookUtils {
             if (year != null) {
                 query.setParameter("year", Integer.parseInt(year));
             }
-
+            query.setFirstResult(offset);
+            query.setMaxResults(limit);
             List<Book> books = query.list();
 
             session.getTransaction().commit();
@@ -221,5 +223,18 @@ public class BookUtils {
             session.close();
         }
     }
+
+    public static int getTotalRowBook() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            Query<Long> query = session.createQuery("SELECT COUNT(b) FROM Book b", Long.class);
+            return query.uniqueResult().intValue();
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
+
 
 }

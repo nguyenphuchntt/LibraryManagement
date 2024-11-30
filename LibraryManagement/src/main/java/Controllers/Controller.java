@@ -2,17 +2,16 @@ package Controllers;
 
 import Entity.Announcement;
 import Entity.LibraryManagement;
-import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import database.DatabaseController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -54,6 +53,14 @@ public class Controller {
     private MenuButton AdminPanelTab_Button;
 
     @FXML
+    private ScrollPane scrollPane;
+
+    public void setScrollPaneBarPolicy() {
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+    }
+
+    @FXML
     private void handleHomeTab_Button() throws Exception {
         if (Objects.equals(currentScene, "Home.fxml")) {
             return;
@@ -63,58 +70,72 @@ public class Controller {
 
     @FXML
     private void handleBookSearch_MenuItem() throws Exception {
-        if (Objects.equals(currentScene, "BookSearch.fxml")) {
+        if (Objects.equals(currentScene, "Book_Search.fxml")) {
             return;
         }
         switchScene("Book_Search.fxml");
+        BookSearchController bookSearchController = (BookSearchController) scenes.get("Book_Search.fxml").getUserData();
+        bookSearchController.refresh();
     }
 
     @FXML
     private void handleBookReturn_MenuItem() throws Exception {
-        if (Objects.equals(currentScene, "BookReturn.fxml")) {
+        if (Objects.equals(currentScene, "Book_Return.fxml")) {
             return;
         }
         switchScene("Book_Return.fxml");
+        BookReturnController bookReturnController = (BookReturnController) scenes.get("Book_Return.fxml").getUserData();
+        bookReturnController.refresh();
     }
 
     @FXML
     private void handleAdminOverview_MenuItem() throws Exception {
-        if (Objects.equals(currentScene, "AdminOverview.fxml")) {
+        if (Objects.equals(currentScene, "Admin_Overview.fxml")) {
             return;
         }
         switchScene("Admin_Overview.fxml");
+        AdminDashboardController adminDashboardController = (AdminDashboardController) scenes.get("Admin_Overview.fxml").getUserData();
+        adminDashboardController.cleanUp();
     }
 
     @FXML
     private void handleAdminAnnouncement_MenuItem() throws Exception {
-        if (Objects.equals(currentScene, "AdminAnnouncement.fxml")) {
+        if (Objects.equals(currentScene, "Admin_Announcement.fxml")) {
             return;
         }
         switchScene("Admin_Announcement.fxml");
+        AdminAnnouncementController adminAnnouncementController = (AdminAnnouncementController) scenes.get("Admin_Announcement.fxml").getUserData();
+        adminAnnouncementController.cleanUp();
     }
 
     @FXML
     private void handleAdminAlterBook_MenuItem() throws Exception {
-        if (Objects.equals(currentScene, "AdminAlterBook.fxml")) {
+        if (Objects.equals(currentScene, "Admin_AlterBook.fxml")) {
             return;
         }
         switchScene("Admin_AlterBook.fxml");
+        AdminAlterBookController adminAlterBookController = (AdminAlterBookController) scenes.get("Admin_AlterBook.fxml").getUserData();
+        adminAlterBookController.cleanUp();
     }
 
     @FXML
     private void handleAdminAddBook_MenuItem() throws Exception {
-        if (Objects.equals(currentScene, "AdminAddBook.fxml")) {
+        if (Objects.equals(currentScene, "Admin_AddBook.fxml")) {
             return;
         }
         switchScene("Admin_AddBook.fxml");
+        AdminAddBookController adminAddBookController = (AdminAddBookController) scenes.get("Admin_AddBook.fxml").getUserData();
+        adminAddBookController.cleanUp();
     }
 
     @FXML
     private void handleAdminRemoveBook_MenuItem() throws Exception {
-        if (Objects.equals(currentScene, "AdminRemoveBook.fxml")) {
+        if (Objects.equals(currentScene, "Admin_RemoveBook.fxml")) {
             return;
         }
         switchScene("Admin_RemoveBook.fxml");
+        AdminRemoveBookController adminRemoveBookController = (AdminRemoveBookController) scenes.get("Admin_RemoveBook.fxml").getUserData();
+        adminRemoveBookController.cleanUp();
     }
 
     @FXML
@@ -195,5 +216,9 @@ public class Controller {
 
     public void setAdminPanelVisible(boolean isVisible) {
         AdminPanelTab_Button.setVisible(isVisible);
+    }
+
+    public Map<String, Scene> getScenes() {
+        return scenes;
     }
 }

@@ -1,9 +1,13 @@
 package Entity;
 
+import Controllers.BookReturnController;
+import Controllers.BookSearchController;
 import Controllers.Controller;
+import Controllers.SideBarLoader;
 import database.DatabaseController;
 import Utils.HibernateUtil;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -21,34 +25,48 @@ public class SceneTest extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-
         FXMLLoader rootLoader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
         AnchorPane root = rootLoader.load();
-
         Scene scene = new Scene(root, WIDTH, HEIGHT);
-
         Controller.setStage(stage);
-
         stage.setTitle("UET Library Management System");
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.show();
 
+        new Thread(() -> {
+            try {
+                Statement useDatabaseStatement = DatabaseController.getConnection().createStatement();
+                useDatabaseStatement.execute("USE library");
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
+        DatabaseController.importDataFromCSV();
+        new Thread(HibernateUtil::getSessionFactory).start();
+
+        stage.setOnCloseRequest(event -> {
+            Scene bookSearchScene = SideBarLoader.getLeftController().getScenes().get("Book_Search.fxml");
+            if (bookSearchScene != null) {
+                BookSearchController bookSearchController = (BookSearchController) bookSearchScene.getUserData();
+                bookSearchController.cleanup();
+                Platform.exit();
+            }
+
+            Scene bookReturnScene = SideBarLoader.getLeftController().getScenes().get("Book_Return.fxml");
+            if (bookReturnScene != null) {
+                BookReturnController bookReturnController = (BookReturnController) bookReturnScene.getUserData();
+                bookReturnController.cleanup();
+                Platform.exit();
+            }
+        });
+
+        stage.show();
     }
 
     public static void main(String[] args) {
-        Statement useDatabaseStatement = null;
-        try {
-            useDatabaseStatement = DatabaseController.getConnection().createStatement();
-            useDatabaseStatement.execute("USE library");
-        } catch (SQLException e) {
-            System.out.println("Database connection failed");
-        }
-        DatabaseController.importDataFromCSV();
-
         launch();
 
-        HibernateUtil.shutdown();
         DatabaseController.closeConnection();
+        HibernateUtil.shutdown();
     }
 }
