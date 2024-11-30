@@ -5,8 +5,6 @@ import Entity.Person;
 import Entity.Transaction;
 import Utils.*;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -28,6 +26,12 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class BookSearchController {
+
+    private static final int ROWS_PER_PAGE = 12;
+
+    private int currentPage = 0;
+    int totalRows = BookUtils.getTotalRowBook();
+    private int pageCount = (int) Math.ceil((double) totalRows / ROWS_PER_PAGE);
 
     @FXML
     private Label thumbnailMessage_Label;
@@ -214,7 +218,7 @@ public class BookSearchController {
         String year = year_TextField.getText().isEmpty() ? null : year_TextField.getText();
 
         bookList = FXCollections.observableArrayList(BookUtils.searchBook(
-                isbn, title, author, category, year
+                isbn, title, author, category, year, currentPage * ROWS_PER_PAGE, ROWS_PER_PAGE
         ));
     }
 
@@ -252,7 +256,7 @@ public class BookSearchController {
             TransactionUtils.addBorrowTransactions(transactions);
             BookUtils.updateBookAmountAfterBorrowed(booksID, false);
             PopupUtils.showAlert("Borrowed " + books.size() + " books successfully");
-            showTable();
+            refresh();
         } else {
             PopupUtils.showAlert(alert.toString() + "doesn't not have enough quantity :((");
         }
@@ -294,6 +298,26 @@ public class BookSearchController {
         TransactionUtils.addBorrowTransactions(transactions);
         BookUtils.updateBookAmountAfterBorrowed(books, false);
         PopupUtils.showAlert("Borrowed " + book.getTitle() + " successfully");
+    }
+
+    @FXML
+    private void handlePreviousPageButton() {
+        if (currentPage == 0) {
+            return;
+        }
+        currentPage--;
+        System.out.println("do previous page");
+        refresh();
+    }
+
+    @FXML
+    private void handleNextPageButton() {
+        if (currentPage == pageCount - 1) {
+            return;
+        }
+        currentPage++;
+        System.out.println("do next page");
+        refresh();
     }
 
     @FXML

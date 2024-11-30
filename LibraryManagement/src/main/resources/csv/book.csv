@@ -4,11 +4,11 @@ book_id,book_title,author,publisher,year,quantity,description,averageRating,cate
 0013##@#@Unknown##@#@Unknown##@#@null##@#@0##@#@15##@#@No description available##@#@0.0##@#@No categories##@#@http://books.google.com/books/content?id=THasCgAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api
 0014##@#@European Currency and Finance ....##@#@John, Stati##@#@null##@#@1925##@#@10##@#@No description available##@#@0.0##@#@Currency##@#@http://books.google.com/books/content?id=ytFEAQAAMAAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api
 002##@#@Advanced Programming##@#@Tran Van A##@#@NXB Tre##@#@2015##@#@9998##@#@Hữu ích##@#@4.5##@#@Công nghệ thông tin##@#@null
-003##@#@Cooking 101##@#@Le Thi B##@#@NXB Thanh Nien##@#@2018##@#@9996##@#@Dễ hiểu và thực tế##@#@4.8##@#@Nấu ăn##@#@null
+003##@#@Cooking 101##@#@Le Thi B##@#@NXB Thanh Nien##@#@2018##@#@9995##@#@Dễ hiểu và thực tế##@#@4.8##@#@Nấu ăn##@#@null
 004##@#@History of Vietnam##@#@Nguyen Van C##@#@NXB Giao Duc##@#@1990##@#@3000##@#@Nội dung phong phú##@#@4.2##@#@Lịch sử##@#@null
-005##@#@Learning Java##@#@Phan Thi D##@#@NXB Dai Hoc Quoc Gia##@#@2020##@#@2000##@#@Phu hop cho moi nguoi##@#@4.9##@#@Lập trình##@#@null
-006##@#@Photography Basics##@#@Pham Van E##@#@NXB Van Hoa##@#@2017##@#@1699##@#@Hướng dẫn chi tiết##@#@4.7##@#@Nhiếp ảnh##@#@null
-007##@#@Space Exploration##@#@Hoang Thi F##@#@NXB Khoa Hoc##@#@2010##@#@2196##@#@Cực kỳ thú vị##@#@4.6##@#@Khoa học##@#@null
+005##@#@Learning Java##@#@Phan Thi D##@#@NXB Dai Hoc Quoc Gia##@#@2020##@#@1998##@#@Phu hop cho moi nguoi##@#@4.9##@#@Lập trình##@#@null
+006##@#@Photography Basics##@#@Pham Van E##@#@NXB Van Hoa##@#@2017##@#@1698##@#@Hướng dẫn chi tiết##@#@4.7##@#@Nhiếp ảnh##@#@null
+007##@#@Space Exploration##@#@Hoang Thi F##@#@NXB Khoa Hoc##@#@2010##@#@2195##@#@Cực kỳ thú vị##@#@4.6##@#@Khoa học##@#@null
 008##@#@Self-Help Guide##@#@Tran Van G##@#@NXB Tre##@#@2019##@#@2000##@#@Truyền cảm hứng##@#@4.4##@#@Kỹ năng sống##@#@null
 009##@#@Artificial Intelligence##@#@Nguyen Thi H##@#@NXB Cong Nghe##@#@2021##@#@2498##@#@Rất sâu sắc##@#@5.0##@#@Công nghệ thông tin##@#@null
 010##@#@World Atlas##@#@Le Van K##@#@NXB Tre##@#@2015##@#@2798##@#@Hình ảnh minh họa đẹp##@#@4.3##@#@Địa lý##@#@null

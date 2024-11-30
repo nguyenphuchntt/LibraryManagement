@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Pagination?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -42,7 +41,6 @@
                                 <TableColumn fx:id="rate_Column" editable="false" prefWidth="59.0" text="RATE" />
                             </columns>
                         </TableView>
-                        <Pagination fx:id="pageFlow_Pagination" layoutX="761.0" layoutY="453.0" prefHeight="46.0" prefWidth="125.0" />
                         <HBox layoutX="20.0" layoutY="86.0" prefHeight="25.0" prefWidth="496.0">
                             <children>
                                 <Label alignment="CENTER" prefHeight="25.0" prefWidth="56.0" text="FILTER: " textAlignment="CENTER" />
@@ -75,6 +73,8 @@
                   <ImageView fx:id="thumbnail_ImageView" fitHeight="190.0" fitWidth="160.0" layoutX="730.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true" />
                           <Label fx:id="thumbnailMessage_Label" alignment="CENTER" layoutX="721.0" layoutY="122.0" prefHeight="56.0" prefWidth="179.0" text="No thumnail available" />
                     </children></AnchorPane>
+            <Button fx:id="previousPage_Button" layoutX="816.0" layoutY="457.0" mnemonicParsing="false" onAction="#handlePreviousPageButton" text="&lt;" />
+            <Button fx:id="nextPage_Button" layoutX="851.0" layoutY="457.0" mnemonicParsing="false" onAction="#handleNextPageButton" text="&gt;" />
             </children>
         </AnchorPane>
     </children>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -39,6 +40,8 @@
                         <Font size="21.0" />
                     </font>
                 </Label>
+            <Button fx:id="previousPage_Button" layoutX="810.0" layoutY="722.0" mnemonicParsing="false" onAction="#handlePreviousPageButton" text="&lt;" />
+            <Button fx:id="nextPage_Button" layoutX="845.0" layoutY="722.0" mnemonicParsing="false" onAction="#handleNextPageButton" text="&gt;" />
             </children>
         </AnchorPane>
     </children>

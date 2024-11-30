@@ -26,6 +26,12 @@ import java.util.stream.Collectors;
 
 public class BookReturnController {
 
+    private static final int ROWS_PER_PAGE = 12;
+
+    private int currentPage = 0;
+    int totalRows = TransactionUtils.getTotalRowBorrowedBook();
+    private int pageCount = (int) Math.ceil((double) totalRows / ROWS_PER_PAGE);
+
     private String star = null;
 
     private List<Transaction> transactionList;
@@ -172,7 +178,7 @@ public class BookReturnController {
         String category = category_TextField.getText().isEmpty() ? null : category_TextField.getText();
         String currentUsername = LibraryManagement.getInstance().getCurrentAccount();
         transactionList = TransactionUtils.getFilteredBorrowTransactions(
-                title, author, category, isbn, currentUsername
+                title, author, category, isbn, currentUsername, ROWS_PER_PAGE * currentPage, ROWS_PER_PAGE
         );
 
         transactionDTOObservableList = TransactionDTO.loadTransactionsForReturn(transactionList);
@@ -290,6 +296,26 @@ public class BookReturnController {
         DatabaseController.saveEntity(comment);
         PopupUtils.showAlert("Posted comment successfully");
         cleanUpData();
+    }
+
+    @FXML
+    private void handlePreviousPageButton() {
+        if (currentPage == 0) {
+            return;
+        }
+        currentPage--;
+        System.out.println("do previous page");
+        refresh();
+    }
+
+    @FXML
+    private void handleNextPageButton() {
+        if (currentPage == pageCount - 1) {
+            return;
+        }
+        currentPage++;
+        System.out.println("do next page");
+        refresh();
     }
 
     private void cleanUpData() {

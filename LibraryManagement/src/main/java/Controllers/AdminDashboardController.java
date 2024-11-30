@@ -15,6 +15,12 @@ import java.util.List;
 
 public class AdminDashboardController {
 
+    private static final int ROWS_PER_PAGE = 23;
+
+    private int currentPage = 0;
+    int totalRows = TransactionUtils.getTotalOverDueTransactions();
+    private int pageCount = (int) Math.ceil((double) totalRows / ROWS_PER_PAGE);
+
     @FXML
     private TableView<TransactionDTO> overdue_TableView;
 
@@ -58,7 +64,7 @@ public class AdminDashboardController {
     }
 
     private void refreshOverdueTableView() {
-        List<Transaction> transactionList = TransactionUtils.getOverdueTransactions();
+        List<Transaction> transactionList = TransactionUtils.getOverdueTransactions(ROWS_PER_PAGE * currentPage, ROWS_PER_PAGE);
         overdueList = TransactionDTO.loadTransactionsForAdminDashboard(transactionList);
         overdue_TableView.setItems(overdueList);
     }
@@ -68,6 +74,26 @@ public class AdminDashboardController {
             return;
         }
         PopupUtils.openQuickMessage(username);
+    }
+
+    @FXML
+    private void handlePreviousPageButton() {
+        if (currentPage == 0) {
+            return;
+        }
+        currentPage--;
+        System.out.println("do previous page");
+        refreshOverdueTableView();
+    }
+
+    @FXML
+    private void handleNextPageButton() {
+        if (currentPage == pageCount - 1) {
+            return;
+        }
+        currentPage++;
+        System.out.println("do next page");
+        refreshOverdueTableView();
     }
 
     public void cleanUp() {

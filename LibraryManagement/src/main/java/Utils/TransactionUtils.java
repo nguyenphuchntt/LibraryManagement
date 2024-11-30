@@ -64,7 +64,7 @@ public class TransactionUtils {
         }
     }
 
-    public static List<Transaction> getFilteredBorrowTransactions(String title, String author, String category, String isbn, String username) {
+    public static List<Transaction> getFilteredBorrowTransactions(String title, String author, String category, String isbn, String username, int offset, int limit) {
         Session session = HibernateUtil.getSessionFactory().openSession();
 
         try {
@@ -89,6 +89,8 @@ public class TransactionUtils {
                 stringBuilder.append(" AND b.book.category LIKE :category");
             }
 
+            stringBuilder.append(" ORDER BY b.return_time ASC");
+
             Query<Transaction> query = session.createQuery(stringBuilder.toString(), Transaction.class);
 
             query.setParameter("username", username);
@@ -105,7 +107,8 @@ public class TransactionUtils {
             if (category != null) {
                 query.setParameter("category", "%" + category + "%");
             }
-
+            query.setFirstResult(offset);
+            query.setMaxResults(limit);
             List<Transaction> transactions = query.list();
 
             session.getTransaction().commit();
@@ -120,15 +123,17 @@ public class TransactionUtils {
         }
     }
 
-    public static List<Transaction> getOverdueTransactions() {
+    public static List<Transaction> getOverdueTransactions(int offset, int limit) {
         Session session = HibernateUtil.getSessionFactory().openSession();
 
         try {
             session.beginTransaction();
             String hql = "FROM Transaction t WHERE "
                     + "t.return_time IS NULL AND "
-                    + "datediff(now(), t.borrow_time) > 21";
+                    + "datediff(now(), t.borrow_time) > 2";
             Query<Transaction> query = session.createQuery(hql, Transaction.class);
+            query.setFirstResult(offset);
+            query.setMaxResults(limit);
             List<Transaction> transactions = query.list();
             session.getTransaction().commit();
             return transactions;
@@ -136,6 +141,39 @@ public class TransactionUtils {
             if (session.getTransaction() != null) {
                 session.getTransaction().rollback();
             }
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
+
+    public static int getTotalRowBorrowedBook() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            session.beginTransaction();
+            Query<Long> query = session.createQuery("SELECT COUNT(b) FROM Transaction b"
+                     + " WHERE b.user.username =: username", Long.class);
+            query.setParameter("username", LibraryManagement.getInstance().getCurrentAccount());
+            session.getTransaction().commit();
+            return query.uniqueResult().intValue();
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
+
+    public static int getTotalOverDueTransactions() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            Query<Long> query = session.createQuery("SELECT COUNT(b) FROM Transaction b WHERE b.return_time IS NULL AND " +
+                    "DATEDIFF(NOW(), b.borrow_time) > 21", Long.class);
+            return query.uniqueResult().intValue();
+        } catch (Exception e) {
             throw e;
         } finally {
             session.close();
