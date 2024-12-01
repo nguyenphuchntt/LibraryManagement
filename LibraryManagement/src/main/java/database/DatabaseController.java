@@ -22,7 +22,7 @@ import java.util.concurrent.Executors;
 public class DatabaseController {
 
     private static final String URL = "jdbc:mysql://localhost:3306/";
-    private static final String USERNAME = "root";
+    private static final String USERNAME = DotenvLoader.getDotenv().get("MYSQL_USERNAME");
     private static final String MYSQL_PASSWORD = DotenvLoader.getDotenv().get("MYSQL_PASSWORD");
     private static final String accountCSVPath = Paths.get("src", "main", "resources", "csv", "account.csv").toString();
     private static final String announcementCSVPath = Paths.get("src", "main", "resources", "csv", "announcement.csv").toString();
