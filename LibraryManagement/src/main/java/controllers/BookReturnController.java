@@ -32,8 +32,6 @@ public class BookReturnController {
     int totalRows = TransactionUtils.getTotalRowBorrowedBook();
     private int pageCount = (int) Math.ceil((double) totalRows / ROWS_PER_PAGE);
 
-    private String star = null;
-
     private List<Transaction> transactionList;
 
     private ObservableList<TransactionDTO> transactionDTOObservableList;
@@ -77,33 +75,6 @@ public class BookReturnController {
     @FXML
     private Button return_Button;
 
-    @FXML
-    private TextField bookIDInComment_TextField;
-
-    @FXML
-    private Label postCommentMessage_Label;
-
-    @FXML
-    private Button post_Button;
-
-    @FXML
-    private TextArea comment_TextArea;
-
-    @FXML
-    private Button oneStar_Button;
-
-    @FXML
-    private Button twoStar_Button;
-
-    @FXML
-    private Button threeStar_Button;
-
-    @FXML
-    private Button fourStar_Button;
-
-    @FXML
-    private Button fiveStar_Button;
-
     private ExecutorService executorService = Executors.newFixedThreadPool(1);
     private Future<?> runningTask;
 
@@ -138,27 +109,6 @@ public class BookReturnController {
         return transactions.stream()
                 .filter(TransactionDTO::getSelected)
                 .collect(Collectors.toList());
-    }
-
-    @FXML
-    private void handleOneStar() {
-        star = "1";
-    }
-    @FXML
-    private void handleTwoStar() {
-        star = "2";
-    }
-    @FXML
-    private void handleThreeStar() {
-        star = "3";
-    }
-    @FXML
-    private void handleFourStar() {
-        star = "4";
-    }
-    @FXML
-    private void handleFiveStar() {
-        star = "5";
     }
 
     public void refresh() {
@@ -258,46 +208,6 @@ public class BookReturnController {
             PopupUtils.showAlert(alert.append(" had been returned!").toString());
         }
     }
-    
-    @FXML
-    private void handlePostComment() {
-        if (bookIDInComment_TextField.getText().isEmpty()) {
-            postCommentMessage_Label.setText("Please enter a valid book ID");
-            cleanUpData();
-            return;
-        }
-        if (comment_TextArea.getText().isEmpty()) {
-            postCommentMessage_Label.setText("Please enter a valid comment");
-            cleanUpData();
-            return;
-        }
-        if (star == null) {
-            postCommentMessage_Label.setText("Please enter a valid rating star");
-            cleanUpData();
-            return;
-        }
-        isbn_TextField.setText(bookIDInComment_TextField.getText());
-        refresh();
-        if (transactionList.isEmpty()) {
-            cleanUpData();
-            postCommentMessage_Label.setText("You haven't been read this book!");
-            return;
-        }
-        Book book = transactionList.get(0).getBook();
-        String username = LibraryManagement.getInstance().getCurrentAccount();
-        Double rate = Double.parseDouble(star);
-        String commentContent = comment_TextArea.getText();
-        Comment comment = new Comment(book, username, commentContent, rate);
-        if (comment.isWrittenComment(username, bookIDInComment_TextField.getText())) {
-            cleanUpData();
-            postCommentMessage_Label.setText("You have been written this book's comment!");
-            comment = null;
-            return;
-        }
-        DatabaseController.saveEntity(comment);
-        PopupUtils.showAlert("Posted comment successfully");
-        cleanUpData();
-    }
 
     @FXML
     private void handlePreviousPageButton() {
@@ -322,13 +232,10 @@ public class BookReturnController {
     }
 
     private void cleanUpData() {
-        bookIDInComment_TextField.clear();
-        comment_TextArea.clear();
         searchBar_TextField.clear();
         isbn_TextField.clear();
         category_TextField.clear();
         author_TextField.clear();
-        star = null;
     }
 
     public void cleanup() {

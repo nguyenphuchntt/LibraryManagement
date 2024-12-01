@@ -297,13 +297,6 @@ public class BookSearchController {
 
         ratingStar_Label.setText("Rating: " + book[5].toString());
 
-        Comment comment = BookUtils.getBestCommentOfBook(book[6].toString());
-        if (comment != null) {
-            comment_Text.setText("COMMENT:\n" + comment.toString() + '\n');
-        } else {
-            comment_Text.setText("");
-        }
-
         if (book[7] != null) {
             thumbnail_ImageView.setImage(new Image(book[7].toString()));
             thumbnailMessage_Label.setText("");
