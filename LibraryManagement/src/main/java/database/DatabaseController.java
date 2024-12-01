@@ -1,10 +1,10 @@
 package database;
 
-import Entity.*;
-import Utils.FormatUtils;
-import Utils.HibernateUtil;
+import entities.*;
+import utils.DotenvLoader;
+import utils.FormatUtils;
+import utils.HibernateUtil;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
 import java.io.*;
@@ -12,9 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.*;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -24,8 +22,8 @@ import java.util.concurrent.Executors;
 public class DatabaseController {
 
     private static final String URL = "jdbc:mysql://localhost:3306/";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "18092005";
+    private static final String USERNAME = DotenvLoader.getDotenv().get("MYSQL_USERNAME");
+    private static final String MYSQL_PASSWORD = DotenvLoader.getDotenv().get("MYSQL_PASSWORD");
     private static final String accountCSVPath = Paths.get("src", "main", "resources", "csv", "account.csv").toString();
     private static final String announcementCSVPath = Paths.get("src", "main", "resources", "csv", "announcement.csv").toString();
     private static final String bookCSVPath = Paths.get("src", "main", "resources", "csv", "book.csv").toString();
@@ -45,7 +43,7 @@ public class DatabaseController {
     public static Connection getConnection() {
         if (connection == null) {
             try {
-                connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+                connection = DriverManager.getConnection(URL, USERNAME, MYSQL_PASSWORD);
             } catch (SQLException e) {
                 System.out.println("Database connection failed");
                 throw new RuntimeException(e);
@@ -161,7 +159,7 @@ public class DatabaseController {
         BufferedReader reader = null;
         PreparedStatement statement = null;
         String line;
-        String insertSQL = "INSERT IGNORE INTO `user` (username, name, yearOfBirth, gender, department) VALUES (?, ?, ?, ?, ?)";
+        String insertSQL = "INSERT IGNORE INTO `user` (username, name, age, gender, department) VALUES (?, ?, ?, ?, ?)";
 
         try {
             reader = new BufferedReader(new FileReader(pathToCSV));
@@ -179,14 +177,15 @@ public class DatabaseController {
                 } else {
                     statement.setNull(2, Types.VARCHAR);
                 }
-                statement.setInt(3, values[2].equalsIgnoreCase("0") ? Types.INTEGER : Integer.parseInt(values[2])); // yearOfBirth
-                statement.setInt(4, values[3].equalsIgnoreCase("null") ? Types.BOOLEAN : Integer.parseInt(values[3])); // gender
-                if (values[4].equalsIgnoreCase("null")) { // department
-                    statement.setString(5, values[4]);
+                statement.setInt(3, values[2].equalsIgnoreCase("null") ? Types.INTEGER : Integer.parseInt(values[2])); // yearOfBirth
+
+                if (values[3].equalsIgnoreCase("null")) { // department
+                    statement.setString(5, values[3]);
                 } else {
                     statement.setNull(5, Types.VARCHAR);
                 }
 
+                statement.setInt(4, values[4].equalsIgnoreCase("null") ? Types.BOOLEAN : Integer.parseInt(values[4])); // gender
                 statement.addBatch();
 
             }

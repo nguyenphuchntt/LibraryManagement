@@ -4,13 +4,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.BookReturnController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BookReturnController">
     <children>
         <AnchorPane layoutX="200.0" layoutY="45.0" prefHeight="755.0" prefWidth="900.0" style="-fx-background-color: #44d7ff;">
             <children>
@@ -26,38 +25,29 @@
                                 <Font size="25.0" />
                             </font>
                         </Label>
-                        <Button fx:id="return_Button" layoutX="420.0" layoutY="488.0" mnemonicParsing="false" onAction="#handleReturn" text="RETURN" />
-                        <Label layoutX="20.0" layoutY="516.0" text="WRITE BOOK COMMENT" />
-                        <TextField fx:id="bookIDInComment_TextField" layoutX="20.0" layoutY="549.0" promptText="BOOK ID / ISBN" />
-                        <TextArea fx:id="comment_TextArea" layoutX="20.0" layoutY="583.0" prefHeight="114.0" prefWidth="860.0" promptText="Write your comment here!" />
-                        <Button fx:id="post_Button" layoutX="20.0" layoutY="705.0" mnemonicParsing="false" onAction="#handlePostComment" text="POST" />
+                        <Button fx:id="return_Button" layoutX="414.0" layoutY="699.0" mnemonicParsing="false" onAction="#handleReturn" text="RETURN" />
                   <TextField fx:id="searchBar_TextField" layoutX="20.0" layoutY="55.0" prefHeight="40.0" prefWidth="572.0" promptText="Enter book title" />
-                  <HBox layoutX="20.0" layoutY="102.0" prefHeight="25.0" prefWidth="496.0">
+                  <HBox layoutX="20.0" layoutY="102.0" prefHeight="25.0" prefWidth="572.0">
                      <children>
                         <Label alignment="CENTER" prefHeight="25.0" prefWidth="56.0" text="FILTER: " textAlignment="CENTER" />
-                        <TextField fx:id="isbn_TextField" prefHeight="25.0" prefWidth="145.0" promptText="ISBN" />
-                        <TextField fx:id="category_TextField" prefHeight="25.0" prefWidth="139.0" promptText="CATEGORY" />
-                        <TextField fx:id="author_TextField" prefHeight="25.0" prefWidth="157.0" promptText="AUTHOR" />
+                        <TextField fx:id="isbn_TextField" prefHeight="25.0" prefWidth="198.0" promptText="ISBN" />
+                        <TextField fx:id="category_TextField" prefHeight="25.0" prefWidth="158.0" promptText="CATEGORY" />
+                        <TextField fx:id="author_TextField" prefHeight="25.0" prefWidth="165.0" promptText="AUTHOR" />
                      </children>
                   </HBox>
-                  <TableView fx:id="searchTable_TableView" editable="true" layoutX="20.0" layoutY="133.0" prefHeight="342.0" prefWidth="860.0">
+                  <TableView fx:id="searchTable_TableView" editable="true" layoutX="20.0" layoutY="133.0" prefHeight="541.0" prefWidth="860.0">
                      <columns>
                         <TableColumn fx:id="amount_Column" prefWidth="31.0" resizable="false" text="X" />
                         <TableColumn fx:id="bookTitle_Column" editable="false" prefWidth="191.0" resizable="false" text="BOOK TITLE" />
-                        <TableColumn fx:id="bookID_Column" editable="false" prefWidth="150.0" resizable="false" text="BOOK ID" />
-                        <TableColumn fx:id="category_Column" editable="false" prefWidth="142.0" resizable="false" sortable="false" text="CATEGORY" />
-                        <TableColumn fx:id="borrowDate_Column" prefWidth="195.0" resizable="false" text="BORROW DATE" />
-                        <TableColumn fx:id="status_Column" minWidth="0.0" prefWidth="150.0" resizable="false" text="STATUS" />
+                        <TableColumn fx:id="bookID_Column" editable="false" prefWidth="179.0" resizable="false" text="BOOK ID" />
+                        <TableColumn fx:id="category_Column" editable="false" prefWidth="141.0" resizable="false" sortable="false" text="CATEGORY" />
+                        <TableColumn fx:id="borrowDate_Column" prefWidth="177.0" resizable="false" text="BORROW DATE" />
+                        <TableColumn fx:id="status_Column" minWidth="0.0" prefWidth="140.0" resizable="false" text="STATUS" />
                      </columns>
                   </TableView>
                   <Label fx:id="postCommentMessage_Label" layoutX="98.0" layoutY="709.0" prefHeight="16.0" prefWidth="537.0" />
-                  <Button fx:id="oneStar_Button" layoutX="205.0" layoutY="549.0" mnemonicParsing="false" onAction="#handleOneStar" text="1" />
-                  <Button fx:id="twoStart_Button" layoutX="235.0" layoutY="549.0" mnemonicParsing="false" onAction="#handleTwoStar" text="2" />
-                  <Button fx:id="threeStar_Button" layoutX="265.0" layoutY="549.0" mnemonicParsing="false" onAction="#handleThreeStar" text="3" />
-                  <Button fx:id="fourStar_Button" layoutX="295.0" layoutY="549.0" mnemonicParsing="false" onAction="#handleFourStar" text="4" />
-                  <Button fx:id="fiveStar_Button" layoutX="325.0" layoutY="549.0" mnemonicParsing="false" onAction="#handleFiveStar" text="5" />
-                  <Button fx:id="previousPage_Button" layoutX="787.0" layoutY="480.0" mnemonicParsing="false" onAction="#handlePreviousPageButton" text="&lt;" />
-                  <Button fx:id="nextPage_Button" layoutX="822.0" layoutY="480.0" mnemonicParsing="false" onAction="#handleNextPageButton" text="&gt;" />
+                  <Button fx:id="previousPage_Button" layoutX="816.0" layoutY="674.0" mnemonicParsing="false" onAction="#handlePreviousPageButton" text="&lt;" />
+                  <Button fx:id="nextPage_Button" layoutX="851.0" layoutY="674.0" mnemonicParsing="false" onAction="#handleNextPageButton" text="&gt;" />
                     </children>
                 </AnchorPane>
             </children>
