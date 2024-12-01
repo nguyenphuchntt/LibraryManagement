@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 
 public class BookReturnController {
 
-    private static final int ROWS_PER_PAGE = 12;
+    private static final int ROWS_PER_PAGE = 21;
 
     private int currentPage = 0;
     int totalRows = TransactionUtils.getTotalRowBorrowedBook();

@@ -1,5 +1,6 @@
 package controllers;
 
+import DTO.TransactionDTO;
 import entities.Book;
 import entities.Comment;
 import entities.Person;
@@ -147,6 +148,15 @@ public class BookSearchController {
         addTextFieldListener(category_TextField);
         addTextFieldListener(author_TextField);
         addTextFieldListener(isbn_TextField);
+
+        searchTable_TableView.setOnMouseClicked(event -> {
+            if (event.getClickCount() >= 2) {
+                Book selectedItem = searchTable_TableView.getSelectionModel().getSelectedItem();
+                if (selectedItem != null) {
+                    handleDoubleClick(selectedItem);
+                }
+            }
+        });
 
         searchTable_TableView.getSelectionModel().selectedItemProperty().addListener(
                 new ChangeListener<Book>() {
@@ -346,6 +356,10 @@ public class BookSearchController {
         System.out.println("do next page");
         searchBooks();
         showTable();
+    }
+
+    private void handleDoubleClick(Book book) {
+        PopupUtils.openBookPopup(book, false);
     }
 
     @FXML

@@ -41,13 +41,13 @@
                                 <TableColumn fx:id="rate_Column" editable="false" prefWidth="59.0" text="RATE" />
                             </columns>
                         </TableView>
-                        <HBox layoutX="20.0" layoutY="86.0" prefHeight="25.0" prefWidth="496.0">
+                        <HBox layoutX="20.0" layoutY="86.0" prefHeight="25.0" prefWidth="572.0">
                             <children>
                                 <Label alignment="CENTER" prefHeight="25.0" prefWidth="56.0" text="FILTER: " textAlignment="CENTER" />
                         <TextField fx:id="isbn_TextField" prefHeight="25.0" prefWidth="197.0" promptText="ISBN" />
-                                <TextField fx:id="year_TextField" prefHeight="25.0" prefWidth="67.0" promptText="YEAR" />
-                                <TextField fx:id="category_TextField" prefHeight="25.0" prefWidth="100.0" promptText="CATEGORY" />
-                                <TextField fx:id="author_TextField" prefHeight="25.0" prefWidth="80.0" promptText="AUTHOR" />
+                                <TextField fx:id="year_TextField" prefHeight="25.0" prefWidth="86.0" promptText="YEAR" />
+                                <TextField fx:id="category_TextField" prefHeight="25.0" prefWidth="119.0" promptText="CATEGORY" />
+                                <TextField fx:id="author_TextField" prefHeight="25.0" prefWidth="116.0" promptText="AUTHOR" />
                             </children>
                         </HBox>
                         <Button fx:id="borrowSearch_Button" layoutX="418.0" layoutY="464.0" mnemonicParsing="false" onAction="#handleBorrowButton" text="BORROW" />

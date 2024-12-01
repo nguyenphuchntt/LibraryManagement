@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import utils.BookUtils;
 import utils.PopupUtils;
 
@@ -43,6 +44,9 @@ public class BookPopupController {
     private Label postCommentMessage_Label;
 
     @FXML
+    private Label thumbnailMessage_Label;
+
+    @FXML
     private Label comments_Label;
 
     @FXML
@@ -68,6 +72,12 @@ public class BookPopupController {
 
     @FXML
     private ImageView thumbnail_ImageView;
+
+    @FXML
+    private AnchorPane oldComment_AnchorPane;
+
+    @FXML
+    private AnchorPane postComment_AnchorPane;
 
     private Book book;
     private String star = null;
@@ -113,17 +123,22 @@ public class BookPopupController {
         description_Label.setText("Description: " + (book.getDescription() == null ? "" : book.getDescription()));
         author_Label.setText("Author: " + (book.getAuthor() == null ? "" : book.getAuthor()));
         if (book.getThumbnailLink() != null) {
+            thumbnailMessage_Label.setText("");
             thumbnail_ImageView.setImage(new Image(book.getThumbnailLink()));
         } else {
             thumbnail_ImageView.setImage(null);
+            thumbnailMessage_Label.setText("Not Available!");
         }
         if (!isPostComment) {
+            oldComment_AnchorPane.setVisible(true);
             Comment comment = BookUtils.getBestCommentOfBook(book.getIsbn());
             if (comment != null) {
                 comments_Label.setText("COMMENT:\n" + comment.toString() + '\n');
             } else {
                 comments_Label.setText("");
             }
+        } else {
+            postComment_AnchorPane.setVisible(true);
         }
     }
 
