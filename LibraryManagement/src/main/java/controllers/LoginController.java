@@ -2,6 +2,8 @@ package controllers;
 
 import entities.Account;
 import entities.LibraryManagement;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.PasswordField;
 import utils.AccountUserUtils;
 import database.DatabaseController;
 import javafx.event.ActionEvent;
@@ -16,24 +18,36 @@ public class LoginController {
     @FXML
     private TextField username_TextField;
     @FXML
-    private TextField password_TextField; // change to password field
+    private PasswordField password_PasswordField;
+    @FXML
+    private TextField password_TextField;
     @FXML
     private Label loginMessage_Label;
 
     @FXML
+    private CheckBox showPassword_Checkbox;
+
+    @FXML
     public void initialize() {
+        password_TextField.textProperty().bindBidirectional(password_PasswordField.textProperty());
+        password_TextField.setVisible(false);
+
+        showPassword_Checkbox.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
+            password_TextField.setVisible(isSelected);
+            password_PasswordField.setVisible(!isSelected);
+        });
     }
 
     private void cleanUp() {
         username_TextField.clear();
-        password_TextField.clear();
+        password_PasswordField.clear();
         loginMessage_Label.setText("");
     }
 
     @FXML
     private void loginButtonOnAction(ActionEvent event) {
         String username = username_TextField.getText();
-        String password = password_TextField.getText();
+        String password = password_PasswordField.getText();
 
         Connection connection = DatabaseController.getConnection();
 
@@ -61,7 +75,7 @@ public class LoginController {
     private void switchToSignupScene() {
         try {
             username_TextField.clear();
-            password_TextField.clear();
+            password_PasswordField.clear();
             loginMessage_Label.setText("");
             Controller.getInstance().goToScene("Signup.fxml");
         } catch (Exception e) {

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -20,15 +22,11 @@
             <children>
                 <AnchorPane layoutX="110.0" layoutY="380.0" prefHeight="172.0" prefWidth="251.0">
                     <children>
-                        <TextField fx:id="username_TextField" layoutX="1.0" layoutY="24.0" prefHeight="24.0" prefWidth="250.0" />
-                        <Label layoutX="1.0" layoutY="5.0" prefHeight="16.0" prefWidth="92.0" text="USERNAME" />
-                        <TextField fx:id="password_TextField" layoutX="1.0" layoutY="77.0" prefHeight="24.0" prefWidth="250.0" />
+                  <PasswordField fx:id="password_PasswordField" layoutY="83.0" prefHeight="24.0" prefWidth="250.0" />
+                        <TextField fx:id="username_TextField" layoutY="25.0" prefHeight="24.0" prefWidth="250.0" />
+                        <Label layoutY="5.0" prefHeight="16.0" prefWidth="92.0" text="USERNAME" />
                         <Label layoutY="53.0" prefHeight="29.0" prefWidth="99.0" text="PASSWORD" />
-                        <Button layoutX="130.0" layoutY="106.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="121.0" text="Forgot password?">
-                            <font>
-                                <Font size="10.0" />
-                            </font>
-                        </Button>
+                  <TextField fx:id="password_TextField" layoutY="83.0" prefHeight="24.0" prefWidth="250.0" />
                     </children>
                 </AnchorPane>
                 <Label layoutX="113.0" layoutY="320.0" text="Welcome to UETLIB">
@@ -44,6 +42,7 @@
                 <Button fx:id="DontHaveAccount_Button" layoutX="318.0" layoutY="774.0" mnemonicParsing="false" onAction="#handleDontHaveAccount" text="Don't have account?" />
                 <Button fx:id="Login_Button" layoutX="209.0" layoutY="525.0" mnemonicParsing="false" onAction="#loginButtonOnAction" prefWidth="54.0" text="Login" />
                 <Label fx:id="loginMessage_Label" alignment="CENTER" layoutX="19.0" layoutY="587.0" prefHeight="16.0" prefWidth="434.0" />
+            <CheckBox fx:id="showPassword_Checkbox" layoutX="361.0" layoutY="466.0" mnemonicParsing="false" />
             </children>
         </Pane>
     </children>
