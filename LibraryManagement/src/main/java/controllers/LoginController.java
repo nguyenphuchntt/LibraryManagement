@@ -23,7 +23,6 @@ public class LoginController {
     private TextField password_TextField;
     @FXML
     private Label loginMessage_Label;
-
     @FXML
     private CheckBox showPassword_Checkbox;
 

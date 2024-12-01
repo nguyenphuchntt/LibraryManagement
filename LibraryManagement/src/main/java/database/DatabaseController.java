@@ -1,6 +1,7 @@
 package database;
 
 import entities.*;
+import utils.DotenvLoader;
 import utils.FormatUtils;
 import utils.HibernateUtil;
 import org.hibernate.Session;
@@ -22,7 +23,7 @@ public class DatabaseController {
 
     private static final String URL = "jdbc:mysql://localhost:3306/";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "18092005";
+    private static final String MYSQL_PASSWORD = DotenvLoader.getDotenv().get("MYSQL_PASSWORD");
     private static final String accountCSVPath = Paths.get("src", "main", "resources", "csv", "account.csv").toString();
     private static final String announcementCSVPath = Paths.get("src", "main", "resources", "csv", "announcement.csv").toString();
     private static final String bookCSVPath = Paths.get("src", "main", "resources", "csv", "book.csv").toString();
@@ -42,7 +43,7 @@ public class DatabaseController {
     public static Connection getConnection() {
         if (connection == null) {
             try {
-                connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+                connection = DriverManager.getConnection(URL, USERNAME, MYSQL_PASSWORD);
             } catch (SQLException e) {
                 System.out.println("Database connection failed");
                 throw new RuntimeException(e);

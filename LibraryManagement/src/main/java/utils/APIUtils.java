@@ -11,7 +11,7 @@ import java.net.URL;
 
 public class APIUtils {
 
-    private static final String API_KEY = "AIzaSyBHhrP5SG8DmlOWYzttGGYwJkxxVldz5qs";
+    private static final String API_KEY = DotenvLoader.getDotenv().get("API_KEY");
     private static final String API_URL = "https://www.googleapis.com/books/v1/volumes?q=";
 
     public static Book searchBooks(String query) throws Exception {
