@@ -9,6 +9,8 @@ target
 
 out
 
+.env
+
 ### IntelliJ IDEA ###
 .idea/modules.xml
 .idea/jarRepositories.xml
