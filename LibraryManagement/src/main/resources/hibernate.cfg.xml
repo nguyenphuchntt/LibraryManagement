@@ -14,12 +14,12 @@
         <property name="hibernate.current_session_context_class">thread</property>
 
 
-        <mapping class="Entity.Person"/>
-        <mapping class="Entity.Account"/>
-        <mapping class="Entity.Comment"/>
-        <mapping class="Entity.Transaction"/>
-        <mapping class="Entity.Book"/>
-        <mapping class="Entity.Announcement"/>
-        <mapping class="Entity.Message"/>
+        <mapping class="entities.Person"/>
+        <mapping class="entities.Account"/>
+        <mapping class="entities.Comment"/>
+        <mapping class="entities.Transaction"/>
+        <mapping class="entities.Book"/>
+        <mapping class="entities.Announcement"/>
+        <mapping class="entities.Message"/>
     </session-factory>
 </hibernate-configuration>
