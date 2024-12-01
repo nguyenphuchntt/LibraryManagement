@@ -6,14 +6,13 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BookPopupController">
    <children>
       <ImageView fx:id="thumbnail_ImageView" fitHeight="194.0" fitWidth="150.0" layoutX="22.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="title_Label" alignment="CENTER" layoutX="108.0" layoutY="20.0" prefHeight="30.0" prefWidth="235.0" text="TITLE" />
       <Label fx:id="id_Label" layoutX="190.0" layoutY="79.0" text="ID/ISBN: " />
       <Label fx:id="author_Label" layoutX="190.0" layoutY="109.0" text="Author: " />
-      <Label fx:id="Publisher_Label" layoutX="190.0" layoutY="139.0" text="Publisher: " />
+      <Label fx:id="publisher_Label" layoutX="190.0" layoutY="139.0" text="Publisher: " />
       <Label fx:id="year_Label" layoutX="190.0" layoutY="169.0" text="Year: " />
       <Label fx:id="category_Label" layoutX="190.0" layoutY="199.0" text="Category: " />
       <Label fx:id="quantity_Label" layoutX="190.0" layoutY="229.0" text="Quantity: " />

@@ -1,8 +1,10 @@
 package utils;
-
+import controllers.BookPopupController;
+import entities.Book;
 import controllers.ChatController;
 import controllers.QuickMessageController;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -81,6 +83,28 @@ public class PopupUtils {
         chatStage.setResizable(false);
 
         chatStage.show();
+    }
+
+    public static void openBookPopup(Book book,  boolean isPostComment) {
+        Stage bookStage = new Stage();
+        Parent root = null;
+
+        FXMLLoader rootLoader = new FXMLLoader(PopupUtils.class.getResource("/fxml/BookPopup.fxml"));
+        try {
+            root = rootLoader.load();
+            BookPopupController bookPopupController = rootLoader.getController();
+            bookPopupController.setBook(book, isPostComment);
+            bookPopupController.refreshData();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Scene chatScene = new Scene(root);
+        bookStage.setScene(chatScene);
+        bookStage.setTitle(book.getTitle());
+        bookStage.setResizable(false);
+
+        bookStage.show();
     }
 
     public interface PopupClosedCallback {

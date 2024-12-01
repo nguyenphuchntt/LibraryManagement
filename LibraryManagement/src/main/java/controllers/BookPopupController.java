@@ -98,19 +98,20 @@ public class BookPopupController {
     private void initialize() {
     }
 
-    private void setBook(Book book) {
+    public void setBook(Book book, boolean isPostComment) {
+        this.isPostComment = isPostComment;
         this.book = book;
     }
 
-    private void refreshData() {
+    public void refreshData() {
         title_Label.setText(book.getTitle());
         id_Label.setText("ID/ISBN: " + book.getIsbn());
-        author_Label.setText("Author: " + book.getAuthor());
-        publisher_Label.setText("Publisher: " + book.getPublisher());
-        year_Label.setText("Year: " + book.getYear());
-        category_Label.setText("Category: " + book.getCategory());
+        publisher_Label.setText("Publisher: " + (book.getPublisher() == null ? "" : book.getPublisher()));
+        year_Label.setText("Year: " + (book.getYear() == 0 ? "" : book.getYear()));
+        category_Label.setText("Category: " + (book.getCategory() == null ? "" : book.getCategory()));
         quantity_Label.setText("Quantity: " + book.getQuantity());
-        description_Label.setText("Description: " + book.getDescription());
+        description_Label.setText("Description: " + (book.getDescription() == null ? "" : book.getDescription()));
+        author_Label.setText("Author: " + (book.getAuthor() == null ? "" : book.getAuthor()));
         if (book.getThumbnailLink() != null) {
             thumbnail_ImageView.setImage(new Image(book.getThumbnailLink()));
         } else {

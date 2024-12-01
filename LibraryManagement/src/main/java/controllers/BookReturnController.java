@@ -88,6 +88,16 @@ public class BookReturnController {
 
         new Thread(this::refresh).start();
 
+        searchTable_TableView.setOnMouseClicked(event -> {
+            if (event.getClickCount() >= 2) {
+                TransactionDTO selectedItem = searchTable_TableView.getSelectionModel().getSelectedItem();
+                Book book = BookUtils.getBookByISBN(selectedItem.getBookId());
+                if (book != null) {
+                    handleDoubleClick(book);
+                }
+            }
+        });
+
         addTextFieldListener(searchBar_TextField);
         addTextFieldListener(category_TextField);
         addTextFieldListener(isbn_TextField);
@@ -229,6 +239,10 @@ public class BookReturnController {
         System.out.println("do next page");
         searchBorrowedTransactions();
         showTables();
+    }
+
+    private void handleDoubleClick(Book book) {
+        PopupUtils.openBookPopup(book, true);
     }
 
     private void cleanUpData() {
