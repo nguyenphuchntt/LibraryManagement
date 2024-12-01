@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1100.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.SignupController">
+<AnchorPane prefHeight="800.0" prefWidth="1100.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SignupController">
     <children>
         <ImageView fitHeight="800.0" fitWidth="616.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -24,7 +24,7 @@
                         <Label layoutX="1.0" layoutY="5.0" text="USERNAME" />
                         <TextField fx:id="password_TextField" layoutY="77.0" prefHeight="24.0" prefWidth="250.0" />
                         <Label layoutY="53.0" prefHeight="29.0" prefWidth="110.0" text="PASSWORD" />
-                        <Button fx:id="createAccount_Button" layoutX="97.0" layoutY="184.0" mnemonicParsing="false" text="Create" />
+                        <Button fx:id="createAccount_Button" layoutX="97.0" layoutY="184.0" mnemonicParsing="false" onAction="#handleCreateAccount" text="Create" />
                         <Label layoutX="1.0" layoutY="106.0" prefHeight="29.0" prefWidth="161.0" text="CONFIRM PASSWORD" />
                         <TextField fx:id="confirmPassword_TextField" layoutY="129.0" prefHeight="24.0" prefWidth="250.0" />
                     </children>
@@ -39,7 +39,8 @@
                         <Image url="@../assets/img/login_user_icon.png" />
                     </image>
                 </ImageView>
-                <Button fx:id="switchToLogin_Button" layoutX="350.0" layoutY="774.0" mnemonicParsing="false" text="Have an account?" />
+                <Button fx:id="switchToLogin_Button" layoutX="350.0" layoutY="774.0" mnemonicParsing="false" onAction="#handleHadAccount" text="Have an account?" />
+            <Label fx:id="signupMessage_Label" alignment="CENTER" layoutX="93.0" layoutY="611.0" prefHeight="16.0" prefWidth="284.0" />
             </children>
         </Pane>
     </children>

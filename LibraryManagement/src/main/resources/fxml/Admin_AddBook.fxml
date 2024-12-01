@@ -2,54 +2,42 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800" minWidth="1100" prefHeight="800.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AdminPanelController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800" minWidth="1100" prefHeight="800.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminAddBookController">
     <children>
-        <AnchorPane layoutX="200.0" layoutY="45.0" prefHeight="755.0" prefWidth="900.0" style="-fx-background-color: #4287f5;">
+        <AnchorPane layoutX="200.0" layoutY="45.0" prefHeight="755.0" prefWidth="900.0">
             <children>
                 <Label layoutX="40.0" layoutY="70.0" text="ADD BOOKS">
                     <font>
                         <Font size="21.0" />
                     </font>
                 </Label>
-                <AnchorPane layoutX="64.0" layoutY="135.0" prefHeight="485.0" prefWidth="772.0" style="-fx-background-color: #e02696;">
+                <AnchorPane layoutX="64.0" layoutY="135.0" prefHeight="485.0" prefWidth="772.0">
                     <children>
-                        <Label layoutX="20.0" layoutY="45.0" text="BOOK TITLE *" />
-                        <Label layoutX="20.0" layoutY="85.0" text="BOOK ID *" />
+                        <Label layoutX="16.0" layoutY="85.0" text="BOOK TITLE*" />
+                        <Label layoutX="19.0" layoutY="45.0" text="BOOK ID/ ISBN*" />
                         <Label layoutX="20.0" layoutY="125.0" text="AUTHOR" />
-                        <Label layoutX="20.0" layoutY="165.0" text="DESCRIPTION" />
-                        <Label layoutX="393.0" layoutY="205.0" text="THEME" />
-                        <TextField layoutX="125.0" layoutY="40.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book title" />
-                        <TextField layoutX="125.0" layoutY="81.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book ID" />
-                        <TextField layoutX="125.0" layoutY="121.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book author" />
-                        <TextField layoutX="125.0" layoutY="161.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book description" />
-                        <Button layoutX="498.0" layoutY="201.0" mnemonicParsing="false" text="Upload File" />
-                        <Label layoutX="599.0" layoutY="205.0" prefHeight="16.0" prefWidth="67.0" style="-fx-background-color: #fffcfe;" />
-                        <Label layoutX="20.0" layoutY="205.0" text="AMOUNT *" />
-                        <TextField layoutX="125.0" layoutY="201.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter a number" />
-                        <Button layoutX="12.0" layoutY="251.0" mnemonicParsing="false" text="ADD" />
-                        <Label layoutX="20.0" layoutY="337.0" text="ISBN *" />
-                        <TextField layoutX="125.0" layoutY="332.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter ISBN" />
-                        <Label layoutX="351.0" layoutY="4.0" text="Manual">
-                            <font>
-                                <Font size="18.0" />
-                            </font>
-                        </Label>
-                        <Label layoutX="362.0" layoutY="291.0" text="ISBN">
-                            <font>
-                                <Font size="18.0" />
-                            </font>
-                        </Label>
-                        <Button layoutX="12.0" layoutY="417.0" mnemonicParsing="false" text="ADD" />
-                        <Label layoutX="393.0" layoutY="165.0" text="YEAR" />
-                        <TextField layoutX="498.0" layoutY="161.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter a number" />
-                        <Label layoutX="393.0" layoutY="125.0" text="CATEGORY" />
-                        <TextField layoutX="498.0" layoutY="121.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book category" />
-                        <Label layoutX="20.0" layoutY="377.0" text="AMOUNT *" />
-                        <TextField layoutX="125.0" layoutY="373.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter a number" />
+                        <Label layoutX="17.0" layoutY="285.0" text="DESCRIPTION" />
+                        <TextField fx:id="bookTitle_TextField" layoutX="125.0" layoutY="81.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book title" />
+                        <TextField fx:id="bookId_TextField" layoutX="124.0" layoutY="41.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book ID" />
+                        <TextField fx:id="author_TextField" layoutX="125.0" layoutY="121.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book author" />
+                        <Label layoutX="19.0" layoutY="245.0" text="AMOUNT *" />
+                        <TextField fx:id="amount_TextField" layoutX="125.0" layoutY="241.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter a number" />
+                        <Button fx:id="add_Button" layoutX="14.0" layoutY="459.0" mnemonicParsing="false" onAction="#handleAdd" text="ADD" />
+                        <Label layoutX="20.0" layoutY="205.0" text="YEAR" />
+                        <TextField fx:id="year_TextField" layoutX="125.0" layoutY="201.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter a number" />
+                        <Label layoutX="19.0" layoutY="165.0" text="CATEGORY" />
+                        <TextField fx:id="category_TextField" layoutX="125.0" layoutY="161.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book category" />
+                  <TextArea fx:id="description_TextArea" layoutX="125.0" layoutY="281.0" prefHeight="131.0" prefWidth="631.0" promptText="Description" wrapText="true" />
+                  <ImageView fx:id="thumbnail_ImageView" fitHeight="190.0" fitWidth="160.0" layoutX="491.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="addBookMessage_Label" alignment="CENTER" layoutX="10.0" layoutY="426.0" prefHeight="16.0" prefWidth="752.0" />
+                  <Button fx:id="search_Button" layoutX="395.0" layoutY="41.0" mnemonicParsing="false" onAction="#handleSearch" text="Search" />
+                  <Label fx:id="internetError_Label" layoutX="485.0" layoutY="45.0" text="Internet error!" textFill="RED" />
                     </children>
                 </AnchorPane>
             </children>
