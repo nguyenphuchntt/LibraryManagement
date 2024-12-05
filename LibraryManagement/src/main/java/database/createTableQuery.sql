@@ -22,7 +22,7 @@ ALTER TABLE account
 CREATE TABLE IF NOT EXISTS `user` (
     username VARCHAR(30) COLLATE utf8_bin UNIQUE PRIMARY KEY NOT NULL,
     name VARCHAR(50) NOT NULL,
-    yearOfBirth YEAR DEFAULT NULL,
+    age INT DEFAULT NULL,
     gender VARCHAR(10) DEFAULT NULL,
     department VARCHAR(100) DEFAULT NULL,
     CONSTRAINT `user_account_fk` FOREIGN KEY (username) REFERENCES `account` (username) ON UPDATE CASCADE
@@ -76,6 +76,6 @@ CREATE TABLE IF NOT EXISTS messages (
     receiver VARCHAR(30) COLLATE utf8_bin NOT NULL,
     content TEXT NOT NULL,
     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT `sender_user_fk` FOREIGN KEY (sender) REFERENCES account (username) ON UPDATE CASCADE,
-    CONSTRAINT `receiver_user_fk` FOREIGN KEY (receiver) REFERENCES account (username) ON UPDATE CASCADE
-);
+    CONSTRAINT `sender_user_fk` FOREIGN KEY (sender) REFERENCES user (username) ON UPDATE CASCADE,
+    CONSTRAINT `receiver_user_fk` FOREIGN KEY (receiver) REFERENCES user (username) ON UPDATE CASCADE
+    );
