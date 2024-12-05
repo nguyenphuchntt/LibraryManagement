@@ -113,6 +113,7 @@ public class AdminAddBookController {
             new Thread(() -> {
                 DatabaseController.saveEntity(book);
             }).start();
+            PopupUtils.showAlert("Book added successfully");
             cleanUp();
         }
     }

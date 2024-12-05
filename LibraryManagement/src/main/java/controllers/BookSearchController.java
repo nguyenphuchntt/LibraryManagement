@@ -21,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import org.hibernate.Session;
 
+import javax.persistence.Index;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -298,7 +299,12 @@ public class BookSearchController {
     }
 
     private void showRecommendedBooks() {
-        Object[] book = recommendedBookList.get(priorityOrder);
+        Object[] book = null;
+        try {
+             book = recommendedBookList.get(priorityOrder);
+        } catch (IndexOutOfBoundsException e) {
+            return;
+        }
         title_Text.setText("Title:" + book[0].toString() + '\n');
         author_Text.setText("Author: " + book[1].toString() + '\n');
         category_Text.setText("Category: " + book[2].toString() + '\n');
