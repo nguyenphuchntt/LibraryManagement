@@ -287,11 +287,13 @@ public class BookSearchController {
         } catch (IndexOutOfBoundsException e) {
             return;
         }
+        String bestComment = (BookUtils.getBestCommentOfBook(book[6].toString()) == null) ? "null" : BookUtils.getBestCommentOfBook(book[6].toString()).toString();
+
         title_Text.setText("Title:" + book[0].toString() + '\n');
         author_Text.setText("Author: " + book[1].toString() + '\n');
         category_Text.setText("Category: " + book[2].toString() + '\n');
         publishedYear_Text.setText("Published Year: " + book[3].toString() + '\n');
-        description_Text.setText("Description: " + FormatUtils.getShortDescription(book[4].toString(), 500) + '\n');
+        description_Text.setText("Description: " + FormatUtils.getShortDescription(book[4].toString(), 500) + '\n' + "User comment: " + bestComment);
 
         ratingStar_Label.setText("Rating: " + book[5].toString());
 
