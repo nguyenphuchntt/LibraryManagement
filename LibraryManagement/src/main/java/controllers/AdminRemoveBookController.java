@@ -46,10 +46,18 @@ public class AdminRemoveBookController {
             return;
         }
 
+        if (BookUtils.isBeingBorrowed(bookID)) {
+            removeMessage_Label.setText("You are already being borrowed so you can not remove this book!");
+            return;
+        }
+
+        BookUtils.removeBookByISBN(bookID);
+        PopupUtils.showAlert("Successfully removed this book!");
     }
 
     @FXML
     private void handleCheck(ActionEvent event) {
+        removeMessage_Label.setText("");
         String isbn = bookID_TextField.getText();
         Book book = BookUtils.getBookByISBN(isbn);
         if (book == null) {
@@ -66,10 +74,10 @@ public class AdminRemoveBookController {
         description_Label.setText(bookDescription.toString());
         if (book.getThumbnailLink() != null) {
             thumbnail_ImageView.setImage(new Image(book.getThumbnailLink()));
-            thumbnail_Label.setText("Not available!");
+            thumbnail_Label.setText("");
         } else {
             thumbnail_ImageView.setImage(null);
-            thumbnail_Label.setText("");
+            thumbnail_Label.setText("Not available!");
         }
     }
 

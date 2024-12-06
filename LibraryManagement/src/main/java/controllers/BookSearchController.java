@@ -119,9 +119,6 @@ public class BookSearchController {
     @FXML
     private ImageView thumbnail_ImageView;
 
-    @FXML
-    private ImageView searchThumbnail_ImageView;
-
     private ObservableList<Book> bookList;
 
     private List<Object[]> recommendedBookList;
@@ -158,21 +155,6 @@ public class BookSearchController {
                 }
             }
         });
-
-        searchTable_TableView.getSelectionModel().selectedItemProperty().addListener(
-                new ChangeListener<Book>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Book> observable, Book oldValue, Book newValue) {
-                        if (newValue != null) {
-                            if (newValue.getThumbnailLink() != null) {
-                                searchThumbnail_ImageView.setImage(new Image(newValue.getThumbnailLink()));
-                            } else {
-                                searchThumbnail_ImageView.setImage(null);
-                            }
-                        }
-                    }
-                }
-        );
     }
 
     private void addTextFieldListener(TextField textField) {

@@ -2,6 +2,7 @@ package utils;
 
 import entities.Book;
 import entities.Comment;
+import entities.Transaction;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -248,6 +249,52 @@ public class BookUtils {
             session.getTransaction().commit();
 
             return query.uniqueResultOptional().orElse(null);
+
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
+
+    public static boolean isBeingBorrowed(String isbn) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            session.beginTransaction();
+
+            String hql = "FROM Transaction t WHERE t.book.id =: isbn AND t.return_time is null";
+            Query<Transaction> query = session.createQuery(hql, Transaction.class);
+            query.setParameter("isbn", isbn);
+            query.setMaxResults(1);
+
+            session.getTransaction().commit();
+
+            return query.uniqueResult() != null;
+
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
+
+    public static void removeBookByISBN(String isbn) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            session.beginTransaction();
+
+            Book book = session.get(Book.class, isbn);
+            session.delete(book);
+
+            session.getTransaction().commit();
 
         } catch (Exception e) {
             if (session.getTransaction() != null) {

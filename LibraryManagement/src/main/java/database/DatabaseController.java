@@ -70,6 +70,13 @@ public class DatabaseController {
     }
 
     private static void ExportResultSetToCSV(ResultSet resultSets, String pathToSCV) throws SQLException, IOException {
+        try {
+            Statement useDatabaseStatement = null;
+            useDatabaseStatement = DatabaseController.getConnection().createStatement();
+            useDatabaseStatement.execute("USE library");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         BufferedWriter writer = null;
         try {
             writer = new BufferedWriter(new FileWriter(pathToSCV));
@@ -129,7 +136,13 @@ public class DatabaseController {
 
     private static void importUserCSVToDB(String pathToCSV) throws SQLException, IOException {
         Connection connection = DatabaseController.getConnection();
-
+        try {
+            Statement useDatabaseStatement = null;
+            useDatabaseStatement = DatabaseController.getConnection().createStatement();
+            useDatabaseStatement.execute("USE library");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         BufferedReader reader = null;
         PreparedStatement statement = null;
         String line;
@@ -182,7 +195,13 @@ public class DatabaseController {
 
     private static void importAccountCSVtoBD(String pathToCSV) throws SQLException, IOException {
         Connection connection = DatabaseController.getConnection();
-
+        try {
+            Statement useDatabaseStatement = null;
+            useDatabaseStatement = DatabaseController.getConnection().createStatement();
+            useDatabaseStatement.execute("USE library");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         BufferedReader reader = null;
         PreparedStatement statement = null;
         String line;
@@ -234,7 +253,13 @@ public class DatabaseController {
 
     private static void importBookCSVtoDB(String pathToCSV) throws SQLException, IOException {
         Connection connection = DatabaseController.getConnection();
-
+        try {
+            Statement useDatabaseStatement = null;
+            useDatabaseStatement = DatabaseController.getConnection().createStatement();
+            useDatabaseStatement.execute("USE library");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         BufferedReader reader = null;
         PreparedStatement statement = null;
         String line;
@@ -301,6 +326,13 @@ public class DatabaseController {
 
     private static void importMessageCSVtoDB(String pathToCSV)  throws SQLException, IOException {
         Connection connection = DatabaseController.getConnection();
+        try {
+            Statement useDatabaseStatement = null;
+            useDatabaseStatement = DatabaseController.getConnection().createStatement();
+            useDatabaseStatement.execute("USE library");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         BufferedReader reader = null;
         PreparedStatement statement = null;
         String line;
@@ -343,6 +375,13 @@ public class DatabaseController {
 
     private static void importTransactionCSVtoDB(String pathToCSV) throws SQLException, IOException {
         Connection connection = DatabaseController.getConnection();
+        try {
+            Statement useDatabaseStatement = null;
+            useDatabaseStatement = DatabaseController.getConnection().createStatement();
+            useDatabaseStatement.execute("USE library");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         BufferedReader reader = null;
         PreparedStatement statement = null;
         String line;
@@ -397,6 +436,13 @@ public class DatabaseController {
 
     private static void importCommentCSVtoDB(String pathToCSV) throws SQLException, IOException {
         Connection connection = DatabaseController.getConnection();
+        try {
+            Statement useDatabaseStatement = null;
+            useDatabaseStatement = DatabaseController.getConnection().createStatement();
+            useDatabaseStatement.execute("USE library");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         BufferedReader reader = null;
         PreparedStatement statement = null;
         String line;
@@ -439,6 +485,13 @@ public class DatabaseController {
 
     private static void importAnnouncementCSVtoDB(String pathToCSV) throws SQLException, IOException {
         Connection connection = DatabaseController.getConnection();
+        try {
+            Statement useDatabaseStatement = null;
+            useDatabaseStatement = DatabaseController.getConnection().createStatement();
+            useDatabaseStatement.execute("USE library");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         BufferedReader reader = null;
         PreparedStatement statement = null;
         String line;
@@ -547,6 +600,13 @@ public class DatabaseController {
 
 
     public static void exportDataToSCV() throws SQLException {
+        try {
+            Statement useDatabaseStatement = null;
+            useDatabaseStatement = DatabaseController.getConnection().createStatement();
+            useDatabaseStatement.execute("USE library");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         Statement accountQuery = DatabaseController.getConnection().createStatement();
         Statement userQuery = DatabaseController.getConnection().createStatement();
         Statement bookQuery = DatabaseController.getConnection().createStatement();

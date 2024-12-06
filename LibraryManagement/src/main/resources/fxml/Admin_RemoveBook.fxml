@@ -22,7 +22,7 @@
                         <Label layoutX="20.0" layoutY="26.0" text="BOOK ID" />
                         <TextField fx:id="bookID_TextField" layoutX="125.0" layoutY="22.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book ID / ISBN" />
                         <Button fx:id="remove_Button" layoutX="349.0" layoutY="451.0" mnemonicParsing="false" onAction="#handleRemoveBook" text="REMOVE" />
-                  <Label fx:id="removeMessage_Label" alignment="CENTER" contentDisplay="CENTER" layoutX="198.0" layoutY="424.0" prefHeight="16.0" prefWidth="377.0" textAlignment="CENTER" />
+                  <Label fx:id="removeMessage_Label" alignment="CENTER" contentDisplay="CENTER" layoutX="125.0" layoutY="425.0" prefHeight="16.0" prefWidth="523.0" textAlignment="CENTER" />
                   <Button fx:id="check_Button" layoutX="410.0" layoutY="22.0" mnemonicParsing="false" onAction="#handleCheck" text="CHECK" />
                   <ImageView fx:id="thumbnail_ImageView" fitHeight="187.0" fitWidth="153.0" layoutX="587.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" />
                   <Label fx:id="thumbnail_Label" alignment="CENTER" layoutX="601.0" layoutY="220.0" prefHeight="16.0" prefWidth="126.0" />
