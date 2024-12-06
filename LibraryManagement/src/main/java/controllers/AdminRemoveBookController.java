@@ -1,5 +1,9 @@
 package controllers;
 
+import entities.Book;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import utils.BookUtils;
 import utils.FormatUtils;
 import utils.PopupUtils;
 import database.DatabaseController;
@@ -15,9 +19,6 @@ public class AdminRemoveBookController {
     private TextField bookID_TextField;
 
     @FXML
-    private TextField amount_TextField;
-
-    @FXML
     private Button remove_Button;
 
     @FXML
@@ -30,94 +31,50 @@ public class AdminRemoveBookController {
     private Button check_Button;
 
     @FXML
+    private ImageView thumbnail_ImageView;
+
+    @FXML
+    private Label thumbnail_Label;
+
+
+    @FXML
     private void handleRemoveBook(ActionEvent event) {
         String bookID = bookID_TextField.getText();
-        int amount = 0;
-        try {
-            amount = FormatUtils.StringToInteger(amount_TextField.getText());
-        } catch (NumberFormatException e) {
-            removeMessage_Label.setText("Please enter a valid number");
-            return;
-        }
 
         if (PopupUtils.showConfirmationDialog()) {
             cleanUp();
-            return;
-        }
-
-        Connection connection = DatabaseController.getConnection();
-
-        String sqlQuerySelect = "SELECT quantity FROM book" +
-                " WHERE book_id = ?";
-        String sqlQueryUpdate = "UPDATE book SET quantity = ? WHERE book_id = ?";
-        try {
-            Statement useDatabaseStatement = connection.createStatement();
-            useDatabaseStatement.execute("USE library");
-            PreparedStatement selectStatement = connection.prepareStatement(sqlQuerySelect);
-            selectStatement.setString(1, bookID);
-            ResultSet resultSet = selectStatement.executeQuery();
-
-            if (resultSet.next()) {
-                int quantity = resultSet.getInt("quantity");
-                if (quantity >= amount) {
-                    PreparedStatement updateStatement = connection.prepareStatement(sqlQueryUpdate);
-                    quantity -= amount;
-                    updateStatement.setInt(1, quantity);
-                    updateStatement.setString(2, bookID);
-                    updateStatement.executeUpdate();
-                    PopupUtils.showAlert("Remove book successfully!");
-                    cleanUp();
-                } else {
-                    removeMessage_Label.setText("This number is larger than book amount");
-                }
-            } else {
-                removeMessage_Label.setText("Book does not exist");
-            }
-
-        } catch (SQLException e) {
-            System.out.println("SQLException -> removeBook function of AdminRemoveBook controller: " + e.getMessage());
             return;
         }
     }
 
     @FXML
     private void handleCheck(ActionEvent event) {
-        removeMessage_Label.setText("");
-        String bookID = bookID_TextField.getText();
-
-        Connection connection = DatabaseController.getConnection();
-
-        String sqlQuerySelect = "SELECT book_title, description, quantity FROM book" +
-                " WHERE book_id = ?";
-
-        try {
-            Statement useDatabaseStatement = connection.createStatement();
-            useDatabaseStatement.execute("USE library");
-            PreparedStatement selectStatement = connection.prepareStatement(sqlQuerySelect);
-            selectStatement.setString(1, bookID);
-            ResultSet resultSet = selectStatement.executeQuery();
-
-            if (resultSet.next()) {
-                String description = null;
-                String title = resultSet.getString("book_title");
-                if (resultSet.getString("description") != null) {
-                    description = resultSet.getString("description");
-                }
-                int quantity = resultSet.getInt("quantity");
-                description_Label.setText("Title: " + title + "\nDescription: " + (description == null ? "NULL" : description)
-                                            + "\nQuantity: " + quantity);
-            } else {
-                removeMessage_Label.setText("Book does not exist");
-            }
-
-        } catch (SQLException e) {
-            System.out.println("SQLException -> check info function of AdminRemoveBook controller: " + e.getMessage());
+        String isbn = bookID_TextField.getText();
+        Book book = BookUtils.getBookByISBN(isbn);
+        if (book == null) {
+            removeMessage_Label.setText("Book not found");
+            return;
+        }
+        StringBuilder bookDescription = new StringBuilder();
+        bookDescription.append("- Book isbn: ").append(book.getIsbn()).append("\n");
+        bookDescription.append("- Book title: ").append(book.getTitle()).append("\n");
+        bookDescription.append("- Author: ").append((book.getAuthor() == null) ? "null" : book.getAuthor()).append("\n");
+        bookDescription.append("- Category: ").append((book.getCategory() == null) ? "null" : book.getCategory()).append("\n");
+        bookDescription.append("- Quantity: ").append(book.getQuantity()).append("\n");
+        bookDescription.append("- Description: ").append((book.getDescription() == null) ? "null" : book.getDescription()).append("\n");
+        description_Label.setText(bookDescription.toString());
+        if (book.getThumbnailLink() != null) {
+            thumbnail_ImageView.setImage(new Image(book.getThumbnailLink()));
+            thumbnail_Label.setText("Not available!");
+        } else {
+            thumbnail_ImageView.setImage(null);
+            thumbnail_Label.setText("");
         }
     }
 
     public void cleanUp() {
         bookID_TextField.clear();
-        amount_TextField.clear();
+        thumbnail_Label.setText("");
         removeMessage_Label.setText("");
         description_Label.setText("");
     }

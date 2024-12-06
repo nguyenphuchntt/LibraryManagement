@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `user` (
     age INT DEFAULT NULL,
     gender VARCHAR(10) DEFAULT NULL,
     department VARCHAR(100) DEFAULT NULL,
-    CONSTRAINT `user_account_fk` FOREIGN KEY (username) REFERENCES `account` (username) ON UPDATE CASCADE
+    CONSTRAINT `user_account_fk` FOREIGN KEY (username) REFERENCES `account` (username) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
 CREATE TABLE IF NOT EXISTS book (
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS book_comment (
     username VARCHAR(30) COLLATE utf8_bin NOT NULL,
     book_comment TEXT DEFAULT NULL,
     rate TINYINT NOT NULL,
-    CONSTRAINT `book_comment_fk` FOREIGN KEY (book_id) REFERENCES book (book_id) ON UPDATE CASCADE
+    CONSTRAINT `book_comment_fk` FOREIGN KEY (book_id) REFERENCES book (book_id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
 CREATE TABLE IF NOT EXISTS transaction (
@@ -56,8 +56,8 @@ CREATE TABLE IF NOT EXISTS transaction (
     username VARCHAR(30) COLLATE utf8_bin NOT NULL,
     borrow_time TIMESTAMP NOT NULL,
     return_time TIMESTAMP DEFAULT NULL,
-    CONSTRAINT `transaction_book_fk` FOREIGN KEY (book_id) REFERENCES book(book_id) ON UPDATE CASCADE,
-    CONSTRAINT `transaction_user_fk` FOREIGN KEY (username) REFERENCES `user`(username) ON UPDATE CASCADE
+    CONSTRAINT `transaction_book_fk` FOREIGN KEY (book_id) REFERENCES book(book_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT `transaction_user_fk` FOREIGN KEY (username) REFERENCES `user`(username) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
 create table if not exists announcement (
@@ -76,6 +76,6 @@ CREATE TABLE IF NOT EXISTS messages (
     receiver VARCHAR(30) COLLATE utf8_bin NOT NULL,
     content TEXT NOT NULL,
     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT `sender_user_fk` FOREIGN KEY (sender) REFERENCES user (username) ON UPDATE CASCADE,
-    CONSTRAINT `receiver_user_fk` FOREIGN KEY (receiver) REFERENCES user (username) ON UPDATE CASCADE
+    CONSTRAINT `sender_user_fk` FOREIGN KEY (sender) REFERENCES user (username) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT `receiver_user_fk` FOREIGN KEY (receiver) REFERENCES user (username) ON UPDATE CASCADE ON DELETE CASCADE
     );
