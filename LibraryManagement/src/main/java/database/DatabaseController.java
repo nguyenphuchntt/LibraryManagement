@@ -185,7 +185,11 @@ public class DatabaseController {
                     statement.setNull(5, Types.VARCHAR);
                 }
 
-                statement.setInt(4, values[4].equalsIgnoreCase("null") ? Types.BOOLEAN : Integer.parseInt(values[4])); // gender
+                if (values[4].equalsIgnoreCase("null")) {
+                    statement.setNull(4, Types.VARCHAR);
+                } else {
+                    statement.setString(4, values[4]);
+                }
                 statement.addBatch();
 
             }
