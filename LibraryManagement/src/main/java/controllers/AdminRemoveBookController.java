@@ -45,23 +45,10 @@ public class AdminRemoveBookController {
             cleanUp();
             return;
         }
-
-        if (BookUtils.isBeingBorrowed(bookID)) {
-            removeMessage_Label.setText("You are already being borrowed so you can not remove this book!");
-            return;
-        }
-        if (BookUtils.hadBook(bookID)) {
-            BookUtils.removeBookByISBN(bookID);
-            PopupUtils.showAlert("Successfully removed this book!");
-        } else {
-            removeMessage_Label.setText("You don't have this book!");
-        }
-
     }
 
     @FXML
     private void handleCheck(ActionEvent event) {
-        removeMessage_Label.setText("");
         String isbn = bookID_TextField.getText();
         Book book = BookUtils.getBookByISBN(isbn);
         if (book == null) {
@@ -69,7 +56,7 @@ public class AdminRemoveBookController {
             return;
         }
         StringBuilder bookDescription = new StringBuilder();
-        bookDescription.append("- Book isbn: ").append(book.getId()).append("\n");
+        bookDescription.append("- Book isbn: ").append(book.getIsbn()).append("\n");
         bookDescription.append("- Book title: ").append(book.getTitle()).append("\n");
         bookDescription.append("- Author: ").append((book.getAuthor() == null) ? "null" : book.getAuthor()).append("\n");
         bookDescription.append("- Category: ").append((book.getCategory() == null) ? "null" : book.getCategory()).append("\n");
@@ -78,10 +65,10 @@ public class AdminRemoveBookController {
         description_Label.setText(bookDescription.toString());
         if (book.getThumbnailLink() != null) {
             thumbnail_ImageView.setImage(new Image(book.getThumbnailLink()));
-            thumbnail_Label.setText("");
+            thumbnail_Label.setText("Not available!");
         } else {
             thumbnail_ImageView.setImage(null);
-            thumbnail_Label.setText("Not available!");
+            thumbnail_Label.setText("");
         }
     }
 
