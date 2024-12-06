@@ -50,7 +50,7 @@ public class DatabaseController {
             }
             System.out.println("Connected to database");
             new Thread(() -> {
-                createTables(SQL_FILE);
+                createTables(SQL_FILE); // you should
                 createTableLatch.countDown();
             }).start();
         }
@@ -264,7 +264,7 @@ public class DatabaseController {
         BufferedReader reader = null;
         PreparedStatement statement = null;
         String line;
-        String insertSQL = "INSERT IGNORE INTO `book` (book_id, book_title, author, publisher, year, quantity, description, averageRating, category) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String insertSQL = "INSERT IGNORE INTO `book` (book_id, book_title, author, publisher, year, quantity, description, averageRating, category, thumbnailLink) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
             reader = new BufferedReader(new FileReader(pathToCSV));
@@ -304,6 +304,11 @@ public class DatabaseController {
                     statement.setDouble(8, 0.0); // Default to 0.0
                 }
                 statement.setString(9, values[8]); // category
+                if (values[9] != null && !values[9].equalsIgnoreCase("null")) {
+                    statement.setString(10, values[9]);
+                } else {
+                    statement.setNull(10, Types.VARCHAR);
+                } // thumbnail link
 
                 statement.addBatch();
             }
