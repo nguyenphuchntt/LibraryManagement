@@ -45,6 +45,7 @@ public class AdminRemoveBookController {
             cleanUp();
             return;
         }
+
     }
 
     @FXML

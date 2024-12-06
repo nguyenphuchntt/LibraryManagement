@@ -35,12 +35,11 @@ public class DatabaseController {
 
     private static Connection connection;
 
-    private static CountDownLatch createTableLatch = new CountDownLatch(1);
     private static CountDownLatch exportDBLatch = new CountDownLatch(7);
 
     private static ExecutorService executor = Executors.newFixedThreadPool(7);
 
-    public static Connection getConnection() {
+    public synchronized static Connection getConnection() {
         if (connection == null) {
             try {
                 connection = DriverManager.getConnection(URL, USERNAME, MYSQL_PASSWORD);
@@ -49,10 +48,6 @@ public class DatabaseController {
                 throw new RuntimeException(e);
             }
             System.out.println("Connected to database");
-            new Thread(() -> {
-                createTables(SQL_FILE); // you should
-                createTableLatch.countDown();
-            }).start();
         }
         return connection;
     }
@@ -71,27 +66,6 @@ public class DatabaseController {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-        }
-    }
-
-    private static void createTables(String sqlFilePath) {
-        try {
-            Statement statement = connection.createStatement();
-
-            String sqlCommands = new String(Files.readAllBytes(Paths.get(sqlFilePath)));
-
-            String[] sqlStatements = sqlCommands.split(";");
-
-            for (String sql : sqlStatements) {
-                if (!sql.trim().isEmpty()) {
-                    statement.execute(sql.trim());
-                }
-            }
-
-            System.out.println("Create table SQL file executed successfully.");
-        } catch (SQLException | IOException e) {
-            System.out.println("SQL file execution failed!");
-            e.printStackTrace();
         }
     }
 
@@ -509,84 +483,63 @@ public class DatabaseController {
     public static void importDataFromCSV() {
         new Thread(() -> {
             try {
-                createTableLatch.await();
                 importAccountCSVtoBD(accountCSVPath);
             } catch (SQLException | IOException e) {
                 System.err.println("Error importing accounts: " + e.getMessage());
                 throw new RuntimeException(e);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
             }
         }).start();
 
         new Thread(() -> {
             try {
-                createTableLatch.await();
                 importUserCSVToDB(userCSVPath);
             } catch (SQLException | IOException e) {
                 System.err.println("Error importing users: " + e.getMessage());
                 throw new RuntimeException(e);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
             }
         }).start();
 
         new Thread(() -> {
             try {
-                createTableLatch.await();
                 importBookCSVtoDB(bookCSVPath);
             } catch (SQLException | IOException e) {
                 System.err.println("Error importing books: " + e.getMessage());
                 throw new RuntimeException(e);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
             }
         }).start();
 
         new Thread(() -> {
             try {
-                createTableLatch.await();
                 importTransactionCSVtoDB(transactionCSVPath);
             } catch (SQLException | IOException e) {
                 System.err.println("Error importing transactions: " + e.getMessage());
                 throw new RuntimeException(e);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
             }
         }).start();
 
         new Thread(() -> {
             try {
-                createTableLatch.await();
                 importCommentCSVtoDB(book_commentCSVPath);
             } catch (SQLException | IOException e) {
                 System.err.println("Error importing comments: " + e.getMessage());
                 throw new RuntimeException(e);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
             }
         }).start();
 
         new Thread(() -> {
             try {
-                createTableLatch.await();
                 importAnnouncementCSVtoDB(announcementCSVPath);
             } catch (SQLException | IOException e) {
                 System.err.println("Error importing announcements: " + e.getMessage());
                 throw new RuntimeException(e);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
             }
         }).start();
 
         new Thread(() -> {
             try {
-                createTableLatch.await();
                 importMessageCSVtoDB(messageCSVPath);
             } catch (SQLException | IOException e) {
                 System.err.println("Error importing messages: " + e.getMessage());
-                throw new RuntimeException(e);
-            } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }).start();
