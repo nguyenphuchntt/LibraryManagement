@@ -54,7 +54,7 @@ public class Account {
     }
 
     public static class Builder {
-        private Person user;
+        private User user;
         private String username;
         private String password;
         private boolean typeAccount;
@@ -91,7 +91,7 @@ public class Account {
             return this;
         }
 
-        public Builder user_ID(Person user_ID) {
+        public Builder user_ID(User user_ID) {
             this.user = user_ID;
             return this;
         }

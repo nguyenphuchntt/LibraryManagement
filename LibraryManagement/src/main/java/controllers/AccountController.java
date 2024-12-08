@@ -2,7 +2,7 @@ package controllers;
 
 import entities.Account;
 import entities.LibraryManagement;
-import entities.Person;
+import entities.User;
 import utils.AccountUserUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -73,7 +73,7 @@ public class AccountController {
     public void refreshInfo() {
         cleanUp();
 
-        Person currentUser = AccountUserUtils.getCurrentUser();
+        User currentUser = AccountUserUtils.getCurrentUser();
 
         name_Label.setText("NAME: " + currentUser.getName());
 

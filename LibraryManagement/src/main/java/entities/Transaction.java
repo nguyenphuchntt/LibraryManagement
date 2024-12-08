@@ -13,12 +13,12 @@ public class Transaction {
     private int transaction_id;
 
     @ManyToOne
-    @JoinColumn(name = "book_id", referencedColumnName = "book_id", nullable = false)
+    @JoinColumn(name = "book_id", referencedColumnName = "id", nullable = false)
     private Book book;
 
     @ManyToOne
     @JoinColumn(name = "username", referencedColumnName = "username", nullable = false)
-    private Person user;
+    private User user;
 
     @Column(name = "borrow_time", nullable = false)
     private Timestamp borrow_time;
@@ -26,7 +26,7 @@ public class Transaction {
     @Column(name = "return_time")
     private Timestamp return_time;
 
-    public Transaction(Book book, Person user) {
+    public Transaction(Book book, User user) {
         this.book = book;
         this.user = user;
         borrow_time = new Timestamp(System.currentTimeMillis());
@@ -51,11 +51,11 @@ public class Transaction {
         this.book = book;
     }
 
-    public Person getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Person user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

@@ -109,7 +109,7 @@ public class TransactionDTO {
 
             Book book = transaction.getBook();
             String bookTitle = book.getTitle();
-            String bookId = book.getIsbn();
+            String bookId = book.getId();
             String category = book.getCategory();
             String borrowDate = transaction.getBorrow_time().toString();
 
@@ -141,7 +141,7 @@ public class TransactionDTO {
         for (Transaction transaction : transactionList) {
 
             Book book = transaction.getBook();
-            String bookID = book.getIsbn();
+            String bookID = book.getId();
             String bookTitle = book.getTitle();
             String username = transaction.getUser().getUsername();
             String borrowDate = transaction.getBorrow_time().toString();

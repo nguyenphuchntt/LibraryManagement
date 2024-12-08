@@ -2,6 +2,7 @@ package utils;
 
 import entities.Book;
 import entities.Comment;
+import entities.Transaction;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -20,8 +21,8 @@ public class BookUtils {
             String hql = "SELECT s.title, s.author, s.category, s.year, s.description, s.averageRate, s.id, s.thumbnailLink " +
                     "FROM Transaction b " +
                     "JOIN b.book s " +
-                    "GROUP BY s.isbn " +
-                    "ORDER BY COUNT(s.isbn) DESC";
+                    "GROUP BY s.id " +
+                    "ORDER BY COUNT(s.id) DESC";
 
             Query<Object[]> query = session.createQuery(hql, Object[].class);
             query.setMaxResults(10);
@@ -48,10 +49,10 @@ public class BookUtils {
 
                 if (persistentBook != null) {
                     if (type) {
-                        persistentBook.setAmount(persistentBook.getQuantity() + 1);
+                        persistentBook.setQuantity(persistentBook.getQuantity() + 1);
                         System.out.println("return");
                     } else {
-                        persistentBook.setAmount(persistentBook.getQuantity() - 1);
+                        persistentBook.setQuantity(persistentBook.getQuantity() - 1);
                         System.out.println("borrow");
                     }
                 }
@@ -92,7 +93,7 @@ public class BookUtils {
             StringBuilder stringBuilder = new StringBuilder("FROM Book b WHERE 1=1");
 
             if (isbn != null) {
-                stringBuilder.append(" AND b.isbn LIKE :isbn");
+                stringBuilder.append(" AND b.id LIKE :isbn");
                 System.out.println("isbn" + isbn);
             }
             if (title != null) {
@@ -173,13 +174,13 @@ public class BookUtils {
         try {
             session.beginTransaction();
 
-            Book bookToUpdate = session.get(Book.class, book.getIsbn());
+            Book bookToUpdate = session.get(Book.class, book.getId());
 
             bookToUpdate.setTitle(book.getTitle());
             bookToUpdate.setAuthor(book.getAuthor());
             bookToUpdate.setCategory(book.getCategory());
             bookToUpdate.setYear(book.getYear());
-            bookToUpdate.setAmount(book.getQuantity());
+            bookToUpdate.setQuantity(book.getQuantity());
             bookToUpdate.setDescription(book.getDescription());
             bookToUpdate.setPublisher(book.getPublisher());
 
@@ -240,7 +241,7 @@ public class BookUtils {
         try {
             session.beginTransaction();
 
-            String hql = "FROM Comment t WHERE t.book.isbn = :isbn ORDER BY t.rate DESC";
+            String hql = "FROM Comment t WHERE t.book.id = :isbn ORDER BY t.rate DESC";
             Query<Comment> query = session.createQuery(hql, Comment.class);
             query.setParameter("isbn", isbn);
             query.setMaxResults(1);
@@ -248,6 +249,52 @@ public class BookUtils {
             session.getTransaction().commit();
 
             return query.uniqueResultOptional().orElse(null);
+
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
+
+    public static boolean isBeingBorrowed(String isbn) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            session.beginTransaction();
+
+            String hql = "FROM Transaction t WHERE t.book.id =: isbn AND t.return_time is null";
+            Query<Transaction> query = session.createQuery(hql, Transaction.class);
+            query.setParameter("isbn", isbn);
+            query.setMaxResults(1);
+
+            session.getTransaction().commit();
+
+            return query.uniqueResult() != null;
+
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
+
+    public static void removeBookByISBN(String isbn) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            session.beginTransaction();
+
+            Book book = session.get(Book.class, isbn);
+            session.delete(book);
+
+            session.getTransaction().commit();
 
         } catch (Exception e) {
             if (session.getTransaction() != null) {

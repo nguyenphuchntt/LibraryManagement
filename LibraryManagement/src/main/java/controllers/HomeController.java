@@ -1,7 +1,7 @@
 package controllers;
 
 import entities.LibraryManagement;
-import entities.Person;
+import entities.User;
 import utils.AccountUserUtils;
 import utils.PopupUtils;
 import database.DatabaseController;
@@ -34,7 +34,7 @@ public class HomeController implements PopupUtils.PopupClosedCallback {
         loadUsersIntoListView();
     }
 
-    private HBox createUserHBox(Person user) {
+    private HBox createUserHBox(User user) {
         HBox hbox = new HBox();
         hbox.setSpacing(10);
 
@@ -78,9 +78,9 @@ public class HomeController implements PopupUtils.PopupClosedCallback {
     }
 
     private void loadUsersIntoListView() {
-        List<Person> users = DatabaseController.getUsersWhoSentMessagesToCurrentUser();
+        List<User> users = DatabaseController.getUsersWhoSentMessagesToCurrentUser();
         ObservableList<HBox> userHBoxes = FXCollections.observableArrayList();
-        for (Person user : users) {
+        for (User user : users) {
             userHBoxes.add(createUserHBox(user));
         }
         messages_ListView.setItems(userHBoxes);

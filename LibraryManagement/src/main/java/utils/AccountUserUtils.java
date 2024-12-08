@@ -2,7 +2,7 @@ package utils;
 
 import entities.Account;
 import entities.LibraryManagement;
-import entities.Person;
+import entities.User;
 import database.DatabaseController;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -59,10 +59,10 @@ public class AccountUserUtils {
         }
     }
 
-    public static Person getUserInfo(String username) {
+    public static User getUserInfo(String username) {
         SessionFactory factory = HibernateUtil.getSessionFactory();
         Session session = factory.openSession();
-        Person user = session.get(Person.class, username);
+        User user = session.get(User.class, username);
         session.close();
         return user;
     }
@@ -93,7 +93,7 @@ public class AccountUserUtils {
     }
 
     public static void addUser(String username) {
-        Person user = null;
+        User user = null;
         SessionFactory userSessionFactory = HibernateUtil.getSessionFactory();
 
         Session userSession = userSessionFactory.getCurrentSession();
@@ -101,7 +101,7 @@ public class AccountUserUtils {
         try {
             userSession.beginTransaction();
 
-            user = new Person.Builder<>()
+            user = new User.Builder<>()
                     .username(username)
                     .name("null")
                     .role(true)
@@ -151,7 +151,7 @@ public class AccountUserUtils {
         }
     }
 
-    public static Person getCurrentUser() {
+    public static User getCurrentUser() {
         return getUserInfo(LibraryManagement.getInstance().getCurrentAccount());
     }
 
@@ -161,7 +161,7 @@ public class AccountUserUtils {
         try {
             session.beginTransaction();
             String username = LibraryManagement.getInstance().getCurrentAccount();
-            Person user = session.get(Person.class, username);
+            User user = session.get(User.class, username);
             user.setName(name);
             if (age != 0) {
                 System.out.println(age);

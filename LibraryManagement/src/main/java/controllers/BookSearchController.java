@@ -1,14 +1,10 @@
 package controllers;
 
-import DTO.TransactionDTO;
 import entities.Book;
-import entities.Comment;
-import entities.Person;
+import entities.User;
 import entities.Transaction;
 import utils.*;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -21,7 +17,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import org.hibernate.Session;
 
-import javax.persistence.Index;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -119,9 +114,6 @@ public class BookSearchController {
     @FXML
     private ImageView thumbnail_ImageView;
 
-    @FXML
-    private ImageView searchThumbnail_ImageView;
-
     private ObservableList<Book> bookList;
 
     private List<Object[]> recommendedBookList;
@@ -158,21 +150,6 @@ public class BookSearchController {
                 }
             }
         });
-
-        searchTable_TableView.getSelectionModel().selectedItemProperty().addListener(
-                new ChangeListener<Book>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Book> observable, Book oldValue, Book newValue) {
-                        if (newValue != null) {
-                            if (newValue.getThumbnailLink() != null) {
-                                searchThumbnail_ImageView.setImage(new Image(newValue.getThumbnailLink()));
-                            } else {
-                                searchThumbnail_ImageView.setImage(null);
-                            }
-                        }
-                    }
-                }
-        );
     }
 
     private void addTextFieldListener(TextField textField) {
@@ -229,7 +206,7 @@ public class BookSearchController {
 
     private void mapColumnValue() {
         bookTitle_Column.setCellValueFactory(new PropertyValueFactory<>("title"));
-        bookID_Column.setCellValueFactory(new PropertyValueFactory<>("isbn"));
+        bookID_Column.setCellValueFactory(new PropertyValueFactory<>("id"));
         author_Column.setCellValueFactory(new PropertyValueFactory<>("author"));
         category_Column.setCellValueFactory(new PropertyValueFactory<>("category"));
         description_Column.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -274,7 +251,7 @@ public class BookSearchController {
             return;
         }
         List<Transaction> transactions = new ArrayList<>();
-        Person currentUser = AccountUserUtils.getCurrentUser();
+        User currentUser = AccountUserUtils.getCurrentUser();
         StringBuilder alert = new StringBuilder();
         if (currentUser == null) {
             PopupUtils.showAlert("User is null");
@@ -285,7 +262,7 @@ public class BookSearchController {
             }
             if (alert.isEmpty()) {
                 transactions.add(new Transaction(book, currentUser));
-                booksID.add(book.getIsbn());
+                booksID.add(book.getId());
             }
         }
         if (alert.isEmpty()) {
@@ -305,11 +282,13 @@ public class BookSearchController {
         } catch (IndexOutOfBoundsException e) {
             return;
         }
+        String bestComment = (BookUtils.getBestCommentOfBook(book[6].toString()) == null) ? "null" : BookUtils.getBestCommentOfBook(book[6].toString()).toString();
+
         title_Text.setText("Title:" + book[0].toString() + '\n');
         author_Text.setText("Author: " + book[1].toString() + '\n');
         category_Text.setText("Category: " + book[2].toString() + '\n');
         publishedYear_Text.setText("Published Year: " + book[3].toString() + '\n');
-        description_Text.setText("Description: " + FormatUtils.getShortDescription(book[4].toString(), 500) + '\n');
+        description_Text.setText("Description: " + FormatUtils.getShortDescription(book[4].toString(), 500) + '\n' + "User comment: " + bestComment);
 
         ratingStar_Label.setText("Rating: " + book[5].toString());
 
@@ -332,9 +311,9 @@ public class BookSearchController {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Book book = session.get(Book.class, book_id);
         session.close();
-        books.add(book.getIsbn());
+        books.add(book.getId());
 
-        Person currentUser = AccountUserUtils.getCurrentUser();
+        User currentUser = AccountUserUtils.getCurrentUser();
         transactions.add(new Transaction(book, currentUser));
 
         TransactionUtils.addBorrowTransactions(transactions);

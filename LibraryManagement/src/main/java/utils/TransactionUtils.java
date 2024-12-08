@@ -75,7 +75,7 @@ public class TransactionUtils {
             stringBuilder.append(" AND b.user.username =:username");
 
             if (isbn != null) {
-                stringBuilder.append(" AND b.book.isbn LIKE :isbn");
+                stringBuilder.append(" AND b.book.id LIKE :isbn");
                 System.out.println("isbn" + isbn);
             }
             if (title != null) {

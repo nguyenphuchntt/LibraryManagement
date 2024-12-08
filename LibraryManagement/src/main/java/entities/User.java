@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "user")
-public class Person {
+public class User {
 
     @Id
     @Column(name = "username")
@@ -27,7 +27,7 @@ public class Person {
     protected String department;
 
 
-    protected Person(Builder<?> builder) {
+    protected User(Builder<?> builder) {
         this.name = builder.name;
         this.age = builder.age;
         this.gender = builder.gender;
@@ -36,7 +36,7 @@ public class Person {
         this.username = builder.username;
     }
 
-    public Person() {}
+    public User() {}
 
     public static class Builder<T extends Builder<T>> {
         protected String username;
@@ -86,8 +86,8 @@ public class Person {
             return (T) this;
         }
 
-        public Person build() {
-            return new Person(this);
+        public User build() {
+            return new User(this);
         }
     }
     public Account getAccount() {
