@@ -12,26 +12,26 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="LeftSideBar_VBox" prefHeight="755.0" prefWidth="200.0" style="-fx-background-color: #e6fcfa;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
+<VBox fx:id="LeftSideBar_VBox" prefHeight="755.0" prefWidth="200.0" style="-fx-background-color: #e6fcfa;" stylesheets="@../css/LeftSideBar.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
     <children>
-        <AnchorPane fx:id="AccountInfo_Pane" prefHeight="135.0" prefWidth="200.0">
+        <AnchorPane fx:id="AccountInfo_Pane" prefHeight="90.0" prefWidth="200.0">
             <children>
-                <ImageView fx:id="UserImage_ImageView" fitHeight="242.0" fitWidth="73.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="UserImage_ImageView" fitHeight="90.0" fitWidth="75.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../assets/img/user_icon.png" />
                     </image>
                 </ImageView>
-                <Circle fx:id="Status_Circle" fill="DODGERBLUE" layoutX="87.0" layoutY="106.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
-                <Label fx:id="role_Label" layoutX="100.0" layoutY="98.0" prefHeight="16.0" prefWidth="59.0" />
-            <Label fx:id="username_Label" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="82.0" layoutY="60.0" prefHeight="16.0" prefWidth="112.0" />
-            <Label layoutX="47.0" layoutY="8.0" text="WELCOME!">
+                <Circle fx:id="Status_Circle" fill="DODGERBLUE" layoutX="87.0" layoutY="76.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                <Label fx:id="role_Label" layoutX="100.0" layoutY="68.0" prefHeight="16.0" prefWidth="59.0" />
+            <Label fx:id="username_Label" alignment="CENTER" contentDisplay="CENTER" layoutX="82.0" layoutY="40.0" prefHeight="16.0" prefWidth="112.0" />
+            <Label layoutX="82.0" layoutY="8.0" text="WELCOME!">
                <font>
                   <Font size="19.0" />
                </font>
             </Label>
             </children>
         </AnchorPane>
-        <Label fx:id="MainNavigation_Label" prefHeight="41.0" prefWidth="200.0" style="-fx-background-color: #3c8dbc;" text="MAIN NAVIGATION">
+        <Label fx:id="MainNavigation_Label" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #3c8dbc;" text="MAIN_NAVIGATION">
             <padding>
                 <Insets left="15.0" />
             </padding>

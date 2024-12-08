@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SignupController">
+<AnchorPane prefHeight="800.0" prefWidth="1100.0" style="-fx-background-color: #ffffff;" stylesheets="@../css/SignUp.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SignupController">
     <children>
         <ImageView fitHeight="800.0" fitWidth="616.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -39,7 +39,7 @@
                         <Image url="@../assets/img/login_user_icon.png" />
                     </image>
                 </ImageView>
-                <Button fx:id="switchToLogin_Button" layoutX="350.0" layoutY="774.0" mnemonicParsing="false" onAction="#handleHadAccount" text="Have an account?" />
+                <Button fx:id="switchToLogin_Button" layoutX="188.0" layoutY="607.0" mnemonicParsing="false" onAction="#handleHadAccount" text="Have an account?" />
             <Label fx:id="signupMessage_Label" alignment="CENTER" layoutX="93.0" layoutY="611.0" prefHeight="16.0" prefWidth="284.0" />
             </children>
         </Pane>

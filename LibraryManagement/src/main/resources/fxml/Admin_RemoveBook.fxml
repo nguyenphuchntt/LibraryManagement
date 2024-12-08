@@ -3,11 +3,10 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800" minWidth="1100" prefHeight="800.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminRemoveBookController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800" minWidth="1100" prefHeight="800.0" prefWidth="1100.0" stylesheets="@../css/Admin_RemoveBook.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminRemoveBookController">
     <children>
         <AnchorPane layoutX="200.0" layoutY="45.0" prefHeight="755.0" prefWidth="900.0">
             <children>
@@ -16,16 +15,16 @@
                         <Font size="21.0" />
                     </font>
                 </Label>
-                <AnchorPane layoutX="56.0" layoutY="164.0" prefHeight="503.0" prefWidth="772.0">
+                <AnchorPane layoutX="64.0" layoutY="170.0" prefHeight="503.0" prefWidth="772.0">
                     <children>
-                  <Label fx:id="description_Label" alignment="TOP_LEFT" layoutX="12.0" layoutY="67.0" prefHeight="337.0" prefWidth="539.0" wrapText="true" />
+                  <Label fx:id="description_Label" alignment="TOP_LEFT" layoutX="12.0" layoutY="93.0" prefHeight="318.0" prefWidth="749.0" wrapText="true" />
                         <Label layoutX="20.0" layoutY="26.0" text="BOOK ID" />
                         <TextField fx:id="bookID_TextField" layoutX="125.0" layoutY="22.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book ID / ISBN" />
+                        <Label layoutX="20.0" layoutY="75.0" text="AMOUNT *" />
+                        <TextField fx:id="amount_TextField" layoutX="125.0" layoutY="63.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter a number" />
                         <Button fx:id="remove_Button" layoutX="349.0" layoutY="451.0" mnemonicParsing="false" onAction="#handleRemoveBook" text="REMOVE" />
-                  <Label fx:id="removeMessage_Label" alignment="CENTER" contentDisplay="CENTER" layoutX="125.0" layoutY="425.0" prefHeight="16.0" prefWidth="523.0" textAlignment="CENTER" />
-                  <Button fx:id="check_Button" layoutX="410.0" layoutY="22.0" mnemonicParsing="false" onAction="#handleCheck" text="CHECK" />
-                  <ImageView fx:id="thumbnail_ImageView" fitHeight="187.0" fitWidth="153.0" layoutX="587.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="thumbnail_Label" alignment="CENTER" layoutX="601.0" layoutY="220.0" prefHeight="16.0" prefWidth="126.0" />
+                  <Label fx:id="removeMessage_Label" alignment="CENTER" contentDisplay="CENTER" layoutX="198.0" layoutY="393.0" prefHeight="16.0" prefWidth="377.0" textAlignment="CENTER" />
+                  <Button fx:id="check_Button" layoutX="420.0" layoutY="66.0" mnemonicParsing="false" onAction="#handleCheck" text="CHECK" />
                     </children>
                 </AnchorPane>
             </children></AnchorPane>
