@@ -1,0 +1,55 @@
+VBox {
+    -fx-background-color: #f0f0f0;
+    -fx-padding: 10px;
+    -fx-spacing: 10px;
+    -fx-background-radius: 20px;
+    -fx-alignment: center;
+}
+
+#message_TextArea {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 20px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+    -fx-prompt-text-fill: #888888;
+    -fx-min-height: 150px;
+    -fx-max-height: 150px;
+    -fx-min-width: 350px;
+    -fx-max-width: 350px;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 20px;
+}
+
+#message_TextArea:focused {
+    -fx-border-color: #3498db;
+    -fx-border-width: 2px;
+}
+
+Button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-background-radius: 20px;
+    -fx-font-size: 14px;
+    -fx-pref-height: 40px;
+    -fx-pref-width: 80px;
+    -fx-cursor: hand;
+}
+
+Button:hover {
+    -fx-background-color: #2980b9;
+}
+
+Button:pressed {
+    -fx-background-color: #2471a3;
+}
+
+ScrollPane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+#chatBox {
+    -fx-background-color: transparent;
+    -fx-spacing: 5px;
+}

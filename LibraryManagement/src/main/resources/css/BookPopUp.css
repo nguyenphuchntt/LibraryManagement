@@ -1,0 +1,112 @@
+AnchorPane {
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 15px;
+    -fx-padding: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.5, 0, 0);
+}
+
+#title_Label {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3498db;
+    -fx-alignment: CENTER;
+}
+
+#thumbnail_ImageView {
+    -fx-border-radius: 15px;
+    -fx-border-color: #3498db;
+    -fx-border-width: 2px;
+}
+
+#id_Label, #author_Label, #publisher_Label, #year_Label, #category_Label, #quantity_Label, #description_Label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+    -fx-padding: 5px 0;
+}
+
+#description_Label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+    -fx-padding: 10px;
+    -fx-background-color: #f7f9fb;
+    -fx-border-radius: 10px;
+    -fx-border-color: #ccc;
+}
+
+#thumbnailMessage_Label {
+    -fx-text-fill: red;
+    -fx-font-weight: bold;
+}
+
+#postComment_AnchorPane {
+    -fx-background-color: #f7f9fb;
+    -fx-border-radius: 15px;
+    -fx-padding: 15px;
+    -fx-border-color: #3498db;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 0);
+}
+
+#comment_TextArea {
+    -fx-border-radius: 10px;
+    -fx-border-color: #3498db;
+    -fx-background-color: #ffffff;
+    -fx-font-size: 14px;
+    -fx-padding: 10px;
+    -fx-text-fill: #333333;
+}
+
+#post_Button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-background-radius: 20px;
+    -fx-padding: 10px 20px;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+
+#post_Button:hover {
+    -fx-background-color: #2980b9;
+}
+
+#post_Button:pressed {
+    -fx-background-color: #2471a3;
+}
+
+#oneStar_Button, #twoStart_Button, #threeStar_Button, #fourStar_Button, #fiveStar_Button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-background-radius: 15px;
+    -fx-padding: 5px 10px;
+    -fx-font-size: 12px;
+    -fx-cursor: hand;
+}
+
+#oneStar_Button:hover, #twoStart_Button:hover, #threeStar_Button:hover, #fourStar_Button:hover, #fiveStar_Button:hover {
+    -fx-background-color: #2980b9;
+}
+
+#oneStar_Button:pressed, #twoStart_Button:pressed, #threeStar_Button:pressed, #fourStar_Button:pressed, #fiveStar_Button:pressed {
+    -fx-background-color: #2471a3;
+}
+
+#postCommentMessage_Label {
+    -fx-text-fill: green;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER;
+}
+
+#oldComment_AnchorPane {
+    -fx-background-color: #f7f9fb;
+    -fx-border-radius: 15px;
+    -fx-padding: 15px;
+    -fx-border-color: #3498db;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.5, 0, 0);
+}
+
+#comments_Label {
+    -fx-text-fill: #333333;
+    -fx-font-size: 14px;
+    -fx-wrap-text: true;
+}

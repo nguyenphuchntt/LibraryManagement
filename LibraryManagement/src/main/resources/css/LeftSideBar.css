@@ -1,0 +1,112 @@
+#LeftSideBar_VBox {
+    -fx-background-color: #e6fcfa;
+    -fx-padding: 20px;
+    -fx-spacing: 20px;
+    -fx-alignment: top_center;
+}
+
+#AccountInfo_Pane {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 15px;
+    -fx-padding: 15px;
+    -fx-spacing: 10px;
+    -fx-effect: dropshadow(gaussian, #888, 10, 0.5, 0, 0);
+}
+
+#UserImage_ImageView {
+    -fx-effect: dropshadow(gaussian, #333, 5, 0.5, 0, 0);
+    -fx-background-radius: 50%;
+}
+
+#Status_Circle {
+    -fx-fill: #4CAF50;
+    -fx-radius: 7px;
+    -fx-stroke: #ffffff;
+}
+
+#AccountInfo_Pane Label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-background-radius: 10px;
+}
+
+#AccountInfo_Pane #username_Label {
+    -fx-font-size: 18px;
+    -fx-text-fill: #225462;
+}
+
+#MainNavigation_Label {
+    -fx-background-color: #3c8dbc;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-padding: 5px 0;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10px;
+}
+
+Button {
+    -fx-background-color: #225462;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-pref-height: 50px;
+    -fx-pref-width: 200px;
+    -fx-background-radius: 10px;
+    -fx-border-color: transparent;
+    -fx-padding: 0 15px;
+    -fx-effect: dropshadow(gaussian, #888, 5, 0.5, 0, 0);
+}
+
+Button:hover {
+    -fx-background-color: #1d4f65;
+    -fx-cursor: hand;
+}
+
+MenuButton {
+    -fx-background-color: #225462;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10px;
+    -fx-pref-height: 50px;
+    -fx-pref-width: 200px;
+    -fx-padding: 0 15px;
+}
+
+MenuButton .menu-item {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #225462;
+    -fx-font-size: 14px;
+    -fx-font-weight: normal;
+    -fx-background-radius: 10px;
+}
+
+MenuButton .menu-item:hover {
+    -fx-background-color: #225462;
+    -fx-text-fill: white;
+}
+
+TextField {
+    -fx-background-color: #f5f5f5;
+    -fx-border-color: #cccccc;
+    -fx-background-radius: 10px;
+    -fx-pref-height: 30px;
+    -fx-pref-width: 200px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+TextField:focused {
+    -fx-border-color: #225462;
+    -fx-background-color: #ffffff;
+}
+
+#MainNavigation_Label {
+    -fx-background-color: #225462;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-padding: 10px 0;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10px;
+}
