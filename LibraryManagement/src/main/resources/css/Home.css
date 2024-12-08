@@ -1,0 +1,140 @@
+/* Nền trắng cho toàn bộ AnchorPane */
+AnchorPane {
+    -fx-background-color: white;
+    -fx-font-family: 'Roboto', sans-serif;
+    -fx-background-radius: 20px; /* Bo tròn cho toàn bộ AnchorPane */
+}
+
+/* Định dạng cho các AnchorPane con có nền xanh */
+.AnchorPane {
+    -fx-background-color: #3498db; /* Màu xanh da trời */
+    -fx-background-radius: 15px;  /* Bo tròn cho toàn bộ AnchorPane */
+    -fx-padding: 10px;
+}
+
+/* Định dạng chung cho tất cả các Label */
+.Label {
+    -fx-text-fill: #2c3e50; /* Màu chữ tối */
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-background-radius: 10px; /* Bo tròn cho tất cả các Label */
+    -fx-padding: 5px;
+}
+
+/* Định dạng riêng cho các AnchorPane chứa Label */
+.AnchorPane > Label {
+    -fx-background-color: #f1f1f1; /* Màu nền sáng cho Label */
+    -fx-text-fill: #3498db; /* Màu chữ xanh */
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-padding: 8px;
+    -fx-background-radius: 10px; /* Bo tròn cho các Label */
+    -fx-border-radius: 10px; /* Đảm bảo cả viền cũng được bo tròn */
+}
+
+/* Định dạng riêng cho Label Borrowed Books */
+#borrowedBooks_Label {
+    -fx-background-color: #f1f1f1; /* Màu nền sáng */
+    -fx-text-fill: #3498db; /* Màu chữ xanh */
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-padding: 8px;
+    -fx-background-radius: 10px; /* Bo tròn cho Label */
+    -fx-border-radius: 10px; /* Bo tròn cho viền */
+}
+
+/* Định dạng riêng cho Label Returned */
+#returned_Label {
+    -fx-background-color: #f1f1f1; /* Màu nền sáng */
+    -fx-text-fill: #3498db; /* Màu chữ xanh */
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-padding: 8px;
+    -fx-background-radius: 10px; /* Bo tròn cho Label */
+    -fx-border-radius: 10px; /* Bo tròn cho viền */
+}
+
+/* Định dạng riêng cho Label Issues */
+#issues_Label {
+    -fx-background-color: #f1f1f1; /* Màu nền sáng */
+    -fx-text-fill: #3498db; /* Màu chữ xanh */
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-padding: 8px;
+    -fx-background-radius: 10px; /* Bo tròn cho Label */
+    -fx-border-radius: 10px; /* Bo tròn cho viền */
+}
+
+/* Định dạng cho các Label nằm trong AnchorPane */
+.AnchorPane > Label {
+    -fx-background-color: #f1f1f1; /* Màu nền sáng */
+    -fx-text-fill: #3498db; /* Màu chữ xanh */
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-padding: 8px;
+    -fx-background-radius: 10px; /* Bo tròn cho Label */
+    -fx-border-radius: 10px; /* Bo tròn cho viền */
+}
+
+/* Định dạng cho Button */
+#newMessage_Button, #message_Button, #changeInfo_Button {
+    -fx-background-color: #3498db; /* Màu nền xanh */
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 24;
+    -fx-background-radius: 30px;  /* Bo tròn cho Button */
+    -fx-border-radius: 30px;  /* Bo tròn cho viền Button */
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, #3498db, 10, 0.0, 0, 4);
+}
+
+#newMessage_Button:hover, #message_Button:hover, #changeInfo_Button:hover {
+    -fx-background-color: #2980b9;
+    -fx-effect: dropshadow(gaussian, #2980b9, 8, 0.0, 0, 3);
+}
+
+#newMessage_Button:pressed, #message_Button:pressed, #changeInfo_Button:pressed {
+    -fx-background-color: #1c6fa0;
+}
+
+/* Định dạng cho TextField */
+#receiver_TextField {
+    -fx-background-color: #f0f3f4;
+    -fx-border-color: #dcdde1;
+    -fx-border-radius: 20px;  /* Bo tròn cho TextField */
+    -fx-font-size: 14px;
+    -fx-padding: 10px;
+    -fx-pref-width: 250px;
+}
+
+#receiver_TextField:focused {
+    -fx-border-color: #3498db;
+    -fx-background-color: white;
+}
+
+/* Định dạng cho Label thông báo */
+#notifications_Label {
+    -fx-text-fill: #e74c3c; /* Màu đỏ cho cảnh báo thông báo */
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10px;  /* Bo tròn cho Label thông báo */
+    -fx-padding: 5px;
+    -fx-background-color: #f9f9f9; /* Nền sáng cho Label */
+}
+
+/* Định dạng cho Label "Messages" */
+#messages_Label {
+    -fx-text-fill: #3498db; /* Màu xanh cho tiêu đề "Messages" */
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 0;
+    -fx-background-radius: 10px; /* Bo tròn cho tiêu đề */
+    -fx-background-color: transparent; /* Nền trong suốt */
+}

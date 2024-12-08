@@ -1,0 +1,76 @@
+/* Book_Search.css */
+
+/* Import common styles */
+@import url("Book.css");
+
+/* Styling for the search bar */
+#searchBar_TextField {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #3498db;
+    -fx-border-radius: 15px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+#searchBar_TextField:focused {
+    -fx-border-color: #2980b9;
+}
+
+/* Styling for the Search button */
+#borrowSearch_Button, #previousPage_Button, #nextPage_Button, #refresh_Button, #borrowSearch_Button1 {
+    -fx-background-color: #3498db; /* Blue background */
+    -fx-text-fill: white; /* White text */
+    -fx-background-radius: 20px; /* Rounded corners */
+    -fx-padding: 10px 20px; /* Padding inside button */
+    -fx-font-size: 14px; /* Font size */
+    -fx-cursor: hand; /* Hand cursor for interactivity */
+}
+
+#borrowSearch_Button:hover, #previousPage_Button:hover, #nextPage_Button:hover, #refresh_Button:hover, #borrowSearch_Button1:hover {
+    -fx-background-color: #2980b9; /* Darker blue on hover */
+}
+
+#borrowSearch_Button:pressed, #previousPage_Button:pressed, #nextPage_Button:pressed, #refresh_Button:pressed, #borrowSearch_Button1:pressed {
+    -fx-background-color: #2471a3; /* Even darker blue on press */
+}
+
+/* Styling for the filter area */
+#isbn_TextField, #year_TextField, #category_TextField, #author_TextField {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #3498db;
+    -fx-border-radius: 15px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+#isbn_TextField:focused, #year_TextField:focused, #category_TextField:focused, #author_TextField:focused {
+    -fx-border-color: #2980b9;
+}
+
+/* Styling for TextFlow (Add border and round corners) */
+#textFlow {
+    -fx-border-color: #3498db; /* Blue border */
+    -fx-border-radius: 15px; /* Rounded corners */
+    -fx-padding: 15px; /* Padding inside TextFlow */
+    -fx-background-color: #f0faff; /* Light blue background to highlight TextFlow */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 0); /* Shadow effect to make it pop */
+}
+
+/* Styling for TableView */
+#searchTable_TableView {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 15px;
+    -fx-padding: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.5, 0, 0);
+}
+
+/* Specific styling for the search result message */
+#searchMessage_Label {
+    -fx-background-color: #f7f9fb;
+    -fx-text-fill: #3498db;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}

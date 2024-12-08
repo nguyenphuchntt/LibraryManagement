@@ -1,0 +1,136 @@
+/* Định dạng chung cho AnchorPane */
+.AnchorPane {
+    -fx-background-color: #3498db;            /* Nền màu xanh dương */
+    -fx-background-radius: 15px;              /* Bo tròn cho AnchorPane */
+    -fx-padding: 10px;
+}
+
+/* Định dạng chung cho các Label */
+.Label {
+    -fx-text-fill: #2c3e50;                   /* Màu chữ tối */
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-background-radius: 10px;
+    -fx-padding: 5px;
+}
+
+/* Định dạng cho các Label chứa trong AnchorPane */
+.AnchorPane > Label {
+    -fx-background-color: #f1f1f1;           /* Màu nền sáng cho Label */
+    -fx-text-fill: #3498db;                   /* Màu chữ xanh dương */
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-padding: 8px;
+    -fx-background-radius: 10px;             /* Bo tròn cho Label */
+    -fx-border-radius: 10px;                 /* Bo tròn cho viền Label */
+}
+
+/* Định dạng cho TextField */
+.TextField {
+    -fx-background-color: #f0f3f4;           /* Nền sáng cho TextField */
+    -fx-border-color: #3498db;               /* Viền màu xanh dương */
+    -fx-border-radius: 20px;                 /* Bo tròn cho viền TextField */
+    -fx-font-size: 14px;                     /* Kích thước chữ */
+    -fx-padding: 10px;                       /* Padding trong TextField */
+    -fx-pref-width: 250px;                   /* Chiều rộng mặc định của TextField */
+}
+
+/* Định dạng cho TextField khi focus (chọn vào) */
+.TextField:focused {
+    -fx-border-color: #2980b9;               /* Viền màu xanh đậm khi focus */
+    -fx-background-color: white;             /* Nền trắng khi focus */
+    -fx-text-fill: #2c3e50;                  /* Màu chữ đen khi focus */
+}
+
+/* Định dạng cho TextField khi hover (di chuột qua) */
+.TextField:hover {
+    -fx-border-color: #2980b9;               /* Viền màu xanh đậm khi hover */
+}
+
+/* Định dạng cho Button */
+.Button {
+    -fx-background-color: #3498db;           /* Nền xanh dương cho Button */
+    -fx-text-fill: white;                    /* Màu chữ trắng */
+    -fx-font-size: 14px;                     /* Kích thước chữ */
+    -fx-font-weight: bold;
+    -fx-padding: 8px 24px;                   /* Padding trong Button */
+    -fx-background-radius: 30px;             /* Bo tròn cho Button */
+    -fx-border-radius: 30px;                 /* Bo tròn cho viền Button */
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, #3498db, 10, 0.0, 0, 4);  /* Hiệu ứng bóng */
+}
+
+/* Hiệu ứng hover cho Button */
+.Button:hover {
+    -fx-background-color: #2980b9;           /* Màu xanh đậm khi hover */
+    -fx-effect: dropshadow(gaussian, #2980b9, 8, 0.0, 0, 3);  /* Hiệu ứng bóng khi hover */
+}
+
+/* Hiệu ứng khi Button bị nhấn */
+.Button:pressed {
+    -fx-background-color: #1c6fa0;           /* Màu xanh tối khi nhấn */
+}
+
+/* Định dạng cho Label thông báo */
+#notifications_Label {
+    -fx-text-fill: #e74c3c;                   /* Màu đỏ cho thông báo */
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10px;              /* Bo tròn cho Label thông báo */
+    -fx-padding: 5px;
+    -fx-background-color: #f9f9f9;           /* Nền sáng cho Label thông báo */
+}
+
+/* Định dạng cho Label tiêu đề "REMOVE BOOKS" */
+#removeBooks_Label {
+    -fx-text-fill: #3498db;                   /* Màu chữ xanh dương */
+    -fx-font-size: 21px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 0;
+    -fx-background-radius: 10px;             /* Bo tròn cho tiêu đề */
+    -fx-background-color: transparent;       /* Nền trong suốt */
+}
+
+/* Định dạng cho các Label chứa trong AnchorPane với ID cụ thể */
+#description_Label {
+    -fx-text-fill: #3498db;                   /* Màu chữ xanh dương */
+    -fx-font-size: 14px;
+    -fx-font-weight: normal;
+    -fx-wrap-text: true;
+    -fx-alignment: top-left;
+    -fx-padding: 10px;
+}
+
+/* Định dạng cho các TextField (đặc biệt cho bookID_TextField và amount_TextField) */
+#bookID_TextField, #amount_TextField {
+    -fx-background-color: #f0f3f4;           /* Nền sáng cho TextField */
+    -fx-border-color: #3498db;               /* Viền màu xanh dương */
+    -fx-border-radius: 20px;                 /* Bo tròn cho viền TextField */
+    -fx-font-size: 14px;                     /* Kích thước chữ */
+    -fx-padding: 10px;                       /* Padding trong TextField */
+    -fx-pref-width: 250px;                   /* Chiều rộng mặc định của TextField */
+}
+
+/* Định dạng cho Button (REMOVE và CHECK) */
+#remove_Button, #check_Button {
+    -fx-background-color: #3498db;           /* Màu nền xanh dương */
+    -fx-text-fill: white;                    /* Màu chữ trắng */
+    -fx-font-size: 14px;                     /* Kích thước chữ */
+    -fx-font-weight: bold;
+    -fx-padding: 8px 24px;                   /* Padding trong Button */
+    -fx-background-radius: 30px;             /* Bo tròn cho Button */
+    -fx-border-radius: 30px;                 /* Bo tròn cho viền Button */
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, #3498db, 10, 0.0, 0, 4);  /* Hiệu ứng bóng */
+}
+
+#remove_Button:hover, #check_Button:hover {
+    -fx-background-color: #2980b9;           /* Màu xanh đậm khi hover */
+    -fx-effect: dropshadow(gaussian, #2980b9, 8, 0.0, 0, 3);  /* Hiệu ứng bóng khi hover */
+}
+
+#remove_Button:pressed, #check_Button:pressed {
+    -fx-background-color: #1c6fa0;           /* Màu xanh tối khi nhấn */
+}

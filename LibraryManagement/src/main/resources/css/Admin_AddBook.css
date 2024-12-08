@@ -1,0 +1,76 @@
+/* General Styling */
+@import url("Book.css");
+
+/* Styling for Buttons */
+#add_Button, #search_Button {
+    -fx-background-color: #3498db; /* Blue background */
+    -fx-text-fill: white; /* White text */
+    -fx-background-radius: 20px; /* Rounded corners */
+    -fx-padding: 10px 20px; /* Padding inside button */
+    -fx-font-size: 16px; /* Font size */
+    -fx-cursor: hand; /* Hand cursor for interactivity */
+}
+
+#add_Button:hover, #search_Button:hover {
+    -fx-background-color: #2980b9; /* Darker blue on hover */
+}
+
+#add_Button:pressed, #search_Button:pressed {
+    -fx-background-color: #2471a3; /* Even darker blue on press */
+}
+
+/* Styling for TextFields */
+#bookTitle_TextField, #bookId_TextField, #author_TextField, #amount_TextField, #year_TextField, #category_TextField {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #3498db;
+    -fx-border-radius: 15px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+#bookTitle_TextField:focused, #bookId_TextField:focused, #author_TextField:focused, #amount_TextField:focused, #year_TextField:focused, #category_TextField:focused {
+    -fx-border-color: #2980b9;
+}
+
+/* Styling for TextArea */
+#description_TextArea {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #3498db;
+    -fx-border-radius: 15px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+#description_TextArea:focused {
+    -fx-border-color: #2980b9;
+}
+
+/* Styling for Add Book Title */
+#title_Label {
+    -fx-font-size: 26px; /* Larger font size for title */
+    -fx-font-weight: bold; /* Bold text */
+    -fx-text-fill: #3498db; /* Blue color */
+    -fx-alignment: center; /* Center the title */
+}
+
+/* Styling for Error and Message Labels */
+#internetError_Label {
+    -fx-text-fill: red;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+#addBookMessage_Label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3498db;
+    -fx-alignment: center;
+}
+
+/* Styling for ImageView */
+#thumbnail_ImageView {
+    -fx-border-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0, 0);
+}

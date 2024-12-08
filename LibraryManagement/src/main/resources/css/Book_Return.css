@@ -1,0 +1,55 @@
+/* Book_Return.css */
+
+/* Import common styles */
+@import url("Book.css");
+
+/* Styling for the return book button */
+#return_Button, #previousPage_Button, #nextPage_Button {
+    -fx-background-color: #3498db; /* Blue background */
+    -fx-text-fill: white; /* White text */
+    -fx-background-radius: 20px; /* Rounded corners */
+    -fx-padding: 10px 20px; /* Padding inside button */
+    -fx-font-size: 14px; /* Font size */
+    -fx-cursor: hand; /* Hand cursor for interactivity */
+}
+
+#return_Button:hover, #previousPage_Button:hover, #nextPage_Button:hover {
+    -fx-background-color: #2980b9; /* Darker blue on hover */
+}
+
+#return_Button:pressed, #previousPage_Button:pressed, #nextPage_Button:pressed {
+    -fx-background-color: #2471a3; /* Even darker blue on press */
+}
+
+/* Styling for TextField */
+#isbn_TextField, #year_TextField, #category_TextField, #author_TextField, #searchBar_TextField {
+    -fx-background-color: #ffffff; /* White background */
+    -fx-border-color: #3498db; /* Blue border */
+    -fx-border-radius: 15px; /* Rounded corners */
+    -fx-padding: 10px; /* Padding inside TextField */
+    -fx-font-size: 14px; /* Font size */
+    -fx-text-fill: #333333; /* Dark text */
+    -fx-prompt-text-fill: #888888; /* Gray placeholder text */
+}
+
+#isbn_TextField:focused, #year_TextField:focused, #category_TextField:focused, #author_TextField:focused, #searchBar_TextField:focused {
+    -fx-border-color: #2980b9; /* Darker blue border on focus */
+    -fx-border-width: 2px;
+}
+
+/* Styling for TableView */
+#returnTable_TableView {
+    -fx-background-color: #ffffff; /* White background */
+    -fx-border-color: #cccccc; /* Light gray border */
+    -fx-border-radius: 15px; /* Rounded corners */
+    -fx-padding: 10px; /* Padding around the table */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.5, 0, 0); /* Shadow effect */
+}
+
+/* Specific styling for the return message */
+#returnMessage_Label {
+    -fx-background-color: #f7f9fb; /* Light gray background */
+    -fx-text-fill: #3498db; /* Blue text */
+    -fx-font-size: 18px; /* Larger font size */
+    -fx-font-weight: bold; /* Bold text */
+}

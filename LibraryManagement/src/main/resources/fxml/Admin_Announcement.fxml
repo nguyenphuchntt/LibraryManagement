@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800" minWidth="1100" prefHeight="800.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminAnnouncementController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800" minWidth="1100" prefHeight="800.0" prefWidth="1100.0" stylesheets="@../css/Admin_Annoucement.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminAnnouncementController">
    <children>
       <AnchorPane layoutX="200.0" layoutY="45.0" prefHeight="755.0" prefWidth="900.0">
          <children>
@@ -17,11 +17,11 @@
                </font>
             </Label>
             <TextArea fx:id="content_TextArea" layoutX="81.0" layoutY="115.0" prefHeight="161.0" prefWidth="772.0" promptText="Type here!" />
-            <Button fx:id="send_Button" layoutX="81.0" layoutY="366.0" mnemonicParsing="false" onAction="#handleSendButton" text="SEND" />
-            <Label layoutX="81.0" layoutY="297.0" text="Start time: " />
-            <Label layoutX="81.0" layoutY="334.0" text="End time:" />
+            <Button fx:id="send_Button" layoutX="75.0" layoutY="404.0" mnemonicParsing="false" onAction="#handleSendButton" text="SEND" />
+            <Label layoutX="81.0" layoutY="309.0" text="Start time: " />
+            <Label layoutX="85.0" layoutY="360.0" text="End time:" />
             <DatePicker fx:id="startTime_DatePicker" layoutX="160.0" layoutY="293.0" />
-            <DatePicker fx:id="endTime_DatePicker" layoutX="160.0" layoutY="330.0" />
+            <DatePicker fx:id="endTime_DatePicker" layoutX="160.0" layoutY="344.0" />
          </children>
       </AnchorPane>
    </children>

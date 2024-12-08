@@ -1,0 +1,69 @@
+/* common.css */
+
+/* General styling for the AnchorPane */
+AnchorPane {
+    -fx-background-color: #f7f9fb; /* Background color light gray */
+    -fx-padding: 20px;
+    -fx-spacing: 20px;
+}
+
+/* Styling for labels */
+.Label {
+    -fx-text-fill: #333333; /* Dark text */
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+/* Styling for TextFields with rounded corners */
+.TextField {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #3498db; /* Blue border */
+    -fx-border-radius: 15px; /* Rounded corners */
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+    -fx-prompt-text-fill: #888888;
+}
+
+.TextField:focused {
+    -fx-border-color: #2980b9; /* Darker blue border on focus */
+    -fx-border-width: 2px;
+}
+
+/* Styling for buttons with rounded corners and blue color */
+.Button {
+    -fx-background-color: #3498db; /* Blue background */
+    -fx-text-fill: white;
+    -fx-background-radius: 20px; /* Rounded corners */
+    -fx-font-size: 14px;
+    -fx-padding: 10px 20px;
+    -fx-cursor: hand;
+}
+
+.Button:hover {
+    -fx-background-color: #2980b9; /* Darker blue on hover */
+}
+
+.Button:pressed {
+    -fx-background-color: #2471a3; /* Even darker blue on press */
+}
+
+/* Styling for TableView with rounded borders */
+.TableView {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 15px; /* Rounded corners */
+    -fx-padding: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.5, 0, 0);
+}
+
+/* Styling for Table columns */
+.TableColumn {
+    -fx-background-color: #3498db; /* Blue header background */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
+.TableColumnHeader {
+    -fx-background-color: #2980b9; /* Darker blue for column headers */
+}

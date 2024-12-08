@@ -1,0 +1,71 @@
+/* General Styling */
+@import url("Book.css");
+
+/* Styling for Buttons */
+#send_Button {
+    -fx-background-color: #3498db; /* Blue background */
+    -fx-text-fill: white; /* White text */
+    -fx-background-radius: 20px; /* Rounded corners */
+    -fx-padding: 10px 20px; /* Padding inside button */
+    -fx-font-size: 16px; /* Font size */
+    -fx-cursor: hand; /* Hand cursor for interactivity */
+}
+
+#send_Button:hover {
+    -fx-background-color: #2980b9; /* Darker blue on hover */
+}
+
+#send_Button:pressed {
+    -fx-background-color: #2471a3; /* Even darker blue on press */
+}
+
+/* Styling for TextArea */
+#content_TextArea {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #3498db;
+    -fx-border-radius: 15px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+#content_TextArea:focused {
+    -fx-border-color: #2980b9;
+}
+
+/* Styling for DatePicker */
+#startTime_DatePicker, #endTime_DatePicker {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #3498db;
+    -fx-border-radius: 15px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+#startTime_DatePicker:focused, #endTime_DatePicker:focused {
+    -fx-border-color: #2980b9;
+}
+
+/* Styling for Labels */
+#send_Label {
+    -fx-font-size: 21px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3498db;
+    -fx-alignment: center;
+}
+
+/* Styling for Text labels */
+Label {
+    -fx-font-size: 14px;
+    -fx-font-weight: normal;
+    -fx-text-fill: #333333;
+}
+
+/* Styling for Error and Message Labels */
+#announcementMessage_Label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3498db;
+    -fx-alignment: center;
+}

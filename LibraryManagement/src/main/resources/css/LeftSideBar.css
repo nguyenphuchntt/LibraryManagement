@@ -1,0 +1,127 @@
+/* Định dạng cho VBox chứa sidebar */
+#LeftSideBar_VBox {
+    -fx-background-color: #e6fcfa; /* Nền sáng màu xanh nhạt */
+    -fx-padding: 20px; /* Khoảng cách giữa các thành phần và viền */
+    -fx-spacing: 20px; /* Khoảng cách giữa các thành phần */
+    -fx-alignment: top_center;
+}
+
+/* Định dạng cho AnchorPane chứa thông tin tài khoản */
+#AccountInfo_Pane {
+    -fx-background-color: #ffffff; /* Nền trắng */
+    -fx-background-radius: 15px; /* Bo tròn các góc */
+    -fx-padding: 15px;
+    -fx-spacing: 10px;
+    -fx-effect: dropshadow(gaussian, #888, 10, 0.5, 0, 0); /* Hiệu ứng đổ bóng */
+}
+
+/* Định dạng cho ImageView (Ảnh đại diện) */
+#UserImage_ImageView {
+    -fx-effect: dropshadow(gaussian, #333, 5, 0.5, 0, 0); /* Hiệu ứng đổ bóng cho ảnh */
+    -fx-background-radius: 50%; /* Bo tròn hình ảnh */
+}
+
+/* Định dạng cho Circle (Trạng thái online/offline) */
+#Status_Circle {
+    -fx-fill: #4CAF50; /* Màu xanh lá cho trạng thái online */
+    -fx-radius: 7px; /* Kích thước vòng tròn trạng thái */
+    -fx-stroke: #ffffff; /* Màu viền trắng */
+}
+
+/* Định dạng cho các Label trong AccountInfo_Pane */
+#AccountInfo_Pane Label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333; /* Màu chữ tối */
+    -fx-background-radius: 10px; /* Bo tròn các góc của label */
+}
+
+/* Định dạng cho Label 'WELCOME!' */
+#AccountInfo_Pane #username_Label {
+    -fx-font-size: 18px;
+    -fx-text-fill: #225462; /* Màu xanh đậm */
+}
+
+/* Định dạng cho các Label của các phần khác */
+#MainNavigation_Label {
+    -fx-background-color: #3c8dbc; /* Màu nền xanh dương */
+    -fx-text-fill: white; /* Màu chữ trắng */
+    -fx-font-size: 16px;
+    -fx-padding: 5px 0;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10px;
+}
+
+/* Định dạng cho các Button */
+Button {
+    -fx-background-color: #225462; /* Màu nền xanh đậm */
+    -fx-text-fill: white; /* Màu chữ trắng */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-pref-height: 50px;
+    -fx-pref-width: 200px;
+    -fx-background-radius: 10px; /* Bo tròn các góc */
+    -fx-border-color: transparent; /* Không có viền */
+    -fx-padding: 0 15px;
+    -fx-effect: dropshadow(gaussian, #888, 5, 0.5, 0, 0); /* Hiệu ứng đổ bóng */
+}
+
+/* Định dạng cho Button khi hover */
+Button:hover {
+    -fx-background-color: #1d4f65; /* Màu nền xanh đậm hơn khi hover */
+    -fx-cursor: hand; /* Con trỏ tay khi hover */
+}
+
+/* Định dạng cho MenuButton */
+MenuButton {
+    -fx-background-color: #225462; /* Màu nền xanh đậm */
+    -fx-text-fill: white; /* Màu chữ trắng */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10px;
+    -fx-pref-height: 50px;
+    -fx-pref-width: 200px;
+    -fx-padding: 0 15px;
+}
+
+/* Định dạng cho các MenuItem trong MenuButton */
+MenuButton .menu-item {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #225462; /* Màu chữ xanh đậm */
+    -fx-font-size: 14px;
+    -fx-font-weight: normal;
+    -fx-background-radius: 10px;
+}
+
+/* Định dạng khi hover trên MenuItem */
+MenuButton .menu-item:hover {
+    -fx-background-color: #225462; /* Màu nền xanh khi hover */
+    -fx-text-fill: white; /* Màu chữ trắng khi hover */
+}
+
+/* Định dạng cho TextField */
+TextField {
+    -fx-background-color: #f5f5f5; /* Màu nền sáng cho TextField */
+    -fx-border-color: #cccccc; /* Màu viền xám */
+    -fx-background-radius: 10px; /* Bo tròn các góc */
+    -fx-pref-height: 30px;
+    -fx-pref-width: 200px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333; /* Màu chữ tối */
+}
+
+/* Định dạng cho TextField khi focus */
+TextField:focused {
+    -fx-border-color: #225462; /* Màu viền xanh khi focus */
+    -fx-background-color: #ffffff; /* Màu nền trắng khi focus */
+}
+
+/* Định dạng cho Label chứa tiêu đề như 'MAIN_NAVIGATION' */
+#MainNavigation_Label {
+    -fx-background-color: #225462; /* Màu nền xanh đậm */
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-padding: 10px 0;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10px;
+}

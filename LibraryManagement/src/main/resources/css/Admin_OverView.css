@@ -1,0 +1,196 @@
+/* Tổng quan chung cho giao diện */
+.root {
+    -fx-font-family: "Arial", sans-serif; /* Chọn font cho toàn bộ giao diện */
+    -fx-font-size: 14px;                  /* Kích thước font chung */
+    -fx-background-color: #f4f4f9;        /* Màu nền của toàn bộ ứng dụng */
+    -fx-padding: 20px;                    /* Padding xung quanh */
+}
+
+/* Tiêu đề */
+.title {
+    -fx-font-size: 24px;                  /* Kích thước chữ tiêu đề */
+    -fx-font-weight: bold;                /* Đậm */
+    -fx-text-fill: #2c3e50;               /* Màu chữ */
+    -fx-alignment: center;                /* Căn giữa tiêu đề */
+}
+
+/* Định dạng cho Label */
+.label {
+    -fx-font-size: 14px;                  /* Kích thước chữ của Label */
+    -fx-text-fill: #2c3e50;               /* Màu chữ */
+    -fx-padding: 5px 0;                   /* Padding cho Label */
+}
+
+/* Định dạng cho Button */
+.button {
+    -fx-background-color: #3498db;        /* Màu nền của Button */
+    -fx-text-fill: white;                 /* Màu chữ */
+    -fx-font-size: 14px;                  /* Kích thước font */
+    -fx-font-weight: bold;                /* In đậm */
+    -fx-padding: 10px 20px;               /* Padding cho Button */
+    -fx-background-radius: 30px;          /* Bo tròn góc button */
+    -fx-border-radius: 30px;              /* Viền bo tròn */
+    -fx-cursor: hand;                     /* Con trỏ chuột khi hover */
+    -fx-effect: dropshadow(gaussian, #3498db, 10, 0.0, 0, 4); /* Đổ bóng nhẹ */
+}
+
+/* Button Hover */
+.button:hover {
+    -fx-background-color: #2980b9;        /* Màu nền khi hover */
+    -fx-effect: dropshadow(gaussian, #2980b9, 8, 0.0, 0, 3); /* Hiệu ứng đổ bóng khi hover */
+}
+
+/* Button Pressed */
+.button:pressed {
+    -fx-background-color: #1c6fa0;        /* Màu nền khi nhấn */
+}
+
+/* Định dạng cho TextField */
+.text-field {
+    -fx-background-color: #f0f3f4;        /* Màu nền sáng cho TextField */
+    -fx-border-color: #dcdde1;            /* Màu viền sáng */
+    -fx-border-radius: 20px;              /* Bo tròn góc */
+    -fx-font-size: 14px;                  /* Kích thước font chữ */
+    -fx-padding: 10px;                    /* Padding bên trong */
+    -fx-pref-width: 250px;                /* Chiều rộng mặc định */
+}
+
+/* TextField Focused */
+.text-field:focused {
+    -fx-border-color: #3498db;            /* Viền xanh khi focus */
+    -fx-background-color: white;          /* Nền trắng khi focus */
+}
+
+/* Định dạng cho ComboBox */
+.combo-box {
+    -fx-background-color: #f0f3f4;        /* Màu nền sáng */
+    -fx-border-color: #dcdde1;            /* Màu viền sáng */
+    -fx-border-radius: 20px;              /* Bo tròn góc */
+    -fx-font-size: 14px;                  /* Kích thước font chữ */
+    -fx-padding: 10px;                    /* Padding bên trong */
+    -fx-pref-width: 250px;                /* Chiều rộng mặc định */
+}
+
+/* ComboBox Focused */
+.combo-box:focused {
+    -fx-border-color: #3498db;            /* Viền xanh khi focus */
+    -fx-background-color: white;          /* Nền trắng khi focus */
+}
+
+/* Định dạng cho Tooltip */
+.tooltip {
+    -fx-background-color: #2c3e50;        /* Màu nền tối */
+    -fx-text-fill: white;                 /* Màu chữ trắng */
+    -fx-font-size: 12px;                  /* Kích thước font chữ */
+    -fx-background-radius: 5px;           /* Bo tròn góc */
+    -fx-padding: 5px;                     /* Padding */
+}
+
+/* Định dạng cho TableView */
+.table-view {
+    -fx-background-color: #ffffff;        /* Nền trắng cho bảng */
+    -fx-border-color: #dcdde1;            /* Viền sáng */
+    -fx-border-radius: 10px;              /* Bo tròn góc */
+    -fx-padding: 10px;                    /* Padding cho TableView */
+}
+
+/* Tiêu đề cột trong TableView */
+.table-view .column-header-background {
+    -fx-background-color: #3498db;        /* Màu nền cho tiêu đề cột */
+}
+
+/* Dòng chọn trong TableView */
+.table-view .selected {
+    -fx-background-color: #2980b9;        /* Màu nền khi chọn dòng */
+}
+
+/* Định dạng cho HBox (dùng cho bố cục ngang) */
+.hbox {
+    -fx-spacing: 20px;                    /* Khoảng cách giữa các thành phần trong HBox */
+    -fx-alignment: center;                /* Căn giữa */
+}
+
+/* Định dạng cho VBox (dùng cho bố cục dọc) */
+.vbox {
+    -fx-spacing: 15px;                    /* Khoảng cách giữa các thành phần trong VBox */
+    -fx-alignment: top_center;            /* Căn phần tử trong VBox */
+}
+
+/* Định dạng cho AnchorPane */
+AnchorPane {
+    -fx-background-color: white;
+    -fx-font-family: 'Roboto', sans-serif;
+    -fx-background-radius: 20px; /* Bo tròn cho toàn bộ AnchorPane */
+}
+
+/* Định dạng cho các AnchorPane con có nền xanh */
+.AnchorPane {
+    -fx-background-color: #3498db; /* Màu xanh da trời */
+    -fx-background-radius: 15px;  /* Bo tròn cho toàn bộ AnchorPane */
+    -fx-padding: 10px;
+}
+
+/* Định dạng chung cho tất cả các Label */
+.Label {
+    -fx-text-fill: #2c3e50; /* Màu chữ tối */
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-background-radius: 10px; /* Bo tròn cho tất cả các Label */
+    -fx-padding: 5px;
+}
+
+/* Định dạng riêng cho các AnchorPane chứa Label */
+.AnchorPane > Label {
+    -fx-background-color: #f1f1f1; /* Màu nền sáng cho Label */
+    -fx-text-fill: #3498db; /* Màu chữ xanh */
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-padding: 8px;
+    -fx-background-radius: 10px; /* Bo tròn cho các Label */
+    -fx-border-radius: 10px; /* Đảm bảo cả viền cũng được bo tròn */
+}
+
+.AnchorPane > Label {
+    -fx-background-color: #f1f1f1; /* Màu nền sáng */
+    -fx-text-fill: #3498db; /* Màu chữ xanh */
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-padding: 8px;
+    -fx-background-radius: 10px; /* Bo tròn cho Label */
+    -fx-border-radius: 10px; /* Bo tròn cho viền */
+}
+
+/* Định dạng cho ScrollPane (giúp cuộn nội dung) */
+.scroll-pane {
+    -fx-background-color: #f4f4f9;        /* Màu nền cho ScrollPane */
+    -fx-padding: 10px;                    /* Padding */
+}
+
+/* Định dạng cho TabPane (dùng cho các tab) */
+.tab-pane {
+    -fx-background-color: #f4f4f9;        /* Màu nền cho TabPane */
+    -fx-padding: 10px;                    /* Padding */
+}
+
+/* Tab tiêu đề trong TabPane */
+.tab-pane .tab {
+    -fx-font-size: 16px;                  /* Kích thước chữ */
+    -fx-text-fill: #2c3e50;               /* Màu chữ */
+    -fx-background-color: #3498db;        /* Màu nền tab */
+    -fx-background-radius: 5px;           /* Bo tròn góc cho tab */
+}
+
+/* Tab chọn trong TabPane */
+.tab-pane .tab:selected {
+    -fx-background-color: #2980b9;        /* Màu nền khi tab được chọn */
+    -fx-text-fill: white;                 /* Màu chữ khi tab được chọn */
+}
+
+/* Định dạng cho BorderPane */
+.border-pane {
+    -fx-padding: 10px;                    /* Padding cho BorderPane */
+    -fx-background-color: #f4f4f9;        /* Màu nền */
+}

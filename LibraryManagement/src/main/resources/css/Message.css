@@ -1,0 +1,85 @@
+/* General styling for the entire Message VBox container */
+VBox {
+    -fx-background-color: #f0f0f0; /* Light background */
+    -fx-padding: 10px;
+    -fx-spacing: 10px;
+    -fx-background-radius: 20px; /* Rounded corners */
+    -fx-alignment: center; /* Centering elements */
+}
+
+/* Styling for the ScrollPane */
+ScrollPane {
+    -fx-background-color: transparent; /* Transparent background */
+    -fx-border-color: transparent; /* No border */
+}
+
+/* Styling for the chatBox container inside ScrollPane */
+#chatBox {
+    -fx-background-color: transparent; /* Transparent background */
+    -fx-spacing: 5px; /* Space between messages */
+}
+
+/* Styling for the TextField where the user types a message */
+#messageInput {
+    -fx-background-color: #ffffff; /* White background */
+    -fx-background-radius: 20px; /* Rounded corners */
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333; /* Dark text */
+    -fx-prompt-text-fill: #888888; /* Light gray for placeholder text */
+    -fx-min-height: 40px;
+    -fx-max-height: 40px;
+    -fx-min-width: 300px;
+    -fx-max-width: 300px;
+    -fx-border-color: #cccccc; /* Light gray border */
+    -fx-border-radius: 20px; /* Rounded corners for the border */
+}
+
+/* Focus effect for the message input field */
+#messageInput:focused {
+    -fx-border-color: #3498db; /* Blue border when focused */
+    -fx-border-width: 2px;
+}
+
+/* Styling for the Send button */
+Button {
+    -fx-background-color: #3498db; /* Primary color blue */
+    -fx-text-fill: white; /* White text */
+    -fx-background-radius: 20px; /* Rounded corners */
+    -fx-font-size: 14px;
+    -fx-pref-height: 40px;
+    -fx-pref-width: 80px;
+    -fx-cursor: hand; /* Cursor changes to hand on hover */
+}
+
+/* Button hover effect */
+Button:hover {
+    -fx-background-color: #2980b9; /* Darker blue on hover */
+}
+
+/* Button pressed effect */
+Button:pressed {
+    -fx-background-color: #2471a3; /* Even darker blue on press */
+}
+
+/* Styling for the TextArea used in QuickMessage */
+TextArea {
+    -fx-background-color: #ffffff; /* White background */
+    -fx-background-radius: 20px; /* Rounded corners */
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333; /* Dark text */
+    -fx-prompt-text-fill: #888888; /* Light gray for placeholder text */
+    -fx-min-height: 150px;
+    -fx-max-height: 150px;
+    -fx-min-width: 350px;
+    -fx-max-width: 350px;
+    -fx-border-color: #cccccc; /* Light gray border */
+    -fx-border-radius: 20px; /* Rounded corners for the border */
+}
+
+/* Focus effect for TextArea */
+TextArea:focused {
+    -fx-border-color: #3498db; /* Blue border when focused */
+    -fx-border-width: 2px;
+}
