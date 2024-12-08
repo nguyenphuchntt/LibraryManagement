@@ -74,8 +74,10 @@ public class Controller {
             return;
         }
         switchScene("Book_Search.fxml");
-        BookSearchController bookSearchController = (BookSearchController) scenes.get("Book_Search.fxml").getUserData();
-        bookSearchController.refresh();
+        new Thread(() -> {
+            BookSearchController bookSearchController = (BookSearchController) scenes.get("Book_Search.fxml").getUserData();
+            bookSearchController.refresh();
+        }).start();
     }
 
     @FXML

@@ -127,20 +127,25 @@ public class BookSearchController {
     public void initialize() {
         mapColumnValue();
 
-        getRecommendBooks();
+        new Thread(this::getRecommendBooks).start();
 
-        bookList = FXCollections.observableArrayList(BookUtils.getAllBooks());
-        showTable();
+        new Thread(() -> {
+            bookList = FXCollections.observableArrayList(BookUtils.getAllBooks());
+            Platform.runLater(this::showTable);
+        }).start();
 
-        amount_Column.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
+        new Thread(() -> {
+            amount_Column.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
+            amount_Column.setCellFactory(CheckBoxTableCell.forTableColumn(amount_Column));
+        }).start();
 
-        amount_Column.setCellFactory(CheckBoxTableCell.forTableColumn(amount_Column));
-
-        addTextFieldListener(searchBar_TextField);
-        addTextFieldListener(year_TextField);
-        addTextFieldListener(category_TextField);
-        addTextFieldListener(author_TextField);
-        addTextFieldListener(isbn_TextField);
+        new Thread(() -> {
+            addTextFieldListener(searchBar_TextField);
+            addTextFieldListener(year_TextField);
+            addTextFieldListener(category_TextField);
+            addTextFieldListener(author_TextField);
+            addTextFieldListener(isbn_TextField);
+        }).start();
 
         searchTable_TableView.setOnMouseClicked(event -> {
             if (event.getClickCount() >= 2) {
@@ -200,8 +205,10 @@ public class BookSearchController {
     }
 
     private void getRecommendBooks() {
-        recommendedBookList = BookUtils.getBookListForRecommend();
-        showRecommendedBooks();
+        new Thread(() -> {
+            recommendedBookList = BookUtils.getBookListForRecommend();
+            Platform.runLater(this::showRecommendedBooks);
+        }).start();
     }
 
     private void mapColumnValue() {
@@ -266,8 +273,13 @@ public class BookSearchController {
             }
         }
         if (alert.isEmpty()) {
-            TransactionUtils.addBorrowTransactions(transactions);
-            BookUtils.updateBookAmountAfterBorrowed(booksID, false);
+            new Thread(() -> {
+                TransactionUtils.addBorrowTransactions(transactions);
+            }).start();
+            new Thread(() -> {
+                BookUtils.updateBookAmountAfterBorrowed(booksID, false);
+                Platform.runLater(this::refresh);
+            }).start();
             PopupUtils.showAlert("Borrowed " + books.size() + " books successfully");
             refresh();
         } else {
