@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1100.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SignupController">
+<AnchorPane prefHeight="800.0" prefWidth="1100.0" style="-fx-background-color: #ffffff;" stylesheets="@../css/SignUp.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SignupController">
     <children>
         <ImageView fitHeight="800.0" fitWidth="616.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -20,26 +20,26 @@
             <children>
                 <AnchorPane layoutX="117.0" layoutY="380.0" prefHeight="198.0" prefWidth="250.0">
                     <children>
-                        <TextField fx:id="username_TextField" layoutY="22.0" prefHeight="24.0" prefWidth="250.0" />
-                        <Label layoutX="1.0" layoutY="5.0" text="USERNAME" />
-                        <TextField fx:id="password_TextField" layoutY="77.0" prefHeight="24.0" prefWidth="250.0" />
-                        <Label layoutY="53.0" prefHeight="29.0" prefWidth="110.0" text="PASSWORD" />
-                        <Button fx:id="createAccount_Button" layoutX="97.0" layoutY="184.0" mnemonicParsing="false" onAction="#handleCreateAccount" text="Create" />
-                        <Label layoutX="1.0" layoutY="106.0" prefHeight="29.0" prefWidth="161.0" text="CONFIRM PASSWORD" />
-                        <TextField fx:id="confirmPassword_TextField" layoutY="129.0" prefHeight="24.0" prefWidth="250.0" />
+                        <TextField id="TextField" fx:id="username_TextField" layoutY="22.0" prefHeight="24.0" prefWidth="250.0" />
+                        <Label id="username_Label" layoutX="1.0" text="USERNAME" />
+                        <TextField id="PasswordField" fx:id="password_TextField" layoutY="77.0" prefHeight="24.0" prefWidth="250.0" />
+                        <Label id="password_Label" layoutY="53.0" prefHeight="29.0" prefWidth="110.0" text="PASSWORD" />
+                        <Button id="Create_Button" fx:id="createAccount_Button" layoutX="97.0" layoutY="184.0" mnemonicParsing="false" onAction="#handleCreateAccount" text="Create" />
+                        <Label id="confirm_Label" layoutX="1.0" layoutY="106.0" prefHeight="29.0" prefWidth="161.0" text="CONFIRM PASSWORD" />
+                        <TextField id="ConfirmField" fx:id="confirmPassword_TextField" layoutY="129.0" prefHeight="24.0" prefWidth="250.0" />
                     </children>
                 </AnchorPane>
-                <Label layoutX="146.0" layoutY="320.0" text="Create Account">
+                <Label id="createAccount_Label" layoutX="146.0" layoutY="320.0" text="Create Account">
                     <font>
                         <Font size="25.0" />
                     </font>
                 </Label>
-                <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="160.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView id="ImageView" fitHeight="150.0" fitWidth="200.0" layoutX="160.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../assets/img/login_user_icon.png" />
                     </image>
                 </ImageView>
-                <Button fx:id="switchToLogin_Button" layoutX="350.0" layoutY="774.0" mnemonicParsing="false" onAction="#handleHadAccount" text="Have an account?" />
+                <Button fx:id="switchToLogin_Button" layoutX="188.0" layoutY="607.0" mnemonicParsing="false" onAction="#handleHadAccount" text="Have an account?" />
             <Label fx:id="signupMessage_Label" alignment="CENTER" layoutX="93.0" layoutY="611.0" prefHeight="16.0" prefWidth="284.0" />
             </children>
         </Pane>

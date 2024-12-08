@@ -1,0 +1,72 @@
+.AnchorPane {
+    -fx-padding: 10px;
+}
+
+.Label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-background-radius: 10px;
+    -fx-padding: 5px;
+}
+
+.AnchorPane > Label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-padding: 8px;
+}
+
+.TextField {
+}
+
+.TextField:focused {
+}
+
+.TextField:hover {
+}
+
+.Button {
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.Button:hover {
+}
+
+.Button:pressed {
+}
+
+#notifications_Label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 5px;
+}
+
+#removeBooks_Label {
+    -fx-font-size: 21px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 0;
+}
+
+#description_Label {
+    -fx-font-size: 14px;
+    -fx-font-weight: normal;
+    -fx-wrap-text: true;
+    -fx-alignment: top-left;
+    -fx-padding: 10px;
+}
+
+#bookID_TextField, #amount_TextField {
+}
+
+#remove_Button, #check_Button {
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+#remove_Button:hover, #check_Button:hover {
+}
+
+#remove_Button:pressed, #check_Button:pressed {
+}

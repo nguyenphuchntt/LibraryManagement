@@ -1,0 +1,85 @@
+.root {
+}
+
+.title {
+}
+
+.label {
+}
+
+.button {
+}
+
+.button:hover {
+}
+
+.button:pressed {
+}
+
+.text-field {
+}
+
+.text-field:focused {
+}
+
+.combo-box {
+}
+
+.combo-box:focused {
+}
+
+.tooltip {
+}
+
+.table-view {
+}
+
+.table-view .column-header-background {
+}
+
+.table-view .selected {
+}
+
+.hbox {
+}
+
+.vbox {
+}
+
+AnchorPane {
+    -fx-background-color: white;
+    -fx-font-family: 'Roboto', sans-serif;
+}
+
+.AnchorPane {
+    -fx-padding: 10px;
+}
+
+.Label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-padding: 5px;
+}
+
+.AnchorPane > Label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-padding: 8px;
+}
+
+.scroll-pane {
+}
+
+.tab-pane {
+}
+
+.tab-pane .tab {
+}
+
+.tab-pane .tab:selected {
+}
+
+.border-pane {
+}

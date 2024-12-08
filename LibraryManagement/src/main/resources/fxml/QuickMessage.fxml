@@ -4,7 +4,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.QuickMessageController">
+<VBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.QuickMessageController" stylesheets="@../css/QuickMessage.css">
    <children>
       <TextArea fx:id="message_TextArea" prefHeight="223.0" prefWidth="400.0" promptText="Type your message here!" />
       <Button alignment="CENTER" mnemonicParsing="false" onAction="#sendMessage" prefHeight="33.0" prefWidth="62.0" text="Send" />

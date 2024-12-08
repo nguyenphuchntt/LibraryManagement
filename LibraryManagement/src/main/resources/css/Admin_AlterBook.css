@@ -1,0 +1,57 @@
+@import url("Book.css");
+
+#change_Button, #search_Button {
+}
+
+#change_Button:hover, #search_Button:hover {
+}
+
+#change_Button:pressed, #search_Button:pressed {
+}
+
+#title_TextField, #author_TextField, #amount_TextField, #year_TextField, #category_TextField, #publisher_TextField, #search_TextField {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #3498db;
+    -fx-border-radius: 15px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+#title_TextField:focused, #author_TextField:focused, #amount_TextField:focused, #year_TextField:focused, #category_TextField:focused, #publisher_TextField:focused, #search_TextField:focused {
+    -fx-border-color: #2980b9;
+}
+
+#description_TextArea {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #3498db;
+    -fx-border-radius: 15px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+#description_TextArea:focused {
+    -fx-border-color: #2980b9;
+}
+
+#title_Label {
+}
+
+#alterMessage_Label {
+    -fx-text-fill: red;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+#addBookMessage_Label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3498db;
+    -fx-alignment: center;
+}
+
+#thumbnail_ImageView {
+    -fx-border-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0, 0);
+}

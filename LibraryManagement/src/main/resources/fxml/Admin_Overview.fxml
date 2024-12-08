@@ -7,23 +7,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800" minWidth="1100" prefHeight="800.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminDashboardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800" minWidth="1100" prefHeight="800.0" prefWidth="1100.0" stylesheets="@../css/Admin_OverView.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminDashboardController">
     <children>
         <AnchorPane layoutX="200.0" layoutY="45.0" prefHeight="755.0" prefWidth="900.0">
             <children>
-                <AnchorPane layoutX="80.0" layoutY="14.0" prefHeight="125.0" prefWidth="200.0" style="-fx-background-color: #225462;">
+                <AnchorPane layoutX="80.0" layoutY="14.0" prefHeight="125.0" prefWidth="200.0" style="-fx-background-color: #3498db;">
+               <children>
+                        <Label layoutX="31.0" layoutY="94.0" prefHeight="35.0" prefWidth="138.0" style="-fx-background-color: #3498db;" text="Total Borrowed Books" textFill="RED" />
+               </children>
+                </AnchorPane>
+                <AnchorPane layoutX="620.0" layoutY="14.0" prefHeight="125.0" prefWidth="200.0" style="-fx-background-color: #3498db;">
                     <children>
-                        <Label layoutY="90.0" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #dadada;" text="Total Borrowed Books" textFill="RED" />
+                        <Label layoutX="78.0" layoutY="90.0" prefHeight="35.0" prefWidth="42.0" style="-fx-background-color: #3498db;" text="Issues" textFill="RED" />
                     </children>
                 </AnchorPane>
-                <AnchorPane layoutX="620.0" layoutY="14.0" prefHeight="125.0" prefWidth="200.0" style="-fx-background-color: #225462;">
+                <AnchorPane layoutX="350.0" layoutY="14.0" prefHeight="125.0" prefWidth="200.0" style="-fx-background-color: #3498db;">
                     <children>
-                        <Label layoutY="90.0" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #dadada;" text="Issues" textFill="RED" />
-                    </children>
-                </AnchorPane>
-                <AnchorPane layoutX="350.0" layoutY="14.0" prefHeight="125.0" prefWidth="200.0" style="-fx-background-color: #225462;">
-                    <children>
-                        <Label layoutY="90.0" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #dadada;" text="Total Returned Books" textFill="RED" />
+                        <Label layoutX="30.0" layoutY="90.0" prefHeight="35.0" prefWidth="138.0" style="-fx-background-color: #3498db;" text="Total Returned Books" textFill="RED" />
                     </children>
                 </AnchorPane>
                 <TableView fx:id="overdue_TableView" layoutX="25.0" layoutY="189.0" prefHeight="532.0" prefWidth="850.0">
@@ -40,8 +40,8 @@
                         <Font size="21.0" />
                     </font>
                 </Label>
-            <Button fx:id="previousPage_Button" layoutX="810.0" layoutY="722.0" mnemonicParsing="false" onAction="#handlePreviousPageButton" text="&lt;" />
-            <Button fx:id="nextPage_Button" layoutX="845.0" layoutY="722.0" mnemonicParsing="false" onAction="#handleNextPageButton" text="&gt;" />
+            <Button fx:id="previousPage_Button" layoutX="771.0" layoutY="722.0" mnemonicParsing="false" onAction="#handlePreviousPageButton" text="&lt;" />
+            <Button fx:id="nextPage_Button" layoutX="820.0" layoutY="722.0" mnemonicParsing="false" onAction="#handleNextPageButton" text="&gt;" />
             </children>
         </AnchorPane>
     </children>

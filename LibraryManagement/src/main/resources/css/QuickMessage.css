@@ -1,0 +1,36 @@
+VBox {
+    -fx-padding: 10px;
+    -fx-spacing: 10px;
+}
+
+#message_TextArea {
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-min-height: 150px;
+    -fx-max-height: 150px;
+    -fx-min-width: 350px;
+    -fx-max-width: 350px;
+}
+
+#message_TextArea:focused {
+    -fx-border-width: 2px;
+}
+
+Button {
+    -fx-font-size: 14px;
+    -fx-pref-height: 40px;
+    -fx-pref-width: 80px;
+}
+
+Button:hover {
+}
+
+Button:pressed {
+}
+
+ScrollPane {
+}
+
+#chatBox {
+    -fx-spacing: 5px;
+}

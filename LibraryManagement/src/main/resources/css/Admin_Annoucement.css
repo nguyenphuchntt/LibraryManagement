@@ -1,0 +1,56 @@
+@import url("Book.css");
+
+#send_Button {
+}
+
+#send_Button:hover {
+}
+
+#send_Button:pressed {
+}
+
+#content_TextArea {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #3498db;
+    -fx-border-radius: 15px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+#content_TextArea:focused {
+    -fx-border-color: #2980b9;
+}
+
+#startTime_DatePicker, #endTime_DatePicker {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #3498db;
+    -fx-border-radius: 15px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+#startTime_DatePicker:focused, #endTime_DatePicker:focused {
+    -fx-border-color: #2980b9;
+}
+
+#send_Label {
+    -fx-font-size: 21px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3498db;
+    -fx-alignment: center;
+}
+
+Label {
+    -fx-font-size: 14px;
+    -fx-font-weight: normal;
+    -fx-text-fill: #333333;
+}
+
+#announcementMessage_Label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3498db;
+    -fx-alignment: center;
+}
