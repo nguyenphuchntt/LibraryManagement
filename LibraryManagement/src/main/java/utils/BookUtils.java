@@ -49,10 +49,10 @@ public class BookUtils {
 
                 if (persistentBook != null) {
                     if (type) {
-                        persistentBook.setAmount(persistentBook.getQuantity() + 1);
+                        persistentBook.setQuantity(persistentBook.getQuantity() + 1);
                         System.out.println("return");
                     } else {
-                        persistentBook.setAmount(persistentBook.getQuantity() - 1);
+                        persistentBook.setQuantity(persistentBook.getQuantity() - 1);
                         System.out.println("borrow");
                     }
                 }
@@ -180,7 +180,7 @@ public class BookUtils {
             bookToUpdate.setAuthor(book.getAuthor());
             bookToUpdate.setCategory(book.getCategory());
             bookToUpdate.setYear(book.getYear());
-            bookToUpdate.setAmount(book.getQuantity());
+            bookToUpdate.setQuantity(book.getQuantity());
             bookToUpdate.setDescription(book.getDescription());
             bookToUpdate.setPublisher(book.getPublisher());
 

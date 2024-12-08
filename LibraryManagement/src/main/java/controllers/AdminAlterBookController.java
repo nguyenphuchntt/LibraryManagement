@@ -162,7 +162,7 @@ public class AdminAlterBookController {
                 .category(newCategory)
                 .year(year)
                 .description(newDescription)
-                .amount(quantity)
+                .quantity(quantity)
                 .publisher(newPublisher)
                 .build();
 

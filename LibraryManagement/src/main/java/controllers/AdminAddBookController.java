@@ -91,7 +91,7 @@ public class AdminAddBookController {
             if (amountInt < 0) {
                 throw new NumberFormatException();
             }
-            book.setAmount(amountInt);
+            book.setQuantity(amountInt);
         } catch (NumberFormatException e) {
             addBookMessage_Label.setText("Invalid Amount");
             return;
@@ -140,5 +140,6 @@ public class AdminAddBookController {
         book = null;
         selected = false;
         internetError_Label.setVisible(false);
+        addBookMessage_Label.setText("");
     }
 }
