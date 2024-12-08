@@ -6,7 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="450.0" stylesheets="@../css/BookPopUp.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BookPopupController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BookPopupController">
    <children>
       <ImageView fx:id="thumbnail_ImageView" fitHeight="194.0" fitWidth="150.0" layoutX="22.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="title_Label" alignment="CENTER" layoutX="8.0" layoutY="20.0" prefHeight="30.0" prefWidth="441.0" text="TITLE" />

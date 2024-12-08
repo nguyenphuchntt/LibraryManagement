@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="600.0" prefWidth="400.0" spacing="10" style="-fx-background-color: #f0f0f0;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ChatController" stylesheets="@../css/Message.css">
+<VBox prefHeight="600.0" prefWidth="400.0" spacing="10" style="-fx-background-color: #f0f0f0;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ChatController">
     <ScrollPane maxHeight="Infinity" prefHeight="500" prefWidth="400.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" VBox.vgrow="ALWAYS">
         <VBox fx:id="chatBox" spacing="5" style="-fx-background-color: transparent;" />
     </ScrollPane>
