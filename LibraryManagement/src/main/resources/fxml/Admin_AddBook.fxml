@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800" minWidth="1100" prefHeight="800.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminAddBookController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800" minWidth="1100" prefHeight="800.0" prefWidth="1100.0" stylesheets="@../css/Admin_AddBook.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminAddBookController">
     <children>
         <AnchorPane layoutX="200.0" layoutY="45.0" prefHeight="755.0" prefWidth="900.0">
             <children>
@@ -37,7 +37,7 @@
                   <ImageView fx:id="thumbnail_ImageView" fitHeight="190.0" fitWidth="160.0" layoutX="491.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
                   <Label fx:id="addBookMessage_Label" alignment="CENTER" layoutX="10.0" layoutY="426.0" prefHeight="16.0" prefWidth="752.0" />
                   <Button fx:id="search_Button" layoutX="395.0" layoutY="41.0" mnemonicParsing="false" onAction="#handleSearch" text="Search" />
-                  <Label fx:id="internetError_Label" layoutX="485.0" layoutY="45.0" text="Internet error!" textFill="RED" />
+                  <Label fx:id="internetError_Label" layoutX="534.0" layoutY="51.0" prefHeight="26.0" prefWidth="102.0" text="Internet error!" textFill="RED" />
                     </children>
                 </AnchorPane>
             </children>

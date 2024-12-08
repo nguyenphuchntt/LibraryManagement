@@ -7,24 +7,24 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800" minWidth="1100" prefHeight="800.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HomeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800" minWidth="1100" prefHeight="800.0" prefWidth="1100.0" stylesheets="@../css/Home.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HomeController">
     <children>
         <AnchorPane layoutX="200.0" layoutY="45.0" prefHeight="755.0" prefWidth="900.0">
             <children>
-                <AnchorPane layoutX="80.0" layoutY="34.0" prefHeight="125.0" prefWidth="200.0" style="-fx-background-color: #225462;">
-                    <children>
-                        <Label layoutY="90.0" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #dadada;" text="Borrowed Books" textFill="RED" />
-                    </children>
+                <AnchorPane layoutX="85.0" layoutY="34.0" prefHeight="125.0" prefWidth="200.0" style="-fx-background-color: #3498db;">
+               <children>
+                        <Label layoutX="56.0" layoutY="92.0" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: #3498db;" text="Borrowed Books" textAlignment="CENTER" />
+               </children>
                 </AnchorPane>
-                <AnchorPane layoutX="620.0" layoutY="34.0" prefHeight="125.0" prefWidth="200.0" style="-fx-background-color: #225462;">
-                    <children>
-                        <Label layoutY="90.0" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #dadada;" text="Issues" textFill="RED" />
-                    </children>
+                <AnchorPane layoutX="621.0" layoutY="35.0" prefHeight="125.0" prefWidth="200.0" style="-fx-background-color: #3498db;">
+               <children>
+                        <Label layoutX="86.0" layoutY="90.0" prefHeight="35.0" prefWidth="32.0" style="-fx-background-color: #3498db;" text="Issues" />
+               </children>
                 </AnchorPane>
-                <AnchorPane layoutX="350.0" layoutY="34.0" prefHeight="125.0" prefWidth="200.0" style="-fx-background-color: #225462;">
-                    <children>
-                        <Label layoutY="90.0" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #dadada;" text="Returned" textFill="RED" />
-                    </children>
+                <AnchorPane layoutX="350.0" layoutY="35.0" prefHeight="125.0" prefWidth="200.0" style="-fx-background-color: #3498db;">
+               <children>
+                        <Label layoutX="75.0" layoutY="90.0" prefHeight="35.0" prefWidth="50.0" style="-fx-background-color: #3498db;" text="Returned" textAlignment="CENTER" />
+               </children>
                 </AnchorPane>
             <Label layoutX="42.0" layoutY="217.0" text="Messages">
                <font>
@@ -32,9 +32,8 @@
                </font>
             </Label>
             <ListView fx:id="messages_ListView" layoutX="41.0" layoutY="278.0" prefHeight="416.0" prefWidth="818.0" />
-            <Button layoutX="751.0" layoutY="242.0" mnemonicParsing="false" onAction="#handleNewMessagesButton" text="New Message" />
-            <TextField fx:id="receiver_TextField" layoutX="570.0" layoutY="242.0" />
-            <Label fx:id="notifications_Label" layoutX="571.0" layoutY="222.0" prefHeight="16.0" prefWidth="284.0" />
+            <Button id="newMessage_Button" layoutX="723.0" layoutY="224.0" mnemonicParsing="false" onAction="#handleNewMessagesButton" prefHeight="35.0" prefWidth="126.0" text="New Message" />
+            <TextField fx:id="receiver_TextField" layoutX="462.0" layoutY="221.0" />
             </children>
         </AnchorPane>
     </children>

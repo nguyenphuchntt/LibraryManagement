@@ -1,0 +1,23 @@
+@import url("Book.css");
+
+#return_Button, #previousPage_Button, #nextPage_Button {
+}
+
+#return_Button:hover, #previousPage_Button:hover, #nextPage_Button:hover {
+}
+
+#return_Button:pressed, #previousPage_Button:pressed, #nextPage_Button:pressed {
+}
+
+#isbn_TextField, #year_TextField, #category_TextField, #author_TextField, #searchBar_TextField {
+}
+
+#isbn_TextField:focused, #year_TextField:focused, #category_TextField:focused, #author_TextField:focused, #searchBar_TextField:focused {
+    -fx-border-width: 2px;
+}
+
+#returnTable_TableView {
+}
+
+#returnMessage_Label {
+}
