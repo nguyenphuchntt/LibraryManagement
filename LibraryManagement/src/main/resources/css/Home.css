@@ -1,90 +1,59 @@
 AnchorPane {
     -fx-background-color: white;
     -fx-font-family: 'Roboto', sans-serif;
-    -fx-background-radius: 20px;
 }
 
 .AnchorPane {
-    -fx-background-color: #3498db;
-    -fx-background-radius: 15px;
     -fx-padding: 10px;
 }
 
 .Label {
-    -fx-text-fill: #2c3e50;
     -fx-font-size: 18px;
     -fx-font-weight: bold;
     -fx-alignment: center;
-    -fx-background-radius: 10px;
     -fx-padding: 5px;
 }
 
-
 .AnchorPane > Label {
-    -fx-background-color: #f1f1f1;
-    -fx-text-fill: #3498db;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-alignment: center;
     -fx-padding: 8px;
-    -fx-background-radius: 10px;
-    -fx-border-radius: 10px;
 }
 
-
 #borrowedBooks_Label {
-    -fx-background-color: #f1f1f1;
-    -fx-text-fill: #3498db;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-alignment: center;
     -fx-padding: 8px;
-    -fx-background-radius: 10px;
-    -fx-border-radius: 10px;
 }
 
 #returned_Label {
-    -fx-background-color: #f1f1f1;
-    -fx-text-fill: #3498db;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-alignment: center;
     -fx-padding: 8px;
-    -fx-background-radius: 10px;
-    -fx-border-radius: 10px;
 }
 
 #issues_Label {
-    -fx-background-color: #f1f1f1;
-    -fx-text-fill: #3498db;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-alignment: center;
     -fx-padding: 8px;
-    -fx-background-radius: 10px;
-    -fx-border-radius: 10px;
 }
 
 .AnchorPane > Label {
-    -fx-background-color: #f1f1f1;
-    -fx-text-fill: #3498db;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-alignment: center;
     -fx-padding: 8px;
-    -fx-background-radius: 10px;
-    -fx-border-radius: 10px;
 }
 
-
 #newMessage_Button, #message_Button, #changeInfo_Button {
-    -fx-background-color: #3498db;
     -fx-text-fill: white;
     -fx-font-size: 12px;
     -fx-font-weight: bold;
     -fx-padding: 8 24;
-    -fx-background-radius: 30px;
-    -fx-border-radius: 30px;
     -fx-cursor: hand;
     -fx-effect: dropshadow(gaussian, #3498db, 10, 0.0, 0, 4);
 }
@@ -101,7 +70,6 @@ AnchorPane {
 #receiver_TextField {
     -fx-background-color: #f0f3f4;
     -fx-border-color: #dcdde1;
-    -fx-border-radius: 20px;
     -fx-font-size: 14px;
     -fx-padding: 10px;
     -fx-pref-width: 250px;
@@ -113,20 +81,13 @@ AnchorPane {
 }
 
 #notifications_Label {
-    -fx-text-fill: #e74c3c;
     -fx-font-size: 12px;
     -fx-font-weight: bold;
-    -fx-background-radius: 10px;
     -fx-padding: 5px;
-    -fx-background-color: #f9f9f9;
 }
 
-
 #messages_Label {
-    -fx-text-fill: #3498db;
     -fx-font-size: 20px;
     -fx-font-weight: bold;
     -fx-padding: 10px 0;
-    -fx-background-radius: 10px;
-    -fx-background-color: transparent;
 }

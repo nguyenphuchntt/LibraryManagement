@@ -14,20 +14,12 @@
 }
 
 #borrowSearch_Button, #previousPage_Button, #nextPage_Button, #refresh_Button, #borrowSearch_Button1 {
-    -fx-background-color: #3498db;
-    -fx-text-fill: white;
-    -fx-background-radius: 20px;
-    -fx-padding: 10px 20px;
-    -fx-font-size: 14px;
-    -fx-cursor: hand;
 }
 
 #borrowSearch_Button:hover, #previousPage_Button:hover, #nextPage_Button:hover, #refresh_Button:hover, #borrowSearch_Button1:hover {
-    -fx-background-color: #2980b9;
 }
 
 #borrowSearch_Button:pressed, #previousPage_Button:pressed, #nextPage_Button:pressed, #refresh_Button:pressed, #borrowSearch_Button1:pressed {
-    -fx-background-color: #2471a3;
 }
 
 #isbn_TextField, #year_TextField, #category_TextField, #author_TextField {
@@ -44,11 +36,6 @@
 }
 
 #textFlow {
-    -fx-border-color: #3498db;
-    -fx-border-radius: 15px;
-    -fx-padding: 15px;
-    -fx-background-color: #f0faff;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 0);
 }
 
 #searchTable_TableView {

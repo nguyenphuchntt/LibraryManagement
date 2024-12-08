@@ -1,23 +1,13 @@
 @import url("Book.css");
 
-
 #change_Button, #search_Button {
-    -fx-background-color: #3498db;
-    -fx-text-fill: white;
-    -fx-background-radius: 20px;
-    -fx-padding: 10px 20px;
-    -fx-font-size: 16px;
-    -fx-cursor: hand;
 }
 
 #change_Button:hover, #search_Button:hover {
-    -fx-background-color: #2980b9;
 }
 
 #change_Button:pressed, #search_Button:pressed {
-    -fx-background-color: #2471a3;
 }
-
 
 #title_TextField, #author_TextField, #amount_TextField, #year_TextField, #category_TextField, #publisher_TextField, #search_TextField {
     -fx-background-color: #ffffff;
@@ -32,7 +22,6 @@
     -fx-border-color: #2980b9;
 }
 
-
 #description_TextArea {
     -fx-background-color: #ffffff;
     -fx-border-color: #3498db;
@@ -46,14 +35,8 @@
     -fx-border-color: #2980b9;
 }
 
-
 #title_Label {
-    -fx-font-size: 26px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #3498db;
-    -fx-alignment: center;
 }
-
 
 #alterMessage_Label {
     -fx-text-fill: red;

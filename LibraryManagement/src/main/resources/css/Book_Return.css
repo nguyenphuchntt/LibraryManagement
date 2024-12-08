@@ -1,48 +1,23 @@
 @import url("Book.css");
 
 #return_Button, #previousPage_Button, #nextPage_Button {
-    -fx-background-color: #3498db;
-    -fx-text-fill: white;
-    -fx-background-radius: 20px;
-    -fx-padding: 10px 20px;
-    -fx-font-size: 14px;
-    -fx-cursor: hand;
 }
 
 #return_Button:hover, #previousPage_Button:hover, #nextPage_Button:hover {
-    -fx-background-color: #2980b9;
 }
 
 #return_Button:pressed, #previousPage_Button:pressed, #nextPage_Button:pressed {
-    -fx-background-color: #2471a3;
 }
 
 #isbn_TextField, #year_TextField, #category_TextField, #author_TextField, #searchBar_TextField {
-    -fx-background-color: #ffffff;
-    -fx-border-color: #3498db;
-    -fx-border-radius: 15px;
-    -fx-padding: 10px;
-    -fx-font-size: 14px;
-    -fx-text-fill: #333333;
-    -fx-prompt-text-fill: #888888;
 }
 
 #isbn_TextField:focused, #year_TextField:focused, #category_TextField:focused, #author_TextField:focused, #searchBar_TextField:focused {
-    -fx-border-color: #2980b9;
     -fx-border-width: 2px;
 }
 
 #returnTable_TableView {
-    -fx-background-color: #ffffff;
-    -fx-border-color: #cccccc;
-    -fx-border-radius: 15px;
-    -fx-padding: 10px;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.5, 0, 0);
 }
 
 #returnMessage_Label {
-    -fx-background-color: #f7f9fb;
-    -fx-text-fill: #3498db;
-    -fx-font-size: 18px;
-    -fx-font-weight: bold;
 }

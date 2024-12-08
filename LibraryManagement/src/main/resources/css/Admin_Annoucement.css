@@ -1,23 +1,13 @@
 @import url("Book.css");
 
-
 #send_Button {
-    -fx-background-color: #3498db;
-    -fx-text-fill: white;
-    -fx-background-radius: 20px;
-    -fx-padding: 10px 20px;
-    -fx-font-size: 16px;
-    -fx-cursor: hand;
 }
 
 #send_Button:hover {
-    -fx-background-color: #2980b9;
 }
 
 #send_Button:pressed {
-    -fx-background-color: #2471a3;
 }
-
 
 #content_TextArea {
     -fx-background-color: #ffffff;
@@ -32,7 +22,6 @@
     -fx-border-color: #2980b9;
 }
 
-
 #startTime_DatePicker, #endTime_DatePicker {
     -fx-background-color: #ffffff;
     -fx-border-color: #3498db;
@@ -46,14 +35,12 @@
     -fx-border-color: #2980b9;
 }
 
-
 #send_Label {
     -fx-font-size: 21px;
     -fx-font-weight: bold;
     -fx-text-fill: #3498db;
     -fx-alignment: center;
 }
-
 
 Label {
     -fx-font-size: 14px;

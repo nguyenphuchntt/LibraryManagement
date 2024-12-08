@@ -1,19 +1,15 @@
 AnchorPane {
-    -fx-background-color: #f7f9fb;
     -fx-padding: 20px;
     -fx-spacing: 20px;
 }
 
 .Label {
-    -fx-text-fill: #333333;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
 }
 
 .TextField {
     -fx-background-color: #ffffff;
-    -fx-border-color: #3498db;
-    -fx-border-radius: 15px;
     -fx-padding: 10px;
     -fx-font-size: 14px;
     -fx-text-fill: #333333;
@@ -21,41 +17,33 @@ AnchorPane {
 }
 
 .TextField:focused {
-    -fx-border-color: #2980b9;
     -fx-border-width: 2px;
 }
 
 .Button {
-    -fx-background-color: #3498db;
     -fx-text-fill: white;
-    -fx-background-radius: 20px;
     -fx-font-size: 14px;
     -fx-padding: 10px 20px;
     -fx-cursor: hand;
 }
 
 .Button:hover {
-    -fx-background-color: #2980b9;
 }
 
 .Button:pressed {
-    -fx-background-color: #2471a3;
 }
 
 .TableView {
     -fx-background-color: #ffffff;
     -fx-border-color: #cccccc;
-    -fx-border-radius: 15px;
     -fx-padding: 10px;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.5, 0, 0);
 }
 
 .TableColumn {
-    -fx-background-color: #3498db;
     -fx-text-fill: white;
     -fx-font-size: 14px;
 }
 
 .TableColumnHeader {
-    -fx-background-color: #2980b9;
 }
