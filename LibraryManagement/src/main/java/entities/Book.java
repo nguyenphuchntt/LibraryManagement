@@ -10,10 +10,10 @@ import javax.persistence.*;
 public class Book {
 
     @Id
-    @Column(name = "book_id")
-    private String isbn;
+    @Column(name = "id")
+    private String id;
 
-    @Column(name = "book_title", nullable = false, length = 100)
+    @Column(name = "title", nullable = false, length = 100)
     private String title;
 
     @Column(name = "author", length = 200)
@@ -56,7 +56,7 @@ public class Book {
     }
 
     private Book(Builder builder) {
-        this.isbn = builder.isbn;
+        this.id = builder.id;
         this.title = builder.title;
         this.author = builder.author;
         this.publisher = builder.publisher;
@@ -73,7 +73,7 @@ public class Book {
     }
 
     public static class Builder {
-        private String isbn;
+        private String id;
         private String title;
         private String author;
         private String publisher;
@@ -85,7 +85,7 @@ public class Book {
         private String thumbnailLink;
 
         public Builder(String id) {
-            this.isbn = id;
+            this.id = id;
         }
 
         public Builder title(String title) {
@@ -142,8 +142,8 @@ public class Book {
         }
     }
 
-    public String getIsbn() {
-        return isbn;
+    public String getId() {
+        return id;
     }
 
     public String getTitle() {
@@ -224,7 +224,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book [id=" + isbn + ", title=" + title + ", author=" + author
+        return "Book [id=" + id + ", title=" + title + ", author=" + author
                 + ", publisher=" + publisher + ", quantity=" + quantity
                 + ", category=" + category  + ",averageRate=" + averageRate + ",thumbnailLink=" + thumbnailLink + ",description=" +description + "]";
     }

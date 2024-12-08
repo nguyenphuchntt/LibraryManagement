@@ -8,7 +8,6 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import java.io.*;
-import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.*;
 import java.text.ParseException;
@@ -263,7 +262,7 @@ public class DatabaseController {
         BufferedReader reader = null;
         PreparedStatement statement = null;
         String line;
-        String insertSQL = "INSERT IGNORE INTO `book` (book_id, book_title, author, publisher, year, quantity, description, averageRating, category, thumbnailLink) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String insertSQL = "INSERT IGNORE INTO `book` (id, title, author, publisher, year, quantity, description, averageRating, category, thumbnailLink) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
             reader = new BufferedReader(new FileReader(pathToCSV));
@@ -743,15 +742,15 @@ public class DatabaseController {
         }
     }
 
-    public static List<Person> getUsersWhoSentMessagesToCurrentUser() {
+    public static List<User> getUsersWhoSentMessagesToCurrentUser() {
         Session session = HibernateUtil.getSessionFactory().openSession();
 
         try {
             session.beginTransaction();
             String hql = "SELECT DISTINCT m.sender FROM Message m WHERE m.receiver.username = :currentUserId";
-            Query<Person> query = session.createQuery(hql, Person.class);
+            Query<User> query = session.createQuery(hql, User.class);
             query.setParameter("currentUserId", LibraryManagement.getInstance().getCurrentAccount());
-            List<Person> users = query.getResultList();
+            List<User> users = query.getResultList();
             session.getTransaction().commit();
             return users;
         } catch (Exception e) {

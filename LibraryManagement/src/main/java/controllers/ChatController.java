@@ -2,7 +2,7 @@ package controllers;
 
 import entities.LibraryManagement;
 import entities.Message;
-import entities.Person;
+import entities.User;
 import utils.AccountUserUtils;
 import utils.FormatUtils;
 import database.DatabaseController;
@@ -59,8 +59,8 @@ public class ChatController {
         }
 
         String currentUsername = LibraryManagement.getInstance().getCurrentAccount();
-        Person currentAccount = AccountUserUtils.getCurrentUser();
-        Person receiverAccount = AccountUserUtils.getUserInfo(username);
+        User currentAccount = AccountUserUtils.getCurrentUser();
+        User receiverAccount = AccountUserUtils.getUserInfo(username);
         Timestamp now = new Timestamp(System.currentTimeMillis());
 
         Message message = new Message(currentAccount, receiverAccount, content, now);

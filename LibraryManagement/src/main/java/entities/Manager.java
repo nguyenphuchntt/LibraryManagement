@@ -1,12 +1,12 @@
 package entities;
 
-public class Manager extends Person {
+public class Manager extends User {
 
     private Manager(Builder builder) {
         super(builder);
     }
 
-    public static class Builder extends Person.Builder<Builder> {
+    public static class Builder extends User.Builder<Builder> {
 
         public Builder() {}
 

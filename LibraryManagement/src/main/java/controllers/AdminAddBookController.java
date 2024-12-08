@@ -106,7 +106,7 @@ public class AdminAddBookController {
             return;
         }
         if (selected) {
-            if (!isbn.equalsIgnoreCase(book.getIsbn())) {
+            if (!isbn.equalsIgnoreCase(book.getId())) {
                 addBookMessage_Label.setText("You should not change the book ID");
                 return;
             }

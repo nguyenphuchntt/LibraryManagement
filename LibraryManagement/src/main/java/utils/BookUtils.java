@@ -21,8 +21,8 @@ public class BookUtils {
             String hql = "SELECT s.title, s.author, s.category, s.year, s.description, s.averageRate, s.id, s.thumbnailLink " +
                     "FROM Transaction b " +
                     "JOIN b.book s " +
-                    "GROUP BY s.isbn " +
-                    "ORDER BY COUNT(s.isbn) DESC";
+                    "GROUP BY s.id " +
+                    "ORDER BY COUNT(s.id) DESC";
 
             Query<Object[]> query = session.createQuery(hql, Object[].class);
             query.setMaxResults(10);
@@ -93,7 +93,7 @@ public class BookUtils {
             StringBuilder stringBuilder = new StringBuilder("FROM Book b WHERE 1=1");
 
             if (isbn != null) {
-                stringBuilder.append(" AND b.isbn LIKE :isbn");
+                stringBuilder.append(" AND b.id LIKE :isbn");
                 System.out.println("isbn" + isbn);
             }
             if (title != null) {
@@ -174,7 +174,7 @@ public class BookUtils {
         try {
             session.beginTransaction();
 
-            Book bookToUpdate = session.get(Book.class, book.getIsbn());
+            Book bookToUpdate = session.get(Book.class, book.getId());
 
             bookToUpdate.setTitle(book.getTitle());
             bookToUpdate.setAuthor(book.getAuthor());
@@ -241,7 +241,7 @@ public class BookUtils {
         try {
             session.beginTransaction();
 
-            String hql = "FROM Comment t WHERE t.book.isbn = :isbn ORDER BY t.rate DESC";
+            String hql = "FROM Comment t WHERE t.book.id = :isbn ORDER BY t.rate DESC";
             Query<Comment> query = session.createQuery(hql, Comment.class);
             query.setParameter("isbn", isbn);
             query.setMaxResults(1);

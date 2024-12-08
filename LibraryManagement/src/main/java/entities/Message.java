@@ -13,11 +13,11 @@ public class Message {
 
     @ManyToOne
     @JoinColumn(name = "sender", referencedColumnName = "username", nullable = false)
-    private Person sender;
+    private User sender;
 
     @ManyToOne
     @JoinColumn(name = "receiver", referencedColumnName = "username", nullable = false)
-    private Person receiver;
+    private User receiver;
 
     @Column(name = "content")
     private String content;
@@ -27,7 +27,7 @@ public class Message {
 
     public Message() {}
 
-    public Message(Person senderId, Person receiverId, String content, Timestamp timestamp) {
+    public Message(User senderId, User receiverId, String content, Timestamp timestamp) {
         this.sender = senderId;
         this.receiver = receiverId;
         this.content = content;
@@ -42,19 +42,19 @@ public class Message {
         this.id = id;
     }
 
-    public Person getSenderId() {
+    public User getSenderId() {
         return sender;
     }
 
-    public void setSenderId(Person senderId) {
+    public void setSenderId(User senderId) {
         this.sender = senderId;
     }
 
-    public Person getReceiverId() {
+    public User getReceiverId() {
         return receiver;
     }
 
-    public void setReceiverId(Person receiverId) {
+    public void setReceiverId(User receiverId) {
         this.receiver = receiverId;
     }
 

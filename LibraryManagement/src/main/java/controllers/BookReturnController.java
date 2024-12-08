@@ -6,7 +6,6 @@ import utils.AccountUserUtils;
 import utils.BookUtils;
 import utils.PopupUtils;
 import utils.TransactionUtils;
-import database.DatabaseController;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -195,7 +194,7 @@ public class BookReturnController {
             PopupUtils.showAlert("No books are selected");
         }
         List<String> toReturnBookID = new ArrayList<>();
-        Person currentUser = AccountUserUtils.getCurrentUser();
+        User currentUser = AccountUserUtils.getCurrentUser();
         StringBuilder alert = new StringBuilder();
         if (currentUser == null) {
             PopupUtils.showAlert("User is null");

@@ -115,7 +115,7 @@ public class BookPopupController {
 
     public void refreshData() {
         title_Label.setText(book.getTitle());
-        id_Label.setText("ID/ISBN: " + book.getIsbn());
+        id_Label.setText("ID/ISBN: " + book.getId());
         publisher_Label.setText("Publisher: " + (book.getPublisher() == null ? "" : book.getPublisher()));
         year_Label.setText("Year: " + (book.getYear() == 0 ? "" : book.getYear()));
         category_Label.setText("Category: " + (book.getCategory() == null ? "" : book.getCategory()));
@@ -131,7 +131,7 @@ public class BookPopupController {
         }
         if (!isPostComment) {
             oldComment_AnchorPane.setVisible(true);
-            Comment comment = BookUtils.getBestCommentOfBook(book.getIsbn());
+            Comment comment = BookUtils.getBestCommentOfBook(book.getId());
             if (comment != null) {
                 comments_Label.setText("COMMENT:\n" + comment.toString() + '\n');
             } else {
@@ -158,7 +158,7 @@ public class BookPopupController {
         Double rate = Double.parseDouble(star);
         String commentContent = comment_TextArea.getText();
         Comment comment = new Comment(book, username, commentContent, rate);
-        if (comment.isWrittenComment(username, book.getIsbn())) {
+        if (comment.isWrittenComment(username, book.getId())) {
             cleanUpData();
             postCommentMessage_Label.setText("You have been written this book's comment!");
             comment = null;
