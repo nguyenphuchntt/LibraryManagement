@@ -56,7 +56,7 @@ public class AdminRemoveBookController {
             return;
         }
         StringBuilder bookDescription = new StringBuilder();
-        bookDescription.append("- Book isbn: ").append(book.getIsbn()).append("\n");
+        bookDescription.append("- Book isbn: ").append(book.getId()).append("\n");
         bookDescription.append("- Book title: ").append(book.getTitle()).append("\n");
         bookDescription.append("- Author: ").append((book.getAuthor() == null) ? "null" : book.getAuthor()).append("\n");
         bookDescription.append("- Category: ").append((book.getCategory() == null) ? "null" : book.getCategory()).append("\n");
