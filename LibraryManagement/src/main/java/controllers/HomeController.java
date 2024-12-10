@@ -31,6 +31,11 @@ public class HomeController implements PopupUtils.PopupClosedCallback {
 
     @FXML
     public void initialize() {
+        refreshUsersIntoListView();
+    }
+
+    public void refreshUsersIntoListView() {
+        receiver_TextField.clear();
         loadUsersIntoListView();
     }
 

@@ -66,6 +66,8 @@ public class Controller {
             return;
         }
         switchScene("Home.fxml");
+        HomeController homeController = (HomeController) scenes.get("Home.fxml").getUserData();
+        homeController.refreshUsersIntoListView();
     }
 
     @FXML
