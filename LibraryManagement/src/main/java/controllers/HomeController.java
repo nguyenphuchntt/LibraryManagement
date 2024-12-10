@@ -69,7 +69,7 @@ public class HomeController implements PopupUtils.PopupClosedCallback {
             notifications_Label.setText("You are already in a chat");
             return;
         }
-        if (receiver.equals(LibraryManagement.getInstance().getCurrentAccount())) {
+        if (receiver.equals(LibraryManagement.getInstance().getCurrentAccount().getUsername())) {
             notifications_Label.setText("You can not chat with yourself");
             return;
         }

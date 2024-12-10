@@ -6,7 +6,6 @@ import controllers.Controller;
 import controllers.SideBarLoader;
 import database.DatabaseController;
 import utils.HibernateUtil;
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -18,7 +17,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class SceneTest extends Application {
+public class Application extends javafx.application.Application {
 
     private final static int WIDTH = 1100;
     private final static int HEIGHT = 800;

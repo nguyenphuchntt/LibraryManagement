@@ -772,7 +772,7 @@ public class DatabaseController {
                 + "ORDER BY m.timestamp ASC";
         Query<Message> query = session.createQuery(hql, Message.class);
         query.setParameter("userId", receiver);
-        query.setParameter("currentUserId", LibraryManagement.getInstance().getCurrentAccount());
+        query.setParameter("currentUserId", LibraryManagement.getInstance().getCurrentAccount().getUsername());
         List<Message> messages = query.getResultList();
 
         session.getTransaction().commit();

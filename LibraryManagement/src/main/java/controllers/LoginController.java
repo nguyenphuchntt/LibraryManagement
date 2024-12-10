@@ -2,6 +2,8 @@ package controllers;
 
 import entities.Account;
 import entities.LibraryManagement;
+import entities.User;
+import entities.UserFactory;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import utils.AccountUserUtils;
@@ -56,6 +58,8 @@ public class LoginController {
         if (!loginSuccessful) {
             loginMessage_Label.setText("Invalid username or password");
         } else {
+            User currentUser = UserFactory.createUser(account.getTypeAccount(), username);
+            LibraryManagement.getInstance().setCurrentUser(currentUser);
             LibraryManagement.getInstance().setCurrentAccount(account);
             switchToHomeScene();
             SideBarLoader.getLeftController().loadUserInfo();

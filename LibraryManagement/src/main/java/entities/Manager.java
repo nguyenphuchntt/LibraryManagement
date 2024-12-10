@@ -21,4 +21,19 @@ public class Manager extends User {
         }
     }
 
+    public boolean addBooks(Book book) {
+        return false;
+    }
+
+    public boolean removeBooks(Book book) {
+        return false;
+    }
+
+    public boolean AlterBooks(Book book) {
+        return false;
+    }
+
+    public boolean postAnnouncement(Announcement announcement) {
+        return false;
+    }
 }

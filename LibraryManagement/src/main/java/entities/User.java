@@ -114,6 +114,10 @@ public class User {
     public String getDepartment() { return department; }
     public void setDepartment(String department) { this.department = department; }
 
+    public boolean sendMessage(String message) {
+        return false;
+    }
+
     public String toString() {
         return "name: " + name + "\nbirth: " + age + "\ngender: " + gender + "\ndepartment: " + department;
     }
