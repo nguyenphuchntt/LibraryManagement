@@ -36,7 +36,7 @@
                   <TextArea fx:id="description_TextArea" layoutX="125.0" layoutY="281.0" prefHeight="131.0" prefWidth="631.0" promptText="Description" wrapText="true" />
                   <ImageView fx:id="thumbnail_ImageView" fitHeight="190.0" fitWidth="160.0" layoutX="491.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
                   <Label fx:id="addBookMessage_Label" alignment="CENTER" layoutX="10.0" layoutY="426.0" prefHeight="16.0" prefWidth="752.0" />
-                  <Button fx:id="search_Button" layoutX="395.0" layoutY="41.0" mnemonicParsing="false" onAction="#handleSearch" text="Search" />
+                  <Button fx:id="search_Button" layoutX="395.0" layoutY="41.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="26.0" prefWidth="98.0" text="Search" />
                   <Label fx:id="internetError_Label" layoutX="534.0" layoutY="51.0" prefHeight="26.0" prefWidth="102.0" text="Internet error!" textFill="RED" />
                     </children>
                 </AnchorPane>

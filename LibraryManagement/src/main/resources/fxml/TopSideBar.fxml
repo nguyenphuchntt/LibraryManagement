@@ -6,7 +6,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox nodeOrientation="RIGHT_TO_LEFT" prefHeight="45.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller" stylesheets="@../css/TopSideBar.css">
+<HBox nodeOrientation="RIGHT_TO_LEFT" prefHeight="45.0" prefWidth="1100.0" stylesheets="@../css/TopSideBar.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
     <children>
       <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="45.0" prefWidth="900.0">
          <content>
@@ -22,6 +22,6 @@
             <Insets />
          </opaqueInsets>
       </ScrollPane>
-        <Label fx:id="LibraryName_Label" alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #33f3d8;" text="UET LIB" textAlignment="CENTER" textFill="RED" />
+        <Label fx:id="LibraryName_Label" alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="235.0" style="-fx-background-color: #33f3d8;" text="UET LIB" textAlignment="CENTER" textFill="RED" />
     </children>
 </HBox>
