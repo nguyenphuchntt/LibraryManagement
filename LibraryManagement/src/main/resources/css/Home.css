@@ -26,6 +26,7 @@ AnchorPane {
     -fx-font-weight: bold;
     -fx-alignment: center;
     -fx-padding: 8px;
+    -fx-alignment: center;
 }
 
 #returned_Label {
@@ -50,7 +51,7 @@ AnchorPane {
 }
 
 #newMessage_Button, #message_Button, #changeInfo_Button {
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-font-size: 12px;
     -fx-font-weight: bold;
     -fx-padding: 8 24;
