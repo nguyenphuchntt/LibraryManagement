@@ -2,6 +2,7 @@ package controllers;
 
 import entities.LibraryManagement;
 import entities.User;
+import javafx.application.Platform;
 import utils.AccountUserUtils;
 import utils.PopupUtils;
 import database.DatabaseController;
@@ -12,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import utils.TransactionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,19 @@ public class HomeController implements PopupUtils.PopupClosedCallback {
     private Label notifications_Label;
 
     @FXML
+    private Label totalBorrowedBooks_Label;
+
+    @FXML
+    private Label totalReturnedBooks_Label;
+
+    @FXML
+    private Label totalIssues_Label;
+
+    private int totalOverDueBooks;
+    private int totalBorrowedBooks;
+    private int totalReturnedBooks;
+
+    @FXML
     public void initialize() {
         refreshUsersIntoListView();
     }
@@ -37,6 +52,10 @@ public class HomeController implements PopupUtils.PopupClosedCallback {
     public void refreshUsersIntoListView() {
         receiver_TextField.clear();
         loadUsersIntoListView();
+        new Thread(() -> {
+            refreshTotalTransaction();
+            Platform.runLater(this::showTotalTransaction);
+        }).start();
     }
 
     private HBox createUserHBox(User user) {
@@ -94,5 +113,18 @@ public class HomeController implements PopupUtils.PopupClosedCallback {
     @Override
     public void onPopupClosed(String username) {
         this.usersChatWith.remove(username);
+    }
+
+    private void refreshTotalTransaction() {
+        String username = LibraryManagement.getInstance().getCurrentAccount().getUsername();
+        totalOverDueBooks = TransactionUtils.getTotalOverDueTransactions(username);
+        totalBorrowedBooks = TransactionUtils.getTotalBorrowedBook(username);
+        totalReturnedBooks = TransactionUtils.getTotalReturnedBook(username);
+    }
+
+    private void showTotalTransaction() {
+        totalBorrowedBooks_Label.setText(String.valueOf(totalBorrowedBooks));
+        totalReturnedBooks_Label.setText(String.valueOf(totalReturnedBooks));
+        totalIssues_Label.setText(String.valueOf(totalOverDueBooks));
     }
 }

@@ -14,19 +14,19 @@
                 <AnchorPane layoutX="80.0" layoutY="14.0" prefHeight="126.0" prefWidth="200.0" style="-fx-background-color: #3498db;">
                <children>
                         <Label alignment="CENTER" layoutY="94.0" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" text="Total Borrowed Books" />
-                  <Label fx:id="totoalBorrowedBooks" alignment="CENTER" layoutX="15.0" layoutY="20.0" prefHeight="53.0" prefWidth="49.0" />
+                  <Label fx:id="totalBorrowedBooks_Label" alignment="CENTER" layoutX="15.0" layoutY="20.0" prefHeight="53.0" prefWidth="49.0" />
                </children>
                 </AnchorPane>
                 <AnchorPane layoutX="620.0" layoutY="14.0" prefHeight="125.0" prefWidth="200.0" style="-fx-background-color: #3498db;">
                     <children>
                         <Label alignment="CENTER" layoutY="90.0" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" text="Issues" />
-                  <Label fx:id="totalIssues" alignment="CENTER" layoutX="15.0" layoutY="20.0" prefHeight="53.0" prefWidth="49.0" />
+                  <Label fx:id="totalIssues_Label" alignment="CENTER" layoutX="15.0" layoutY="20.0" prefHeight="53.0" prefWidth="49.0" />
                     </children>
                 </AnchorPane>
                 <AnchorPane layoutX="350.0" layoutY="14.0" prefHeight="125.0" prefWidth="200.0" style="-fx-background-color: #3498db;">
                <children>
                         <Label alignment="CENTER" layoutY="94.0" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" text="Total Returned Books" />
-                  <Label fx:id="totalReturnedBooks" alignment="CENTER" layoutX="15.0" layoutY="20.0" prefHeight="53.0" prefWidth="49.0" />
+                  <Label fx:id="totalReturnedBooks_Label" alignment="CENTER" layoutX="15.0" layoutY="20.0" prefHeight="53.0" prefWidth="49.0" />
                </children>
                 </AnchorPane>
                 <TableView fx:id="overdue_TableView" layoutX="25.0" layoutY="189.0" prefHeight="532.0" prefWidth="850.0">
