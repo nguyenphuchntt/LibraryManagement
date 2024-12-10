@@ -154,7 +154,7 @@ public class BookPopupController {
             cleanUpData();
             return;
         }
-        String username = LibraryManagement.getInstance().getCurrentAccount();
+        String username = LibraryManagement.getInstance().getCurrentAccount().getUsername();
         Double rate = Double.parseDouble(star);
         String commentContent = comment_TextArea.getText();
         Comment comment = new Comment(book, username, commentContent, rate);

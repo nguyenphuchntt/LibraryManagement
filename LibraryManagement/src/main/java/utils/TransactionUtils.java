@@ -154,7 +154,7 @@ public class TransactionUtils {
             session.beginTransaction();
             Query<Long> query = session.createQuery("SELECT COUNT(b) FROM Transaction b"
                      + " WHERE b.user.username =: username", Long.class);
-            query.setParameter("username", LibraryManagement.getInstance().getCurrentAccount());
+            query.setParameter("username", LibraryManagement.getInstance().getCurrentAccount().getUsername());
             session.getTransaction().commit();
             return query.uniqueResult().intValue();
         } catch (Exception e) {

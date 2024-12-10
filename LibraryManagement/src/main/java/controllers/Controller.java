@@ -212,8 +212,8 @@ public class Controller {
     }
 
     public void loadUserInfo() {
-        role_Label.setText(LibraryManagement.getInstance().getRole());
-        username_Label.setText(LibraryManagement.getInstance().getCurrentAccount());
+        role_Label.setText(LibraryManagement.getInstance().getCurrentAccount().getTypeAccount() ? "admin" : "user");
+        username_Label.setText(LibraryManagement.getInstance().getCurrentAccount().getUsername());
     }
 
     public void setAdminPanelVisible(boolean isVisible) {

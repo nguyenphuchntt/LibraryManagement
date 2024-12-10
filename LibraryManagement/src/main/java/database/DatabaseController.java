@@ -749,7 +749,7 @@ public class DatabaseController {
             session.beginTransaction();
             String hql = "SELECT DISTINCT m.sender FROM Message m WHERE m.receiver.username = :currentUserId";
             Query<User> query = session.createQuery(hql, User.class);
-            query.setParameter("currentUserId", LibraryManagement.getInstance().getCurrentAccount());
+            query.setParameter("currentUserId", LibraryManagement.getInstance().getCurrentAccount().getUsername());
             List<User> users = query.getResultList();
             session.getTransaction().commit();
             return users;

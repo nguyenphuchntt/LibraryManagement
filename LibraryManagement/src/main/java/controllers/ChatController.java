@@ -58,7 +58,7 @@ public class ChatController {
             return;
         }
 
-        String currentUsername = LibraryManagement.getInstance().getCurrentAccount();
+        String currentUsername = LibraryManagement.getInstance().getCurrentAccount().getUsername();
         User currentAccount = AccountUserUtils.getCurrentUser();
         User receiverAccount = AccountUserUtils.getUserInfo(username);
         Timestamp now = new Timestamp(System.currentTimeMillis());

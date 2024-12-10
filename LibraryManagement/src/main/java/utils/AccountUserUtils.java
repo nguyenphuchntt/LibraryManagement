@@ -89,7 +89,7 @@ public class AccountUserUtils {
         } catch (SQLException e) {
             System.out.println("SQLException -> changePassword function of Account controller: " + e.getMessage());
         }
-        LibraryManagement.getInstance().setCurrentPassword(password);
+        LibraryManagement.getInstance().getCurrentAccount().setPassword(password);
     }
 
     public static void addUser(String username) {
@@ -152,7 +152,7 @@ public class AccountUserUtils {
     }
 
     public static User getCurrentUser() {
-        return getUserInfo(LibraryManagement.getInstance().getCurrentAccount());
+        return getUserInfo(LibraryManagement.getInstance().getCurrentAccount().getUsername());
     }
 
     public static void updateUserInfo(String name, int age, String department) {
@@ -160,7 +160,7 @@ public class AccountUserUtils {
 
         try {
             session.beginTransaction();
-            String username = LibraryManagement.getInstance().getCurrentAccount();
+            String username = LibraryManagement.getInstance().getCurrentAccount().getUsername();
             User user = session.get(User.class, username);
             user.setName(name);
             if (age != 0) {

@@ -34,6 +34,7 @@
             <ListView fx:id="messages_ListView" layoutX="41.0" layoutY="278.0" prefHeight="416.0" prefWidth="818.0" />
             <Button id="newMessage_Button" layoutX="723.0" layoutY="224.0" mnemonicParsing="false" onAction="#handleNewMessagesButton" prefHeight="35.0" prefWidth="126.0" text="New Message" />
             <TextField fx:id="receiver_TextField" layoutX="462.0" layoutY="221.0" />
+            <Label fx:id="notifications_Label" alignment="CENTER" layoutX="462.0" layoutY="186.0" prefHeight="22.0" prefWidth="250.0" />
             </children>
         </AnchorPane>
     </children>

@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import utils.FormatUtils;
 
 public class AccountController {
 
@@ -81,7 +82,7 @@ public class AccountController {
 
         department_Label.setText("DEPARTMENT: " + currentUser.getDepartment());
 
-        Account currentAccount = AccountUserUtils.getAccountInfo(LibraryManagement.getInstance().getCurrentAccount());
+        Account currentAccount = AccountUserUtils.getAccountInfo(LibraryManagement.getInstance().getCurrentAccount().getUsername());
 
         usedTime_Label.setText("JOINED TIME: " + currentAccount.getJoined_date());
     }
@@ -106,7 +107,7 @@ public class AccountController {
         String currentPassword = currentPassword_TextField.getText();
         String newPassword = newPassword_TextField.getText();
         String cfNewPassword = cfNewPassword_TextField.getText();
-        if (!currentPassword.equals(LibraryManagement.getInstance().getCurrentPassword())) {
+        if (!currentPassword.equals(LibraryManagement.getInstance().getCurrentAccount().getPassword())) {
             changePasswordMessage_Label.setText("Incorrect Password");
             return;
         }
@@ -118,7 +119,7 @@ public class AccountController {
             changePasswordMessage_Label.setText("Password Should Have Correct Format");
             return;
         }
-        String username = LibraryManagement.getInstance().getCurrentAccount();
+        String username = LibraryManagement.getInstance().getCurrentAccount().getUsername();
         AccountUserUtils.changePassword(username, newPassword);
         cleanUp();
     }
@@ -156,9 +157,7 @@ public class AccountController {
             String age = age_TextField.getText();
             int ageInt = 0;
             try {
-                if (age != null && !age.trim().isEmpty()) {
-                    ageInt = Integer.parseInt(age);
-                }
+                ageInt = FormatUtils.StringToInteger(age);
             } catch (NumberFormatException e) {
                 changeInfo_Label.setText("Invalid Age");
                 return;
@@ -166,6 +165,7 @@ public class AccountController {
             String department = department_TextField.getText();
             AccountUserUtils.updateUserInfo(name, ageInt, department);
             refreshInfo();
+            changeInfo_Label.setText("");
         }
         if (isChangeInfo) {
             name_Label.setText("NAME: ");
