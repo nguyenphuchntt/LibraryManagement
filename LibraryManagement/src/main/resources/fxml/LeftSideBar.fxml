@@ -40,7 +40,7 @@
       <Button mnemonicParsing="false" onAction="#handleBookSearch_MenuItem" prefHeight="50.0" prefWidth="200.0" text="Search Book" />
       <Button mnemonicParsing="false" onAction="#handleBookReturn_MenuItem" prefHeight="50.0" prefWidth="200.0" text="Return Book" />
         <Button fx:id="AccountTab_Button" mnemonicParsing="false" onAction="#handleAccount_Button" prefHeight="50.0" prefWidth="200.0" text="Account" />
-        <MenuButton fx:id="AdminPanelTab_Button" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="Admin Panel" textAlignment="CENTER" textFill="WHITE">
+        <MenuButton fx:id="AdminPanelTab_Button" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="Admin Panel" textAlignment="CENTER">
             <items>
                 <MenuItem fx:id="AdminPanel_Overview_MenuItem" mnemonicParsing="false" onAction="#handleAdminOverview_MenuItem" text="Overview" />
                 <MenuItem fx:id="AdminPanel_AddBook_MenuItem" mnemonicParsing="false" onAction="#handleAdminAddBook_MenuItem" text="Add book" />

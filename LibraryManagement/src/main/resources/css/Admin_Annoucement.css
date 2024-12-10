@@ -1,12 +1,24 @@
 @import url("Book.css");
 
 #send_Button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 12 24;
+    -fx-background-radius: 25px;
+    -fx-border-radius: 25px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, #3498db, 10, 0.0, 0, 4);
 }
 
 #send_Button:hover {
+    -fx-background-color: #2980b9;
+    -fx-effect: dropshadow(gaussian, #2980b9, 8, 0.0, 0, 3);
 }
 
 #send_Button:pressed {
+    -fx-background-color: #1c6fa0;
 }
 
 #content_TextArea {

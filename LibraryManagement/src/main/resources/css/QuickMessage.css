@@ -10,22 +10,36 @@ VBox {
     -fx-max-height: 150px;
     -fx-min-width: 350px;
     -fx-max-width: 350px;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #3498db;
+    -fx-border-radius: 15px;
+    -fx-text-fill: #333333;
 }
 
 #message_TextArea:focused {
     -fx-border-width: 2px;
+    -fx-border-color: #2980b9;
 }
 
-Button {
-    -fx-font-size: 14px;
-    -fx-pref-height: 40px;
-    -fx-pref-width: 80px;
+#send_Button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 12 24;
+    -fx-background-radius: 25px;
+    -fx-border-radius: 25px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, #3498db, 10, 0.0, 0, 4);
 }
 
-Button:hover {
+#send_Button:hover {
+    -fx-background-color: #2980b9;
+    -fx-effect: dropshadow(gaussian, #2980b9, 8, 0.0, 0, 3);
 }
 
-Button:pressed {
+#send_Button:pressed {
+    -fx-background-color: #1c6fa0;
 }
 
 ScrollPane {
