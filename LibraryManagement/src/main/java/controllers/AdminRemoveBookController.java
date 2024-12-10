@@ -48,6 +48,10 @@ public class AdminRemoveBookController {
             cleanUp();
             return;
         }
+        if (BookUtils.isBeingBorrowed(bookID)) {
+            removeMessage_Label.setText("You are being borrowed so you can't remove this book -(");
+            return;
+        }
         new Thread(() -> {
             ((Manager) (LibraryManagement.getInstance().getCurrentUser())).removeBooks(bookID);
             Platform.runLater(this::cleanUp);
