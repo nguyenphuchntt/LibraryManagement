@@ -61,9 +61,6 @@ public class BookSearchController {
     private TableColumn<Book, Integer> quantity_Column;
 
     @FXML
-    private TableColumn<Book, Double> rate_Column;
-
-    @FXML
     private TextField searchBar_TextField;
 
     @FXML
@@ -77,18 +74,6 @@ public class BookSearchController {
 
     @FXML
     private TextField isbn_TextField;
-
-    @FXML
-    private Button refresh_Button;
-
-    @FXML
-    private Button borrowRecommend_Button;
-
-    @FXML
-    private Button borrowSearch_Button;
-
-    @FXML
-    private Button search_Button;
 
     @FXML
     private Label ratingStar_Label;
@@ -127,16 +112,11 @@ public class BookSearchController {
     public void initialize() {
         mapColumnValue();
 
-        new Thread(this::getRecommendBooks).start();
+        getRecommendBooks();
 
         new Thread(() -> {
             bookList = FXCollections.observableArrayList(BookUtils.getAllBooks());
             Platform.runLater(this::showTable);
-        }).start();
-
-        new Thread(() -> {
-            amount_Column.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
-            amount_Column.setCellFactory(CheckBoxTableCell.forTableColumn(amount_Column));
         }).start();
 
         new Thread(() -> {
@@ -212,13 +192,14 @@ public class BookSearchController {
     }
 
     private void mapColumnValue() {
+        amount_Column.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
+        amount_Column.setCellFactory(CheckBoxTableCell.forTableColumn(amount_Column));
         bookTitle_Column.setCellValueFactory(new PropertyValueFactory<>("title"));
         bookID_Column.setCellValueFactory(new PropertyValueFactory<>("id"));
         author_Column.setCellValueFactory(new PropertyValueFactory<>("author"));
         category_Column.setCellValueFactory(new PropertyValueFactory<>("category"));
         description_Column.setCellValueFactory(new PropertyValueFactory<>("description"));
         quantity_Column.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-        rate_Column.setCellValueFactory(new PropertyValueFactory<>("averageRate"));
     }
 
     public static List<Book> getSelectedBooks(ObservableList<Book> books) {
@@ -301,8 +282,6 @@ public class BookSearchController {
         category_Text.setText("Category: " + book[2].toString() + '\n');
         publishedYear_Text.setText("Published Year: " + book[3].toString() + '\n');
         description_Text.setText("Description: " + FormatUtils.getShortDescription(book[4].toString(), 500) + '\n' + "User comment: " + bestComment);
-
-        ratingStar_Label.setText("Rating: " + book[5].toString());
 
         if (book[7] != null) {
             thumbnail_ImageView.setImage(new Image(book[7].toString()));
