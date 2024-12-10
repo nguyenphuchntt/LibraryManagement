@@ -9,11 +9,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1100.0" style="-fx-background-color: #ffffff;" stylesheets="@../css/SignUp.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SignupController">
+<AnchorPane prefHeight="800.0" prefWidth="1100.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SignupController">
     <children>
         <ImageView fitHeight="800.0" fitWidth="616.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../assets/img/logoUET.jpg" />
+                <Image url="@../assets/img/logoUET.png" />
             </image>
         </ImageView>
         <Pane layoutX="615.0" prefHeight="800.0" prefWidth="485.0">

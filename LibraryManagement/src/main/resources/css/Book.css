@@ -1,49 +1,9 @@
-AnchorPane {
-    -fx-padding: 20px;
-    -fx-spacing: 20px;
+@font-face {
+    font-family: 'Muli-bold';
+    src: url('../assets/font/Muli-Semi-BoldItalic.ttf');
 }
 
-.Label {
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-}
-
-.TextField {
-    -fx-background-color: #ffffff;
-    -fx-padding: 10px;
-    -fx-font-size: 14px;
-    -fx-text-fill: #333333;
-    -fx-prompt-text-fill: #888888;
-}
-
-.TextField:focused {
-    -fx-border-width: 2px;
-}
-
-.Button {
-    -fx-text-fill: white;
-    -fx-font-size: 14px;
-    -fx-padding: 10px 20px;
-    -fx-cursor: hand;
-}
-
-.Button:hover {
-}
-
-.Button:pressed {
-}
-
-.TableView {
-    -fx-background-color: #ffffff;
-    -fx-border-color: #cccccc;
-    -fx-padding: 10px;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.5, 0, 0);
-}
-
-.TableColumn {
-    -fx-text-fill: white;
-    -fx-font-size: 14px;
-}
-
-.TableColumnHeader {
+@font-face {
+    font-family: 'Muli';
+    src: url('../assets/font/Muli-SemiBold.ttf');
 }
