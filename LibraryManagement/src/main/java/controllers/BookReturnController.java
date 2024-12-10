@@ -192,6 +192,7 @@ public class BookReturnController {
         }
         if (transactions.isEmpty()) {
             PopupUtils.showAlert("No books are selected");
+            return;
         }
         List<String> toReturnBookID = new ArrayList<>();
         User currentUser = AccountUserUtils.getCurrentUser();

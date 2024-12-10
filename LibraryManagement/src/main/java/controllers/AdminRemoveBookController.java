@@ -1,6 +1,9 @@
 package controllers;
 
 import entities.Book;
+import entities.LibraryManagement;
+import entities.Manager;
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import utils.BookUtils;
@@ -45,6 +48,10 @@ public class AdminRemoveBookController {
             cleanUp();
             return;
         }
+        new Thread(() -> {
+            ((Manager) (LibraryManagement.getInstance().getCurrentUser())).removeBooks(bookID);
+            Platform.runLater(this::cleanUp);
+        }).start();
     }
 
     @FXML

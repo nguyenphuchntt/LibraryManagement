@@ -1,5 +1,8 @@
 package entities;
 
+import database.DatabaseController;
+import utils.BookUtils;
+
 public class Manager extends User {
 
     private Manager(Builder builder) {
@@ -21,19 +24,19 @@ public class Manager extends User {
         }
     }
 
-    public boolean addBooks(Book book) {
-        return false;
+    public void addBooks(Book book) {
+        DatabaseController.saveEntity(book);
     }
 
-    public boolean removeBooks(Book book) {
-        return false;
+    public void removeBooks(String book) {
+        BookUtils.removeBookByISBN(book);
     }
 
-    public boolean AlterBooks(Book book) {
-        return false;
+    public void alterBooks(Book book) {
+        BookUtils.alterBook(book);
     }
 
-    public boolean postAnnouncement(Announcement announcement) {
-        return false;
+    public void postAnnouncement(Announcement announcement) {
+        DatabaseController.saveEntity(announcement);
     }
 }
