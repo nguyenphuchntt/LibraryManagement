@@ -58,13 +58,14 @@ public class ChatController {
             return;
         }
 
-        String currentUsername = LibraryManagement.getInstance().getCurrentAccount();
+        String currentUsername = LibraryManagement.getInstance().getCurrentAccount().getUsername();
         User currentAccount = AccountUserUtils.getCurrentUser();
         User receiverAccount = AccountUserUtils.getUserInfo(username);
         Timestamp now = new Timestamp(System.currentTimeMillis());
 
         Message message = new Message(currentAccount, receiverAccount, content, now);
-        DatabaseController.saveEntity(message);
+
+        (LibraryManagement.getInstance().getCurrentUser()).sendMessage(message);
 
         HBox messageBox = new HBox();
         Text messageText = new Text(currentUsername

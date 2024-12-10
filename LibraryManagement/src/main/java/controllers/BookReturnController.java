@@ -135,7 +135,7 @@ public class BookReturnController {
         String isbn = isbn_TextField.getText().isEmpty() ? null : isbn_TextField.getText();
         String author = author_TextField.getText().isEmpty() ? null : author_TextField.getText();
         String category = category_TextField.getText().isEmpty() ? null : category_TextField.getText();
-        String currentUsername = LibraryManagement.getInstance().getCurrentAccount();
+        String currentUsername = LibraryManagement.getInstance().getCurrentAccount().getUsername();
         transactionList = TransactionUtils.getFilteredBorrowTransactions(
                 title, author, category, isbn, currentUsername, ROWS_PER_PAGE * currentPage, ROWS_PER_PAGE
         );
@@ -192,6 +192,7 @@ public class BookReturnController {
         }
         if (transactions.isEmpty()) {
             PopupUtils.showAlert("No books are selected");
+            return;
         }
         List<String> toReturnBookID = new ArrayList<>();
         User currentUser = AccountUserUtils.getCurrentUser();

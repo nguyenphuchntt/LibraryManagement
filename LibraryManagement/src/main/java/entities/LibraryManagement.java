@@ -2,9 +2,8 @@ package entities;
 
 public class LibraryManagement {
 
-    private String currentAccount = null;
-    private String currentPassword = null;
-    private String role = null;
+    Account currentAccount = null;
+    User currentUser = null;
 
     private static LibraryManagement libraryManagement;
 
@@ -18,36 +17,26 @@ public class LibraryManagement {
     public void logout() {
         if (currentAccount != null) {
             currentAccount = null;
-            currentPassword = null;
-            role = null;
+            currentUser = null;
             System.out.println("Logout successful.");
         } else {
             System.out.println("No user is currently logged in.");
         }
     }
 
-    public String  getCurrentAccount() {
+    public Account getCurrentAccount() {
         return currentAccount;
     }
 
-    public String getCurrentPassword() {
-        return currentPassword;
-    }
-
-    public void setCurrentAccount(String currentAccount) {
+    public void setCurrentAccount(Account currentAccount) {
         this.currentAccount = currentAccount;
     }
 
-    public void setCurrentPassword(String currentPassword) {
-        this.currentPassword = currentPassword;
+    public User getCurrentUser() {
+        return currentUser;
     }
 
-    public String getRole() {
-        return role;
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
     }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
 }

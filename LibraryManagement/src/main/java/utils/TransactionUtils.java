@@ -154,7 +154,7 @@ public class TransactionUtils {
             session.beginTransaction();
             Query<Long> query = session.createQuery("SELECT COUNT(b) FROM Transaction b"
                      + " WHERE b.user.username =: username", Long.class);
-            query.setParameter("username", LibraryManagement.getInstance().getCurrentAccount());
+            query.setParameter("username", LibraryManagement.getInstance().getCurrentAccount().getUsername());
             session.getTransaction().commit();
             return query.uniqueResult().intValue();
         } catch (Exception e) {
@@ -167,13 +167,76 @@ public class TransactionUtils {
         }
     }
 
-    public static int getTotalOverDueTransactions() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        try {
-            Query<Long> query = session.createQuery("SELECT COUNT(b) FROM Transaction b WHERE b.return_time IS NULL AND " +
-                    "DATEDIFF(NOW(), b.borrow_time) > 21", Long.class);
+    public static int getTotalOverDueTransactions(String username) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            String hql = "SELECT COUNT(b) FROM Transaction b WHERE b.return_time IS NULL";
+            if (username != null) {
+                hql = hql + " AND b.user.username =: username";
+            }
+            hql = hql + " AND DATEDIFF(NOW(), b.borrow_time) > 21";
+            Query<Long> query = session.createQuery(hql, Long.class);
+            if (username != null) {
+                query.setParameter("username", username);
+            }
             return query.uniqueResult().intValue();
         } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    public static int getTotalBorrowedBook(String username) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            session.beginTransaction();
+            String query = "SELECT COUNT(b) FROM Transaction b WHERE 1 = 1";
+            if (username != null) {
+                query = query + " AND b.user.username =: username";
+            }
+
+            Query<Long> hql = session.createQuery(query, Long.class);
+
+            if(username != null) {
+                hql.setParameter("username", username);
+            }
+
+            session.getTransaction().commit();
+
+            return hql.uniqueResult().intValue();
+
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
+
+    public static int getTotalReturnedBook(String username) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            session.beginTransaction();
+            String query = "SELECT COUNT(b) FROM Transaction b WHERE b.return_time IS NOT NULL";
+            if (username != null) {
+                query = query + " AND b.user.username =: username";
+            }
+
+            Query<Long> hql = session.createQuery(query, Long.class);
+            if (username != null) {
+                hql.setParameter("username", username);
+            }
+
+            session.getTransaction().commit();
+
+            return hql.uniqueResult().intValue();
+
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
             throw e;
         } finally {
             session.close();

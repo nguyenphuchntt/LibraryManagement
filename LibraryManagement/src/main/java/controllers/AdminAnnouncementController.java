@@ -1,6 +1,9 @@
 package controllers;
 
 import entities.Announcement;
+import entities.LibraryManagement;
+import entities.Manager;
+import javafx.application.Platform;
 import utils.PopupUtils;
 import database.DatabaseController;
 import javafx.fxml.FXML;
@@ -45,9 +48,11 @@ public class AdminAnnouncementController {
             return;
         }
         Announcement announcement = new Announcement(content, startDate, endDate);
-        DatabaseController.saveEntity(announcement);
+        new Thread(() -> {
+            ((Manager) (LibraryManagement.getInstance().getCurrentUser())).postAnnouncement(announcement);
+            Platform.runLater(SideBarLoader::reloadAnnouncement);
+        }).start();
         PopupUtils.showAlert("Announcement sent successfully");
-        SideBarLoader.reloadAnnouncement();
         cleanUp();
     }
 

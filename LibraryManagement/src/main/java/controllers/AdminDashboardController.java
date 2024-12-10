@@ -3,6 +3,8 @@ package controllers;
 import DTO.TransactionDTO;
 import entities.LibraryManagement;
 import entities.Transaction;
+import javafx.application.Platform;
+import javafx.scene.control.Label;
 import utils.PopupUtils;
 import utils.TransactionUtils;
 import javafx.collections.ObservableList;
@@ -18,8 +20,10 @@ public class AdminDashboardController {
     private static final int ROWS_PER_PAGE = 23;
 
     private int currentPage = 0;
-    int totalRows = TransactionUtils.getTotalOverDueTransactions();
-    private int pageCount = (int) Math.ceil((double) totalRows / ROWS_PER_PAGE);
+    private int totalOverDueBooks;
+    private int totalBorrowedBooks;
+    private int totalReturnedBooks;
+    private int pageCount = (int) Math.ceil((double) totalOverDueBooks / ROWS_PER_PAGE);
 
     @FXML
     private TableView<TransactionDTO> overdue_TableView;
@@ -39,10 +43,25 @@ public class AdminDashboardController {
     @FXML
     private TableColumn<TransactionDTO, String> note_Column;
 
+    @FXML
+    private Label totalBorrowedBooks_Label;
+
+    @FXML
+    private Label totalReturnedBooks_Label;
+
+    @FXML
+    private Label totalIssues_Label;
+
     private ObservableList<TransactionDTO> overdueList;
 
     @FXML
     private void initialize() {
+
+        new Thread(() -> {
+            refreshTotalTransaction();
+            Platform.runLater(this::showTotalTransaction);
+        }).start();
+
         assignColumnValue();
         overdue_TableView.setOnMouseClicked(event -> {
             if (event.getClickCount() >= 2) {
@@ -70,7 +89,7 @@ public class AdminDashboardController {
     }
 
     private void handleDoubleClick(String username) {
-        if (username.equals(LibraryManagement.getInstance().getCurrentAccount())) {
+        if (username.equals(LibraryManagement.getInstance().getCurrentAccount().getUsername())) {
             return;
         }
         PopupUtils.openQuickMessage(username);
@@ -98,5 +117,17 @@ public class AdminDashboardController {
 
     public void cleanUp() {
         refreshOverdueTableView();
+    }
+
+    private void refreshTotalTransaction() {
+        totalOverDueBooks = TransactionUtils.getTotalOverDueTransactions(null);
+        totalBorrowedBooks = TransactionUtils.getTotalBorrowedBook(null);
+        totalReturnedBooks = TransactionUtils.getTotalReturnedBook(null);
+    }
+
+    private void showTotalTransaction() {
+        totalBorrowedBooks_Label.setText(String.valueOf(totalBorrowedBooks));
+        totalReturnedBooks_Label.setText(String.valueOf(totalReturnedBooks));
+        totalIssues_Label.setText(String.valueOf(totalOverDueBooks));
     }
 }

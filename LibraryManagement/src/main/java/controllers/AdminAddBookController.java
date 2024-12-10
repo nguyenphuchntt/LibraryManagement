@@ -1,6 +1,8 @@
 package controllers;
 
 import entities.Book;
+import entities.LibraryManagement;
+import entities.Manager;
 import utils.APIUtils;
 import utils.BookUtils;
 import utils.PopupUtils;
@@ -111,7 +113,7 @@ public class AdminAddBookController {
                 return;
             }
             new Thread(() -> {
-                DatabaseController.saveEntity(book);
+                ((Manager) (LibraryManagement.getInstance().getCurrentUser())).addItems(book);
             }).start();
             PopupUtils.showAlert("Book added successfully");
             cleanUp();

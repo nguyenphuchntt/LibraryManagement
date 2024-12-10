@@ -1,5 +1,8 @@
 package entities;
 
+import database.DatabaseController;
+import utils.BookUtils;
+
 public class Manager extends User {
 
     private Manager(Builder builder) {
@@ -21,4 +24,23 @@ public class Manager extends User {
         }
     }
 
+    public void addItems(LibraryItem item) {
+        DatabaseController.saveEntity(item);
+    }
+
+    public void removeBooks(String book) {
+        BookUtils.removeBookByISBN(book);
+    }
+
+    public void alterBooks(Book book) {
+        BookUtils.alterBook(book);
+    }
+
+    public void postAnnouncement(Announcement announcement) {
+        DatabaseController.saveEntity(announcement);
+    }
+
+    public void sendQuickMessage(Message message) {
+        DatabaseController.saveEntity(message);
+    }
 }

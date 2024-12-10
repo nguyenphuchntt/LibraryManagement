@@ -33,12 +33,11 @@
                             <columns>
                                 <TableColumn fx:id="amount_Column" maxWidth="30.0" prefWidth="30.0" resizable="false" text="X" />
                                 <TableColumn fx:id="bookTitle_Column" editable="false" prefWidth="161.0" resizable="false" text="BOOK TITLE" />
-                                <TableColumn fx:id="bookID_Column" editable="false" prefWidth="113.0" resizable="false" text="BOOK ID" />
-                                <TableColumn fx:id="author_Column" editable="false" prefWidth="99.0" resizable="false" text="AUTHOR" />
-                                <TableColumn fx:id="category_Column" editable="false" prefWidth="113.0" resizable="false" sortable="false" text="CATEGORY" />
-                                <TableColumn fx:id="description_Column" editable="false" prefWidth="187.0" resizable="false" sortable="false" text="DESCRIPTION" />
-                                <TableColumn fx:id="quantity_Column" editable="false" prefWidth="96.0" resizable="false" text="QUANTITY" />
-                                <TableColumn fx:id="rate_Column" editable="false" prefWidth="59.0" text="RATE" />
+                                <TableColumn fx:id="bookID_Column" editable="false" prefWidth="140.0" resizable="false" text="BOOK ID" />
+                                <TableColumn fx:id="author_Column" editable="false" prefWidth="85.0" resizable="false" text="AUTHOR" />
+                                <TableColumn fx:id="category_Column" editable="false" prefWidth="98.0" resizable="false" sortable="false" text="CATEGORY" />
+                                <TableColumn fx:id="description_Column" editable="false" prefWidth="262.0" resizable="false" sortable="false" text="DESCRIPTION" />
+                                <TableColumn fx:id="quantity_Column" editable="false" prefWidth="83.0" resizable="false" text="QUANTITY" />
                             </columns>
                         </TableView>
                         <HBox layoutX="20.0" layoutY="86.0" prefHeight="25.0" prefWidth="572.0">
@@ -61,7 +60,6 @@
                         </Label>
                         <Button fx:id="borrowRecommend_Button" layoutX="241.0" layoutY="238.0" mnemonicParsing="false" onAction="#handleBorrowRecommendBook" text="BORROW" />
                         <Button fx:id="refresh_Button" layoutX="810.0" layoutY="11.0" mnemonicParsing="false" onAction="#handleRefreshButton" text="REFRESH" />
-                        <Label fx:id="ratingStar_Label" layoutX="37.0" layoutY="242.0" text="RATING STAR: " />
                         <TextFlow fx:id="recommendBook_TextField" layoutX="27.0" layoutY="50.0" prefHeight="161.0" prefWidth="691.0">
                             <children>
                                 <Text fx:id="title_Text" strokeType="OUTSIDE" strokeWidth="0.0" text="Title:" />

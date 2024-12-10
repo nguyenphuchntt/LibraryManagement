@@ -66,6 +66,8 @@ public class Controller {
             return;
         }
         switchScene("Home.fxml");
+        HomeController homeController = (HomeController) scenes.get("Home.fxml").getUserData();
+        homeController.refreshUsersIntoListView();
     }
 
     @FXML
@@ -74,8 +76,10 @@ public class Controller {
             return;
         }
         switchScene("Book_Search.fxml");
-        BookSearchController bookSearchController = (BookSearchController) scenes.get("Book_Search.fxml").getUserData();
-        bookSearchController.refresh();
+        new Thread(() -> {
+            BookSearchController bookSearchController = (BookSearchController) scenes.get("Book_Search.fxml").getUserData();
+            bookSearchController.refresh();
+        }).start();
     }
 
     @FXML
@@ -210,8 +214,8 @@ public class Controller {
     }
 
     public void loadUserInfo() {
-        role_Label.setText(LibraryManagement.getInstance().getRole());
-        username_Label.setText(LibraryManagement.getInstance().getCurrentAccount());
+        role_Label.setText(LibraryManagement.getInstance().getCurrentAccount().getTypeAccount() ? "admin" : "user");
+        username_Label.setText(LibraryManagement.getInstance().getCurrentAccount().getUsername());
     }
 
     public void setAdminPanelVisible(boolean isVisible) {

@@ -1,6 +1,8 @@
 package controllers;
 
 import entities.Book;
+import entities.LibraryManagement;
+import entities.Manager;
 import utils.BookUtils;
 import utils.FormatUtils;
 import utils.PopupUtils;
@@ -75,8 +77,6 @@ public class AdminAlterBookController {
             alterMessage_Label.setText("Please enter a book ID / ISBN code");
             return;
         }
-
-        Connection connection = DatabaseController.getConnection();
 
         if (getProperties(search_TextField.getText())) {
             book_id = search_TextField.getText();
@@ -165,8 +165,7 @@ public class AdminAlterBookController {
                 .quantity(quantity)
                 .publisher(newPublisher)
                 .build();
-
-        BookUtils.alterBook(changedBook);
+        ((Manager) (LibraryManagement.getInstance().getCurrentUser())).alterBooks(changedBook);
         PopupUtils.showAlert("Change book properties successfully!");
         cleanUp();
     }
