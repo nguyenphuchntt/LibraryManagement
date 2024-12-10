@@ -56,6 +56,7 @@ public class AdminRemoveBookController {
             ((Manager) (LibraryManagement.getInstance().getCurrentUser())).removeBooks(bookID);
             Platform.runLater(this::cleanUp);
         }).start();
+        removeMessage_Label.setText("Removed this book");
     }
 
     @FXML
@@ -88,5 +89,6 @@ public class AdminRemoveBookController {
         thumbnail_Label.setText("");
         removeMessage_Label.setText("");
         description_Label.setText("");
+        thumbnail_ImageView.setImage(null);
     }
 }

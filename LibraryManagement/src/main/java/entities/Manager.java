@@ -24,8 +24,8 @@ public class Manager extends User {
         }
     }
 
-    public void addBooks(Book book) {
-        DatabaseController.saveEntity(book);
+    public void addItems(LibraryItem item) {
+        DatabaseController.saveEntity(item);
     }
 
     public void removeBooks(String book) {

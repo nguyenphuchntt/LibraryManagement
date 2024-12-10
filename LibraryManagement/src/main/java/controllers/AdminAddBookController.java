@@ -113,7 +113,7 @@ public class AdminAddBookController {
                 return;
             }
             new Thread(() -> {
-                ((Manager) (LibraryManagement.getInstance().getCurrentUser())).addBooks(book);
+                ((Manager) (LibraryManagement.getInstance().getCurrentUser())).addItems(book);
             }).start();
             PopupUtils.showAlert("Book added successfully");
             cleanUp();
