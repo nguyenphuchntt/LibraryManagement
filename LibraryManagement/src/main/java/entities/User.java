@@ -1,5 +1,7 @@
 package entities;
 
+import database.DatabaseController;
+
 import javax.persistence.*;
 
 @Entity
@@ -114,8 +116,8 @@ public class User {
     public String getDepartment() { return department; }
     public void setDepartment(String department) { this.department = department; }
 
-    public boolean sendMessage(String message) {
-        return false;
+    public void sendMessage(Message message) {
+        DatabaseController.saveEntity(message);
     }
 
     public String toString() {

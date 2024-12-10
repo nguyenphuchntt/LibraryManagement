@@ -64,7 +64,8 @@ public class ChatController {
         Timestamp now = new Timestamp(System.currentTimeMillis());
 
         Message message = new Message(currentAccount, receiverAccount, content, now);
-        DatabaseController.saveEntity(message);
+
+        (LibraryManagement.getInstance().getCurrentUser()).sendMessage(message);
 
         HBox messageBox = new HBox();
         Text messageText = new Text(currentUsername

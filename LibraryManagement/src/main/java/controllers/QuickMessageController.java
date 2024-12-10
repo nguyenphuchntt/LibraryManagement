@@ -1,6 +1,7 @@
 package controllers;
 
 import entities.LibraryManagement;
+import entities.Manager;
 import entities.Message;
 import entities.User;
 import utils.AccountUserUtils;
@@ -31,14 +32,15 @@ public class QuickMessageController {
             return;
         }
 
-        String currentUsername = LibraryManagement.getInstance().getCurrentAccount().getUsername();
         User currentAccount = AccountUserUtils.getCurrentUser();
         User receiverAccount = AccountUserUtils.getUserInfo(username);
         Timestamp now = new Timestamp(System.currentTimeMillis());
 
         Message message = new Message(currentAccount, receiverAccount, content, now);
-        DatabaseController.saveEntity(message);
 
+        new Thread(() -> {
+            ((Manager) (LibraryManagement.getInstance().getCurrentUser())).sendQuickMessage(message);
+        }).start();
 
         final Node source = (Node) event.getSource();
         final Stage stage = (Stage) source.getScene().getWindow();

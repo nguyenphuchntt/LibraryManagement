@@ -39,4 +39,8 @@ public class Manager extends User {
     public void postAnnouncement(Announcement announcement) {
         DatabaseController.saveEntity(announcement);
     }
+
+    public void sendQuickMessage(Message message) {
+        DatabaseController.saveEntity(message);
+    }
 }
