@@ -1,0 +1,54 @@
+@font-face {
+    font-family: 'Muli';
+    src: url('../assets/font/Muli-SemiBold.ttf');
+}
+
+VBox {
+    -fx-font-family: 'Muli', sans-serif;
+}
+
+HBox {
+    -fx-font-family: 'Muli', sans-serif;
+}
+
+Label {
+    -fx-font-family: 'Muli', sans-serif;
+}
+
+Button {
+    -fx-background-color: #9b72ed;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 16;
+    -fx-background-radius: 2;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0.3, 0, 3);
+}
+
+Button:hover {
+    -fx-background-color: #7a2a97;
+}
+
+Button:pressed {
+    -fx-background-color: #5c1d73;
+}
+
+MenuButton {
+    -fx-background-color: #9b72ed;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 16;
+    -fx-background-radius: 2;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0.3, 0, 3);
+}
+
+MenuButton:hover {
+    -fx-background-color: #7a2a97;
+}
+
+MenuButton:pressed {
+    -fx-background-color: #5c1d73;
+}

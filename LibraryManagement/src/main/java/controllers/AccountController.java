@@ -136,6 +136,7 @@ public class AccountController {
         name_TextField.setVisible(false);
         age_TextField.setVisible(false);
         department_TextField.setVisible(false);
+        changeInfo_Label.setText("");
     }
 
 
@@ -151,10 +152,11 @@ public class AccountController {
 
     @FXML
     private void handleChangeInfoButton() {
-        isChangeInfo = isChangeInfo ? false : true;
+        isChangeInfo = !isChangeInfo;
         if (!isChangeInfo) {
             String name = name_TextField.getText();
             String age = age_TextField.getText();
+            String department = department_TextField.getText();
             int ageInt = 0;
             try {
                 ageInt = FormatUtils.StringToInteger(age);
@@ -162,7 +164,6 @@ public class AccountController {
                 changeInfo_Label.setText("Invalid Age");
                 return;
             }
-            String department = department_TextField.getText();
             AccountUserUtils.updateUserInfo(name, ageInt, department);
             refreshInfo();
             changeInfo_Label.setText("");

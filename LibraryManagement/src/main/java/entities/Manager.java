@@ -28,8 +28,8 @@ public class Manager extends User {
         DatabaseController.saveEntity(item);
     }
 
-    public void removeBooks(String book) {
-        BookUtils.removeBookByISBN(book);
+    public void removeBooks(String bookID) {
+        BookUtils.removeBookByISBN(bookID);
     }
 
     public void alterBooks(Book book) {

@@ -27,7 +27,7 @@ public class Application extends javafx.application.Application {
         FXMLLoader rootLoader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
         AnchorPane root = rootLoader.load();
         Scene scene = new Scene(root, WIDTH, HEIGHT);
-        scene.getStylesheets().add(getClass().getResource("/css/Login.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/css/LoginAndSignup.css").toExternalForm());
         Controller.setStage(stage);
         stage.setTitle("UET Library Management System");
         stage.setScene(scene);

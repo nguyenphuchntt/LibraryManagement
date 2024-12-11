@@ -13,8 +13,8 @@
     </ScrollPane>
 
     <HBox spacing="10">
-        <TextField fx:id="messageInput" minWidth="165.0" prefHeight="40.0" prefWidth="165.0" promptText="Type your message..." HBox.hgrow="ALWAYS" />
-        <Button fx:id="sendButton" alignment="CENTER" prefHeight="42.0" prefWidth="111.0" text="Send">
+        <TextField fx:id="messageInput" minWidth="165.0" prefHeight="40.0" prefWidth="283.0" promptText="Type your message..." HBox.hgrow="ALWAYS" />
+        <Button id="button" fx:id="sendButton" alignment="CENTER" prefHeight="22.0" prefWidth="88.0" text="Send">
          <font>
             <Font size="10.0" />
          </font></Button>

@@ -6,14 +6,17 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox nodeOrientation="RIGHT_TO_LEFT" prefHeight="45.0" prefWidth="1100.0" stylesheets="@../css/TopSideBar.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
+<HBox nodeOrientation="RIGHT_TO_LEFT" prefHeight="45.0" prefWidth="1100.0" stylesheets="@../css/Sidebar.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
     <children>
       <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="45.0" prefWidth="900.0">
          <content>
-              <Label fx:id="announcement_Label" alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="45.0" prefWidth="883.0" textFill="RED" wrapText="true">
+              <Label fx:id="announcement_Label" alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="45.0" prefWidth="900.0" textFill="RED" wrapText="true">
                <opaqueInsets>
                   <Insets right="20.0" />
-               </opaqueInsets></Label>
+               </opaqueInsets>
+               <padding>
+                  <Insets left="15.0" />
+               </padding></Label>
          </content>
          <cursor>
             <Cursor fx:constant="V_RESIZE" />
@@ -22,6 +25,6 @@
             <Insets />
          </opaqueInsets>
       </ScrollPane>
-        <Label fx:id="LibraryName_Label" alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="235.0" style="-fx-background-color: #33f3d8;" text="UET LIB" textAlignment="CENTER" textFill="RED" />
+        <Label fx:id="LibraryName_Label" alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #94b5ff;" text="UET Library" textAlignment="CENTER" textFill="RED" />
     </children>
 </HBox>

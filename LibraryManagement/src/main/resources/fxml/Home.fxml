@@ -4,39 +4,65 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800" minWidth="1100" prefHeight="800.0" prefWidth="1100.0" stylesheets="@../css/Home.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HomeController">
     <children>
-        <AnchorPane layoutX="200.0" layoutY="45.0" prefHeight="755.0" prefWidth="900.0">
+        <AnchorPane layoutX="200.0" layoutY="45.0" prefHeight="755.0" prefWidth="900.0" style="-fx-background-color: #94b5ff;">
             <children>
                 <AnchorPane layoutX="85.0" layoutY="34.0" prefHeight="125.0" prefWidth="200.0" style="-fx-background-color: #3498db;">
                <children>
                         <Label alignment="CENTER" layoutY="90.0" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" text="Borrowed Books" textAlignment="CENTER" />
-                  <Label fx:id="totalBorrowedBooks_Label" alignment="CENTER" layoutX="15.0" layoutY="20.0" prefHeight="53.0" prefWidth="49.0" />
+                  <Label fx:id="totalBorrowedBooks_Label" alignment="CENTER" layoutX="15.0" layoutY="20.0" prefHeight="53.0" prefWidth="80.0">
+                     <font>
+                        <Font size="35.0" />
+                     </font></Label>
+                  <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="105.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/img/borrowBook.png" />
+                     </image>
+                  </ImageView>
                </children>
                 </AnchorPane>
                 <AnchorPane layoutX="621.0" layoutY="35.0" prefHeight="125.0" prefWidth="200.0" style="-fx-background-color: #3498db;">
                <children>
                         <Label alignment="CENTER" layoutX="-1.0" layoutY="90.0" prefHeight="35.0" prefWidth="202.0" style="-fx-background-color: #ffffff;" text="Issues" />
-                  <Label fx:id="totalIssues_Label" alignment="CENTER" layoutX="15.0" layoutY="20.0" prefHeight="53.0" prefWidth="49.0" />
+                  <Label fx:id="totalIssues_Label" alignment="CENTER" layoutX="15.0" layoutY="20.0" prefHeight="53.0" prefWidth="80.0">
+                     <font>
+                        <Font size="35.0" />
+                     </font></Label>
+                  <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="105.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/img/issues.png" />
+                     </image>
+                  </ImageView>
                </children>
                 </AnchorPane>
                 <AnchorPane layoutX="350.0" layoutY="35.0" prefHeight="125.0" prefWidth="200.0" style="-fx-background-color: #3498db;">
                <children>
-                        <Label alignment="CENTER" layoutX="-1.0" layoutY="90.0" prefHeight="35.0" prefWidth="202.0" style="-fx-background-color: #ffffff;" text="Returned" textAlignment="CENTER" />
-                  <Label fx:id="totalReturnedBooks_Label" alignment="CENTER" layoutX="15.0" layoutY="20.0" prefHeight="53.0" prefWidth="49.0" />
+                        <Label alignment="CENTER" layoutX="-1.0" layoutY="90.0" prefHeight="35.0" prefWidth="202.0" style="-fx-background-color: #ffffff;" text="Returned Books" textAlignment="CENTER" />
+                  <Label fx:id="totalReturnedBooks_Label" alignment="CENTER" layoutX="15.0" layoutY="20.0" prefHeight="53.0" prefWidth="80.0">
+                     <font>
+                        <Font size="35.0" />
+                     </font></Label>
+                  <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="105.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/img/returnBook.png" />
+                     </image>
+                  </ImageView>
                </children>
                 </AnchorPane>
-            <Label layoutX="42.0" layoutY="217.0" text="Messages">
+            <Label id="titleLabel" layoutX="41.0" layoutY="221.0" text="Messages">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <ListView fx:id="messages_ListView" layoutX="41.0" layoutY="278.0" prefHeight="416.0" prefWidth="818.0" />
-            <Button id="newMessage_Button" layoutX="723.0" layoutY="224.0" mnemonicParsing="false" onAction="#handleNewMessagesButton" prefHeight="35.0" prefWidth="126.0" text="New Message" />
-            <TextField fx:id="receiver_TextField" layoutX="462.0" layoutY="221.0" />
+            <ListView fx:id="messages_ListView" layoutX="41.0" layoutY="278.0" prefHeight="457.0" prefWidth="818.0" />
+            <Button id="button" layoutX="722.0" layoutY="223.0" mnemonicParsing="false" onAction="#handleNewMessagesButton" prefHeight="35.0" prefWidth="126.0" text="New Message" />
+            <TextField fx:id="receiver_TextField" layoutX="533.0" layoutY="227.0" />
             <Label fx:id="notifications_Label" alignment="CENTER" layoutX="462.0" layoutY="186.0" prefHeight="22.0" prefWidth="250.0" />
             </children>
         </AnchorPane>

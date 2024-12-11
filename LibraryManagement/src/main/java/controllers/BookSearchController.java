@@ -277,11 +277,11 @@ public class BookSearchController {
         }
         String bestComment = (BookUtils.getBestCommentOfBook(book[6].toString()) == null) ? "null" : BookUtils.getBestCommentOfBook(book[6].toString()).toString();
 
-        title_Text.setText("Title:" + book[0].toString() + '\n');
-        author_Text.setText("Author: " + book[1].toString() + '\n');
-        category_Text.setText("Category: " + book[2].toString() + '\n');
-        publishedYear_Text.setText("Published Year: " + book[3].toString() + '\n');
-        description_Text.setText("Description: " + FormatUtils.getShortDescription(book[4].toString(), 500) + '\n' + "User comment: " + bestComment);
+        title_Text.setText("- Title:" + book[0].toString() + '\n');
+        author_Text.setText("- Author: " + book[1].toString() + '\n');
+        category_Text.setText("- Category: " + book[2].toString() + '\n');
+        publishedYear_Text.setText("- Published Year: " + book[3].toString() + '\n');
+        description_Text.setText("- Description: " + FormatUtils.getShortDescription(book[4].toString(), 500) + '\n' + "- User comment: " + bestComment);
 
         if (book[7] != null) {
             thumbnail_ImageView.setImage(new Image(book[7].toString()));
@@ -325,7 +325,7 @@ public class BookSearchController {
 
     @FXML
     private void handleNextPageButton() {
-        if (currentPage == pageCount - 1) {
+        if (currentPage >= pageCount - 1) {
             return;
         }
         currentPage++;

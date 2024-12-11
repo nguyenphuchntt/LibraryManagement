@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="LeftSideBar_VBox" prefHeight="755.0" prefWidth="200.0" style="-fx-background-color: #e6fcfa;" stylesheets="@../css/LeftSideBar.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
+<VBox fx:id="LeftSideBar_VBox" prefHeight="755.0" prefWidth="200.0" style="-fx-background-color: #6f97f2;" stylesheets="@../css/Sidebar.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
     <children>
         <AnchorPane fx:id="AccountInfo_Pane" prefHeight="90.0" prefWidth="200.0">
             <children>
@@ -22,8 +22,8 @@
                     </image>
                 </ImageView>
                 <Circle fx:id="Status_Circle" fill="DODGERBLUE" layoutX="87.0" layoutY="76.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
-                <Label fx:id="role_Label" layoutX="100.0" layoutY="68.0" prefHeight="16.0" prefWidth="59.0" />
-            <Label fx:id="username_Label" alignment="CENTER" contentDisplay="CENTER" layoutX="82.0" layoutY="40.0" prefHeight="16.0" prefWidth="112.0" />
+                <Label fx:id="role_Label" layoutX="100.0" layoutY="65.0" prefHeight="16.0" prefWidth="59.0" />
+            <Label fx:id="username_Label" contentDisplay="CENTER" layoutX="79.0" layoutY="41.0" prefHeight="16.0" prefWidth="112.0" />
             <Label layoutX="82.0" layoutY="8.0" text="WELCOME!">
                <font>
                   <Font size="19.0" />
@@ -31,12 +31,15 @@
             </Label>
             </children>
         </AnchorPane>
-        <Label fx:id="MainNavigation_Label" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #3c8dbc;" text="MAIN_NAVIGATION">
+        <Label fx:id="MainNavigation_Label" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #82c9f5;" text="MAIN NAVIGATION">
             <padding>
                 <Insets left="15.0" />
             </padding>
         </Label>
-        <Button fx:id="HomeTab_Button" mnemonicParsing="false" onAction="#handleHomeTab_Button" prefHeight="50.0" prefWidth="200.0" text="Home" />
+        <Button fx:id="HomeTab_Button" mnemonicParsing="false" onAction="#handleHomeTab_Button" prefHeight="50.0" prefWidth="200.0" text="Home">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets></Button>
       <Button mnemonicParsing="false" onAction="#handleBookSearch_MenuItem" prefHeight="50.0" prefWidth="200.0" text="Search Book" />
       <Button mnemonicParsing="false" onAction="#handleBookReturn_MenuItem" prefHeight="50.0" prefWidth="200.0" text="Return Book" />
         <Button fx:id="AccountTab_Button" mnemonicParsing="false" onAction="#handleAccount_Button" prefHeight="50.0" prefWidth="200.0" text="Account" />
@@ -52,5 +55,17 @@
                 <Insets left="20.0" />
             </padding>
         </MenuButton>
+      <AnchorPane prefHeight="310.0" prefWidth="200.0">
+         <children>
+            <ImageView fitHeight="200.0" fitWidth="200.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/img/christmasTree.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
     </children>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
 </VBox>

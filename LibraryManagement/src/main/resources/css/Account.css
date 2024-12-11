@@ -1,107 +1,16 @@
+@import url("main.css");
 
-AnchorPane {
-    -fx-background-color: linear-gradient(to bottom, #e0e5ec, #ffffff);
-    -fx-font-family: 'Roboto', sans-serif;
-    -fx-padding: 20px;
+* {
+    -fx-font-family: Muli, sans-serif;
 }
 
-
-#name_TextField, #age_TextField, #department_TextField, #currentPassword_TextField, #cfNewPassword_TextField, #newPassword_TextField {
-    -fx-background-color: #ffffff;
-    -fx-border-color: #d1d8e0;
-    -fx-border-radius: 15px;
-    -fx-font-size: 14px;
-    -fx-padding: 12px;
-    -fx-pref-width: 300px;
-    -fx-effect: innershadow(gaussian, #d1d8e0, 3, 0.0, 0, 1);
-}
-
-
-#name_TextField:focused, #age_TextField:focused, #department_TextField:focused, #currentPassword_TextField:focused, #cfNewPassword_TextField:focused, #newPassword_TextField:focused {
-    -fx-border-color: #3498db;
-    -fx-background-color: #f4f7fa;
-    -fx-effect: innershadow(gaussian, #3498db, 5, 0.0, 0, 1);
-}
-
-.Label {
-    -fx-text-fill: #333333;
-    -fx-font-size: 16px;
-    -fx-font-weight: 500;
-    -fx-margin: 10px 0;
-}
-
-#name_Label, #age_Label, #usedTime_Label, #department_Label, #cfPassword_Label, #newPassword_Label, #password_Label {
-    -fx-text-fill: #7f8c8d;
-    -fx-font-size: 15px;
-    -fx-font-weight: 400;
-    -fx-padding: 5px 0;
-    -fx-background-radius: 5px;
-    -fx-cursor: pointer;
-}
-
-#name_Label:hover, #age_Label:hover, #usedTime_Label:hover, #department_Label:hover, #cfPassword_Label:hover, #newPassword_Label:hover, #password_Label:hover {
-    -fx-text-fill: #3498db;
-    -fx-underline: true;
-}
-
-#changePassword_Button, #logout_Button, #change_Button, #changeInfo_Button {
-    -fx-background-color: #3498db;
-    -fx-text-fill: white;
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-padding: 12 24;
-    -fx-background-radius: 25px;
-    -fx-border-radius: 25px;
-    -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, #3498db, 10, 0.0, 0, 4);
-}
-
-#changePassword_Button:hover, #logout_Button:hover, #change_Button:hover, #changeInfo_Button:hover {
-    -fx-background-color: #2980b9;
-    -fx-effect: dropshadow(gaussian, #2980b9, 8, 0.0, 0, 3);
-}
-
-#changePassword_Button:pressed, #logout_Button:pressed, #change_Button:pressed, #changeInfo_Button:pressed {
-    -fx-background-color: #1c6fa0;
-}
-
-#changePasswordMessage_Label, #changeInfo_Label {
-    -fx-text-fill: #e74c3c;
-    -fx-font-size: 14px;
-    -fx-font-weight: 500;
-    -fx-alignment: center;
-}
-
-#changePassword_Pane {
-    -fx-background-color: #f9f9f9;
-    -fx-border-radius: 15px;
-    -fx-padding: 20px;
-    -fx-border-color: #dcdde1;
-    -fx-border-width: 1px;
-    -fx-effect: dropshadow(gaussian, #dcdde1, 10, 0.0, 0, 4);
-}
-
-
-#ImageView {
-    -fx-opacity: 0.85;
-    -fx-effect: dropshadow(gaussian, #333333, 10, 0.0, 0, 5);
-}
-
-#accountHeader {
-    -fx-font-family: 'Roboto', sans-serif;
-    -fx-font-size: 24px;
-    -fx-font-weight: 600;
-    -fx-text-fill: #2c3e50;
-    -fx-padding: 10px;
-    -fx-margin: 20px 0;
-    -fx-text-alignment: center;
-}
-
-#name_TextField:focused, #age_TextField:focused, #department_TextField:focused {
-    -fx-border-color: #3498db;
-    -fx-background-color: #ffffff;
-}
-
-#name_TextField, #age_TextField, #department_TextField {
-    -fx-visible: false;
+#avatar {
+    -fx-shape: "M100,50 A50,50 0 1,1 99.9,50 Z";
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
 }

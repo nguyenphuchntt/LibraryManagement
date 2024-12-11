@@ -21,7 +21,7 @@ public class Comment {
     private String username;
 
     @Column(name = "book_comment", columnDefinition = "TEXT")
-    private String book_comment;
+    private String content;
 
     @Column(name = "rate", nullable = false)
     private Double rate;
@@ -31,16 +31,16 @@ public class Comment {
     public Comment(Book book, String username, String book_comment, Double rate) {
         this.book = book;
         this.username = username;
-        this.book_comment = book_comment;
+        this.content = book_comment;
         this.rate = rate;
     }
 
-    public String getBook_comment() {
-        return book_comment;
+    public String getContent() {
+        return content;
     }
 
-    public void setBook_comment(String book_comment) {
-        this.book_comment = book_comment;
+    public void setContent(String book_comment) {
+        this.content = book_comment;
     }
 
     public String getComment_id() {
@@ -80,7 +80,7 @@ public class Comment {
     }
 
     public String toString() {
-        return "Author: " + username + "\n" + book_comment + " Star: " + rate;
+        return "Author: " + username + "\n" + content + " Star: " + rate;
     }
 
 }

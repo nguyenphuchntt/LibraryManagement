@@ -4,29 +4,55 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800" minWidth="1100" prefHeight="800.0" prefWidth="1100.0" stylesheets="@../css/Admin_OverView.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminDashboardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800" minWidth="1100" prefHeight="800.0" prefWidth="1100.0" stylesheets="@../css/Admin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminDashboardController">
     <children>
-        <AnchorPane layoutX="200.0" layoutY="45.0" prefHeight="755.0" prefWidth="900.0">
+        <AnchorPane layoutX="200.0" layoutY="45.0" prefHeight="755.0" prefWidth="900.0" style="-fx-background-color: #94b5ff;">
             <children>
                 <AnchorPane layoutX="80.0" layoutY="14.0" prefHeight="126.0" prefWidth="200.0" style="-fx-background-color: #3498db;">
                <children>
                         <Label alignment="CENTER" layoutY="94.0" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" text="Total Borrowed Books" />
-                  <Label fx:id="totalBorrowedBooks_Label" alignment="CENTER" layoutX="15.0" layoutY="20.0" prefHeight="53.0" prefWidth="49.0" />
+                  <Label fx:id="totalBorrowedBooks_Label" alignment="CENTER" layoutX="15.0" layoutY="20.0" prefHeight="53.0" prefWidth="80.0">
+                     <font>
+                        <Font size="35.0" />
+                     </font></Label>
+                  <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="105.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/img/returnBook.png" />
+                     </image>
+                  </ImageView>
                </children>
                 </AnchorPane>
                 <AnchorPane layoutX="620.0" layoutY="14.0" prefHeight="125.0" prefWidth="200.0" style="-fx-background-color: #3498db;">
                     <children>
                         <Label alignment="CENTER" layoutY="90.0" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" text="Issues" />
-                  <Label fx:id="totalIssues_Label" alignment="CENTER" layoutX="15.0" layoutY="20.0" prefHeight="53.0" prefWidth="49.0" />
+                  <Label fx:id="totalIssues_Label" alignment="CENTER" layoutX="15.0" layoutY="20.0" prefHeight="53.0" prefWidth="80.0">
+                     <font>
+                        <Font size="35.0" />
+                     </font></Label>
+                  <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="105.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/img/issues.png" />
+                     </image>
+                  </ImageView>
                     </children>
                 </AnchorPane>
                 <AnchorPane layoutX="350.0" layoutY="14.0" prefHeight="125.0" prefWidth="200.0" style="-fx-background-color: #3498db;">
                <children>
                         <Label alignment="CENTER" layoutY="94.0" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" text="Total Returned Books" />
-                  <Label fx:id="totalReturnedBooks_Label" alignment="CENTER" layoutX="15.0" layoutY="20.0" prefHeight="53.0" prefWidth="49.0" />
+                  <Label fx:id="totalReturnedBooks_Label" alignment="CENTER" layoutX="15.0" layoutY="20.0" prefHeight="53.0" prefWidth="80.0">
+                     <font>
+                        <Font size="35.0" />
+                     </font></Label>
+                  <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="105.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/img/borrowBook.png" />
+                     </image>
+                  </ImageView>
                </children>
                 </AnchorPane>
                 <TableView fx:id="overdue_TableView" layoutX="25.0" layoutY="189.0" prefHeight="532.0" prefWidth="850.0">
@@ -38,13 +64,13 @@
                         <TableColumn fx:id="note_Column" prefWidth="194.0" text="NOTE" />
                     </columns>
                 </TableView>
-                <Label layoutX="25.0" layoutY="153.0" text="OVERDUE">
+                <Label id="titleLabel" layoutX="14.0" layoutY="147.0" text="OVERDUE">
                     <font>
                         <Font size="21.0" />
                     </font>
                 </Label>
-            <Button fx:id="previousPage_Button" layoutX="744.0" layoutY="722.0" mnemonicParsing="false" onAction="#handlePreviousPageButton" text="&lt;" />
-            <Button fx:id="nextPage_Button" layoutX="811.0" layoutY="722.0" mnemonicParsing="false" onAction="#handleNextPageButton" text="&gt;" />
+            <Button id="previousPage-button" fx:id="previousPage_Button" layoutX="797.0" layoutY="720.0" mnemonicParsing="false" onAction="#handlePreviousPageButton" text="&lt;" />
+            <Button id="nextPage-button" fx:id="nextPage_Button" layoutX="835.0" layoutY="720.0" mnemonicParsing="false" onAction="#handleNextPageButton" text="&gt;" />
             </children>
         </AnchorPane>
     </children>
