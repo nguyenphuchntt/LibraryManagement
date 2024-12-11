@@ -9,6 +9,12 @@ target
 
 out
 
+.mvn
+
+mvnw
+
+mvnw.cmd
+
 .env
 
 ### IntelliJ IDEA ###
