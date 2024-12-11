@@ -18,11 +18,11 @@
       <Label fx:id="quantity_Label" layoutX="190.0" layoutY="229.0" text="Quantity: " />
       <Label fx:id="description_Label" alignment="TOP_LEFT" layoutX="15.0" layoutY="273.0" prefHeight="140.0" prefWidth="425.0" text="Description: " wrapText="true" />
       <Label fx:id="thumbnailMessage_Label" layoutX="53.0" layoutY="155.0" text="Not available!" />
-      <AnchorPane fx:id="postComment_AnchorPane" layoutY="419.0" prefHeight="187.0" prefWidth="450.0" visible="false">
+      <AnchorPane fx:id="postComment_AnchorPane" layoutY="419.0" prefHeight="187.0" prefWidth="450.0">
          <children>
             <Label layoutX="15.0" layoutY="8.0" text="Comment" />
-            <TextArea fx:id="comment_TextArea" layoutX="13.0" layoutY="43.0" prefHeight="109.0" prefWidth="425.0" promptText="Write your comment here!" />
-            <Button fx:id="post_Button" layoutX="14.0" layoutY="152.0" mnemonicParsing="false" onAction="#handlePostComment" text="POST" />
+            <TextArea fx:id="comment_TextArea" layoutX="13.0" layoutY="31.0" prefHeight="109.0" prefWidth="425.0" promptText="Write your comment here!" />
+            <Button id="button" fx:id="post_Button" layoutX="13.0" layoutY="141.0" mnemonicParsing="false" onAction="#handlePostComment" prefHeight="23.0" prefWidth="63.0" text="POST" />
             <Button id="ratingStar-button" fx:id="oneStar_Button" layoutX="87.0" layoutY="-7.0" mnemonicParsing="false" onAction="#handleOneStar" prefHeight="37.0" prefWidth="40.0" text="1" />
             <Button id="ratingStar-button" fx:id="twoStart_Button" layoutX="108.0" layoutY="-2.0" mnemonicParsing="false" onAction="#handleTwoStar" prefHeight="24.0" prefWidth="0.0" text="2" />
             <Button id="ratingStar-button" fx:id="threeStar_Button" layoutX="128.0" layoutY="-2.0" mnemonicParsing="false" onAction="#handleThreeStar" prefHeight="28.0" prefWidth="20.0" text="3" />
