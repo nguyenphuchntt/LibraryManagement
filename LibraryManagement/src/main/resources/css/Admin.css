@@ -4,14 +4,6 @@
     -fx-font-family: Muli, sans-serif;
 }
 
-#ratingStar-button {
-    -fx-graphic: url('../assets/img/ratingStar.png');
-    -fx-graphic-size: contain;
-    -fx-content-display: graphic-only;
-    -fx-background-color: transparent;
-}
-
-
 #table-view {
     -fx-border-color: #0078D7;
     -fx-border-width: 2;
@@ -21,10 +13,4 @@
 
 #table-view .row-cell:hover {
     -fx-background-color: #d1ecf1;
-}
-
-#bookTitle {
-    -fx-text-fill: #f54272;
-    -fx-font-family: Muli-bold, sans-serif;
-    -fx-font-size: 18;
 }

@@ -232,7 +232,7 @@ public class BookReturnController {
 
     @FXML
     private void handleNextPageButton() {
-        if (currentPage == pageCount - 1) {
+        if (currentPage >= pageCount - 1) {
             return;
         }
         currentPage++;

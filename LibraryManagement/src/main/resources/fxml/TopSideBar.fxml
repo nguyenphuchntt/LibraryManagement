@@ -25,6 +25,6 @@
             <Insets />
          </opaqueInsets>
       </ScrollPane>
-        <Label fx:id="LibraryName_Label" alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #82c9f5;" text="UET Library" textAlignment="CENTER" textFill="RED" />
+        <Label fx:id="LibraryName_Label" alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #94b5ff;" text="UET Library" textAlignment="CENTER" textFill="RED" />
     </children>
 </HBox>

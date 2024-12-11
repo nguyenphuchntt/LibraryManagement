@@ -55,6 +55,15 @@
                 <Insets left="20.0" />
             </padding>
         </MenuButton>
+      <AnchorPane prefHeight="310.0" prefWidth="200.0">
+         <children>
+            <ImageView fitHeight="200.0" fitWidth="200.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/img/christmasTree.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
     </children>
    <opaqueInsets>
       <Insets />

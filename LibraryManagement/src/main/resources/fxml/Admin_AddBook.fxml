@@ -8,16 +8,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800" minWidth="1100" prefHeight="800.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminAddBookController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800" minWidth="1100" prefHeight="800.0" prefWidth="1100.0" stylesheets="@../css/Admin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminAddBookController">
     <children>
-        <AnchorPane layoutX="200.0" layoutY="45.0" prefHeight="755.0" prefWidth="900.0">
+        <AnchorPane layoutX="200.0" layoutY="45.0" prefHeight="755.0" prefWidth="900.0" style="-fx-background-color: #94b5ff;">
             <children>
-                <Label layoutX="40.0" layoutY="70.0" text="ADD BOOKS">
+                <Label id="titleLabel" layoutX="14.0" layoutY="14.0" text="ADD BOOKS">
                     <font>
                         <Font size="21.0" />
                     </font>
                 </Label>
-                <AnchorPane layoutX="64.0" layoutY="135.0" prefHeight="485.0" prefWidth="772.0">
+                <AnchorPane layoutX="30.0" layoutY="56.0" prefHeight="485.0" prefWidth="772.0">
                     <children>
                         <Label layoutX="16.0" layoutY="85.0" text="BOOK TITLE*" />
                         <Label layoutX="19.0" layoutY="45.0" text="BOOK ID/ ISBN*" />
@@ -28,16 +28,16 @@
                         <TextField fx:id="author_TextField" layoutX="125.0" layoutY="121.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book author" />
                         <Label layoutX="19.0" layoutY="245.0" text="AMOUNT *" />
                         <TextField fx:id="amount_TextField" layoutX="125.0" layoutY="241.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter a number" />
-                        <Button fx:id="add_Button" layoutX="14.0" layoutY="459.0" mnemonicParsing="false" onAction="#handleAdd" text="ADD" />
+                        <Button id="button" fx:id="add_Button" layoutX="11.0" layoutY="464.0" mnemonicParsing="false" onAction="#handleAdd" text="ADD" />
                         <Label layoutX="20.0" layoutY="205.0" text="YEAR" />
                         <TextField fx:id="year_TextField" layoutX="125.0" layoutY="201.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter a number" />
                         <Label layoutX="19.0" layoutY="165.0" text="CATEGORY" />
                         <TextField fx:id="category_TextField" layoutX="125.0" layoutY="161.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book category" />
-                  <TextArea fx:id="description_TextArea" layoutX="125.0" layoutY="281.0" prefHeight="131.0" prefWidth="631.0" promptText="Description" wrapText="true" />
-                  <ImageView fx:id="thumbnail_ImageView" fitHeight="190.0" fitWidth="160.0" layoutX="491.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
+                  <TextArea fx:id="description_TextArea" layoutX="125.0" layoutY="281.0" prefHeight="152.0" prefWidth="631.0" promptText="Description" wrapText="true" />
+                  <ImageView fx:id="thumbnail_ImageView" fitHeight="190.0" fitWidth="160.0" layoutX="537.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" />
                   <Label fx:id="addBookMessage_Label" alignment="CENTER" layoutX="10.0" layoutY="426.0" prefHeight="16.0" prefWidth="752.0" />
-                  <Button fx:id="search_Button" layoutX="395.0" layoutY="41.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="26.0" prefWidth="98.0" text="Search" />
-                  <Label fx:id="internetError_Label" layoutX="534.0" layoutY="51.0" prefHeight="26.0" prefWidth="102.0" text="Internet error!" textFill="RED" />
+                  <Button id="button" fx:id="search_Button" layoutX="392.0" layoutY="38.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="26.0" prefWidth="98.0" text="Search" />
+                  <Label fx:id="internetError_Label" layoutX="574.0" layoutY="135.0" prefHeight="26.0" prefWidth="102.0" text="Internet error!" textFill="RED" />
                     </children>
                 </AnchorPane>
             </children>

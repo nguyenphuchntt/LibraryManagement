@@ -1,0 +1,59 @@
+@font-face {
+    font-family: 'Muli';
+    src: url('../assets/font/Muli-Semi-BoldItalic.ttf');
+}
+
+@font-face {
+    font-family: 'Muli-bold';
+    src: url('../assets/font/Muli-BoldItalic.ttf');
+}
+
+#titleLabel {
+    -fx-font-family: 'Muli', sans-serif;
+    -fx-font-size: 25;
+    -fx-text-fill: #db3268;
+}
+
+#button {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #8a8a8a;
+    -fx-border-width: 2px;
+    -fx-text-fill: #333333;
+    -fx-font-size: 14px;
+    -fx-font-family: 'Arial', sans-serif;
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+    -fx-cursor: hand;
+}
+
+#button:hover {
+    -fx-background-color: #f2f2f2;
+    -fx-border-color: #666666;
+    -fx-text-fill: #000000;
+}
+
+#button:pressed {
+    -fx-background-color: #e6e6e6;
+    -fx-border-color: #444444;
+    -fx-text-fill: #222222;
+}
+
+#previousPage-button {
+    -fx-graphic: url('../assets/img/previousPage.png');
+    -fx-graphic-size: contain;
+    -fx-content-display: graphic-only;
+    -fx-background-color: transparent;
+}
+
+#nextPage-button {
+    -fx-graphic: url('../assets/img/nextPage.png');
+    -fx-graphic-size: contain;
+    -fx-content-display: graphic-only;
+    -fx-background-color: transparent;
+}
+
+#number {
+    -fx-text-fill: #f54272;
+    -fx-font-size: 35;
+    -fx-font-family: Muli-bold, sans-serif;
+}

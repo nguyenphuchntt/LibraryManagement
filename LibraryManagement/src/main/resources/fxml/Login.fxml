@@ -10,14 +10,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1100.0" style="-fx-background-color: #ffffff;" stylesheets="@../css/Login.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
+<AnchorPane prefHeight="800.0" prefWidth="1100.0" style="-fx-background-color: #ffffff;" stylesheets="@../css/LoginAndSignup.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
     <children>
         <ImageView fitHeight="800.0" fitWidth="616.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../assets/img/logoUET.png" />
             </image>
         </ImageView>
-        <Pane layoutX="630.0" prefHeight="800.0" prefWidth="470.0" style="-fx-background-color: #6f97f2;">
+        <Pane layoutX="615.0" prefHeight="800.0" prefWidth="485.0" style="-fx-background-color: #6f97f2;">
             <children>
                 <AnchorPane layoutX="110.0" layoutY="380.0" prefHeight="172.0" prefWidth="251.0">
                     <children>
@@ -36,7 +36,7 @@
                 </ImageView>
                 <CheckBox id="CheckBox" fx:id="showPassword_Checkbox" layoutX="361.0" layoutY="466.0" mnemonicParsing="false" />
             <Label fx:id="loginMessage_Label" layoutX="65.0" layoutY="560.0" prefHeight="16.0" prefWidth="342.0" />
-            <Button id="create-account-button" layoutX="336.0" layoutY="768.0" mnemonicParsing="false" onAction="#handleDontHaveAccount" stylesheets="@../css/Login.css" text="Create a account?" />
+            <Button id="create-account-button" layoutX="351.0" layoutY="768.0" mnemonicParsing="false" onAction="#handleDontHaveAccount" stylesheets="@../css/LoginAndSignup.css" text="Create a account?" />
             <Label id="welcomeLabel" alignment="CENTER" layoutX="84.0" layoutY="312.0" prefHeight="46.0" prefWidth="302.0" text="Welcome to UET Library" />
             <ImageView fitHeight="110.0" fitWidth="92.0" layoutX="244.0" layoutY="707.0" pickOnBounds="true" preserveRatio="true">
                <image>

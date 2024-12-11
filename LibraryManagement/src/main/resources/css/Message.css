@@ -1,61 +1,6 @@
-VBox {
-    -fx-padding: 10px;
-    -fx-spacing: 10px;
+@import url("main.css");
+
+* {
+    -fx-font-family: Muli, sans-serif;
 }
 
-ScrollPane {
-}
-
-#chatBox {
-}
-
-#sendButton {
-    -fx-background-color: #3498db;
-    -fx-text-fill: white;
-    -fx-font-size: 12px;
-    -fx-font-weight: bold;
-    -fx-padding: 12 24;
-    -fx-background-radius: 25px;
-    -fx-border-radius: 25px;
-    -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, #3498db, 10, 0.0, 0, 4);
-}
-
-#sendButton:hover {
-    -fx-background-color: #2980b9;
-    -fx-effect: dropshadow(gaussian, #2980b9, 8, 0.0, 0, 3);
-}
-
-#sendButton:pressed {
-    -fx-background-color: #1c6fa0;
-}
-
-TextArea {
-    -fx-padding: 10px;
-    -fx-font-size: 14px;
-    -fx-min-height: 150px;
-    -fx-max-height: 150px;
-    -fx-min-width: 350px;
-    -fx-max-width: 350px;
-}
-
-TextArea:focused {
-    -fx-border-width: 2px;
-}
-
-#messageInput {
-    -fx-background-color: #ffffff;
-    -fx-border-color: #3498db;
-    -fx-border-radius: 12px;
-    -fx-padding: 8px;
-    -fx-font-size: 14px;
-    -fx-text-fill: #333333;
-    -fx-min-width: 280px;
-    -fx-max-width: 280px;
-    -fx-min-height: 40px;
-    -fx-max-height: 40px;
-}
-
-#messageInput:focused {
-    -fx-border-color: #2980b9;
-}

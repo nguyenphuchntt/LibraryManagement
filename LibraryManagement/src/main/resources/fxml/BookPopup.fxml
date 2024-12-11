@@ -6,10 +6,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BookPopupController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="450.0" style="-fx-background-color: #bbb2f7;" stylesheets="@../css/Book.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BookPopupController">
    <children>
       <ImageView fx:id="thumbnail_ImageView" fitHeight="194.0" fitWidth="150.0" layoutX="22.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="title_Label" alignment="CENTER" layoutX="8.0" layoutY="20.0" prefHeight="30.0" prefWidth="441.0" text="TITLE" />
+      <Label id="bookTitle" fx:id="title_Label" alignment="CENTER" layoutX="8.0" layoutY="20.0" prefHeight="30.0" prefWidth="441.0" text="TITLE" />
       <Label fx:id="id_Label" layoutX="190.0" layoutY="79.0" text="ISBN: " />
       <Label fx:id="author_Label" layoutX="190.0" layoutY="109.0" text="Author: " />
       <Label fx:id="publisher_Label" layoutX="190.0" layoutY="139.0" text="Publisher: " />
@@ -20,14 +20,14 @@
       <Label fx:id="thumbnailMessage_Label" layoutX="53.0" layoutY="155.0" text="Not available!" />
       <AnchorPane fx:id="postComment_AnchorPane" layoutY="419.0" prefHeight="187.0" prefWidth="450.0" visible="false">
          <children>
-            <Label layoutX="15.0" layoutY="8.0" text="Comments" />
-            <TextArea fx:id="comment_TextArea" layoutX="13.0" layoutY="36.0" prefHeight="116.0" prefWidth="425.0" promptText="Write your comment here!" />
+            <Label layoutX="15.0" layoutY="8.0" text="Comment" />
+            <TextArea fx:id="comment_TextArea" layoutX="13.0" layoutY="43.0" prefHeight="109.0" prefWidth="425.0" promptText="Write your comment here!" />
             <Button fx:id="post_Button" layoutX="14.0" layoutY="152.0" mnemonicParsing="false" onAction="#handlePostComment" text="POST" />
-            <Button fx:id="oneStar_Button" layoutX="105.0" layoutY="4.0" mnemonicParsing="false" onAction="#handleOneStar" prefHeight="24.0" prefWidth="0.0" text="1" />
-            <Button fx:id="twoStart_Button" layoutX="140.0" layoutY="4.0" mnemonicParsing="false" onAction="#handleTwoStar" prefHeight="24.0" prefWidth="0.0" text="2" />
-            <Button fx:id="threeStar_Button" layoutX="175.0" layoutY="4.0" mnemonicParsing="false" onAction="#handleThreeStar" prefHeight="24.0" prefWidth="0.0" text="3" />
-            <Button fx:id="fourStar_Button" layoutX="210.0" layoutY="4.0" mnemonicParsing="false" onAction="#handleFourStar" prefHeight="24.0" prefWidth="0.0" text="4" />
-            <Button fx:id="fiveStar_Button" layoutX="245.0" layoutY="4.0" mnemonicParsing="false" onAction="#handleFiveStar" prefHeight="24.0" prefWidth="0.0" text="5" />
+            <Button id="ratingStar-button" fx:id="oneStar_Button" layoutX="87.0" layoutY="-7.0" mnemonicParsing="false" onAction="#handleOneStar" prefHeight="37.0" prefWidth="40.0" text="1" />
+            <Button id="ratingStar-button" fx:id="twoStart_Button" layoutX="108.0" layoutY="-2.0" mnemonicParsing="false" onAction="#handleTwoStar" prefHeight="24.0" prefWidth="0.0" text="2" />
+            <Button id="ratingStar-button" fx:id="threeStar_Button" layoutX="128.0" layoutY="-2.0" mnemonicParsing="false" onAction="#handleThreeStar" prefHeight="28.0" prefWidth="20.0" text="3" />
+            <Button id="ratingStar-button" fx:id="fourStar_Button" layoutX="147.0" layoutY="-2.0" mnemonicParsing="false" onAction="#handleFourStar" prefHeight="24.0" prefWidth="0.0" text="4" />
+            <Button id="ratingStar-button" fx:id="fiveStar_Button" layoutX="166.0" layoutY="-2.0" mnemonicParsing="false" onAction="#handleFiveStar" prefHeight="24.0" prefWidth="0.0" text="5" />
             <Label fx:id="postCommentMessage_Label" alignment="CENTER" layoutX="113.0" layoutY="156.0" prefHeight="16.0" prefWidth="322.0" />
          </children>
       </AnchorPane>

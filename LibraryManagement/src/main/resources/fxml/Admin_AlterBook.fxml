@@ -8,34 +8,34 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800" minWidth="1100" prefHeight="800.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminAlterBookController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800" minWidth="1100" prefHeight="800.0" prefWidth="1100.0" stylesheets="@../css/Admin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminAlterBookController">
     <children>
-        <AnchorPane layoutX="200.0" layoutY="45.0" prefHeight="755.0" prefWidth="900.0">
+        <AnchorPane layoutX="200.0" layoutY="45.0" prefHeight="755.0" prefWidth="900.0" style="-fx-background-color: #94b5ff;">
             <children>
-                <AnchorPane layoutX="64.0" layoutY="134.0" prefHeight="535.0" prefWidth="772.0">
+                <AnchorPane layoutX="44.0" layoutY="78.0" prefHeight="535.0" prefWidth="772.0">
                     <children>
                         <Label layoutX="20.0" layoutY="74.0" text="BOOK TITLE" />
                         <Label layoutX="20.0" layoutY="117.0" text="AUTHOR" />
-                        <Label layoutX="20.0" layoutY="190.0" text="DESCRIPTION" />
-                        <TextField fx:id="title_TextField" layoutX="125.0" layoutY="60.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book title" />
-                        <TextField fx:id="author_TextField" layoutX="125.0" layoutY="105.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book author" />
+                        <Label layoutX="18.0" layoutY="190.0" text="DESCRIPTION" />
+                        <TextField fx:id="title_TextField" layoutX="125.0" layoutY="69.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book title" />
+                        <TextField fx:id="author_TextField" layoutX="125.0" layoutY="114.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book author" />
                         <Label layoutX="18.0" layoutY="158.0" text="AMOUNT" />
-                        <TextField fx:id="amount_TextField" layoutX="125.0" layoutY="149.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter a number" />
-                        <Button fx:id="change_Button" layoutX="22.0" layoutY="485.0" mnemonicParsing="false" onAction="#handleChanges" text="CHANGE" />
+                        <TextField fx:id="amount_TextField" layoutX="125.0" layoutY="158.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter a number" />
+                        <Button id="button" fx:id="change_Button" layoutX="7.0" layoutY="454.0" mnemonicParsing="false" onAction="#handleChanges" text="CHANGE" />
                         <Label layoutX="396.0" layoutY="117.0" text="YEAR" />
-                        <TextField fx:id="year_TextField" layoutX="500.0" layoutY="113.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter a number" />
+                        <TextField fx:id="year_TextField" layoutX="500.0" layoutY="114.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter a number" />
                         <Label layoutX="396.0" layoutY="73.0" prefHeight="7.0" prefWidth="72.0" text="CATEGORY" />
-                        <TextField fx:id="category_TextField" layoutX="500.0" layoutY="69.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book category" />
+                        <TextField fx:id="category_TextField" layoutX="500.0" layoutY="70.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter book category" />
                         <TextField fx:id="search_TextField" layoutX="14.0" layoutY="14.0" prefHeight="24.0" prefWidth="429.0" promptText="Enter book ID / ISBN" />
-                        <Button fx:id="search_Button" layoutX="467.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleSearch" text="Search" />
+                        <Button id="button" fx:id="search_Button" layoutX="465.0" layoutY="11.0" mnemonicParsing="false" onAction="#handleSearch" text="Search" />
                   <Label fx:id="alterMessage_Label" alignment="CENTER" contentDisplay="CENTER" layoutX="165.0" layoutY="461.0" prefHeight="16.0" prefWidth="463.0" textAlignment="CENTER" />
                   <Label layoutX="394.0" layoutY="167.0" text="PUBLISHER" />
-                  <TextField fx:id="publisher_TextField" layoutX="500.0" layoutY="158.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter a number" />
-                  <TextArea fx:id="description_TextArea" layoutX="36.0" layoutY="216.0" prefHeight="237.0" prefWidth="463.0" promptText="Description" wrapText="true" />
+                  <TextField fx:id="publisher_TextField" layoutX="500.0" layoutY="159.0" prefHeight="24.0" prefWidth="238.0" promptText="Enter a number" />
+                  <TextArea fx:id="description_TextArea" layoutX="20.0" layoutY="221.0" prefHeight="208.0" prefWidth="718.0" promptText="Description" wrapText="true" />
                   <ImageView fx:id="thumbnail_ImageView" fitHeight="190.0" fitWidth="160.0" layoutX="539.0" layoutY="244.0" pickOnBounds="true" preserveRatio="true" />
                     </children>
                 </AnchorPane>
-                <Label layoutX="40.0" layoutY="70.0" text="CHANGE BOOK PROPERTIES">
+                <Label id="titleLabel" layoutX="14.0" layoutY="14.0" text="CHANGE BOOK PROPERTIES">
                     <font>
                         <Font size="36.0" />
                     </font>

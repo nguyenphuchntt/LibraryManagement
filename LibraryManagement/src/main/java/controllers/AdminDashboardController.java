@@ -23,7 +23,7 @@ public class AdminDashboardController {
     private int totalOverDueBooks;
     private int totalBorrowedBooks;
     private int totalReturnedBooks;
-    private int pageCount = (int) Math.ceil((double) totalOverDueBooks / ROWS_PER_PAGE);
+    private int pageCount;
 
     @FXML
     private TableView<TransactionDTO> overdue_TableView;
@@ -107,7 +107,7 @@ public class AdminDashboardController {
 
     @FXML
     private void handleNextPageButton() {
-        if (currentPage == pageCount - 1) {
+        if (currentPage >= pageCount - 1) {
             return;
         }
         currentPage++;
@@ -123,6 +123,7 @@ public class AdminDashboardController {
         totalOverDueBooks = TransactionUtils.getTotalOverDueTransactions(null);
         totalBorrowedBooks = TransactionUtils.getTotalBorrowedBook(null);
         totalReturnedBooks = TransactionUtils.getTotalReturnedBook(null);
+        pageCount = (int) Math.ceil((double) totalOverDueBooks / ROWS_PER_PAGE);
     }
 
     private void showTotalTransaction() {
