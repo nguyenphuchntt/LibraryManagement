@@ -7,16 +7,15 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/Account.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AccountController">
     <children>
         <AnchorPane layoutX="200.0" layoutY="45.0" prefHeight="755.0" prefWidth="900.0" style="-fx-background-color: #94b5ff;">
             <children>
-                <ImageView id="avatar" fitHeight="185.0" fitWidth="200.0" layoutX="373.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView id="avatar" fitHeight="185.0" fitWidth="200.0" layoutX="358.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../assets/img/user_icon.png" />
+                  <Image url="@../assets/img/login_user_icon.png" />
                </image></ImageView>
                 <Label fx:id="name_Label" layoutX="67.0" layoutY="263.0" text="NAME:">
                     <font>
@@ -69,7 +68,6 @@
             <TextField fx:id="department_TextField" layoutX="271.0" layoutY="340.0" prefHeight="24.0" prefWidth="247.0" promptText="Enter your department" />
             <Button id="button" layoutX="64.0" layoutY="436.0" mnemonicParsing="false" onAction="#handleChangeInfoButton" prefHeight="38.0" prefWidth="176.0" text="CHANGE INFO" />
             <Label fx:id="changeInfo_Label" layoutX="232.0" layoutY="412.0" prefHeight="16.0" prefWidth="326.0" />
-            <Circle fill="DODGERBLUE" layoutX="450.0" layoutY="126.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
             </children>
         </AnchorPane>
     </children>

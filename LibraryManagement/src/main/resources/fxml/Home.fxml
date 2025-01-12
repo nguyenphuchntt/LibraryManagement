@@ -63,7 +63,7 @@
             <ListView fx:id="messages_ListView" layoutX="41.0" layoutY="278.0" prefHeight="457.0" prefWidth="818.0" />
             <Button id="button" layoutX="722.0" layoutY="223.0" mnemonicParsing="false" onAction="#handleNewMessagesButton" prefHeight="35.0" prefWidth="126.0" text="New Message" />
             <TextField fx:id="receiver_TextField" layoutX="533.0" layoutY="227.0" />
-            <Label fx:id="notifications_Label" alignment="CENTER" layoutX="462.0" layoutY="186.0" prefHeight="22.0" prefWidth="250.0" />
+            <Label fx:id="notifications_Label" alignment="CENTER" layoutX="496.0" layoutY="198.0" prefHeight="22.0" prefWidth="250.0" />
             </children>
         </AnchorPane>
     </children>

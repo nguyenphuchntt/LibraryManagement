@@ -22,7 +22,7 @@
                     </image>
                 </ImageView>
                 <Circle fx:id="Status_Circle" fill="DODGERBLUE" layoutX="87.0" layoutY="76.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
-                <Label fx:id="role_Label" layoutX="100.0" layoutY="65.0" prefHeight="16.0" prefWidth="59.0" />
+                <Label fx:id="role_Label" layoutX="100.0" layoutY="65.0" prefHeight="23.0" prefWidth="97.0" />
             <Label fx:id="username_Label" contentDisplay="CENTER" layoutX="79.0" layoutY="41.0" prefHeight="16.0" prefWidth="112.0" />
             <Label layoutX="82.0" layoutY="8.0" text="WELCOME!">
                <font>

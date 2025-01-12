@@ -113,6 +113,7 @@ public class HomeController implements PopupUtils.PopupClosedCallback {
     @Override
     public void onPopupClosed(String username) {
         this.usersChatWith.remove(username);
+        refreshUsersIntoListView();
     }
 
     private void refreshTotalTransaction() {
