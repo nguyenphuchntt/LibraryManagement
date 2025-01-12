@@ -17,6 +17,7 @@ module uet.oop.librarymanagement {
     requires com.google.gson;
     requires mysql.connector.j;
     requires io.github.cdimascio.dotenv.java;
+    requires jakarta.mail;
 
     opens controllers to javafx.fxml, org.hibernate.orm.core;
     exports controllers;
