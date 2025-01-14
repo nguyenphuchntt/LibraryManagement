@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import utils.PasswordHasher;
 
 import java.sql.*;
 
@@ -52,8 +53,8 @@ public class LoginController {
 
         Connection connection = DatabaseController.getConnection();
 
-        Account account = AccountUserUtils.isExistedAccount(username, password);
-        boolean loginSuccessful = account != null;
+        Account account = AccountUserUtils.isExistedAccount(username);
+        boolean loginSuccessful = account != null && PasswordHasher.verifyPassword(password, account.getPassword());
 
         if (!loginSuccessful) {
             loginMessage_Label.setText("Invalid username or password");

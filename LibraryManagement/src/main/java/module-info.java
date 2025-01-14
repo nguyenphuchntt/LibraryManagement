@@ -18,6 +18,7 @@ module uet.oop.librarymanagement {
     requires mysql.connector.j;
     requires io.github.cdimascio.dotenv.java;
     requires jakarta.mail;
+    requires spring.security.crypto;
 
     opens controllers to javafx.fxml, org.hibernate.orm.core;
     exports controllers;

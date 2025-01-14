@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import utils.PasswordHasher;
 
 public class SignupController {
 
@@ -39,7 +40,8 @@ public class SignupController {
             return;
         }
         try {
-            AccountUserUtils.addAccount(username, password);
+            String hashedPassword = PasswordHasher.hashPassword(password);
+            AccountUserUtils.addAccount(username, hashedPassword);
             AccountUserUtils.addUser(username);
         } catch (IllegalArgumentException e) {
             signupMessage_Label.setText("Invalid username or password");

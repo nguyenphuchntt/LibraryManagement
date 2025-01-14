@@ -3,10 +3,9 @@ package controllers;
 import entities.Book;
 import entities.LibraryManagement;
 import entities.Manager;
-import utils.APIUtils;
+import utils.BookAPIUtils;
 import utils.BookUtils;
 import utils.PopupUtils;
-import database.DatabaseController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -70,7 +69,7 @@ public class AdminAddBookController {
             return;
         }
         try {
-            book = APIUtils.searchBooks(isbn);
+            book = BookAPIUtils.searchBooks(isbn);
         } catch (Exception e) {
             System.out.println("Error in Add book controller: " + e.getMessage());
             internetError_Label.setVisible(true);

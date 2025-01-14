@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class APIUtils {
+public class BookAPIUtils {
 
     private static final String API_KEY = DotenvLoader.getDotenv().get("API_KEY");
     private static final String API_URL = "https://www.googleapis.com/books/v1/volumes?q=";

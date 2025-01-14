@@ -32,16 +32,15 @@ public class AccountUserUtils {
         return existed;
     }
 
-    public static Account isExistedAccount(String username, String password) {
+    public static Account isExistedAccount(String username) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Account user = null;
         try {
             session.beginTransaction();
 
-            String hql = "FROM Account WHERE username = :username AND password = :password";
+            String hql = "FROM Account WHERE username = :username";
             Query<Account> query = session.createQuery(hql, Account.class);
             query.setParameter("username", username);
-            query.setParameter("password", password);
 
             user = query.uniqueResult();
 

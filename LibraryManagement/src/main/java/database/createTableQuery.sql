@@ -6,12 +6,12 @@ USE library;
 
 CREATE TABLE IF NOT EXISTS account (
     username VARCHAR(30) UNIQUE PRIMARY KEY NOT NULL,
-    password CHAR(60) NOT NULL,
+    password TEXT NOT NULL,
     account_role BOOLEAN NOT NULL DEFAULT FALSE,
     joined_date TIMESTAMP NOT NULL,
     avatar MEDIUMBLOB DEFAULT NULL,
     INDEX(account_role)
-    );
+);
 
 ALTER TABLE account
     MODIFY username VARCHAR(30) COLLATE utf8_bin;
