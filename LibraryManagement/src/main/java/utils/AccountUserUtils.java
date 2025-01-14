@@ -145,7 +145,7 @@ public class AccountUserUtils {
             System.out.println("Account saved!");
         } catch (Exception e) {
             System.out.println("Error saving account");
-            e.printStackTrace();
+            throw e;
         } finally {
             accoutSession.close();
         }

@@ -38,10 +38,13 @@ public class SignupController {
             signupMessage_Label.setText("Account already exists");
             return;
         }
-
-        AccountUserUtils.addAccount(username, password);
-        AccountUserUtils.addUser(username);
-
+        try {
+            AccountUserUtils.addAccount(username, password);
+            AccountUserUtils.addUser(username);
+        } catch (IllegalArgumentException e) {
+            signupMessage_Label.setText("Invalid username or password");
+            return;
+        }
         switchToLoginScene();
         username_TextField.clear();
         password_TextField.clear();

@@ -3,8 +3,8 @@ package entities;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-    @Entity
-    @Table(name = "account")
+@Entity
+@Table(name = "account")
 public class Account {
 
     @Id
@@ -101,10 +101,10 @@ public class Account {
         }
 
         private boolean isValidUsername(String username) {
-            if (username.length() < 3 || username.length() > 30) {
+            if (username.length() < 3 || username.length() > 50) {
                 return false;
             }
-            if (!username.matches("^[a-zA-Z0-9_]+$")) {
+            if (!username.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
                 return false;
             }
             return !username.contains(" ");

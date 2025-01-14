@@ -46,7 +46,7 @@ public class EmailSender {
 
     public static void main(String[] args) {
         EmailSender mailer = new EmailSender();
-        String recipientEmail = "nguyenvanphucuet@gmail.com";
+        String recipientEmail = "23021664@vnu.edu.vn";
         mailer.sendOTP(recipientEmail);
     }
 }
