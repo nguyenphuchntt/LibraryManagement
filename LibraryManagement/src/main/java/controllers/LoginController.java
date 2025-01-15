@@ -53,8 +53,8 @@ public class LoginController {
 
         Connection connection = DatabaseController.getConnection();
 
-        Account account = AccountUserUtils.isExistedAccount(username);
-        boolean loginSuccessful = account != null && PasswordHasher.verifyPassword(password, account.getPassword());
+        Account account = AccountUserUtils.getAccountByUsername(username);
+        boolean loginSuccessful = (account != null) && (PasswordHasher.verifyPassword(password, account.getPassword()));
 
         if (!loginSuccessful) {
             loginMessage_Label.setText("Invalid username or password");

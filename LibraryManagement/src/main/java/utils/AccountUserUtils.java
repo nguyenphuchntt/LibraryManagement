@@ -13,26 +13,10 @@ import java.sql.*;
 public class AccountUserUtils {
 
     public static boolean isExistedUsername(String username) {
-        ResultSet user = null;
-        boolean existed = false;
-        try {
-            Connection connection = DatabaseController.getConnection();
-            String sqlQuery = "SELECT username FROM account WHERE username = ?";
-            Statement useDatabaseStatement = connection.createStatement();
-            useDatabaseStatement.execute("USE library");
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
-
-            preparedStatement.setString(1, username);
-            user = preparedStatement.executeQuery();
-
-            existed = user.next();
-        } catch (SQLException e) {
-            System.out.println("SQL Exception: Cannot get result set!");
-        }
-        return existed;
+        return getAccountByUsername(username) != null;
     }
 
-    public static Account isExistedAccount(String username) {
+    public static Account getAccountByUsername(String username) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Account user = null;
         try {
